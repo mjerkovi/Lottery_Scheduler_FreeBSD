@@ -1,0 +1,30 @@
+# Created by: gmarco@giovannelli.it
+# $FreeBSD: tags/RELEASE_10_3_0/games/xtet42/Makefile 404818 2015-12-30 10:20:16Z amdmi3 $
+
+PORTNAME=	xtet42
+PORTVERSION=	2.21
+PORTREVISION=	5
+CATEGORIES=	games
+MASTER_SITES=	http://utenti.gufi.org/~gmarco/files/distfiles/
+
+MAINTAINER=	gmarco@gufi.org
+COMMENT=	One or two player T*tris game
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--localstatedir=/var/games
+USE_XORG=	x11
+ALL_TARGET=	${PORTNAME}
+
+post-extract:
+	@${CHMOD} -R u+w ${WRKSRC}
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/xtet42 ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/xtet42.6 ${STAGEDIR}${MANPREFIX}/man/man6
+	@${MKDIR} ${STAGEDIR}/var/games/xtet42
+	${INSTALL_DATA} ${WRKSRC}/xtet42.hiscore ${STAGEDIR}/var/games/xtet42/.xtet42.hiscore.sample
+	${INSTALL_DATA} ${WRKSRC}/xtet42.hiscore.single ${STAGEDIR}/var/games/xtet42/.xtet42.hiscore.single.sample
+	${INSTALL_DATA} /dev/null ${STAGEDIR}/var/games/xtet42/.xtet42.unlock.sample
+	${INSTALL_DATA} /dev/null ${STAGEDIR}/var/games/xtet42/.xtet42.log.sample
+
+.include <bsd.port.mk>

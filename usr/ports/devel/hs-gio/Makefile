@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-gio/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	gio
+PORTVERSION=	0.13.1.0
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Binding to the GIO
+
+LICENSE=	LGPL21
+
+USES=		pkgconfig
+USE_CABAL=	glib>=0.13.0.0 mtl
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

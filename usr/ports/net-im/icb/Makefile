@@ -1,0 +1,40 @@
+# Created by: David O'Brien (obrien@NUXI.ucdavis.edu)
+# $FreeBSD: tags/RELEASE_10_3_0/net-im/icb/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	icb
+PORTVERSION=	5.1.0
+PORTREVISION=	4
+CATEGORIES=	net-im tcl
+#MASTER_SITES=	http://www.obfuscation.org/icb/
+MASTER_SITES=	http://fossies.org/linux/misc/old/
+DISTNAME=	c${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Internet CB - a mostly-defunct chat client
+
+BROKEN=		unfetchable
+
+USES=		readline tk
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--with-tclinclude=${TCL_INCLUDEDIR} \
+		--with-tcllib=${LOCALBASE}/lib
+
+PORTEXAMPLES=	bartender confuse echofunctions sample.icbrc
+PLIST_FILES=	bin/icb %%DATADIR%%/icbserverdb
+
+OPTIONS_DEFINE=	EXAMPLES
+
+.include <bsd.port.options.mk>
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/icb/icb ${STAGEDIR}${PREFIX}/bin
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/icbserverdb ${STAGEDIR}${DATADIR}
+.if ${PORT_OPTIONS:MEXAMPLES}
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+.for f in ${PORTEXAMPLES}
+	${INSTALL_DATA} ${WRKSRC}/contrib/${f} ${STAGEDIR}${EXAMPLESDIR}
+.endfor
+.endif
+
+.include <bsd.port.mk>

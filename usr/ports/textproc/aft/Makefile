@@ -1,0 +1,25 @@
+# Created by: Alan Eldridge <alane@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/aft/Makefile 374163 2014-12-07 00:07:47Z antoine $
+
+PORTNAME=	aft
+PORTVERSION=	5.098
+PORTEPOCH=	1
+CATEGORIES=	textproc
+MASTER_SITES=	http://www.maplefish.com/todd/
+
+MAINTAINER=	culot@FreeBSD.org
+COMMENT=	Document preparation system using an Almost Free Text input format
+
+LICENSE=	CART
+LICENSE_GROUPS=	FSF GPL OSI
+LICENSE_NAME=	Clarified Artistic License
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+USES=		perl5 gmake
+GNU_CONFIGURE=	yes
+OPTIONS_DEFINE=	DOCS
+
+PORTDOCS=	*
+
+.include <bsd.port.mk>

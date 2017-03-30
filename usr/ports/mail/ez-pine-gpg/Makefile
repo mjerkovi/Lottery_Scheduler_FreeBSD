@@ -1,0 +1,31 @@
+# Created by: gahr
+# $FreeBSD: tags/RELEASE_10_3_0/mail/ez-pine-gpg/Makefile 380205 2015-03-01 15:08:48Z amdmi3 $
+
+PORTNAME=	ez-pine-gpg
+DISTVERSION=	0.4h
+PORTREVISION=	2
+CATEGORIES=	mail
+MASTER_SITES=	http://business-php.com/opensource/ez-pine-gpg/
+DISTNAME=	${PORTNAME}_v${DISTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Set of scripts to use gpg with Pine
+
+LICENSE=	GPLv2 # or later
+
+RUN_DEPENDS=	gpg:${PORTSDIR}/security/gnupg
+
+USES=		tar:tgz
+WRKSRC=		${WRKDIR}/${PORTNAME}
+NO_BUILD=	yes
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	(cd ${WRKSRC} && ${SETENV} DESTDIR="${STAGEDIR}" ./install ${PREFIX}/bin)
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

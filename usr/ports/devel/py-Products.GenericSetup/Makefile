@@ -1,0 +1,24 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-Products.GenericSetup/Makefile 405764 2016-01-11 05:23:46Z rm $
+
+PORTNAME=	Products.GenericSetup
+PORTVERSION=	1.7.7
+CATEGORIES=	devel python zope
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DIST_SUBDIR=	zope
+
+MAINTAINER=	zope@FreeBSD.org
+COMMENT=	Read Zope configuration state from profile dirs / tarballs
+
+LICENSE=	ZPL21
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}eggtestinfo>0:${PORTSDIR}/devel/py-eggtestinfo
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}five.localsitemanager>=0:${PORTSDIR}/devel/py-five.localsitemanager \
+		${PYTHON_PKGNAMEPREFIX}zope.formlib>=0:${PORTSDIR}/devel/py-zope.formlib
+
+NO_ARCH=	yes
+USES=		python:2.7 zope
+USE_PYTHON=	autoplist distutils
+
+.include <bsd.port.mk>

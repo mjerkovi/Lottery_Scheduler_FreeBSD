@@ -1,0 +1,3 @@
+lib/fpc/%%PORTVERSION%%/fpmkinst/%%BUILDNAME%%/openal.fpm
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/openal/openal.o
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/openal/openal.ppu

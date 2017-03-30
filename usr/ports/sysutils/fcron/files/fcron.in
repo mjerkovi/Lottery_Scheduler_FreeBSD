@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/fcron/files/fcron.in 340872 2014-01-24 00:14:07Z mat $
+#
+
+# PROVIDE: fcron
+# REQUIRE: LOGIN
+# BEFORE: securelevel
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="fcron"
+rcvar=fcron_enable
+command="%%PREFIX%%/sbin/${name}"
+pidfile="/var/run/${name}.pid"
+
+load_rc_config $name
+run_rc_command "$1"

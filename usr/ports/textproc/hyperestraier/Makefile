@@ -1,0 +1,50 @@
+# Created by: Michael Johnson <ahze@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/hyperestraier/Makefile 384038 2015-04-15 08:20:27Z tijl $
+#    $MCom: ports-stable/textproc/hyperestraier/Makefile,v 1.3 2006/10/17 11:45:45 ahze Exp $
+
+PORTNAME=	hyperestraier
+PORTVERSION=	1.4.13
+PORTREVISION=	2
+CATEGORIES=	textproc
+MASTER_SITES=	SF
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Full-text search system
+
+BUILD_DEPENDS=	qdbm>=1.8.77:${PORTSDIR}/databases/qdbm
+# check configure for min version of qdbm.
+LIB_DEPENDS=	libqdbm.so.14:${PORTSDIR}/databases/qdbm
+
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		iconv
+USE_LDCONFIG=	yes
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--enable-bzip2 --disable-zlib
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+OPTIONS_DEFINE=	LZO MECAB
+LZO_DESC=	Enable lzo support
+MECAB_DESC=	Enable mecab support
+
+LZO_CONFIGURE_ENABLE=	lzo
+LZO_LIB_DEPENDS=	liblzo2.so:${PORTSDIR}/archivers/lzo2
+
+MECAB_CONFIGURE_ENABLE=	mecab
+MECAB_LIB_DEPENDS=	libmecab.so:${PORTSDIR}/japanese/mecab
+MECAB_RUN_DEPENDS=	${LOCALBASE}/lib/mecab/dic/ipadic/matrix.bin:${PORTSDIR}/japanese/mecab-ipadic
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|@libdir@/pkgconfig|${PREFIX}/libdata/pkgconfig|' \
+		-e 's/@MYCFLAGS@/@CFLAGS@ -Wall -fPIC -fsigned-char/' \
+		${WRKSRC}/Makefile.in
+	@${REINPLACE_CMD} 's/-liconv/${ICONV_LIB}/' ${WRKSRC}/configure
+	@${RM} -f ${WRKSRC}/doc/intro-en.html~ ${WRKSRC}/doc/intro-ja.html~
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libestraier.so
+
+.include <bsd.port.mk>

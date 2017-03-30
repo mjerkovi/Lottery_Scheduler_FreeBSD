@@ -1,0 +1,26 @@
+# Created by: trevor
+# $FreeBSD: tags/RELEASE_10_3_0/security/p5-GnuPG-Interface/Makefile 381221 2015-03-13 17:29:58Z adamw $
+
+PORTNAME=	GnuPG-Interface
+PORTVERSION=	0.52
+PORTREVISION=	1
+CATEGORIES=	security perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Perl module for interfacing with GnuPG
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+RUN_DEPENDS=	gpg2:${PORTSDIR}/security/gnupg \
+		p5-MooX-HandlesVia>=0.04:${PORTSDIR}/devel/p5-MooX-HandlesVia \
+		p5-MooX-late>=0.14:${PORTSDIR}/devel/p5-MooX-late \
+		p5-Moo>=0.091011:${PORTSDIR}/devel/p5-Moo
+BUILD_DEPENDS:=	${RUN_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

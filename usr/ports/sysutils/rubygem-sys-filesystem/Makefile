@@ -1,0 +1,21 @@
+# Created by: Eric Freeman <freebsdports@chillibear.com>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/rubygem-sys-filesystem/Makefile 403142 2015-12-06 17:52:26Z sunpoet $
+
+PORTNAME=	sys-filesystem
+PORTVERSION=	1.1.5
+CATEGORIES=	sysutils rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby interface for getting filesystem information
+
+LICENSE=	ART20
+
+RUN_DEPENDS=	rubygem-ffi>=0:${PORTSDIR}/devel/rubygem-ffi
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

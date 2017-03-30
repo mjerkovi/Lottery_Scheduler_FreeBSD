@@ -1,0 +1,30 @@
+# Created by: Masaki TAGAWA <masaki@club.kyutech.ac.jp>
+# $FreeBSD: tags/RELEASE_10_3_0/x11-fonts/sourcecodepro-ttf/Makefile 393338 2015-07-31 16:25:52Z sunpoet $
+
+PORTNAME=	sourcecodepro-ttf
+PORTVERSION=	2.010
+DISTVERSIONSUFFIX=	R-ro/1.030R-it
+CATEGORIES=	x11-fonts
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Set of fonts by Adobe designed for coders
+
+LICENSE=	OFL11
+
+NO_ARCH=	yes
+NO_BUILD=	yes
+USE_XORG=	x11
+USES=		fonts
+
+FONTNAME=	SourceCodePro
+SUB_FILES=	pkg-message
+
+GH_ACCOUNT=	adobe-fonts
+GH_PROJECT=	source-code-pro
+USE_GITHUB=	yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}/
+	${INSTALL_DATA} ${WRKSRC}/TTF/*.ttf ${STAGEDIR}${FONTSDIR}/
+
+.include <bsd.port.mk>

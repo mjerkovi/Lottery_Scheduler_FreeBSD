@@ -1,0 +1,109 @@
+#!/bin/sh
+#
+#	$FreeBSD: /tmp/pcvs/ports/mail/postfix/files/pkg-install.in,v 1.6 2012-02-11 05:14:34 sahil Exp $
+#
+
+# If the POSTFIX_DEFAULT_MTA environment variable is set to YES, it
+# will make the port/package use defaults which make postfix replace
+# sendmail as much as possible.
+
+# allowed vars during package installation
+BATCH=${BATCH:=no}
+POSTFIX_DEFAULT_MTA=${POSTFIX_DEFAULT_MTA:=no}
+
+# fixed vars
+PREFIX="%%PREFIX%%"
+ETCDIR="%%ETCDIR%%"
+DAEMONDIR="%%DAEMONDIR%%"
+READMEDIR="%%READMEDIR%%"
+MCP="%%DATADIR%%/mailer.conf.postfix"
+MC="/etc/mail/mailer.conf"
+
+if [ "${POSTFIX_DEFAULT_MTA}" = "no" ]; then
+      DEFAULT_REPLACE_MAILERCONF=n
+else
+      DEFAULT_REPLACE_MAILERCONF=y
+fi
+
+ask() {
+      local question default answer
+
+      question=$1
+      default=$2
+      if [ -z "${PACKAGE_BUILDING}" -a "${BATCH}" = "no" ]; then
+	      read -p "${question} [${default}]? " answer
+      fi
+      if [ -z "${answer}" ]; then
+	      answer=${default}
+      fi
+      echo ${answer}
+}
+
+yesno() {
+      local question default answer
+
+      question=$1
+      default=$2
+      while :; do
+	      answer=$(ask "${question}" "${default}")
+	      case "${answer}" in
+		      [Yy]*)	return 0;;
+		      [Nn]*)	return 1;;
+	      esac
+	      echo "Please answer yes or no."
+      done
+}
+
+install_mailer_conf() {
+	echo "Activate Postfix in ${MC}"
+	/bin/mv -f ${MC} ${MC}.old
+	/usr/bin/install -m 644 ${MCP} ${MC}
+}
+
+show_not_activated_msg() {
+	echo
+	echo "==============================================================="
+	echo "Postfix was *not* activated in /etc/mail/mailer.conf! "
+	echo
+	echo "To finish installation run the following commands:"
+	echo
+	echo "  mv ${MC} ${MC}.old"
+	echo "  install -m 0644 ${MCP} ${MC}"
+	echo "==============================================================="
+	echo
+}
+
+if [ "$2" = "POST-INSTALL" ]; then
+	/bin/sh ${DAEMONDIR}/post-install tempdir=/tmp \
+	 daemon_directory=${DAEMONDIR} \
+	 html_directory=${READMEDIR} \
+	 readme_directory=${READMEDIR} \
+	 upgrade-package
+fi
+
+if [ "$2" = "POST-INSTALL" -a -z "${PACKAGE_BUILDING}" -a -f "${MC}" ]; then
+	egrep -q "^sendmail.*${PREFIX}/sbin/sendmail"    ${MC} && \
+	egrep -q "^send-mail.*${PREFIX}/sbin/sendmail"   ${MC} && \
+	egrep -q "^mailq.*${PREFIX}/sbin/sendmail"       ${MC} && \
+	egrep -q "^newaliases.*${PREFIX}/sbin/sendmail"  ${MC}
+	ret=$?
+	if [ ${ret} -ne 0 ]; then
+		# Respect POSTFIX_DEFAULT_MTA, do not ask for confirmation!
+		# (This helps tools like salt, ansible or puppet on new installations)
+		if [ "${DEFAULT_REPLACE_MAILERCONF}" = "y" ]; then
+			install_mailer_conf
+		elif [ "${DEFAULT_REPLACE_MAILERCONF}" = "n" -a -t 0 ]; then
+			if yesno "Would you like to activate Postfix in ${MC}" ${DEFAULT_REPLACE_MAILERCONF:="n"}; then
+				install_mailer_conf
+			else
+				show_not_activated_msg
+			fi
+		else
+			show_not_activated_msg
+		fi
+	else
+		echo "==============================================================="
+		echo "Postfix already activated in ${MC}"
+		echo "==============================================================="
+	fi
+fi

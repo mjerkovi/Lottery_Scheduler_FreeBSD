@@ -1,0 +1,3 @@
+lib/fpc/%%PORTVERSION%%/fpmkinst/%%BUILDNAME%%/pxlib.fpm
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/pxlib/pxlib.o
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/pxlib/pxlib.ppu

@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/hs-regex-tdfa/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	regex-tdfa
+PORTVERSION=	1.2.0
+PORTREVISION=	2
+CATEGORIES=	textproc haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Replaces/Enhances Text.Regex
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	mtl parsec regex-base>=0.93.1
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

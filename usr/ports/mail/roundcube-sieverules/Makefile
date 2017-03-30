@@ -1,0 +1,40 @@
+# Created by: Anes Muhametov <anes@anes.su>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/roundcube-sieverules/Makefile 393280 2015-07-30 22:23:39Z amdmi3 $
+
+PORTNAME=	sieverules
+PORTVERSION=	2.1.2
+PORTEPOCH=	1
+CATEGORIES=	mail
+PKGNAMEPREFIX=	roundcube-
+
+MAINTAINER=	anes@anes.su
+COMMENT=	Roundcube webmail sieve plugin
+
+LICENSE=	GPLv3
+
+BUILD_DEPENDS=	roundcube>=1.0:${PORTSDIR}/mail/roundcube
+RUN_DEPENDS=	roundcube>=1.0:${PORTSDIR}/mail/roundcube
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	JohnDoh
+GH_PROJECT=	Roundcube-Plugin-SieveRules-Managesieve
+
+NO_BUILD=	yes
+NO_ARCH=	yes
+
+WWWDIR=		${PREFIX}/www/roundcube/plugins/sieverules
+
+# This target is only meant to be used by the port maintainer.
+x-generate-plist: build
+	cd ${WRKSRC}; \
+	${FIND} . ! -type d ! -name '*.orig' | ${SORT} | \
+		${SED} -e "s,^\.,%%WWWDIR%%," >${WRKDIR}/pkg-plist.tmp ; \
+	${FIND} . -type d | ${SORT} -r | ${SED} \
+		-e "s,^\.$$,@dirrmtry %%WWWDIR%%," \
+		-e "s,^\.,@dirrm %%WWWDIR%%," >>${WRKDIR}/pkg-plist.tmp
+
+do-install:
+	${MKDIR} ${STAGEDIR}${WWWDIR}
+	cd ${WRKSRC} && ${PAX} -r -w . ${STAGEDIR}${WWWDIR}
+
+.include <bsd.port.mk>

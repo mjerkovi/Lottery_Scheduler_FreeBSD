@@ -1,0 +1,35 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/tel/Makefile 399684 2015-10-19 14:50:52Z amdmi3 $
+
+PORTNAME=	tel
+PORTVERSION=	0.1.7.1
+PORTREVISION=	3
+CATEGORIES=	deskutils
+MASTER_SITES=	SF/${PORTNAME}.berlios
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Little console-based phone book manager
+
+LICENSE=	MIT
+
+NO_ARCH=	yes
+
+USES=		gettext python shebangfix tar:bzip2
+SHEBANG_FILES=	src/tel.py
+USE_PYTHON=	distutils
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|distutils\.command\.install |setuptools\.command\.install |' \
+		${WRKSRC}/appdistutils.py
+	@${REINPLACE_CMD} -e \
+		's|$${install_messages}|${PREFIX}/share/locale| ; \
+		 s|$${install_app_modules}|${PREFIX}/lib/tel| ; \
+		 s|$${install_app_data}|${DATADIR}|' \
+		${WRKSRC}/src/tel.py
+
+post-install:
+	@${FIND} ${STAGEDIR}${PREFIX}/bin -type l -delete
+	@${LN} -sf ${PREFIX}/lib/tel/tel.py ${STAGEDIR}${PREFIX}/bin/tel
+
+.include <bsd.port.mk>

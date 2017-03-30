@@ -1,0 +1,49 @@
+# Created by: Babak Farrokhi <babak@farrokhi.net>
+# $FreeBSD: tags/RELEASE_10_3_0/www/tikiwiki/Makefile 388820 2015-06-08 01:23:27Z amdmi3 $
+
+PORTNAME=	tikiwiki
+PORTVERSION=	13.1
+CATEGORIES=	www
+MASTER_SITES=	SF/${PORTNAME}/Tiki_13.x_Fomalhaut/${PORTVERSION}/
+DISTNAME=	tiki-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Powerful PHP based Wiki/CMS/Groupware
+
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/license.txt
+
+USE_PHP=	gettext pcre posix session xml zlib
+WANT_PHP_WEB=	yes
+
+NO_BUILD=	yes
+NO_MTREE=	yes
+TIKIWIKI_DIR?=	www/${PORTNAME}-${PORTVERSION}
+SUB_FILES=	pkg-message
+SUB_LIST+=	PORTNAME=${PORTNAME} TIKIWIKI_DIR=${TIKIWIKI_DIR}
+
+post-extract:
+	@${FIND} ${WRKSRC} -name '.DS_Store' -o -name '.git' | ${XARGS} ${RM} -rf
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${TIKIWIKI_DIR}
+	(cd ${WRKSRC} && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/${TIKIWIKI_DIR})
+
+# pkg-plist would be over 15,000 lines, consuming 1.1Mb
+# The benefits of a fixed pkg-plist aren't worth it, autogen!
+
+post-install:
+	@${ECHO_CMD} "@owner ${WWWOWN}" >> ${TMPPLIST}
+	@${ECHO_CMD} "@group ${WWWGRP}" >> ${TMPPLIST}
+	@(cd ${STAGEDIR}${PREFIX}; ${FIND} * \( -type f -or -type l \) | \
+		${SORT} >> ${TMPPLIST})
+	@${ECHO_CMD} "@owner" >> ${TMPPLIST}
+	@${ECHO_CMD} "@group" >> ${TMPPLIST}
+	@${ECHO_CMD} "@dir ${TIKIWIKI_DIR}/lib/test/core/Profile" >> ${TMPPLIST}
+	@${ECHO_CMD} "@dir ${TIKIWIKI_DIR}/permissioncheck/meta_755" >> ${TMPPLIST}
+	@${ECHO_CMD} "@dir ${TIKIWIKI_DIR}/permissioncheck/meta_775" >> ${TMPPLIST}
+	@${ECHO_CMD} "@dir ${TIKIWIKI_DIR}/permissioncheck/meta_777" >> ${TMPPLIST}
+	@${ECHO_CMD} "@dir ${TIKIWIKI_DIR}/vendor_extra/elfinder/files" >> ${TMPPLIST}
+
+.include <bsd.port.mk>

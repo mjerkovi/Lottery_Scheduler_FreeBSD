@@ -1,0 +1,17 @@
+# Created by: Wen Heping <wen@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/math/R-cran-inline/Makefile 385025 2015-04-30 06:25:52Z wen $
+
+PORTNAME=	inline
+PORTVERSION=	0.3.14
+CATEGORIES=	math
+DISTNAME=	${PORTNAME}_${PORTVERSION}
+
+MAINTAINER=	wen@FreeBSD.org
+COMMENT=	Inline C, C++, Fortran function calls from R
+
+LICENSE=	LGPL20 LGPL21 LGPL3
+LICENSE_COMB=	multi
+
+USES=	cran:auto-plist
+
+.include <bsd.port.mk>

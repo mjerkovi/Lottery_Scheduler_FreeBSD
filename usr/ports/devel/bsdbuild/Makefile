@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/bsdbuild/Makefile 392305 2015-07-16 18:34:00Z pgollucci $
+
+PORTNAME=	bsdbuild
+PORTVERSION=	3.1
+CATEGORIES=	devel
+MASTER_SITES=	http://stable.hypertriton.com/bsdbuild/
+
+MAINTAINER=	vedge@hypertriton.com
+COMMENT=	Portable BSD-style build system
+
+LICENSE=	BSD2CLAUSE
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	*.pl mk/*.pl
+GNU_CONFIGURE=	yes
+
+.include <bsd.port.mk>

@@ -1,0 +1,23 @@
+# Created by: Steven Kreuzer <skreuzer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hexcompare/Makefile 341505 2014-01-28 07:44:39Z bapt $
+
+PORTNAME=	hexcompare
+PORTVERSION=	1.0.2
+CATEGORIES=	devel
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}%20v${PORTVERSION}
+DISTNAME=	${PORTNAME}-102
+
+MAINTAINER=	skreuzer@FreeBSD.org
+COMMENT=	Compare and identify differences between two binary files
+
+LICENSE=	GPLv3
+
+PLIST_FILES=	bin/hexcompare
+
+post-patch:
+	${REINPLACE_CMD} -e 's|gcc|${CC}|g' ${WRKSRC}/Makefile
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

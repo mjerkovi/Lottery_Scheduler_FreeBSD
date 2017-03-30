@@ -1,0 +1,20 @@
+# $FreeBSD: tags/RELEASE_10_3_0/databases/py-alembic/Makefile 405014 2016-01-01 17:02:53Z lwhsu $
+
+PORTNAME=	alembic
+PORTVERSION=	0.8.4
+CATEGORIES=	databases python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	lwhsu@FreeBSD.org
+COMMENT=	Database migration tool for SQLAlchemy
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlalchemy>=0.7.3:${PORTSDIR}/databases/py-sqlalchemy \
+		${PYTHON_PKGNAMEPREFIX}mako>=0:${PORTSDIR}/textproc/py-mako
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

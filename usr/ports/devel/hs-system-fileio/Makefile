@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-system-fileio/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	system-fileio
+PORTVERSION=	0.3.16.3
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Consistent filesystem interaction across GHC versions
+
+LICENSE=	MIT
+
+USE_CABAL=	system-filepath>=0.3.1 text>=0.7.1
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

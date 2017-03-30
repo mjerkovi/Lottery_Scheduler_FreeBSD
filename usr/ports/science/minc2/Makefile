@@ -1,0 +1,42 @@
+# Created by: jbacon
+# $FreeBSD: tags/RELEASE_10_3_0/science/minc2/Makefile 387255 2015-05-24 08:10:28Z sunpoet $
+
+PORTNAME=	minc
+PORTVERSION=	2.2.00
+DISTVERSIONPREFIX=	release-
+PORTREVISION=	3
+PORTEPOCH=	1
+CATEGORIES=	science biology
+PKGNAMESUFFIX=	2
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Medical Imaging NetCDF
+
+LICENSE=	MIT
+
+LIB_DEPENDS=	libhdf5.so:${PORTSDIR}/science/hdf5 \
+		libnetcdf.so:${PORTSDIR}/science/netcdf
+RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	BIC-MNI
+
+USES=		autoreconf bison gmake libtool perl5 shebangfix
+SHEBANG_FILES=	progs/mincview/mincview
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--enable-shared=yes --enable-static=yes
+INSTALL_TARGET=	install-strip
+USE_LDCONFIG=	yes
+
+CFLAGS+=	-Wno-error=return-type
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+CONFLICTS=	minc-1* zh-tk-[0-9]*
+
+pre-patch:
+	@${RM} -f ${WRKSRC}/ac_config_aux/*
+	@${RM} -f ${WRKSRC}/progs/minccalc/gram.[ch]
+	@${RM} -f ${WRKSRC}/progs/mincgen/ncgentab.[ch]
+
+.include <bsd.port.mk>

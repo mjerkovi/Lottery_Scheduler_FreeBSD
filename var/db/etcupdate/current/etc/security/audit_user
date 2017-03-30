@@ -1,0 +1,4 @@
+#
+# $FreeBSD: releng/10.3/contrib/openbsm/etc/audit_user 293161 2016-01-04 16:32:21Z brueffer $
+#
+root:lo:no

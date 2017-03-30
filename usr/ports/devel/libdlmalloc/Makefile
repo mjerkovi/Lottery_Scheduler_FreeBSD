@@ -1,0 +1,23 @@
+# Created by: roberto
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libdlmalloc/Makefile 400848 2015-11-05 12:36:25Z mat $
+
+PORTNAME=	dlmalloc
+PORTVERSION=	2.8.6
+CATEGORIES=	devel
+MASTER_SITES=	ftp://gee.cs.oswego.edu/pub/misc/
+DISTFILES=	malloc-${PORTVERSION}.c malloc-${PORTVERSION}.h
+
+MAINTAINER=	roberto@FreeBSD.org
+COMMENT=	Small, fast malloc library by Doug Lea
+
+NO_WRKSUBDIR=	yes
+USE_LDCONFIG=	yes
+
+do-extract:
+	@${MKDIR} ${WRKSRC}
+.for f in ${DISTFILES}
+	${CP} -p ${DISTDIR}/${f} ${WRKSRC}
+.endfor
+	${CP} -p ${FILESDIR}/Makefile ${WRKSRC}
+
+.include <bsd.port.mk>

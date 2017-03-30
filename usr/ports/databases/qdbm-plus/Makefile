@@ -1,0 +1,37 @@
+# Created by: Michael Johnson <ahze@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/qdbm-plus/Makefile 396380 2015-09-08 14:35:06Z amdmi3 $
+
+PORTNAME=	qdbm
+PORTVERSION=	1.8.78
+PORTREVISION=	5
+CATEGORIES=	databases
+MASTER_SITES=	http://fallabs.com/qdbm/
+PKGNAMESUFFIX=	-plus
+
+MAINTAINER=	hrs@FreeBSD.org
+COMMENT=	C++ API for QDBM
+
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKDIR}/${PORTNAME}-${PORTVERSION}/COPYING
+
+LIB_DEPENDS=	liblzo2.so:${PORTSDIR}/archivers/lzo2 \
+		libqdbm.so:${PORTSDIR}/databases/qdbm
+
+USES=		iconv shebangfix
+SHEBANG_FILES=	xapidoc/installdox
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}/plus
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+CONFIGURE_ENV=	ac_cv_lib_iconv_main=yes
+CXXFLAGS+=	-fsigned-char -fPIC
+INSTALL_TARGET=	install-strip
+
+post-patch:
+.if defined(WITH_DEBUG) && !defined(WITHOUT_DEBUG)
+	@${REINPLACE_CMD} 's/-DNDEBUG//' ${WRKSRC}/Makefile.in
+.endif
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libxqdbm.so.3.0.0
+
+.include <bsd.port.mk>

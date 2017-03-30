@@ -1,0 +1,28 @@
+# Created by: Kubilay Kocak <koobs@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-bleach/Makefile 400381 2015-10-28 12:11:20Z koobs $
+
+PORTNAME=	bleach
+PORTVERSION=	1.4.2
+CATEGORIES=	www python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	koobs@FreeBSD.org
+COMMENT=	Easy whitelist-based HTML-sanitizing tool
+
+LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}six>0:${PORTSDIR}/devel/py-six \
+		${PYTHON_PKGNAMEPREFIX}html5lib>=0.999:${PORTSDIR}/www/py-html5lib
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}nose>=1.3:${PORTSDIR}/devel/py-nose
+
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+NO_ARCH=	yes
+
+do-test:
+	@cd ${WRKSRC} && ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test
+
+.include <bsd.port.mk>

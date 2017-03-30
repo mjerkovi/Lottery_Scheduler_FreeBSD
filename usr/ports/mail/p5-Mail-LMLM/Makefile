@@ -1,0 +1,26 @@
+# Created by: Gea-Suan Lin <gslin@gslin.org>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/p5-Mail-LMLM/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	Mail-LMLM
+PORTVERSION=	0.6804
+CATEGORIES=	mail perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	List of Mailing Lists Manager
+
+LICENSE=	MIT
+
+USES=		perl5
+USE_PERL5=	configure
+
+OPTIONS_DEFINE=	EXAMPLES
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/COPYING ${STAGEDIR}${DATADIR}
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
+
+.include <bsd.port.mk>

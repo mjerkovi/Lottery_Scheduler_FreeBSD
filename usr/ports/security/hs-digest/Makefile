@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/hs-digest/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	digest
+PORTVERSION=	0.0.1.2
+PORTREVISION=	9
+CATEGORIES=	security haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Various cryptographic hashes for Bytestrings
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	zlib
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

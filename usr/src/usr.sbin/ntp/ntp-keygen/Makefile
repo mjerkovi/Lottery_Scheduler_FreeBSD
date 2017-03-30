@@ -1,0 +1,34 @@
+# $FreeBSD: releng/10.3/usr.sbin/ntp/ntp-keygen/Makefile 285612 2015-07-15 19:21:26Z delphij $
+
+MAN=
+
+.include <bsd.own.mk>
+
+.PATH:	${.CURDIR}/../../../contrib/ntp/util \
+	${.CURDIR}/../../../contrib/ntp/ntpd
+
+PROG=	ntp-keygen
+SRCS=	ntp-keygen.c ntp-keygen-opts.c
+
+CFLAGS+= -I${.CURDIR}/../../../contrib/ntp/include \
+	-I${.CURDIR}/../../../contrib/ntp/include \
+	-I${.CURDIR}/../../../contrib/ntp/lib/isc/include \
+	-I${.CURDIR}/../../../contrib/ntp/lib/isc/unix/include \
+	-I${.CURDIR}/../../../contrib/ntp/lib/isc/pthreads/include \
+	-I${.CURDIR}/../../../contrib/ntp/lib/isc/${NTP_ATOMIC}/include \
+	-I${.CURDIR}/../../../contrib/ntp/sntp/libopts \
+	-I${.CURDIR}/../../../lib/libc/${MACHINE_ARCH} \
+	-I${.CURDIR}/../
+
+DPADD=	${LIBNTP} ${LIBOPTS} ${LIBPTHREAD}
+LDADD=	${LIBNTP} ${LIBOPTS} -lpthread
+
+.if ${MK_OPENSSL} != "no"
+DPADD+=	${LIBCRYPTO}
+LDADD+=	-lcrypto
+.else
+DPADD+=	${LIBMD}
+LDADD+=	-lmd
+.endif
+
+.include <bsd.prog.mk>

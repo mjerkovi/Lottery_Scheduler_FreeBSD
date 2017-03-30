@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/hs-pem/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	pem
+PORTVERSION=	0.2.2
+PORTREVISION=	2
+CATEGORIES=	security haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Privacy Enhanced Mail (PEM) format reader and writer
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	base64-bytestring>=1.0.0 mtl
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

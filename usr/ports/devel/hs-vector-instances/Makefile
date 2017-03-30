@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-vector-instances/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	vector-instances
+PORTVERSION=	3.3.1
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Orphan Instances for 'Data.Vector'
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	comonad>=3 keys>=3 pointed>=3 semigroupoids>=3 \
+		semigroups>=0.8.3.1 vector>=0.9
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

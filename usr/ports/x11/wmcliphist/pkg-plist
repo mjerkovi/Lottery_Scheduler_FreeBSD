@@ -1,0 +1,3 @@
+bin/wmcliphist
+share/examples/wmcliphist/wmcliphistrc
+%%PORTDOCS%%share/doc/wmcliphist/README

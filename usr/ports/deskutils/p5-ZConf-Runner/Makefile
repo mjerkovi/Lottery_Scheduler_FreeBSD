@@ -1,0 +1,26 @@
+# Created by: Zane C, Bowers <vvelox@vvelox.net>
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/p5-ZConf-Runner/Makefile 381388 2015-03-16 14:01:51Z amdmi3 $
+
+PORTNAME=	ZConf-Runner
+PORTVERSION=	2.1.4
+PORTREVISION=	2
+CATEGORIES=	deskutils perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:VVELOX
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	vvelox@vvelox.net
+COMMENT=	Run a file using a chosen method, desktop entry, or mimetype
+
+BUILD_DEPENDS=	p5-ZConf>=6.1.0:${PORTSDIR}/net/p5-ZConf \
+		p5-File-MimeInfo>=0.16:${PORTSDIR}/devel/p5-File-MimeInfo \
+		p5-Curses-UI>=0.9609:${PORTSDIR}/devel/p5-Curses-UI \
+		p5-ZConf-GUI>=1.0.3:${PORTSDIR}/devel/p5-ZConf-GUI \
+		p5-String-ShellQuote>=1.04:${PORTSDIR}/textproc/p5-String-ShellQuote
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	bin/zcrunner
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

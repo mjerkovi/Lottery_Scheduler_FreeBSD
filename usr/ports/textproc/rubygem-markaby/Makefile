@@ -1,0 +1,22 @@
+# Created by: Martin Wilke <miwi@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/rubygem-markaby/Makefile 388756 2015-06-07 20:41:00Z sunpoet $
+
+PORTNAME=	markaby
+PORTVERSION=	0.8.0
+PORTREVISION=	1
+CATEGORIES=	textproc rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	HTML Markup as Ruby
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-builder32>=0:${PORTSDIR}/devel/rubygem-builder32
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

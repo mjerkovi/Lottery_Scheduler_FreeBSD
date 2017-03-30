@@ -1,0 +1,5 @@
+#!/bin/sh
+# $FreeBSD: tags/RELEASE_10_3_0/devel/ccons/files/ccons.sh.in 372053 2014-11-02 02:01:54Z danilo $
+
+LD_LIBRARY_PATH="%%LOCALBASE%%/llvm33/lib/" %%LOCALBASE%%/bin/ccons-bin $@
+

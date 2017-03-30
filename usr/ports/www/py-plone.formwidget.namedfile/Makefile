@@ -1,0 +1,23 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-plone.formwidget.namedfile/Makefile 405764 2016-01-11 05:23:46Z rm $
+
+PORTNAME=	plone.formwidget.namedfile
+PORTVERSION=	1.0.13
+CATEGORIES=	www python zope
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DIST_SUBDIR=	zope
+
+MAINTAINER=	zope@FreeBSD.org
+COMMENT=	Image widget for z3c.form and Plone
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}plone.namedfile>0:${PORTSDIR}/www/py-plone.namedfile \
+		${PYTHON_PKGNAMEPREFIX}z3c.form>0:${PORTSDIR}/devel/py-z3c.form \
+		${PYTHON_PKGNAMEPREFIX}plone.z3cform>0:${PORTSDIR}/www/py-plone.z3cform
+
+NO_ARCH=	yes
+USES=		python zip
+USE_PYTHON=	autoplist distutils
+
+.include <bsd.port.mk>

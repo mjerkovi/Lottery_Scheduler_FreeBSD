@@ -1,0 +1,22 @@
+# Created by: Xin Li <delphij@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-ujson/Makefile 375249 2014-12-22 17:12:26Z feld $
+
+PORTNAME=	ujson
+PORTVERSION=	1.33
+CATEGORIES=	devel python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	delphij@FreeBSD.org
+COMMENT=	Ultra fast JSON encoder and decoder for Python
+
+LICENSE=	BSD3CLAUSE TclTk
+LICENSE_COMB=	multi
+LICENSE_NAME_TclTk=	Tcl/Tk License
+LICENSE_TEXT_TclTk=	http://www.tcl.tk/software/tcltk/license.html
+LICENSE_PERMS_TclTk=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+USES=		python zip
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

@@ -1,0 +1,23 @@
+# $FreeBSD: tags/RELEASE_10_3_0/databases/elixir-postgrex/Makefile 401834 2015-11-17 22:18:06Z olgeni $
+
+PORTNAME=	postgrex
+PORTVERSION=	0.10.0
+DISTVERSIONPREFIX=	v
+CATEGORIES=	databases
+PKGNAMEPREFIX=	elixir-
+
+MAINTAINER=	olgeni@FreeBSD.org
+COMMENT=	Database driver for PostgreSQL written in Elixir
+
+LICENSE=	APACHE20
+
+USES=		elixir
+USE_GITHUB=	yes
+GH_ACCOUNT=	ericmj
+
+MIX_BUILD_DEPS=	devel/elixir-connection \
+		devel/elixir-decimal
+MIX_RUN_DEPS:=	${MIX_BUILD_DEPS}
+MIX_REWRITE=	yes
+
+.include <bsd.port.mk>

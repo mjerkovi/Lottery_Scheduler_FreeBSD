@@ -1,0 +1,38 @@
+# Created by: Jona Joachim <jaj@hcl-club.lu>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/soundconverter/Makefile 399440 2015-10-16 13:09:40Z amdmi3 $
+
+PORTNAME=	soundconverter
+PORTVERSION=	2.1.5
+CATEGORIES=	audio python
+MASTER_SITES=	https://launchpad.net/soundconverter/trunk/2.1.5/+download/ \
+		http://BSDforge.com/projects/source/audio/soundconverter/
+
+MAINTAINER=	portmaster@BSDforge.com
+COMMENT=	Sound conversion application for the GNOME environment
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gstreamer>=0.10:${PORTSDIR}/multimedia/py-gstreamer
+
+NO_ARCH=	yes
+USES=		desktop-file-utils gmake python:2 shebangfix tar:xz
+
+SHEBANG_FILES=	bin/soundconverter.py
+
+GNU_CONFIGURE=	yes
+USE_GNOME=	intltool pygtk2 pygnome2
+MAKE_ENV=	MAKE=${MAKE_CMD}
+INSTALLS_ICONS=	yes
+
+OPTIONS_DEFINE=		NLS
+OPTIONS_SUB=		yes
+NLS_CONFIGURE_ENABLE=	nls
+NLS_USES=		gettext
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|@GMSGFMT@|${LOCALBASE}/bin/msgfmt|; \
+		s|itlocaledir = .*|itlocaledir = ${LOCALBASE}/share/locale|g' \
+			${WRKSRC}/po/Makefile.in.in
+
+.include <bsd.port.mk>

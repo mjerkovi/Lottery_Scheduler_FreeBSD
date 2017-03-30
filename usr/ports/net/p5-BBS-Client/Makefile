@@ -1,0 +1,21 @@
+# Created by: Yi-Jheng, Lin <yzlin@cs.nctu.edu.tw>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-BBS-Client/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	BBS-Client
+PORTVERSION=	0.03
+PORTREVISION=	1
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:CORNELIUS
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Client Module For BBS Systems
+
+BUILD_DEPENDS=	p5-Net-Telnet>=0:${PORTSDIR}/net/p5-Net-Telnet
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

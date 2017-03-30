@@ -1,0 +1,38 @@
+# Created by: Bruce M Simpson <bms@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/cad/gtkwave/Makefile 394778 2015-08-19 13:29:59Z mat $
+
+PORTNAME=	gtkwave
+PORTVERSION=	3.3.60
+PORTREVISION=	1
+CATEGORIES=	cad
+MASTER_SITES=	http://gtkwave.sourceforge.net/
+
+MAINTAINER=	zeising@FreeBSD.org
+COMMENT=	Electronic Waveform Viewer
+
+USES=		desktop-file-utils gmake gperf pkgconfig shared-mime-info
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-mime-update
+USE_GNOME=	gtk20
+INSTALLS_ICONS=	yes
+
+OPTIONS_DEFINE=	TCL GCONF
+TCL_DESC=	Enable support for TCL/TK
+TCL_USES=	tk
+TCL_CONFIGURE_ON=	--with-tcl=${TCL_LIBDIR} \
+			--with-tk=${TK_LIBDIR}
+TCL_CONFIGURE_OFF=	--disable-tcl
+
+GCONF_CONFIGURE_WITH=	gconf
+GCONF_USE=		GNOME=gconf2
+
+PORTDOCS=	gtkwave.odt
+
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for doc in ${PORTDOCS}
+	${INSTALL_DATA} ${WRKSRC}/doc/${doc} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

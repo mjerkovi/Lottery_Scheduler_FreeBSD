@@ -1,0 +1,29 @@
+# Created by: Aleksander Fafula <alex@BSDGuru.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/vinetto/Makefile 397073 2015-09-16 16:40:16Z amdmi3 $
+
+PORTNAME=	vinetto
+PORTVERSION=	0.07
+PORTREVISION=	4
+CATEGORIES=	security
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-beta-${PORTVERSION}
+DISTNAME=	${PORTNAME}-beta-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Forensics tool to examine Thumbs.db files
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pillow>0:${PORTSDIR}/graphics/py-pillow
+
+USES=		python
+USE_PYTHON=	autoplist distutils
+PYDISTUTILS_PKGVERSION=	0.06alpha
+NO_ARCH=	yes
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|/usr/share/vinetto|${DATADIR}|g" ${WRKSRC}/setup.py
+	@${REINPLACE_CMD} -e "s|/usr/share/vinetto|${DATADIR}|g" ${WRKSRC}/vinreport.py
+	@${REINPLACE_CMD} -e "s|/usr/share/vinetto|${DATADIR}|g" ${WRKSRC}/vinetto
+
+.include <bsd.port.mk>

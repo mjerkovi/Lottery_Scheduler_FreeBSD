@@ -1,0 +1,29 @@
+# Created by: George Hartzell <hartzell@alerce.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-CGI-Application-Dispatch-Server/Makefile 375378 2014-12-24 00:14:11Z bofh $
+
+PORTNAME=	CGI-Application-Dispatch-Server
+PORTVERSION=	0.53
+PORTREVISION=	1
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Simple HTTP server for developing with CGI::Application::Dispatch
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-libwww>=0:${PORTSDIR}/www/p5-libwww \
+		p5-IO-Capture>=0:${PORTSDIR}/devel/p5-IO-Capture \
+		p5-CGI-Application>=0:${PORTSDIR}/www/p5-CGI-Application \
+		p5-CGI-Application-Dispatch>=0:${PORTSDIR}/www/p5-CGI-Application-Dispatch \
+		p5-HTTP-Server-Simple>=0:${PORTSDIR}/www/p5-HTTP-Server-Simple \
+		p5-HTTP-Server-Simple-Static>=0:${PORTSDIR}/www/p5-HTTP-Server-Simple-Static \
+		p5-Params-Validate>=0:${PORTSDIR}/devel/p5-Params-Validate
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

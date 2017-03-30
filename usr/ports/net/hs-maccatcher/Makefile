@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/hs-maccatcher/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	maccatcher
+PORTVERSION=	2.1.5
+PORTREVISION=	8
+CATEGORIES=	net haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Obtain the host MAC address on *NIX and Windows
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	parsec
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

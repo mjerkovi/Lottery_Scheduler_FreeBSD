@@ -1,0 +1,20 @@
+# Created by: Kurt Jaeger <fbsd-ports@opsec.eu>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-String-Dump/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	String-Dump
+PORTVERSION=	0.09
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:PATCH
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	pi@FreeBSD.org
+COMMENT=	Dump strings of characters or bytes for printing and debugging
+
+BUILD_DEPENDS=	p5-Getopt-Lucid>=0:${PORTSDIR}/textproc/p5-Getopt-Lucid
+
+USES=		perl5
+USE_PERL5=	modbuild
+
+.include <bsd.port.mk>

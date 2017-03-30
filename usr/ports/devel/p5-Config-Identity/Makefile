@@ -1,0 +1,27 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Config-Identity/Makefile 399728 2015-10-19 20:18:17Z sunpoet $
+
+PORTNAME=	Config-Identity
+PORTVERSION=	0.0018
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Load (and optionally decrypt via GnuPG) user/pass identity information
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-File-HomeDir>=0:${PORTSDIR}/devel/p5-File-HomeDir \
+		p5-File-Which>=0:${PORTSDIR}/sysutils/p5-File-Which \
+		p5-IPC-Run>=0:${PORTSDIR}/devel/p5-IPC-Run
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Most>=0:${PORTSDIR}/devel/p5-Test-Most
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

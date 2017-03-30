@@ -1,0 +1,26 @@
+# Created by: Michael L. Hostbaek <mich@freebsdcluster.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/ah-tty/Makefile 383727 2015-04-10 13:34:07Z mich $
+
+PORTNAME=	ah-tty
+PORTVERSION=	0.3.12
+CATEGORIES=	sysutils
+MASTER_SITES=	SF
+
+MAINTAINER=	mich@FreeBSD.org
+COMMENT=	Ah-tty is an automatic helper for command prompts and shells
+
+GNU_CONFIGURE=	yes
+USE_CSTD=	gnu89
+
+PLIST_FILES=	bin/ah-tty bin/ah-tty.static \
+		share/ah-tty.conf man/man1/ah-tty.1.gz
+
+INFO=		ah-tty
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|malloc.h|stdlib.h|' \
+		${WRKSRC}/dillib/vty/vtlabel.c
+	@${REINPLACE_CMD} -e 's|##x|x|' \
+		${WRKSRC}/include/platform.h
+
+.include <bsd.port.mk>

@@ -1,0 +1,24 @@
+# Created by: Sylvio Cesar <sylvio@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/multimedia/mp3cd/Makefile 393551 2015-08-04 20:35:05Z amdmi3 $
+
+PORTNAME=	mp3cd
+PORTVERSION=	1.027
+PORTREVISION=	1
+PORTEPOCH=	1
+CATEGORIES=	multimedia
+MASTER_SITES=	http://outflux.net/software/pkgs/mp3cd/download/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Perl script that burns MP3 to audio CDs
+
+LICENSE=	GPLv2 # or later
+
+BUILD_DEPENDS=	p5-Config-Simple>=0:${PORTSDIR}/devel/p5-Config-Simple
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5 shebangfix
+USE_PERL5=	configure
+SHEBANG_FILES=	scripts/mp3cd
+NO_ARCH=	yes
+
+.include <bsd.port.mk>

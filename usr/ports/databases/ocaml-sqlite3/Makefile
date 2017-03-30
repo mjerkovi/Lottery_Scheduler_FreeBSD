@@ -1,0 +1,46 @@
+# Created by: "Meikel Brandmeyer" <ocaml-sqlite3-port@kotka.de>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/ocaml-sqlite3/Makefile 402060 2015-11-20 09:17:12Z sunpoet $
+
+PORTNAME=	sqlite3
+PORTVERSION=	4.0.1
+DISTVERSIONPREFIX=	v
+CATEGORIES=	databases
+PKGNAMEPREFIX=	ocaml-
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	OCaml bindings to sqlite3 library
+
+LICENSE=	OCSQLT3
+LICENSE_NAME=	OCaml-SQLite3 unique permissive license
+LICENSE_FILE=	${WRKSRC}/COPYING.txt
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+USES=			gmake pkgconfig
+USE_SQLITE=		yes
+USE_OCAML=		yes
+USE_OCAML_FINDLIB=	yes
+USE_OCAML_LDCONFIG=	yes
+USE_OCAMLFIND_PLIST=	yes
+HAS_CONFIGURE=		yes
+MAKE_JOBS_UNSAFE=	yes
+CONFIGURE_ARGS=		--destdir "${STAGEDIR}" \
+			--prefix "${PREFIX}"
+
+GH_ACCOUNT=	mmottl
+GH_PROJECT=	${PORTNAME}-ocaml
+USE_GITHUB=	yes
+
+post-patch:
+	@${REINPLACE_CMD} -e 's,"install" :: findlib_name,"install" :: "-destdir ${STAGEDIR}${PREFIX}/lib/ocaml/site-lib" :: "-ldconf /var/null" :: findlib_name,' \
+		${WRKSRC}/setup.ml
+
+do-configure:
+	(cd ${WRKSRC} && ocaml setup.ml -configure ${CONFIGURE_ARGS})
+
+do-build:
+	(cd ${WRKSRC} && ocaml setup.ml -build)
+
+do-install:
+	(cd ${WRKSRC} && ocaml setup.ml -install)
+
+.include <bsd.port.mk>

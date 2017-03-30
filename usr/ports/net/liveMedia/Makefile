@@ -1,0 +1,51 @@
+# Created by: nork@FreeBSD.org
+# $FreeBSD: tags/RELEASE_10_3_0/net/liveMedia/Makefile 375324 2014-12-23 13:30:29Z riggs $
+
+PORTNAME=	liveMedia
+PORTVERSION=	2014.12.17
+PORTREVISION=	1
+PORTEPOCH=	2
+CATEGORIES=	net devel
+MASTER_SITES=	LOCAL/wg \
+		http://www.live555.com/liveMedia/public/
+DISTNAME=	live.${PORTVERSION}
+
+MAINTAINER=	multimedia@FreeBSD.org
+COMMENT=	LIVE.COM Streaming Media
+
+LICENSE=	LGPL21
+
+NO_CDROM=	'dated material'
+
+WRKSRC=		${WRKDIR}/live
+
+HAS_CONFIGURE=	yes
+
+CONFIGURE_SCRIPT=	genMakefiles
+CONFIGURE_ARGS=		fixed-freebsd
+
+USES=		gmake
+USE_LDCONFIG=	yes
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "amd64" || ${ARCH} == "ia64"
+CFLAGS+=	-fPIC
+.else
+CFLAGS+=	-fpic
+.endif
+
+.if ${ARCH} == "sparc64"
+BROKEN=		Does not compile
+.endif
+
+post-extract:
+	${CP} ${FILESDIR}/config.fixed-freebsd ${WRKSRC}
+
+.if ${PREFIX} != "/usr/local"
+post-configure:
+	${REINPLACE_CMD} -e 's,^PREFIX = /usr/local,PREFIX = "${PREFIX}",' \
+		${WRKSRC}/Makefile ${WRKSRC}/*/Makefile
+.endif
+
+.include <bsd.port.post.mk>

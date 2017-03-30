@@ -1,0 +1,4 @@
+# Mk/Uses/python.mk includes this file, don't remove it!
+# $FreeBSD: tags/RELEASE_10_3_0/lang/python27/Makefile.version 404739 2015-12-29 12:03:09Z marino $
+
+PYTHON_PORTVERSION=	2.7.11

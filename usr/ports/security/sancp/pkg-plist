@@ -1,0 +1,3 @@
+bin/sancp
+@sample etc/sancp.conf.sample
+@dir(sancp,sancp,750) /var/log/sancp

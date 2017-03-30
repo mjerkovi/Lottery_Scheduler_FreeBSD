@@ -1,0 +1,6 @@
+#!/bin/sh
+# $FreeBSD: tags/RELEASE_10_3_0/security/blindelephant/files/blindelephant.sh.in 340872 2014-01-24 00:14:07Z mat $
+
+cd %%PATH%%
+exec %%PYTHON_CMD%% %%PATH%%/BlindElephant.py "$@"
+

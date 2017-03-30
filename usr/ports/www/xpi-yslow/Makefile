@@ -1,0 +1,18 @@
+# Created by: Sutra Zhou <zhoushuqun@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/xpi-yslow/Makefile 341220 2014-01-26 15:14:57Z miwi $
+
+PORTNAME=	yslow
+PORTVERSION=	3.1.0
+DISTVERSIONSUFFIX=	-fx
+CATEGORIES=	www
+
+MAINTAINER=	zhoushuqun@gmail.com
+COMMENT=	Analyzes web pages and why they are slow
+
+RUN_DEPENDS=	xpi-firebug>=1.3.0:${PORTSDIR}/www/xpi-firebug
+
+XPI_NUM=	5369
+XPI_ID=		yslow@yahoo-inc.com
+
+.include "${.CURDIR}/../xpi-adblock/Makefile.xpi"
+.include <bsd.port.mk>

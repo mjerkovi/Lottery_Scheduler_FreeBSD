@@ -1,0 +1,4 @@
+%%SITE_PERL%%/TestConfig.pm
+%%SITE_PERL%%/Net/FTP/Common.pm
+%%SITE_PERL%%/Net/FTP/Common.pod
+%%PERL5_MAN3%%/Net::FTP::Common.3.gz

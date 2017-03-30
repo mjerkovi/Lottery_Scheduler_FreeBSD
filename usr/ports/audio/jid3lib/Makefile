@@ -1,0 +1,24 @@
+# Created by: Alexander Botero-Lowry <alex@foxybanana.com>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/jid3lib/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+PORTNAME=	jid3lib
+PORTVERSION=	0.5.4
+PORTREVISION=	2
+CATEGORIES=	audio java
+MASTER_SITES=	SF/javamusictag/${PORTNAME}/beta-dev6
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Java ID3 Tag Library
+
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+USE_ANT=	yes
+
+PLIST_FILES=	%%JAVAJARDIR%%/jid3lib.jar
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${JAVAJARDIR}
+	${INSTALL_DATA} ${WRKSRC}/dist/jid3lib-${PORTVERSION}.jar \
+		${STAGEDIR}${JAVAJARDIR}/jid3lib.jar
+
+.include <bsd.port.mk>

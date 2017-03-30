@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/hs-cipher-aes/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	cipher-aes
+PORTVERSION=	0.2.11
+CATEGORIES=	security haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Fast AES cipher implementation with advanced mode of operations
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	byteable crypto-cipher-types>=0.0.6 securemem>=0.1.2
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

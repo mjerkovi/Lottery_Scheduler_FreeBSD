@@ -1,0 +1,18 @@
+# Created by: Giuseppe Pilichi aka Jacula Modyun <jacula@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/math/hs-mwc-random/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	mwc-random
+PORTVERSION=	0.13.3.2
+CATEGORIES=	math haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Fast, high-quality pseudo random number generation
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	primitive vector>=0.7
+
+INSTALL_PORTDATA=	${INSTALL_DATA} ${WRKSRC}/README.markdown ${STAGEDIR}${DATADIR}
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

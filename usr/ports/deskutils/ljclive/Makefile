@@ -1,0 +1,22 @@
+# Created by: johans
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/ljclive/Makefile 398996 2015-10-10 14:03:00Z tijl $
+
+PORTNAME=	ljclive
+PORTVERSION=	0.4.10
+PORTREVISION=	1
+CATEGORIES=	deskutils
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${DISTNAME}
+DISTNAME=	clive-${PORTVERSION}
+
+MAINTAINER=	johans@FreeBSD.org
+COMMENT=	Command line client for posting LiveJournal entries
+
+USES=		iconv
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	ac_cv_search_iconv=${ICONV_LIB}
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+
+CONFLICTS=	*clive-[1-9]*
+
+.include <bsd.port.mk>

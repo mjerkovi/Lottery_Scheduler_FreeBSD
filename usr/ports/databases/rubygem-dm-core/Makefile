@@ -1,0 +1,23 @@
+# Created by: Jyun-Yan You <jyyou@cs.nctu.edu.tw>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/rubygem-dm-core/Makefile 403415 2015-12-09 14:28:27Z sunpoet $
+
+PORTNAME=	dm-core
+PORTVERSION=	1.2.1
+PORTREVISION=	1
+CATEGORIES=	databases rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Object/Relational Mapper for Ruby
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	rubygem-addressable>=2.3:${PORTSDIR}/www/rubygem-addressable
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

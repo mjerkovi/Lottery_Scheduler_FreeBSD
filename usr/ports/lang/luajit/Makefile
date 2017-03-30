@@ -1,0 +1,29 @@
+# Created by: Sergey A. Osokin <osa@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/lang/luajit/Makefile 388291 2015-06-01 23:30:17Z osa $
+
+PORTNAME=	luajit
+DISTVERSION=	2.0.4
+CATEGORIES=	lang
+MASTER_SITES=	http://luajit.org/download/
+DISTNAME=	LuaJIT-${DISTVERSION}
+
+MAINTAINER=	osa@FreeBSD.org
+COMMENT=	Just-In-Time Compiler for Lua
+
+WRKSRC=		${WRKDIR}/LuaJIT-${DISTVERSION}
+USES=		gmake
+USE_LDCONFIG=	yes
+
+PLIST_SUB+=	VERSION=${DISTVERSION}
+
+ONLY_FOR_ARCHS=	i386 amd64 armv6
+ONLY_FOR_ARCHS_REASON=	Requires newer gcc/clang to compile.
+
+.include <bsd.port.pre.mk>
+
+post-install:
+	${LN} -sf ${PREFIX}/bin/${PORTNAME}-${DISTVERSION} \
+		${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+	@${INSTALL_MAN} ${WRKSRC}/etc/luajit.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+
+.include <bsd.port.post.mk>

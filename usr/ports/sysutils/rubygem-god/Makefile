@@ -1,0 +1,21 @@
+# Created by: Robert Gogolok <gogo@cs.uni-sb.de>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/rubygem-god/Makefile 400310 2015-10-27 15:54:11Z sunpoet $
+
+PORTNAME=	god
+PORTVERSION=	0.13.7
+CATEGORIES=	sysutils rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Monitoring framework written in Ruby
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/god
+
+.include <bsd.port.mk>

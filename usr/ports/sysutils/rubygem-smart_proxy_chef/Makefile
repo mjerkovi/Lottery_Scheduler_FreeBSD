@@ -1,0 +1,31 @@
+# Created by: Michael Moll <ruby@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/rubygem-smart_proxy_chef/Makefile 405015 2016-01-01 17:05:54Z mmoll $
+
+PORTNAME=	smart_proxy_chef
+PORTVERSION=	0.1.5
+CATEGORIES=	sysutils ruby
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Chef Plug-In for Foreman's Smart Proxy
+
+LICENSE=	GPLv3
+
+RUN_DEPENDS=	foreman-proxy>=1.8.0:${PORTSDIR}/net/foreman-proxy \
+		rubygem-chef-api>0:${PORTSDIR}/sysutils/rubygem-chef-api
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+post-install:
+		${MKDIR} ${STAGEDIR}${PREFIX}/etc/foreman-proxy/settings.d
+		${INSTALL_DATA} ${WRKSRC}/settings.d/chef.yml.example \
+			${STAGEDIR}${PREFIX}/etc/foreman-proxy/settings.d/chef.yml.sample
+		${MKDIR} ${STAGEDIR}${PREFIX}/share/foreman-proxy/bundler.d
+		${INSTALL_DATA} ${WRKSRC}/bundler.d/chef.rb \
+			${STAGEDIR}${PREFIX}/share/foreman-proxy/bundler.d/chef.rb
+
+.include <bsd.port.mk>

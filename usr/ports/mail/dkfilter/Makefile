@@ -1,0 +1,33 @@
+# Created by: Yoshisato YANAGISAWA
+# $FreeBSD: tags/RELEASE_10_3_0/mail/dkfilter/Makefile 394981 2015-08-21 17:05:37Z amdmi3 $
+
+PORTNAME=	dkfilter
+PORTVERSION=	0.11
+PORTREVISION=	1
+CATEGORIES=	mail
+MASTER_SITES=	http://jason.long.name/dkfilter/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Domainkeys filter for Postfix
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+BUILD_DEPENDS=	p5-Crypt-OpenSSL-RSA>=0:${PORTSDIR}/security/p5-Crypt-OpenSSL-RSA \
+		p5-Mail-Tools>=0:${PORTSDIR}/mail/p5-Mail-Tools \
+		p5-Net-DNS>=0:${PORTSDIR}/dns/p5-Net-DNS \
+		p5-Net-Server>=0:${PORTSDIR}/net/p5-Net-Server
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+GNU_CONFIGURE=	yes
+USES=		perl5
+USE_RC_SUBR=	dkfilter_in dkfilter_out
+NO_ARCH=	yes
+
+USERS=		${DKFILTER_USERNAME}
+GROUPS=		${DKFILTER_GROUPNAME}
+
+DKFILTER_USERNAME?=	dkfilter
+DKFILTER_GROUPNAME?=	${DKFILTER_USERNAME}
+
+.include <bsd.port.mk>

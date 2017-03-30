@@ -1,0 +1,27 @@
+# Created by: Marcus Glocker <marcus@nazgul.ch>
+# $FreeBSD: tags/RELEASE_10_3_0/net/wmwlmon/Makefile 397879 2015-09-25 21:24:21Z linimon $
+
+PORTNAME=	wmwlmon
+PORTVERSION=	1.0
+CATEGORIES=	net windowmaker
+MASTER_SITES=	http://www.nazgul.ch/dev/
+DISTNAME=	wmwlmon-${PORTVERSION}
+
+MAINTAINER=	LukeD@pobox.com
+COMMENT=	DockApp showing the state of a wireless network device
+
+USE_XORG=	x11 xpm
+
+PLIST_FILES=	bin/wmwlmon man/man1/wmwlmon.1.gz
+
+BROKEN_sparc64=	fails to build
+
+post-patch:
+	${REINPLACE_CMD} -e 's#/usr/X11R6#${LOCALBASE}#g' \
+		-e 's#/usr/local#${LOCALBASE}#g' ${WRKSRC}/Makefile
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/wmwlmon ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/wmwlmon.1 ${STAGEDIR}${MANPREFIX}/man/man1
+
+.include <bsd.port.mk>

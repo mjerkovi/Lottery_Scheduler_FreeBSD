@@ -1,0 +1,42 @@
+# Created by: Matt Lancereau <matt@rimasec.net>
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/orage/Makefile 393429 2015-08-02 15:03:19Z tijl $
+
+PORTNAME=	orage
+PORTVERSION=	4.12.1
+PORTREVISION=	1
+CATEGORIES=	deskutils xfce
+MASTER_SITES=	XFCE/src/apps/${PORTNAME}/${PORTVERSION:R}/
+DIST_SUBDIR=	xfce4
+
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Calendar application for the Xfce Desktop
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libpopt.so:${PORTSDIR}/devel/popt \
+	libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
+	libical.so:${PORTSDIR}/devel/libical
+
+GNU_CONFIGURE=	yes
+INSTALLS_ICONS=	yes
+USES=		pkgconfig libtool gettext desktop-file-utils gmake \
+	xfce tar:bzip2
+USE_GNOME=	gtk20 intltool intlhack
+USE_XFCE=	panel
+
+OPTIONS_DEFINE=	NOTIFY
+OPTIONS_DEFAULT=	NOTIFY
+NOTIFY_LIB_DEPENDS=	libnotify.so:${PORTSDIR}/devel/libnotify
+NOTIFY_CONFIGURE_ENABLE=	libnotify
+
+CFLAGS+=	-I${LOCALBASE}/include/libical
+
+CONFIGURE_ARGS=	--enable-dbus
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|(datadir)/orage/doc/C|(datadir)/doc/orage/C|' \
+		${WRKSRC}/doc/C/Makefile.in \
+		${WRKSRC}/doc/C/images/Makefile.in
+
+.include <bsd.port.mk>

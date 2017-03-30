@@ -1,0 +1,20 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/html2fo/Makefile 341602 2014-01-28 15:49:30Z mat $
+
+PORTNAME=	html2fo
+PORTVERSION=	0.4.2
+CATEGORIES=	textproc
+MASTER_SITES=	SF
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	HTML to xsl:fo converter
+
+PLIST_FILES=	bin/html2fo
+WRKSRC=		${WRKDIR}/${PORTNAME}
+
+MAKE_ARGS=	CC="${CC}" CFLAGS="${CFLAGS}"
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/html2fo ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

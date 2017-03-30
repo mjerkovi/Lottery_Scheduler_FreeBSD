@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/games/tuxfighter/files/tuxfighter.in 335241 2013-11-29 22:26:25Z nemysis $
+#
+
+cd "%%DATADIR%%"
+exec %%PYTHON_CMD%% ./TuxFighter54.py "${@}"

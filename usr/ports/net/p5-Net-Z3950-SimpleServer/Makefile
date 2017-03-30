@@ -1,0 +1,24 @@
+# Created by: Dmitry Sivachenko <demon@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-Z3950-SimpleServer/Makefile 388070 2015-05-31 13:16:29Z amdmi3 $
+
+PORTNAME=	Net-Z3950-SimpleServer
+PORTVERSION=	1.20
+PORTREVISION=	1
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	demon@FreeBSD.org
+COMMENT=	Perl module for developing Z39.50 servers
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libyaz.so:${PORTSDIR}/net/yaz
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	ztest.pl grs_test.pl logging-server.pl
+USE_PERL5=	configure
+CONFIGURE_ENV=	LOCALBASE=${LOCALBASE}
+
+.include <bsd.port.mk>

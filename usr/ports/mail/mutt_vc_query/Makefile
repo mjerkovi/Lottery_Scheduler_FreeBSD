@@ -1,0 +1,31 @@
+# Created by: Oliver Braun
+# $FreeBSD: tags/RELEASE_10_3_0/mail/mutt_vc_query/Makefile 396018 2015-09-03 16:37:31Z amdmi3 $
+
+PORTNAME=	mutt_vc_query
+PORTVERSION=	002
+CATEGORIES=	mail
+MASTER_SITES=	SF/rolo/${PORTNAME}/${PORTVERSION}
+
+MAINTAINER=	jgh@FreeBSD.org
+COMMENT=	vCard query utility for mutt
+
+RUN_DEPENDS=	libvc>=003:${PORTSDIR}/devel/libvc
+BUILD_DEPENDS:=	${RUN_DEPENDS}
+
+USES=		tar:bzip2
+GNU_CONFIGURE=	yes
+CFLAGS+=	-I${PREFIX}/include \
+		-L${PREFIX}/lib
+
+PORTDOCS=	*
+PLIST_FILES=	bin/mutt_vc_query man/man1/mutt_vc_query.1.gz
+
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for DOC in AUTHORS ChangeLog NEWS README THANKS
+	${INSTALL_DATA} ${WRKSRC}/${DOC} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

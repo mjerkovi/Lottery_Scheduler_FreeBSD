@@ -1,0 +1,27 @@
+# Created by: Zane C. Bowers
+# $FreeBSD: tags/RELEASE_10_3_0/shells/shell-include/Makefile 385855 2015-05-09 02:10:09Z amdmi3 $
+
+PORTNAME=	shell-include
+PORTVERSION=	0.1.2
+PORTREVISION=	1
+CATEGORIES=	shells devel
+MASTER_SITES=	http://vvelox.net/src/shell-include/
+
+MAINTAINER=	vvelox@vvelox.net
+COMMENT=	Include system for shell scripts
+
+USES=		perl5
+
+USES=		perl5 tar:tgz
+USE_PERL5=	build
+NO_BUILD=	yes
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local/bin/pod2man|${LOCALBASE}/bin/pod2man|' \
+		${WRKSRC}/install
+
+do-install:
+	cd ${WRKSRC}/ ; ${SETENV} DESTDIR=${STAGEDIR} \
+		${SH} ${WRKSRC}/install ${PREFIX}
+
+.include <bsd.port.mk>

@@ -1,0 +1,19 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/krfb/Makefile 390310 2015-06-22 18:33:20Z antoine $
+
+PORTNAME=	krfb
+PORTVERSION=	${KDE4_VERSION}
+CATEGORIES=	net kde
+MASTER_SITES=	KDE/${KDE4_BRANCH}/${PORTVERSION}/src
+DIST_SUBDIR=	KDE/${PORTVERSION}
+
+MAINTAINER=	kde@FreeBSD.org
+COMMENT=	VNC server for KDE
+
+LIB_DEPENDS=	libtelepathy-qt4.so:${PORTSDIR}/net-im/telepathy-qt4
+
+USES=		alias cmake:outsource jpeg tar:xz
+USE_KDE4=	kdelibs kdeprefix automoc4
+USE_QT4=	corelib gui network \
+		moc_build qmake_build rcc_build uic_build
+
+.include <bsd.port.mk>

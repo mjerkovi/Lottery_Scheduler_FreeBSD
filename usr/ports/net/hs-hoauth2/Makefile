@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/hs-hoauth2/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	hoauth2
+PORTVERSION=	0.4.8
+CATEGORIES=	net haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Haskell OAuth2 authentication
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	aeson>=0.7 http-conduit>=2.0 http-types>=0.8 text>=0.11
+
+FLAGS_DISABLE=	test
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

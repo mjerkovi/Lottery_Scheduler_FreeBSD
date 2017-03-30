@@ -1,0 +1,39 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/cask/Makefile 403254 2015-12-08 09:04:59Z mat $
+
+PORTNAME=	cask
+PORTVERSION=	0.7.0
+DISTVERSIONPREFIX=	v
+PORTREVISION=	3
+CATEGORIES=	devel elisp
+
+MAINTAINER=	rpaulo@FreeBSD.org
+COMMENT=	Project management tool for Emacs
+
+LICENSE=	GPLv3
+
+USE_GITHUB=	yes
+USE_EMACS=	yes
+USES=		python
+
+NO_BUILD=	yes
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|os.path.dirname(CASK_BIN_DIRECTORY)|"${PREFIX}/${EMACS_SITE_LISPDIR}"|' \
+		${WRKSRC}/bin/cask
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/cask.el \
+		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}
+	${INSTALL_DATA} ${WRKSRC}/cask-bootstrap.el \
+		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}
+	${INSTALL_DATA} ${WRKSRC}/cask-cli.el \
+		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/templates
+	${INSTALL_DATA} ${WRKSRC}/templates/init.tpl \
+		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/templates
+	${INSTALL_DATA} ${WRKSRC}/templates/init-dev.tpl \
+		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}/templates
+	${INSTALL_SCRIPT} ${WRKSRC}/bin/cask \
+		${STAGEDIR}${PREFIX}/bin/cask
+
+.include <bsd.port.mk>

@@ -1,0 +1,22 @@
+# Created by: e-masson@kisoft-services.com
+# $FreeBSD: tags/RELEASE_10_3_0/print/psdim/Makefile 395047 2015-08-22 17:48:35Z hrs $
+
+PORTNAME=	psdim
+PORTVERSION=	1.4
+PORTREVISION=	7
+CATEGORIES=	print
+MASTER_SITES=	http://www.mathstat.dal.ca/~selinger/psdim/download/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Calculates the optimal placement of the pages for n-up printing
+
+LICENSE=	GPLv2
+
+USES=		ghostscript
+
+HAS_CONFIGURE=	yes
+CONFIGURE_ARGS=	--prefix=${PREFIX}
+
+PLIST_FILES=	bin/psdim man/man1/psdim.1.gz
+
+.include <bsd.port.mk>

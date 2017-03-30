@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/games/barbie_seahorse_adventures/files/barbie_seahorse_adventures.in 335793 2013-12-06 23:38:48Z nemysis $
+#
+
+cd "%%DATADIR%%"
+exec %%PYTHON_CMD%% ./run_game.py "${@}"

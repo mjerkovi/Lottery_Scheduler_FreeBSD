@@ -1,0 +1,19 @@
+# Created by: Dennis Herrmann <adox@mcx2.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-trollop/Makefile 391314 2015-07-04 16:17:25Z sunpoet $
+
+PORTNAME=	trollop
+PORTVERSION=	2.1.2
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Commandline option parser for Ruby that gets out of your way
+
+LICENSE=	MIT
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

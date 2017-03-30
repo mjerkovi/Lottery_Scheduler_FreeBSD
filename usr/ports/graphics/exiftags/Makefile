@@ -1,0 +1,32 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/exiftags/Makefile 386212 2015-05-13 13:03:46Z amdmi3 $
+
+PORTNAME=	exiftags
+PORTVERSION=	1.01
+CATEGORIES=	graphics
+MASTER_SITES=	http://johnst.org/sw/exiftags/
+
+MAINTAINER=	multimedia@FreeBSD.org
+COMMENT=	Parses a specified JPEG file for a JPEG APP1 section containing Exif data
+
+LICENSE=	BSD4CLAUSE
+
+USES=		cpe
+CPE_VENDOR=	aertherwide
+MAKE_ARGS=	CC="${CC}" CFLAGS="${CFLAGS}" PREFIX="${PREFIX}"
+
+DOCS=		CHANGES README
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+.for i in exifcom exiftags exiftime
+	${INSTALL_PROGRAM} ${WRKSRC}/${i} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/${i}.1 ${STAGEDIR}${MANPREFIX}/man/man1
+.endfor
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for i in CHANGES README
+	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

@@ -1,0 +1,5 @@
+A binary serialization library, similar to binary, that introduces an
+isolate primitive for parser isolation, and labeled blocks for better
+error messages.
+
+WWW: http://hackage.haskell.org/package/cereal

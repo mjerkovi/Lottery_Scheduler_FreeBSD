@@ -1,0 +1,32 @@
+# Created by: Tom McLaughlin <tmclaugh@sdf.lonestar.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/xsp/Makefile 387192 2015-05-23 23:30:23Z antoine $
+
+PORTNAME=	xsp
+PORTVERSION=	3.0.11
+CATEGORIES=	www
+
+MAINTAINER=	mono@FreeBSD.org
+COMMENT=	Mono based web server
+
+LICENSE=	MIT
+
+MAKE_JOBS_UNSAFE=	yes
+
+GH_ACCOUNT=	mono
+USE_GITHUB=	yes
+USE_SQLITE=	3
+USES=		gmake mono pathfix pkgconfig tar:bzip2
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV=	ac_cv_path_GMCS=${LOCALBASE}/bin/mcs
+USE_AUTOTOOLS=	automake autoconf aclocal
+PATHFIX_MAKEFILEIN=Makefile.am
+
+AUTOMAKE_ARGS=	--add-missing --copy
+ACLOCAL_ARGS=	-I build/m4/shamrock -I build/m4/shave
+
+PLIST_SUB+=	PORTVERSION=${PORTVERSION}
+
+pre-install:
+	${MKDIR} ${STAGEDIR}${XSP_DOCROOT}
+
+.include <bsd.port.mk>

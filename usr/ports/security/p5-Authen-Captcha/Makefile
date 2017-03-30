@@ -1,0 +1,21 @@
+# Created by: tobez@FreeBSD.org
+# $FreeBSD: tags/RELEASE_10_3_0/security/p5-Authen-Captcha/Makefile 376752 2015-01-11 13:29:13Z sunpoet $
+
+PORTNAME=	Authen-Captcha
+PORTVERSION=	1.024
+CATEGORIES=	security perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Perl module to verify the human element in transactions
+
+LICENSE=	GPLv2
+
+BUILD_DEPENDS=	p5-GD>=0:${PORTSDIR}/graphics/p5-GD
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

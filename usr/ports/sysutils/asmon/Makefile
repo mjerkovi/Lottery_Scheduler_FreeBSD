@@ -1,0 +1,33 @@
+# Created by: jack
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/asmon/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	asmon
+PORTVERSION=	0.61
+PORTREVISION=	3
+CATEGORIES=	sysutils afterstep
+MASTER_SITES=	AFTERSTEP/apps/asmon
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Swallowable applet monitors the CPU usage, memory, and swap, etc
+
+LICENSE=	GPLv2
+
+USE_XORG=	xpm x11
+
+BUILD_WRKSRC=	${WRKDIR}/${PORTNAME}-${PORTVERSION}/asmon
+CFLAGS+=	-I${LOCALBASE}/include
+USES=		gmake
+USE_CSTD=	gnu89
+ALL_TARGET=	asmon
+MAKE_ARGS+=	LIBDIR="-L${LOCALBASE}/lib" \
+		SOLARIS_LIBS=-lkvm
+
+PLIST_FILES=	"@(,kmem,) bin/asmon"
+
+post-patch:
+	${REINPLACE_CMD} -e 's:gcc:${CC} ${CFLAGS}:' ${BUILD_WRKSRC}/Makefile
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/asmon/asmon ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

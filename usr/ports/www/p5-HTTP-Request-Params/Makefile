@@ -1,0 +1,33 @@
+# Created by: mat
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-HTTP-Request-Params/Makefile 394124 2015-08-13 17:35:13Z sunpoet $
+
+PORTNAME=	HTTP-Request-Params
+PORTVERSION=	1.02
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Retrieve GET/POST Parameters from HTTP Requests
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Class-Accessor>=0.19:${PORTSDIR}/devel/p5-Class-Accessor \
+		p5-Email-MIME-ContentType>=1:${PORTSDIR}/mail/p5-Email-MIME-ContentType \
+		p5-Email-MIME>=1.420:${PORTSDIR}/mail/p5-Email-MIME \
+		p5-HTTP-Message>=1.40:${PORTSDIR}/www/p5-HTTP-Message
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+NO_ARCH=	yes
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} >= 502200
+BUILD_DEPENDS+=	p5-CGI>=3:${PORTSDIR}/www/p5-CGI
+RUN_DEPENDS+=	p5-CGI>=3:${PORTSDIR}/www/p5-CGI
+.endif
+
+.include <bsd.port.post.mk>

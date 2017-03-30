@@ -1,0 +1,22 @@
+# Created by: Nicola Vitale <nivit@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-tgwebservices/Makefile 376109 2015-01-03 08:41:20Z mva $
+
+PORTNAME=	tgwebservices
+PORTVERSION=	1.2.4
+CATEGORIES=	www python
+MASTER_SITES=	CHEESESHOP \
+		LOCAL/nivit/${PYTGWEBSERVICES}/
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	TGWebServices-${PORTVERSION}
+
+MAINTAINER=	python@FreeBSD.org
+COMMENT=	Multiprotocol Web Services for TurboGears
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}TurboGears>=1.1.2:${PORTSDIR}/www/py-turbogears \
+		${PYTHON_PKGNAMEPREFIX}Genshi>=0.3.6:${PORTSDIR}/textproc/py-genshi
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

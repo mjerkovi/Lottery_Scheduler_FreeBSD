@@ -1,0 +1,34 @@
+# Created by: Munechika SUMIKAWA <sumikawa@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/dhcp6/Makefile 401318 2015-11-12 03:46:05Z hrs $
+
+PORTNAME=	dhcp6
+PORTVERSION=	20080615
+PORTREVISION=	3
+CATEGORIES=	net ipv6
+MASTER_SITES=	SF/wide-dhcpv6/wide-dhcpv6/wide-dhcpv6-${PORTVERSION}
+DISTNAME=	wide-dhcpv6-${PORTVERSION}
+
+MAINTAINER=	hrs@FreeBSD.org
+COMMENT=	KAME DHCP6 client, server, and relay
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/COPYRIGHT
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--sysconfdir=${LOCALBASE}/etc \
+		--with-localdbdir=/var/db
+USE_RC_SUBR=	dhcp6c dhcp6relay dhcp6s
+PORTDOCS=	README
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	cd ${WRKSRC} && ${INSTALL_DATA} \
+	    dhcp6c.conf.sample dhcp6s.conf.sample \
+	    ${STAGEDIR}${PREFIX}/etc
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,35 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/fortytwo-encore/Makefile 397315 2015-09-19 10:33:34Z theraven $
+
+PORTNAME=	encore
+PORTVERSION=	0.3.1
+PORTREVISION=	4
+CATEGORIES=	devel gnustep
+MASTER_SITES=	SF/fortytwo/Encore/${PORTVERSION}
+PKGNAMEPREFIX=	fortytwo-
+DISTFILES=	Encore-${PORTVERSION}-src.tgz \
+		Encore-${PORTVERSION}-api-ref.tgz
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Utility classes for GNUstep
+
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		gnustep
+USE_GNUSTEP=	back build
+DEFAULT_LIBVERSION=	0.1
+USE_LDCONFIG=	${GNUSTEP_LOCAL_LIBRARIES}
+
+WRKSRC=		${WRKDIR}/Encore
+DOCSDIR=	${GNUSTEP_PREFIX}/Local/Library/Documentation/Encore
+
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKDIR}/Encore-${PORTVERSION}-api-ref && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Library/Frameworks/Encore.framework/Versions/0/libEncore.so
+
+.include <bsd.port.mk>

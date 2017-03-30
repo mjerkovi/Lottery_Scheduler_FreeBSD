@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/net/micro_proxy/pkg-deinstall 340719 2014-01-22 15:52:06Z mat $
+#
+
+case $2 in
+POST-DEINSTALL)
+cat << "EOF"
+===============================================================================
+Micro_proxy has been successfully deinstalled. If you ran it with inetd(8) make
+sure you remove all the manual configuration.
+===============================================================================
+EOF
+;;
+esac

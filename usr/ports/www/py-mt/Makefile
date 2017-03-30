@@ -1,0 +1,22 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-mt/Makefile 376109 2015-01-03 08:41:20Z mva $
+
+PORTNAME=	mt
+PORTVERSION=	1.0
+CATEGORIES=	www python
+MASTER_SITES=	SF/py${PORTNAME}/py${PORTNAME}/PyMT-${PORTVERSION}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	PyMT-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Python module which provides Movable Type XML-RPC connectivity
+
+USES=		python:2
+NO_BUILD=	yes
+PLIST_FILES=	%%PYTHON_SITELIBDIR%%/PyMT.py
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
+	@${INSTALL_DATA} ${WRKSRC}/PyMT.py ${STAGEDIR}${PYTHON_SITELIBDIR}
+
+.include <bsd.port.mk>

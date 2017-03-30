@@ -1,0 +1,57 @@
+# Created by: Dmitry Frolov <frol@nov.net>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/ipmitool/Makefile 402946 2015-12-04 12:33:07Z sunpoet $
+
+PORTNAME=	ipmitool
+PORTVERSION=	1.8.15
+PORTREVISION=	1
+CATEGORIES=	sysutils
+MASTER_SITES=	SF
+
+MAINTAINER=	steve.polyack@intermedix.com
+COMMENT=	CLI to manage IPMI systems
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		cpe tar:bzip2 gmake readline
+CPE_VENDOR=	sun
+USE_OPENSSL=	yes
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS+=--enable-intf-lan --enable-intf-lanplus \
+		--disable-intf-imb --disable-intf-lipmi --disable-intf-bmc
+PLIST_FILES=	bin/ipmitool man/man1/ipmitool.1.gz man/man8/ipmievd.8.gz \
+		sbin/ipmievd share/ipmitool/oem_ibm_sel_map \
+		${PERIODIC_DIR}/400.status-ipmi
+SUB_FILES=	status-ipmi.sh
+PORTDOCS=	AUTHORS COPYING ChangeLog README
+
+PERIODIC_DIR=	etc/periodic/daily
+
+OPTIONS_DEFINE=	FREEIPMI DOCS
+FREEIPMI_DESC=	Enable support for freeipmi
+
+CFLAGS+=	-I${OPENSSLINC}
+LDFLAGS+=	-L${OPENSSLLIB}
+
+.if defined(WITH_DEBUG)
+CFLAGS+=	-ggdb -Wall
+.endif
+
+.if exists(/usr/include/sys/ipmi.h)
+CONFIGURE_ARGS+=	--enable-intf-open
+.else
+CONFIGURE_ARGS+=	--disable-intf-open
+.endif
+
+DOCS_EXTRA_PATCHES_OFF=	${PATCHDIR}/extra-patch-Makefile.in
+
+FREEIPMI_LIB_DEPENDS=	libfreeipmi.so:${PORTSDIR}/sysutils/freeipmi
+FREEIPMI_CPPFLAGS=	-I${LOCALBASE}/include
+FREEIPMI_LDFLAGS=	-L${LOCALBASE}/lib
+FREEIPMI_CONFIGURE_ENABLE=	intf-free
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${PERIODIC_DIR}
+	${INSTALL_SCRIPT} ${WRKDIR}/status-ipmi.sh ${STAGEDIR}${PREFIX}/${PERIODIC_DIR}/400.status-ipmi
+
+.include <bsd.port.mk>

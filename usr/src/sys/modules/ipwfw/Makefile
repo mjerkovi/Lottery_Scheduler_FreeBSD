@@ -1,0 +1,7 @@
+# $FreeBSD: releng/10.3/sys/modules/ipwfw/Makefile 167165 2007-03-02 11:42:56Z flz $
+
+SUBDIR=	ipw_bss	\
+	ipw_ibss \
+	ipw_monitor
+
+.include <bsd.subdir.mk>

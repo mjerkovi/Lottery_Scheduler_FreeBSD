@@ -1,0 +1,27 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/misc/p5-Geo-Coder-Geocoder-US/Makefile 394092 2015-08-13 17:32:34Z sunpoet $
+
+PORTNAME=	Geo-Coder-Geocoder-US
+PORTVERSION=	0.005
+CATEGORIES=	misc geography perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Geocode a location using http://geocoder.us/
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Text-CSV>=0:${PORTSDIR}/textproc/p5-Text-CSV \
+		p5-URI>=0:${PORTSDIR}/net/p5-URI \
+		p5-libwww>=0:${PORTSDIR}/www/p5-libwww
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+PORTSCOUT=	limit:^[0-9\.]*$$
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

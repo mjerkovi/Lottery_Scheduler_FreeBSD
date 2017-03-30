@@ -1,0 +1,24 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-AnyEvent-Mojo/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	AnyEvent-Mojo
+PORTVERSION=	0.8003
+PORTREVISION=	2
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	kuriyama@FreeBSD.org
+COMMENT=	Perl extension to start async Mojo servers easily
+
+RUN_DEPENDS=	\
+	p5-AnyEvent>=5.201:${PORTSDIR}/devel/p5-AnyEvent \
+	p5-AnyEvent-HTTP>=1.43:${PORTSDIR}/www/p5-AnyEvent-HTTP \
+	p5-Mojolicious>=0.991251:${PORTSDIR}/www/p5-Mojolicious
+#	p5-Test-Deep>0:${PORTSDIR}/devel/p5-Test-Deep \
+#	p5-Test-Exception>0:${PORTSDIR}/devel/p5-Test-Exception
+BUILD_DEPENDS:=	${RUN_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

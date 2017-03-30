@@ -1,0 +1,25 @@
+# Created by: Mikle Davidkin <skylord@vt.net.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/net-p2p/verlihub-plugins/Makefile 392216 2015-07-15 20:58:33Z pgollucci $
+
+PORTNAME=	verlihub
+PORTVERSION=	1.0
+PORTREVISION=	3
+CATEGORIES=	net-p2p
+PKGNAMESUFFIX=	-plugins
+
+MAINTAINER=	skylord@vt.net.ru
+COMMENT=	Meta-port for VerliHub plugins
+
+RUN_DEPENDS=	\
+		${LOCALBASE}/lib/libchatroom_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-chatroom \
+		${LOCALBASE}/lib/libfloodprot_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-floodprotect \
+		${LOCALBASE}/lib/libforbid_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-forbid \
+		${LOCALBASE}/lib/libiplog_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-iplog \
+		${LOCALBASE}/lib/libisp_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-isp \
+		${LOCALBASE}/lib/liblua_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-luascript \
+		${LOCALBASE}/lib/libmessanger_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-messanger \
+		${LOCALBASE}/lib/libstats_pi.so:${PORTSDIR}/net-p2p/verlihub-plugins-stats
+
+USES=		metaport
+
+.include <bsd.port.mk>

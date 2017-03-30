@@ -1,0 +1,19 @@
+# Created by: Jacob Atzen <jatzen@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-daemon_controller/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	daemon_controller
+PORTVERSION=	1.2.0
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+PKGNAMEPREFIX=	rubygem-
+
+MAINTAINER=	osa@FreeBSD.org
+COMMENT=	Library for implementing daemon management capabilities
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

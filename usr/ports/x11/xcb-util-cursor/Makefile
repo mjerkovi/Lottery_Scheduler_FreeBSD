@@ -1,0 +1,28 @@
+# $FreeBSD: tags/RELEASE_10_3_0/x11/xcb-util-cursor/Makefile 398833 2015-10-08 15:12:22Z olgeni $
+
+PORTNAME=	xcb-util-cursor
+PORTVERSION=	0.1.2
+CATEGORIES=	x11
+MASTER_SITES=	http://xcb.freedesktop.org/dist/
+
+MAINTAINER=	x11@FreeBSD.org
+COMMENT=	XCB cursor library
+
+BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/xcb-util.pc:${PORTSDIR}/x11/xcb-util \
+		${LOCALBASE}/libdata/pkgconfig/xcb-renderutil.pc:${PORTSDIR}/x11/xcb-util-renderutil \
+		${LOCALBASE}/libdata/pkgconfig/xcb-image.pc:${PORTSDIR}/x11/xcb-util-image
+
+RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/xcb-util.pc:${PORTSDIR}/x11/xcb-util \
+		${LOCALBASE}/libdata/pkgconfig/xcb-renderutil.pc:${PORTSDIR}/x11/xcb-util-renderutil \
+		${LOCALBASE}/libdata/pkgconfig/xcb-image.pc:${PORTSDIR}/x11/xcb-util-image
+
+XORG_CAT=	lib
+USE_XORG=	xcb
+USES=		gmake gperf
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|$${libdir}/pkgconfig|$${prefix}/libdata/pkgconfig|' \
+		${WRKSRC}/configure
+
+.include <bsd.port.mk>

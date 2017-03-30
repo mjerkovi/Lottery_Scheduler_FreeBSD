@@ -1,0 +1,19 @@
+# Created by: Alonso Cardenas Marquez <acm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/asio/Makefile 373985 2014-12-04 22:01:50Z mi $
+
+PORTNAME=	asio
+PORTVERSION=	1.10.4
+CATEGORIES=	net devel
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}%20(Stable)/
+
+MAINTAINER=	acm@FreeBSD.org
+COMMENT=	Cross-platform C++ library for network and low-level I/O programming
+
+RUN_DEPENDS=	${LOCALBASE}/include/boost/chrono/system_clocks.hpp:${PORTSDIR}/devel/boost-libs
+
+GNU_CONFIGURE=	yes
+USES=		gmake tar:bz2
+NO_BUILD=	yes
+INSTALL_TARGET=	install-data
+
+.include <bsd.port.mk>

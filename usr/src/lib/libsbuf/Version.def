@@ -1,0 +1,10 @@
+# $FreeBSD: releng/10.3/lib/libsbuf/Version.def 284435 2015-06-16 02:31:11Z ken $
+
+FBSD_1.2 {
+};
+
+FBSD_1.3 {
+} FBSD_1.2;
+
+FBSD_1.4 {
+} FBSD_1.3;

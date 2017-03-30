@@ -1,0 +1,47 @@
+# Created by: Andrew Turner <andrew+ports@fubar.geek.nz>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/lua-posix/Makefile 398925 2015-10-09 16:57:58Z marino $
+
+PORTNAME=	posix
+PORTVERSION=	33.3.1
+DISTVERSIONPREFIX=	release-v
+CATEGORIES=	devel
+PKGNAMEPREFIX=	${LUA_PKGNAMEPREFIX}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	POSIX layer for Lua
+
+LICENSE=	MIT
+
+USES=		lua libtool perl5
+USE_PERL5=	build
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV=	LUA_INCLUDE="-I${LUA_INCDIR}" \
+		LUA="${LOCALBASE}/bin/lua${LUA_VER_STR}"
+CONFIGURE_ARGS=	--disable-silent-rules
+MAKE_ARGS=	POSIX_EXTRA_CFLAGS="" POSIX_EXTRA_LDFLAGS=""
+INSTALL_TARGET=	install-strip
+PORTDOCS=	*
+
+USE_GITHUB=	yes
+GH_PROJECT=	luaposix
+GH_ACCOUNT=	luaposix
+
+DOCSDIR=	${PREFIX}/share/doc/luaposix
+
+PLIST_FILES=	%%LUA_MODLIBDIR%%/posix.so \
+		%%LUA_MODSHAREDIR%%/curses.lua \
+		%%LUA_MODSHAREDIR%%/posix/_argcheck.lua \
+		%%LUA_MODSHAREDIR%%/posix/compat.lua \
+		%%LUA_MODSHAREDIR%%/posix/deprecated.lua \
+		%%LUA_MODSHAREDIR%%/posix/init.lua \
+		%%LUA_MODSHAREDIR%%/posix/sys.lua \
+		%%LUA_MODSHAREDIR%%/posix/util.lua
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|\(\*\|\)\(openbsd\*)\)|\1freebsd*\|dragonfly*\|\2| ; \
+		 s|"GNU strip"|"strip"|' ${WRKSRC}/configure
+
+.include <bsd.port.mk>

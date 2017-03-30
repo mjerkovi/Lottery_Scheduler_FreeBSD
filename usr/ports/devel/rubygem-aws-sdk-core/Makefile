@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-aws-sdk-core/Makefile 404453 2015-12-25 19:44:27Z sunpoet $
+
+PORTNAME=	aws-sdk-core
+PORTVERSION=	2.2.0
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	AWS SDK for Ruby - Core
+
+LICENSE=	APACHE20
+
+RUN_DEPENDS=	rubygem-jmespath>=1.0:${PORTSDIR}/devel/rubygem-jmespath
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/aws.rb
+
+.include <bsd.port.mk>

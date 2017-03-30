@@ -1,0 +1,42 @@
+# Created by: Sahil Tandon <sahil@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/py-graphy/Makefile 385784 2015-05-08 14:04:29Z amdmi3 $
+
+PORTNAME=	graphy
+PORTVERSION=	1.0
+CATEGORIES=	graphics python
+MASTER_SITES=	GOOGLE_CODE
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	${PORTNAME}_${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Simple chart library for Python
+
+LICENSE=	APACHE20
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		python:run tar:bzip2
+
+PORTDOCS=	README
+PORTEXAMPLES=	*
+
+NO_BUILD=	yes
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|python2.4|${PYTHON_VERSION}|' \
+		${WRKSRC}/examples/*.py \
+		${WRKSRC}/${PORTNAME}/*.py
+	@${FIND} ${WRKSRC} -name '.svn' -or -name '*.bak' | \
+		${XARGS} ${RM} -rf
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME}
+	@(cd ${WRKSRC}/${PORTNAME}/ && \
+	     ${COPYTREE_SHARE} . ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME})
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	@(cd ${WRKSRC}/examples/ && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
+
+.include <bsd.port.mk>

@@ -1,0 +1,16 @@
+# Created by: Alex Dupre <ale@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/xpi-adblock_plus/Makefile 403957 2015-12-18 08:42:50Z bar $
+
+PORTNAME=	adblock_plus
+PORTVERSION=	2.7
+DISTVERSIONSUFFIX=	-fx+sm+tb+an
+CATEGORIES=	www
+
+MAINTAINER=	bar@FreeBSD.org
+COMMENT=	Content filtering extension
+
+XPI_NUM=	1865
+XPI_ID=		{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}
+
+.include "../xpi-adblock/Makefile.xpi"
+.include <bsd.port.mk>

@@ -1,0 +1,37 @@
+# Created by: Seiichirou Hiraoka
+# $FreeBSD: tags/RELEASE_10_3_0/net/lambdamoo/Makefile 404869 2015-12-30 16:20:16Z amdmi3 $
+
+PORTNAME=	lambdamoo
+PORTVERSION=	1.8.1
+PORTREVISION=	1
+CATEGORIES=	net
+MASTER_SITES=	SF
+DISTNAME=	LambdaMOO-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	The most commonly used program to run MOOs
+
+USES=		bison
+GNU_CONFIGURE=	yes
+
+CONFIGURE_ENV=	YACC=${YACC}
+
+WRKSRC=		${WRKDIR}/MOO-${PORTVERSION}
+
+PLIST_FILES=	sbin/moo
+PORTDOCS=	*
+
+ALL_TARGET=
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/moo ${STAGEDIR}${PREFIX}/sbin
+
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}; ${INSTALL_DATA} Minimal.db README README.Minimal \
+		${STAGEDIR}${DOCSDIR})
+	${INSTALL_DATA} ${FILESDIR}/README.FreeBSD ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,19 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/hs-http-reverse-proxy/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	http-reverse-proxy
+PORTVERSION=	0.4.2
+CATEGORIES=	www haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Reverse proxy HTTP requests, either over raw sockets or with WAI
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	async blaze-builder>=0.3 case-insensitive>=0.4 conduit>=1.1 \
+		conduit-extra data-default-class http-client>=0.3 \
+		http-types>=0.6 lifted-base>=0.1 monad-control>=0.3 \
+		network resourcet streaming-commons text>=0.11 wai>=3.0 \
+		wai-logger word8>=0.0
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

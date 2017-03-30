@@ -1,0 +1,29 @@
+# Created by: Alexander Kriventsov
+# $FreeBSD: tags/RELEASE_10_3_0/ftp/net2ftp/Makefile 385360 2015-05-04 00:33:14Z eadler $
+
+PORTNAME=	net2ftp
+PORTVERSION=	1.0
+CATEGORIES=	ftp
+MASTER_SITES=	http://www.net2ftp.com/download/
+DISTNAME=	${PORTNAME}_v${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Web-based FTP client written in PHP
+
+LICENSE=	GPLv2
+
+USES=		zip
+NO_BUILD=	YES
+.if !defined(WITHOUT_PHP_DEPENDS)
+USE_PHP=	ftp mysql pcre session zlib
+.endif
+
+SUB_FILES+=	pkg-message
+
+do-install:
+	@(for samplefile in $$( ${FIND} ${WRKSRC}/files_to_upload -name "settings*.inc.php" ) ; do \
+		${MV} $$samplefile $$samplefile.sample ; \
+	done)
+	@(cd ${WRKSRC}/files_to_upload && ${COPYTREE_SHARE} . ${STAGEDIR}${WWWDIR})
+
+.include <bsd.port.mk>

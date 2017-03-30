@@ -1,0 +1,4 @@
+bin/diehard
+%%PORTDOCS%%%%DOCSDIR%%/NOTES
+%%PORTDOCS%%%%DOCSDIR%%/readme
+%%DATADIR%%/operm5.cov

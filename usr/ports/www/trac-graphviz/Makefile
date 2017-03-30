@@ -1,0 +1,32 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/trac-graphviz/Makefile 396437 2015-09-08 19:47:39Z amdmi3 $
+
+PORTNAME=	${PYDISTUTILS_PKGNAME:S;^Trac;;S;Plugin$;;:tl}
+PORTVERSION=	0.7.4
+PORTREVISION=	8
+CATEGORIES=	www devel graphics python
+MASTER_SITES=	LOCAL/brooks
+PKGNAMEPREFIX=	trac-
+DISTNAME=	${PORTNAME}plugin-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Graphviz plugin for Trac's wiki
+
+LICENSE=	BSD3CLAUSE
+
+RUN_DEPENDS+=	urwfonts>0:${PORTSDIR}/x11-fonts/urwfonts \
+		dot:${PORTSDIR}/graphics/graphviz \
+		tracd:${PORTSDIR}/www/trac
+
+USES=		python:2
+USE_PYTHON=	autoplist distutils
+PYDISTUTILS_PKGNAME=	graphviz
+NO_ARCH=	yes
+WRKSRC=		${WRKDIR}/${PORTNAME}plugin
+
+post-patch:
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
+	    -e 's|%%PREFIX%%|${PREFIX}|' \
+	    -e 's|%%OSMAJOR%%|${OSREL:C/\..*$//}|' \
+	${WRKSRC}/graphviz/graphviz.py
+
+.include <bsd.port.mk>

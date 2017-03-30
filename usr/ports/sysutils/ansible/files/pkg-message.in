@@ -1,0 +1,31 @@
+===============================================================================
+
+To use Ansible, you need at least a host database.
+If you installed examples, you will have a sample
+host database and a sample configuration file:
+
+  %%EXAMPLESDIR%%/hosts
+  %%EXAMPLESDIR%%/ansible.cfg
+
+To use Ansible to control FreeBSD hosts, you need to
+install the lang/python package on remote machines.
+
+To use Ansible to control systems other than FreeBSD,
+set the Python interpreter in the host database for
+that system. Example:
+
+  [freebsd]
+  host1
+  host2
+
+  [centos]
+  host3
+  host4
+
+  [centos:vars]
+  ansible_python_interpreter=/usr/bin/python
+
+If you have Python 3.x as the default, please set
+ansible_python_interpreter=%%LOCALBASE%%/bin/python2
+
+===============================================================================

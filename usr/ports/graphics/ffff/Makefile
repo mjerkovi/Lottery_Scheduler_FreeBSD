@@ -1,0 +1,44 @@
+# Created by: rossiya@gmail.com
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/ffff/Makefile 398031 2015-09-27 10:29:22Z antoine $
+
+PORTNAME=	ffff
+PORTVERSION=	323
+PORTREVISION=	6
+CATEGORIES=	graphics
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/FFFF%203.2.3
+DISTNAME=	FFFF${PORTVERSION}-src
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Fast Mandelbrot fractal generator
+
+BROKEN=		fails to link
+
+USE_XORG=	x11 xmu xext
+USE_GL=		gl glut
+USES=		dos2unix zip
+USE_GCC=	any
+
+SOURCE=		FFFF3 FragmentProgram FragmentProgramARB10 GPUProgram \
+		PixelBuffer VertexProgram VertexProgramATI VertexProgramNV \
+		extensions vpext
+
+CXXFLAGS+=	-I${LOCALBASE}/include/GL -D__linux__  -msse -msse2 -m3dnow \
+		-I${LOCALBASE}/include/
+LDFLAGS+=	-L${LOCALBASE}/lib -lpthread -lglut -lGL -lXext -lX11 -lXmu \
+		 -lGLU -lm
+
+PLIST_FILES=	bin/ffff
+
+# contains x86 assembler
+ONLY_FOR_ARCHS=	i386
+
+do-build:
+.for f in ${SOURCE}
+	${CXX} ${CXXFLAGS} -c ${WRKSRC}/${f}.cpp -o ${WRKSRC}/${f}.obj
+.endfor
+	${CXX} ${LDFLAGS} ${SOURCE:C/(.*)/${WRKSRC}\/\1.obj/} -o ${WRKSRC}/${PORTNAME}
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

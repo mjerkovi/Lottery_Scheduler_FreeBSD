@@ -1,0 +1,20 @@
+# Created by: Gea-Suan Lin <gslin@gslin.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Data-Range-Compare/Makefile 403508 2015-12-11 10:02:10Z sunpoet $
+
+PORTNAME=	Data-Range-Compare
+PORTVERSION=	1.031
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Find gaps & intersections in lists of ranges
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

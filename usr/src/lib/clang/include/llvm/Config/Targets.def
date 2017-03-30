@@ -1,0 +1,9 @@
+/* $FreeBSD: releng/10.3/lib/clang/include/llvm/Config/Targets.def 263763 2014-03-26 07:31:57Z dim $ */
+
+LLVM_TARGET(ARM)
+LLVM_TARGET(Mips)
+LLVM_TARGET(PowerPC)
+LLVM_TARGET(Sparc)
+LLVM_TARGET(X86)
+
+#undef LLVM_TARGET

@@ -1,0 +1,29 @@
+# Created by: Alexander Logvinov <ports@logvinov.com>
+# $FreeBSD: tags/RELEASE_10_3_0/misc/umodunpack/Makefile 400848 2015-11-05 12:36:25Z mat $
+
+PORTNAME=	umodunpack
+PORTVERSION=	0.4
+CATEGORIES=	misc
+MASTER_SITES=	http://www.deepsky.com/~misaka/scripts/
+DISTNAME=	${PORTNAME}.pl
+EXTRACT_SUFX=
+EXTRACT_ONLY=
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Unpack umod files for Unreal and/or Unreal Tournament
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	${DISTNAME}
+
+USE_PERL5=	run
+NO_WRKSUBDIR=	yes
+NO_BUILD=	yes
+PLIST_FILES=	bin/${DISTNAME}
+
+post-extract:
+	${CP} ${DISTDIR}/${DISTNAME} ${WRKSRC}
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/${DISTNAME}  ${STAGEDIR}${PREFIX}/bin/${DISTNAME}
+
+.include <bsd.port.mk>

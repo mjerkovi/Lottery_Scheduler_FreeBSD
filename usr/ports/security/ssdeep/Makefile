@@ -1,0 +1,20 @@
+# Created by: Nobutaka Mantani <nobutaka@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/ssdeep/Makefile 394436 2015-08-17 06:38:04Z nobutaka $
+
+PORTNAME=	ssdeep
+PORTVERSION=	2.13
+CATEGORIES=	security
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	nobutaka@FreeBSD.org
+COMMENT=	Tool for computing context triggered piecewise hashes
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+GNU_CONFIGURE=	yes
+USES=		gmake libtool
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+.include <bsd.port.mk>

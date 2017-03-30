@@ -1,0 +1,20 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/hs-yesod/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	yesod
+PORTVERSION=	1.4.1.5
+CATEGORIES=	www haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Creation of type-safe, RESTful web applications
+
+LICENSE=	MIT
+
+USE_CABAL=	aeson blaze-html>=0.5 blaze-markup>=0.5.1 conduit-extra \
+		data-default fast-logger monad-control>=0.3 monad-logger \
+		safe shakespeare>=2.0 streaming-commons text \
+		unordered-containers wai>=1.3 wai-extra>=1.3 wai-logger \
+		warp>=1.3 yaml yesod-auth>=1.4 yesod-core>=1.4 \
+		yesod-form>=1.3 yesod-persistent>=1.4
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

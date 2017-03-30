@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net-im/hs-haskell-xmpp/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	haskell-xmpp
+PORTVERSION=	1.0.2
+PORTREVISION=	1
+CATEGORIES=	net-im haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Haskell XMPP library based on HaXml & STM
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	HaXml>=1.23.3 html mtl>=1.0 network \
+		polyparse random regex-compat stm utf8-string
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

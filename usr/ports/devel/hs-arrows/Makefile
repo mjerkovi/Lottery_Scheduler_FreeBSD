@@ -1,0 +1,17 @@
+# Created by: Giuseppe Pilichi aka Jacula Modyun <jacula@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-arrows/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	arrows
+PORTVERSION=	0.4.4.1
+PORTREVISION=	9
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Haskell arrow classes and transformers
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	Stream
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

@@ -1,0 +1,27 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/jp2a/Makefile 390310 2015-06-22 18:33:20Z antoine $
+
+PORTNAME=	jp2a
+PORTVERSION=	1.0.6
+PORTREVISION=	6
+CATEGORIES=	graphics
+MASTER_SITES=	SF
+
+MAINTAINER=	ehaupt@FreeBSD.org
+COMMENT=	Converts JPG images to ASCII
+
+LIB_DEPENDS=	libcurl.so:${PORTSDIR}/ftp/curl
+
+USES=		jpeg tar:bzip2
+GNU_CONFIGURE=	yes
+
+CONFIGURE_ARGS=	--with-jpeg-prefix=${LOCALBASE} \
+		--with-curl-config=${LOCALBASE}/bin/curl-config
+
+PLIST_FILES=	bin/jp2a man/man1/jp2a.1.gz
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/src/jp2a ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/man/jp2a.1 ${STAGEDIR}${MANPREFIX}/man/man1
+
+.include <bsd.port.mk>

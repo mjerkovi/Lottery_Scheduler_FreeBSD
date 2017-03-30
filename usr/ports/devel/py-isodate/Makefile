@@ -1,0 +1,19 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-isodate/Makefile 403397 2015-12-09 14:27:15Z sunpoet $
+
+PORTNAME=	isodate
+PORTVERSION=	0.5.4
+CATEGORIES=	devel python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	ISO 8601 date/time/duration parser and formater
+
+LICENSE=	BSD3CLAUSE
+
+NO_ARCH=	yes
+USE_PYTHON=	autoplist concurrent distutils
+USES=		python
+
+.include <bsd.port.mk>

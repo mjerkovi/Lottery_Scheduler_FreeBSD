@@ -1,0 +1,13 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-auto-update/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	auto-update
+PORTVERSION=	0.1.2.2
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Efficiently run periodic, on-demand actions
+
+LICENSE=	MIT
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

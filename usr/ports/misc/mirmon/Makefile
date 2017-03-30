@@ -1,0 +1,43 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/misc/mirmon/Makefile 375721 2014-12-28 13:23:22Z antoine $
+
+PORTNAME=	mirmon
+PORTVERSION=	2.10
+CATEGORIES=	misc
+MASTER_SITES=	http://www.staff.science.uu.nl/~penni101/mirmon/
+
+MAINTAINER=	jadawin@FreeBSD.org
+COMMENT=	Monitor the status of mirrors
+
+NO_BUILD=	yes
+USES=		perl5
+USE_PERL5=	run
+
+USES=		shebangfix
+SHEBANG_FILES=	${WRKSRC}/mirmon ${WRKSRC}/probe
+
+SUB_FILES=	pkg-message
+
+PLIST_FILES=	bin/mirmon bin/probe
+
+OPTIONS_DEFINE=	DOCS
+
+PORTDOCS=	*
+
+post-patch:
+	@${REINPLACE_CMD} -e "s,/etc,${LOCALBASE}/etc," \
+		${WRKSRC}/mirmon ${WRKSRC}/mirmon.html ${WRKSRC}/probe
+	@${REINPLACE_CMD} -e "s,/usr/bin/wget,${LOCALBASE}/bin/wget," \
+		-e "s,/usr/bin/rsync,${LOCALBASE}/bin/rsync," ${WRKSRC}/probe
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/mirmon ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_SCRIPT} ${WRKSRC}/probe ${STAGEDIR}${PREFIX}/bin
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	${CP} -R ${WRKSRC}/countries.list ${WRKSRC}/icons ${STAGEDIR}${DATADIR}
+	@${FIND} ${STAGEDIR}${DATADIR} ! -type d | \
+		${SED} 's,^${STAGEDIR}${PREFIX}/,,' >> ${TMPPLIST}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${CP} ${WRKSRC}/mirmon.html ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

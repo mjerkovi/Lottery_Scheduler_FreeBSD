@@ -1,0 +1,23 @@
+# Created by: Steve Wills <swills@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-coffee-script/Makefile 401453 2015-11-12 21:43:19Z sunpoet $
+
+PORTNAME=	coffee-script
+PORTVERSION=	2.4.1
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby CoffeeScript is a bridge to the JS CoffeeScript compiler
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	rubygem-coffee-script-source>=0:${PORTSDIR}/devel/rubygem-coffee-script-source \
+		rubygem-execjs>=0:${PORTSDIR}/devel/rubygem-execjs
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

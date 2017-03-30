@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-gconf/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	gconf
+PORTVERSION=	0.13.0.2
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Binding to the GNOME configuration database system
+
+LICENSE=	LGPL21
+
+USES=		pkgconfig
+USE_CABAL=	glib>=0.13.0.0 gtk2hs-buildtools text>=0.11.0.6
+USE_GNOME=	gconf2
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

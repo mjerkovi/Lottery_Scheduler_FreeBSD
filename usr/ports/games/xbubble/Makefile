@@ -1,0 +1,31 @@
+# Created by: Klaus Goger <klaus.goger@reflex.at>
+# $FreeBSD: tags/RELEASE_10_3_0/games/xbubble/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	xbubble
+PORTVERSION=	0.5.8
+PORTREVISION=	7
+CATEGORIES=	games
+MASTER_SITES=	GENTOO
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Puzzle Bobble clone for Unix/X11 platforms
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
+
+USE_XORG=	x11 xmu
+GNU_CONFIGURE=	yes
+USES=		gmake
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+OPTIONS_DEFINE=	NLS
+OPTIONS_SUB=	yes
+NLS_USES=	gettext
+NLS_CONFIGURE_ENABLE=	nls
+NLS_LIBS=	-lintl
+
+.include <bsd.port.mk>

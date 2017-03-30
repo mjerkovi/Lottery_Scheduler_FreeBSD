@@ -1,0 +1,29 @@
+# Created by: Gea-Suan Lin <gslin@gslin.org>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/mydumper/Makefile 401125 2015-11-09 18:43:16Z sunpoet $
+
+PORTNAME=	mydumper
+PORTVERSION=	0.9.1
+CATEGORIES=	databases
+MASTER_SITES=	http://code.launchpad.net/mydumper/${PORTVERSION:R}/${PORTVERSION}/+download/
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	MySQL Data Dumper
+
+LICENSE=	GPLv3
+
+LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre
+
+CMAKE_ARGS=	-DBUILD_DOCS=OFF -DWITH_BINLOG=OFF
+USE_GNOME=	glib20
+USE_MYSQL=	yes
+USES=		cmake pkgconfig
+
+PLIST_FILES=	sbin/mydumper sbin/myloader
+
+post-patch:
+	@${REINPLACE_CMD} -e '/link_libraries(mydumper/ s|)$$| -lm)|; s|-Werror||' ${WRKSRC}/CMakeLists.txt
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/mydumper ${WRKSRC}/myloader ${STAGEDIR}${PREFIX}/sbin/
+
+.include <bsd.port.mk>

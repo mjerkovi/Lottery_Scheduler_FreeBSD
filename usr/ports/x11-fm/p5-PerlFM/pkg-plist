@@ -1,0 +1,3 @@
+bin/pfm
+%%SITE_PERL%%/PerlFM.pm
+%%PERL5_MAN3%%/PerlFM.3.gz

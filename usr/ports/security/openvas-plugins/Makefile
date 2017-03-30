@@ -1,0 +1,41 @@
+# Created by: Tomoyuki Sakurai <cherry@trombik.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/openvas-plugins/Makefile 388222 2015-06-01 12:59:22Z amdmi3 $
+
+PORTNAME=	openvas-plugins
+PORTVERSION=	1.0.7
+PORTREVISION=	8
+CATEGORIES=	security
+MASTER_SITES=	http://wald.intevation.org/frs/download.php/588/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Plugins for OpenVAS
+
+BUILD_DEPENDS=	openvasd:${PORTSDIR}/security/openvas-server
+LIB_DEPENDS=	libnet.so:${PORTSDIR}/net/libnet \
+		libopenvas.so:${PORTSDIR}/security/openvas-libraries \
+		libopenvasnasl.so:${PORTSDIR}/security/openvas-libnasl \
+		libgnutls.so:${PORTSDIR}/security/gnutls
+RUN_DEPENDS=	openvasd:${PORTSDIR}/security/openvas-server \
+		${LOCALBASE}/bin/gmd5sum:${PORTSDIR}/sysutils/coreutils \
+		${LOCALBASE}/bin/rsync:${PORTSDIR}/net/rsync
+
+LIBNET_CONFIG?=	${LOCALBASE}/bin/libnet11-config
+
+USES=		libtool pkgconfig
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--localstatedir=/var
+CPPFLAGS+=	"`${LIBNET_CONFIG} --cflags`" -I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|-lnet|`${LIBNET_CONFIG} --libs`|' \
+		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
+	@${REINPLACE_CMD} -e 's|libnet-config|${LIBNET_CONFIG}|' \
+		${WRKSRC}/plugins/3com_hub/Makefile
+
+post-install:
+	${CHMOD} u+w ${STAGEDIR}${PREFIX}/lib/openvas/plugins/*.nes
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/openvas/plugins/*.nes
+	${CHMOD} u-w ${STAGEDIR}${PREFIX}/lib/openvas/plugins/*.nes
+
+.include <bsd.port.mk>

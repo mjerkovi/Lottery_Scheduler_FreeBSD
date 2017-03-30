@@ -1,0 +1,20 @@
+# Created by: Dmitry Liakh <dliakh@ukr.net>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-HTML-MobileConverter/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	HTML-MobileConverter
+PORTVERSION=	0.011
+PORTREVISION=	1
+CATEGORIES=	www
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	dliakh@ukr.net
+COMMENT=	HTML Converter for mobile agent
+
+RUN_DEPENDS=	p5-HTML-Parser>=3.45:${PORTSDIR}/www/p5-HTML-Parser \
+		p5-URI>=1.33:${PORTSDIR}/net/p5-URI
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

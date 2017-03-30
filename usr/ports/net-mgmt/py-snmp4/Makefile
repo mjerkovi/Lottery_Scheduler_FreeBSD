@@ -1,0 +1,41 @@
+# Created by: Martin Jackson <mhjacks@swbell.net>
+# $FreeBSD: tags/RELEASE_10_3_0/net-mgmt/py-snmp4/Makefile 401898 2015-11-18 21:41:48Z rm $
+
+PORTNAME=	snmp4
+PORTVERSION=	4.2.5
+PORTREVISION=	1
+CATEGORIES=	net-mgmt python
+MASTER_SITES=	CHEESESHOP \
+		SF/pysnmp/pysnmp/${PORTVERSION}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	pysnmp-${PORTVERSION}
+
+MAINTAINER=	mhjacks@swbell.net
+COMMENT=	SNMP framework for Python
+
+LICENSE=	BSD2CLAUSE
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pyasn1>=0.1.2:${PORTSDIR}/devel/py-pyasn1 \
+		${PYTHON_PKGNAMEPREFIX}pycrypto>=2.4.1:${PORTSDIR}/security/py-pycrypto
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+EXAMPLESDIR=	${PREFIX}/share/examples/${PYTHON_PKGNAMEPREFIX}${PORTNAME}
+DOCSDIR=	${PREFIX}/share/doc/${PYTHON_PKGNAMEPREFIX}${PORTNAME}
+
+PORTDOCS=	*
+PORTEXAMPLES=	*
+
+BASEDOCS=	CHANGES README TODO
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${BASEDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
+	(cd ${WRKSRC}/tools && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR})
+
+.include <bsd.port.mk>

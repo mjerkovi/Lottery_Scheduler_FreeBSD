@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/x11-fm/rox-session/files/rox-session.in 304126 2012-09-11 21:59:23Z olgeni $
+
+echo "ROX Session: Starting up..." 
+cd "%%DATADIR%%"
+./AppRun -w < /dev/null

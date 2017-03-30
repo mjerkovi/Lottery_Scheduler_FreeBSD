@@ -1,0 +1,7 @@
+XCOMM $FreeBSD: tags/RELEASE_10_3_0/japanese/kinput2/files/Kinput2.conf.in 340872 2014-01-24 00:14:07Z mat $
+
+CCDEF_DIR = $(LIBDIR)/ccdef
+
+TRANSPORTDEFS = 
+
+#include "Kinput2_im.conf"

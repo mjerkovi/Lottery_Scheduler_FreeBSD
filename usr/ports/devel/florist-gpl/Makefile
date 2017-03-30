@@ -1,0 +1,24 @@
+# Created by: John Marino <marino@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/florist-gpl/Makefile 389875 2015-06-16 23:17:41Z marino $
+
+PORTNAME=	florist-gpl
+PORTVERSION=	2015
+CATEGORIES=	devel
+MASTER_SITES=	http://downloads.dragonlace.net/src/
+DISTNAME=	${PORTNAME}-${PORTVERSION}-src
+
+MAINTAINER=	marino@FreeBSD.org
+COMMENT=	POSIX Ada binding, IEEE Standards 1003.5(b,c)
+
+LICENSE=	GPLv3
+
+BUILD_DEPENDS=	gprbuild:${PORTSDIR}/devel/gprbuild
+
+USES=		ada gmake
+GNU_CONFIGURE=	yes
+SUB_FILES=	florist.gpr
+
+post-extract:
+	(cd ${WRKSRC}/configs && ${CP} pconfig.FreeBSD pconfig.DragonFly)
+
+.include <bsd.port.mk>

@@ -1,0 +1,36 @@
+# Created by: Andriy Gapon <avg@icyb.net.ua>
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/gxmessage/Makefile 393444 2015-08-02 20:23:55Z kwm $
+
+PORTNAME=	gxmessage
+PORTVERSION=	2.12.4
+PORTREVISION=	1
+CATEGORIES=	deskutils
+MASTER_SITES=	GNU \
+		LOCAL/martymac
+
+MAINTAINER=	avg@icyb.net.ua
+COMMENT=	GTK2 substitute for xmessage
+
+USE_GNOME=	gtk20 gnomeprefix intltool
+USES=		gmake pkgconfig
+GNU_CONFIGURE=	yes
+INSTALLS_ICONS=	yes
+
+MAKE_ARGS+=	INSTALL="${INSTALL_PROGRAM}"
+
+OPTIONS_DEFINE=	NLS
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MNLS}
+USES+=		gettext
+CONFIGURE_ARGS+=	--enable-nls
+PLIST_SUB+=	NLS=""
+.else
+CONFIGURE_ARGS+=	--disable-nls
+PLIST_SUB+=	NLS="@comment "
+.endif
+
+INFO=		${PORTNAME}
+
+.include <bsd.port.mk>

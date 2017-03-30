@@ -1,0 +1,27 @@
+# Created by: Wen Heping <wenheping@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/pecl-spread/Makefile 379897 2015-02-25 11:22:40Z antoine $
+
+PORTNAME=	spread
+PORTVERSION=	2.1.0
+PORTREVISION=	2
+CATEGORIES=	devel pear
+MASTER_SITES=	http://pecl.php.net/get/
+PKGNAMEPREFIX=	pecl-
+DIST_SUBDIR=	PECL
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Php Interface to the Spread Toolkit API
+
+LICENSE=	PHP301
+
+BUILD_DEPENDS=	${LOCALBASE}/include/sp.h:${PORTSDIR}/net/spread4
+RUN_DEPENDS=	${LOCALBASE}/include/sp.h:${PORTSDIR}/net/spread4
+
+USES=		tar:tgz
+USE_PHP=	yes
+USE_PHPEXT=	yes
+IGNORE_WITH_PHP=	56
+
+CONFIGURE_ARGS+=	--with-spread=${LOCALBASE}
+
+.include <bsd.port.mk>

@@ -1,0 +1,20 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-gemcutter/Makefile 399576 2015-10-17 18:09:15Z sunpoet $
+
+PORTNAME=	gemcutter
+PORTVERSION=	0.7.1
+PORTREVISION=	1
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Extensions to RubyGems for managing gems and more on RubyGems.org
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/MIT-LICENSE
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

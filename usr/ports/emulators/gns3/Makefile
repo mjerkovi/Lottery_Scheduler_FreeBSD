@@ -1,0 +1,45 @@
+# Created by: Olivier Cochard-Labbe <olivier@cochard.me>
+# $FreeBSD: tags/RELEASE_10_3_0/emulators/gns3/Makefile 396565 2015-09-10 11:42:14Z amdmi3 $
+
+PORTNAME=	gns3
+PORTVERSION=	0.8.7
+PORTREVISION=	1
+CATEGORIES=	emulators
+MASTER_SITES=	SF/gns-3/GNS3/${PORTVERSION}
+DISTNAME=	GNS3-${PORTVERSION}-src
+
+MAINTAINER=	olivier@cochard.me
+COMMENT=	Graphical Cisco network simulator
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	${PYTHON_SITELIBDIR}/PyQt4/QtGui.so:${PORTSDIR}/x11-toolkits/py-qt4-gui \
+		${PYTHON_SITELIBDIR}/PyQt4/QtSvg.so:${PORTSDIR}/graphics/py-qt4-svg \
+		${PYTHON_SITELIBDIR}/PyQt4/QtNetwork.so:${PORTSDIR}/net/py-qt4-network \
+		dynamips:${PORTSDIR}/emulators/dynamips-community \
+		dynagen:${PORTSDIR}/emulators/dynagen \
+		xdotool:${PORTSDIR}/x11/xdotool
+
+WRKSRC=		${WRKDIR}/${PORTNAME}-legacy-GNS3-${PORTVERSION}
+
+USES=		cpe python
+USE_PYTHON=	distutils
+PYDISTUTILS_PKGNAME=	GNS3
+NO_ARCH=	yes
+
+DESKTOP_ENTRIES=	"GNS3" "${COMMENT}" "" "${PORTNAME}" "System;Emulator;" true
+
+PLIST_SUB=	PYTHON_VERSION=${PYTHON_VERSION:S/python//} \
+		VERSION=${PORTVERSION}
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' -e 's|/share/man|/man|g' ${WRKSRC}/setup.py
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/docs/man/${PORTNAME}.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	@${CAT} ${PKGMESSAGE}
+
+.include <bsd.port.mk>

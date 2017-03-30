@@ -1,0 +1,22 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Sub-Exporter-Progressive/Makefile 374292 2014-12-08 16:14:42Z sunpoet $
+
+PORTNAME=	Sub-Exporter-Progressive
+PORTVERSION=	0.001011
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Only use Sub::Exporter if you need it
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Sub-Exporter>=0:${PORTSDIR}/devel/p5-Sub-Exporter
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

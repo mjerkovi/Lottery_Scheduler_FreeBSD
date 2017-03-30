@@ -1,0 +1,34 @@
+# Created by: Pedro Giffuni <giffunip@asme.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/gplot/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	gplot
+PORTVERSION=	4.3
+PORTREVISION=	7
+CATEGORIES=	graphics
+MASTER_SITES=	ftp://ftp.psc.edu/pub/gplot/
+DISTNAME=	${PORTNAME}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Graphic utilities for the processing of CGM metafiles
+
+BROKEN=		unfetchable
+
+OPTIONS_DEFINE=	DOCS
+
+CFLAGS+=	-Wno-return-type
+NO_WRKSUBDIR=	yes
+ALL_TARGET=	drawcgm gtex gplot
+PORTDOCS=	gplot.hlp gplot.txt gtex.doc
+USES=		fortran tar:Z
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/gplot ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/gtex ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/drawcgm/drawcgm.a ${STAGEDIR}${PREFIX}/lib/libcgm.a
+	${INSTALL_MAN} ${WRKSRC}/gplot.man ${STAGEDIR}${PREFIX}/man/man1/gplot.1
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for f in ${PORTDOCS}
+	${INSTALL_DATA} ${WRKSRC}/$f ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

@@ -1,0 +1,86 @@
+-*- Text -*-
+This is the file .../info/dir, which contains the
+topmost node of the Info hierarchy, called (dir)Top.
+The first time you invoke Info you start off looking at this node.
+
+File: dir,	Node: Top	This is the top of the INFO tree
+
+  This (the Directory node) gives a menu of major topics.
+  Typing "q" exits, "?" lists all Info commands, "d" returns here,
+  "h" gives a primer for first-timers,
+  "mEmacs<Return>" visits the Emacs manual, etc.
+
+  In Emacs, you can click mouse button 2 on a menu item or cross reference
+  to select it.
+
+* Menu:
+
+Programming & development tools.
+* As: (as).                     The GNU assembler.
+* Binutils: (binutils).         The GNU binary utilities.
+* Gas: (as).                    The GNU assembler.
+* Ld: (ld).                       The GNU linker.
+* Regex: (regex).		Regular expression library.
+* addr2line: (binutils)addr2line. Convert addresses to file and line
+* ar: (binutils)ar.               Create, modify, and extract from archives
+* c++filt: (binutils)c++filt.	  Filter to demangle encoded C++ symbols
+* cxxfilt: (binutils)c++filt.     MS-DOS name for c++filt
+* dlltool: (binutils)dlltool.	  Create files needed to build and use DLLs
+* nlmconv: (binutils)nlmconv.     Converts object code into an NLM
+* nm: (binutils)nm.               List symbols from object files
+* objcopy: (binutils)objcopy.	  Copy and translate object files
+* objdump: (binutils)objdump.     Display information from object files
+* ranlib: (binutils)ranlib.       Generate index to archive contents
+* readelf: (binutils)readelf.	  Display the contents of ELF format files.
+* size: (binutils)size.           List section sizes and total size
+* strings: (binutils)strings.     List printable strings from files
+* strip: (binutils)strip.         Discard symbols
+* windmc: (binutils)windmc.	  Generator for Windows message resources
+* windres: (binutils)windres.	  Manipulate Windows resources
+* libcom_err: (com_err).        A Common Error Description Library for UNIX.
+
+Libraries
+* History: (history).       The GNU history library API.
+* RLuserman: (rluserman).       The GNU readline library User's Manual.
+* Readline: (readline).       The GNU readline library API.
+
+Individual utilities
+* cmp: (diff)Invoking cmp.                      Compare 2 files byte by byte.
+* diff3: (diff)Invoking diff3.                  Compare 3 files line by line.
+* diff: (diff)Invoking diff.                    Compare 2 files line by line.
+* patch: (diff)Invoking patch.                  Apply a patch to a file.
+* sdiff: (diff)Invoking sdiff.                  Merge 2 files side-by-side.
+
+Text creation and manipulation
+* Diff: (diff).                 Comparing and merging files.
+
+Software development
+* Gdb: (gdb).                     The GNU debugger.
+* Gdb-Internals: (gdbint).	The GNU debugger's internals.
+* Stabs: (stabs).                 The "stabs" debugging information format.
+
+Programming Tools
+* Gperf: (gperf).                Perfect Hash Function Generator.
+
+System Utilities
+* grep: (grep).                   print lines matching a pattern.
+
+Typesetting
+* Groff: (groff).               The GNU troff document formatting system.
+
+Texinfo documentation system
+* Info: (info).         How to use the documentation browsing system.
+* Texinfo: (texinfo).           The GNU documentation format.
+* info standalone: (info-stnd).            Read Info documents without Emacs.
+* infokey: (info-stnd)Invoking infokey.    Compile Info customizations.
+* install-info: (texinfo)Invoking install-info. Update info/dir entries.
+* makeinfo: (texinfo)Invoking makeinfo.         Translate Texinfo source.
+* texi2dvi: (texinfo)Format with texi2dvi.      Print Texinfo documents.
+* texi2pdf: (texinfo)PDF Output.                PDF output for Texinfo.
+* texindex: (texinfo)Format with tex/texindex.  Sort Texinfo index files.
+
+Security
+* Heimdal: (heimdal).           The Kerberos 5 distribution from KTH
+
+Administration
+* Am-utils: (am-utils).          The Amd automounter suite of utilities

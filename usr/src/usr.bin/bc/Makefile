@@ -1,0 +1,16 @@
+#	$FreeBSD: releng/10.3/usr.bin/bc/Makefile 273499 2014-10-23 00:43:08Z ngie $
+#	$OpenBSD: Makefile,v 1.7 2013/09/19 16:12:00 otto Exp $
+
+PROG=		bc
+SRCS=		bc.y scan.l tty.c
+CFLAGS+=	-I. -I${.CURDIR}
+
+DPADD+=		${LIBEDIT} ${LIBNCURSESW}
+LDADD+=		-ledit -lncursesw
+
+NO_WMISSING_VARIABLE_DECLARATIONS=
+
+FILES+=	bc.library
+FILESDIR=${SHAREDIR}/misc
+
+.include <bsd.prog.mk>

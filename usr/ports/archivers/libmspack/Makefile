@@ -1,0 +1,25 @@
+# Created by: Max Khon <fjoe@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/archivers/libmspack/Makefile 384196 2015-04-17 23:52:55Z amdmi3 $
+
+PORTNAME=	libmspack
+PORTVERSION=	0.5
+PORTREVISION=	0
+CATEGORIES=	archivers
+MASTER_SITES=	http://www.cabextract.org.uk/libmspack/
+DISTNAME=	${PORTNAME}-${PORTVERSION}alpha
+
+MAINTAINER=	fjoe@FreeBSD.org
+COMMENT=	Library for Microsoft compression formats
+
+LICENSE=	LGPL21
+
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+USES=		cpe libtool pathfix
+CPE_VENDOR=	libmspack_project
+INSTALL_TARGET=	install-strip
+
+post-patch:
+	@${REINPLACE_CMD} 's,-Wno-unused-result,,' ${WRKSRC}/Makefile.in
+
+.include <bsd.port.mk>

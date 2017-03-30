@@ -1,0 +1,38 @@
+# Created by: Ernst de Haan <znerd@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/java/jakarta-commons-cli/Makefile 403360 2015-12-09 06:27:20Z vanilla $
+
+PORTNAME=	commons-cli
+PORTVERSION=	1.3.1
+PORTEPOCH=	1
+CATEGORIES=	java devel
+MASTER_SITES=	APACHE_COMMONS_BINARIES
+PKGNAMEPREFIX=	jakarta-
+DISTNAME=	${PORTNAME}-${PORTVERSION}-bin
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Java library for command line arguments and options
+
+LICENSE=	APACHE20
+
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+NO_BUILD=	yes
+
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+
+JARFILE=	${PORTNAME}-${PORTVERSION}.jar
+DESTJARFILE=	${PORTNAME}.jar
+PLIST_FILES=	%%JAVAJARDIR%%/${DESTJARFILE}
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/${JARFILE} \
+		${STAGEDIR}${JAVAJARDIR}/${DESTJARFILE}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} apidocs ${STAGEDIR}${DOCSDIR})
+	(cd ${WRKSRC} && ${INSTALL_DATA} LICENSE.txt NOTICE.txt \
+		RELEASE-NOTES.txt ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

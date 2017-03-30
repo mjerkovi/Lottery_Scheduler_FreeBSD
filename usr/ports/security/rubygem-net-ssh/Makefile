@@ -1,0 +1,31 @@
+# Created by: Roderick van Domburg <r.s.a.vandomburg@student.utwente.nl>
+# $FreeBSD: tags/RELEASE_10_3_0/security/rubygem-net-ssh/Makefile 394508 2015-08-17 14:20:40Z mat $
+
+PORTNAME=	net-ssh
+PORTVERSION=	2.9.2
+PORTEPOCH=	2
+PORTREVISION=	1
+CATEGORIES=	security rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Non-interactive SSH processing
+
+LICENSE=	MIT
+
+OPTIONS_DEFINE=	PROMPT_PASSPHRASES
+OPTIONS_DEFAULT=PROMPT_PASSPHRASES
+PROMPT_PASSPHRASES_DESC=	Prompt for passphrases on keys
+
+PORTSCOUT=	skipv:2.10.0
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	support/ssh_tunnel_bug.rb
+
+PROMPT_PASSPHRASES_RUN_DEPENDS=	rubygem-ruby-termios>=0:${PORTSDIR}/comms/rubygem-ruby-termios
+
+.include <bsd.port.mk>

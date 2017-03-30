@@ -1,0 +1,23 @@
+# Created by: Mario S F Ferreira <lioux@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/qmail-mysql/Makefile 400559 2015-10-30 23:07:16Z bdrewery $
+
+PORTNAME=	qmail
+PORTVERSION=	${QMAIL_VERSION}.${MYSQL_PATCH_VERSION}
+PORTREVISION=	1
+CATEGORIES=	mail
+PKGNAMESUFFIX=	-mysql
+
+COMMENT=	Secure, reliable, and fast MTA for UNIX systems with MySQL support
+
+CONFLICTS=	*qmail-[0-9]* qmail-ldap-[0-9]* qmail-spamcontrol-[0-9]* *qmail-tls-[0-9]*
+
+MYSQL_PATCH_VERSION=	1.1.15
+
+SLAVE_MYSQL=	yes
+
+USE_MYSQL=	yes
+
+MASTERDIR=	${.CURDIR}/../qmail
+DESCR=		${.CURDIR}/pkg-descr
+
+.include "${MASTERDIR}/Makefile"

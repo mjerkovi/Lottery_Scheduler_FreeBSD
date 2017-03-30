@@ -1,0 +1,24 @@
+# Created by: shige
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/dtd-catalogs/Makefile 392218 2015-07-15 20:58:43Z pgollucci $
+
+PORTNAME=	dtd-catalogs
+PORTVERSION=	1.2
+CATEGORIES=	textproc
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	SGML DTDs catalogs
+
+RUN_DEPENDS=	${ISO8879_CAT}:${PORTSDIR}/textproc/iso8879 \
+		${ISO12083_CAT}:${PORTSDIR}/textproc/iso12083 \
+		${HTML_CAT}:${PORTSDIR}/textproc/html \
+		${LINUXDOC_CAT}:${PORTSDIR}/textproc/linuxdoc
+
+USES=		metaport
+
+# The following catalogs are listed in catalog-list-file actually.
+ISO8879_CAT=	${LOCALBASE}/share/sgml/iso8879/catalog
+ISO12083_CAT=	${LOCALBASE}/share/sgml/iso12083/catalog
+HTML_CAT=	${LOCALBASE}/share/sgml/html/catalog
+LINUXDOC_CAT=	${LOCALBASE}/share/sgml/linuxdoc/catalog
+
+.include <bsd.port.mk>

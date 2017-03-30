@@ -1,0 +1,28 @@
+# Created by: Hye-Shik Chang
+# $FreeBSD: tags/RELEASE_10_3_0/databases/py-rrdtool_lgpl/Makefile 381553 2015-03-18 14:16:02Z amdmi3 $
+
+PORTNAME=	rrdtool_lgpl
+PORTVERSION=	1.0b1
+PORTREVISION=	5
+CATEGORIES=	databases python
+MASTER_SITES=	SF/py-rrdtool/py-rrdtool/${PORTVERSION}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	py-rrdtool-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Python interface to RRDTool, the graphing and logging utility
+
+LICENSE=	LGPL21 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	librrd.so:${PORTSDIR}/databases/rrdtool
+
+USES=		python:2
+USE_PYTHON=	distutils autoplist
+
+LIBDIR?=	${LOCALBASE}/lib # directory where librrd.so lives
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/_rrdtool.so
+
+.include <bsd.port.mk>

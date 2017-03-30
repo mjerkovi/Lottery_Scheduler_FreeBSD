@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/hs-yesod-persistent/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	yesod-persistent
+PORTVERSION=	1.4.0.3
+CATEGORIES=	www haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Some helpers for using Persistent from Yesod
+
+LICENSE=	MIT
+
+USE_CABAL=	blaze-builder conduit persistent>=2.1 persistent-template>=2.1 \
+		resource-pool resourcet>=0.4.5 yesod-core>=1.4.0
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

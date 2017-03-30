@@ -1,0 +1,22 @@
+# Created by: William Grzybowski <wg@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-tvrage/Makefile 385521 2015-05-06 15:16:53Z mat $
+
+PORTNAME=	tvrage
+PORTVERSION=	0.4.1
+CATEGORIES=	devel python
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	wg@FreeBSD.org
+COMMENT=	Python client for the tvrage.com XML API
+
+LICENSE=	BSD3CLAUSE
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	ckreutzer
+GH_PROJECT=	python-${PORTNAME}
+
+USES=		python:2
+USE_PYTHON=	distutils
+PYDISTUTILS_PKGNAME=	python_${PORTNAME}
+
+.include <bsd.port.mk>

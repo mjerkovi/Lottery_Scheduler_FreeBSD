@@ -1,0 +1,23 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/ctpl/Makefile 382077 2015-03-24 09:49:51Z makc $
+
+PORTNAME=	ctpl
+PORTVERSION=	0.3.4
+CATEGORIES=	textproc devel
+MASTER_SITES=	http://download.tuxfamily.org/ctpl/releases/
+
+MAINTAINER=	makc@FreeBSD.org
+COMMENT=	C Template (Parser) Library
+
+GNU_CONFIGURE=	yes
+USE_GNOME=	glib20
+USES=		pathfix pkgconfig libtool
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+OPTIONS_DEFINE=	NLS
+OPTIONS_SUB=	yes
+
+NLS_CONFIGURE_ENABLE=	nls
+NLS_USES=	gettext-runtime
+
+.include <bsd.port.mk>

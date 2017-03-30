@@ -1,0 +1,20 @@
+# Created by: bsam
+# $FreeBSD: tags/RELEASE_10_3_0/multimedia/linux-c6-libv4l/Makefile 372445 2014-11-11 13:06:39Z xmj $
+
+PORTNAME=	libv4l
+PORTVERSION=	0.6.3
+PORTREVISION=	1
+CATEGORIES=	multimedia linux
+
+MAINTAINER=	emulation@FreeBSD.org
+COMMENT=	Collection of video4linux support libraries (CentOS 6)
+
+CONFLICTS=	linux-f10-libv4l-[0-9]*
+
+USE_LINUX=	c6
+USE_LINUX_RPM=	yes
+RPMVERSION=	2.el6
+USE_LDCONFIG=	yes
+PLIST_SUB+=	PORTVERSION=${PORTVERSION}
+
+.include <bsd.port.mk>

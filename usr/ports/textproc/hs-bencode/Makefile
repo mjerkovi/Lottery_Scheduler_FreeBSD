@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/hs-bencode/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	bencode
+PORTVERSION=	0.6.0.0
+CATEGORIES=	textproc haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Parser and printer for bencoded data
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	parsec
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

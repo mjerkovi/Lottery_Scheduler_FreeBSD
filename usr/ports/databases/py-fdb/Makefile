@@ -1,0 +1,29 @@
+# Created by: Jose Jachuf <jjachuf@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/py-fdb/Makefile 379679 2015-02-23 14:34:14Z culot $
+
+PORTNAME=	fdb
+PORTVERSION=	1.4.3
+CATEGORIES=	databases python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	jjachuf@gmail.com
+COMMENT=	Firebird RDBMS bindings for Python
+
+LICENSE=	ISCL
+
+LIB_DEPENDS=	libfbclient.so:${PORTSDIR}/databases/firebird25-client
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.pre.mk>
+
+post-patch:
+	@${ECHO_MSG}
+	@${ECHO_MSG} "Please make sure that your firebird-client installation"
+	@${ECHO_MSG} "is built with command make -DPACKAGE_BUILDING."
+	@${ECHO_MSG} "The build of py-fdb will fail otherwise."
+	@${ECHO_MSG}
+
+.include <bsd.port.post.mk>

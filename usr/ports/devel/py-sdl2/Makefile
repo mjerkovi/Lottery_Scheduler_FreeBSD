@@ -1,0 +1,28 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-sdl2/Makefile 395777 2015-09-01 16:20:47Z amdmi3 $
+
+PORTNAME=	sdl2
+PORTVERSION=	0.9.3
+PORTREVISION=	1
+CATEGORIES=	devel python
+MASTER_SITES=	http://bitbucket.org/marcusva/py-sdl2/downloads/
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	PySDL2-${PORTVERSION}
+
+MAINTAINER=	mva@FreeBSD.org
+COMMENT=	Python bindings to the SDL2 libraries
+
+LICENSE=	ZLIB
+
+USES=		python
+USE_SDL=	sdl2 gfx2 image2 ttf2 mixer2
+USE_PYTHON=	autoplist distutils
+NO_ARCH=	yes
+
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}/html
+	@${TAR} -C ${WRKSRC}/doc/html -cf - . | \
+		${TAR} -C ${STAGEDIR}${DOCSDIR}/html -xf -
+
+.include <bsd.port.mk>

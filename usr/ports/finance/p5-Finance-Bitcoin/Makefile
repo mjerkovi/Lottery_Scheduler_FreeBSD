@@ -1,0 +1,28 @@
+# Created by: Steven Kreuzer <skreuzer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/finance/p5-Finance-Bitcoin/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Finance-Bitcoin
+PORTVERSION=	0.901
+PORTREVISION=	1
+CATEGORIES=	finance perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	skreuzer@FreeBSD.org
+COMMENT=	Perl interface to a bitcoin instance
+
+BUILD_DEPENDS=	p5-JSON-RPC>=0.96:${PORTSDIR}/devel/p5-JSON-RPC \
+		p5-Class-Accessor>=0.34:${PORTSDIR}/devel/p5-Class-Accessor \
+		p5-Module-Signature>=0.66:${PORTSDIR}/security/p5-Module-Signature \
+		p5-Scalar-List-Utils>=1.23:${PORTSDIR}/lang/p5-Scalar-List-Utils \
+		p5-Any-Moose>=0:${PORTSDIR}/devel/p5-Any-Moose \
+		p5-Object-AUTHORITY>=0:${PORTSDIR}/devel/p5-Object-Authority
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+post-patch:
+	-@${RM} ${WRKSRC}/lib/Finance/Bitcoin/API.pm.orig
+
+.include <bsd.port.mk>

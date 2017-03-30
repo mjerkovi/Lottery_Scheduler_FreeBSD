@@ -1,0 +1,38 @@
+# Created by: trevor
+# $FreeBSD: tags/RELEASE_10_3_0/security/l0phtcrack/Makefile 400848 2015-11-05 12:36:25Z mat $
+
+PORTNAME=	l0phtcrack
+PORTVERSION=	1.5
+CATEGORIES=	security
+MASTER_SITES=	http://www.mavetju.org/download/adopted/ \
+		http://mirror.amdmi3.ru/distfiles/
+#		http://www.cotse.com/sw/WinNT/
+DISTNAME=	lcsrc
+DIST_SUBDIR=	${PORTNAME}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Cracks SAMBA or Windows NT passwords
+
+USES=		dos2unix perl5 zip
+USE_PERL5=	build
+RESTRICTED=	uses GNU getopt with BSDish-licensed code from OpenSSL
+NO_WRKSUBDIR=	yes
+
+PLIST_FILES=	bin/lc_CLI
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+
+post-extract:
+	${RM} ${WRKSRC}/*exe
+	${REINPLACE_CMD} -i '' -e 's|ommited|omitted|' ${WRKSRC}/util.c
+
+do-build:
+	cd ${WRKSRC} && ${CC} ${CFLAGS} -DMPU8086 *.c -o lc_CLI
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/lc_CLI ${STAGEDIR}${PREFIX}/bin
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${PAX} -r -w *txt ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

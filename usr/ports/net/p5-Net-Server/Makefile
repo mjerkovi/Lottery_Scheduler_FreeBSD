@@ -1,0 +1,28 @@
+# Created by: Jesse McConnell <jesse@gallup.com>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-Server/Makefile 381221 2015-03-13 17:29:58Z adamw $
+
+PORTNAME=	Net-Server
+PORTVERSION=	2.008
+PORTREVISION=	1
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Configurable base class for writing internet servers in Perl
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-IO-Multiplex>=1.01:${PORTSDIR}/devel/p5-IO-Multiplex
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+OPTIONS_DEFINE=	IPV6
+
+USES=		perl5
+USE_PERL5=	configure
+
+IPV6_BUILD_DEPENDS=	p5-Socket6>=0.23:${PORTSDIR}/net/p5-Socket6
+IPV6_RUN_DEPENDS=	p5-Socket6>=0.23:${PORTSDIR}/net/p5-Socket6
+
+.include <bsd.port.mk>

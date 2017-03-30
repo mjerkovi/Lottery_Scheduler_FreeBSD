@@ -1,0 +1,10 @@
+--- exports/Makefile.orig	2015-10-27 20:44:50 UTC
++++ exports/Makefile
+@@ -140,6 +140,7 @@ endif
+ #http://stackoverflow.com/questions/7656425/makefile-ifeq-logical-or
+ ifeq ($(OSNAME), $(filter $(OSNAME),FreeBSD NetBSD))
+ 
++EXTRALIB += -lgfortran
+ so : ../$(LIBSONAME)
+ 
+ ifeq (, $(SYMBOLPREFIX)$(SYMBOLSUFFIX))

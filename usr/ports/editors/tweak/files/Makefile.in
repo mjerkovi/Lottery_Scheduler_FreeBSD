@@ -1,0 +1,7 @@
+# $FreeBSD: tags/RELEASE_10_3_0/editors/tweak/files/Makefile.in 340722 2014-01-22 17:00:46Z mat $
+
+PROG=	tweak
+SRCS=	actions.c btree.c buffer.c curses.c keytab.c main.c rcfile.c search.c
+LDADD=	-lncurses
+
+.include <bsd.prog.mk>

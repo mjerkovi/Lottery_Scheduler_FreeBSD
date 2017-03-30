@@ -1,0 +1,32 @@
+# Created by: Vsevolod Stakhov <vsevolod@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/math/gringo/Makefile 395768 2015-09-01 15:40:32Z rakuco $
+
+PORTNAME=	gringo
+PORTVERSION=	4.5.2
+DISTVERSIONSUFFIX=	-source
+CATEGORIES=	math devel
+MASTER_SITES=	SOURCEFORGE/potassco/${PORTNAME}/${PORTVERSION}
+
+MAINTAINER=	vsevolod@FreeBSD.org
+COMMENT=	Grounding algorithm based on semi-naive database evaluation
+
+LICENSE=	GPLv3
+
+BUILD_DEPENDS=	re2c:${PORTSDIR}/devel/re2c
+
+USES=		bison compiler:c++11-lib scons
+
+MAKE_ARGS+=	${MAKE_ENV}
+CXXFLAGS+=	-std=c++11
+MAKE_ENV+=	WITH_LUA=no
+
+# Unhide std::to_string() with GCC < 4.9 (ports/193528)
+CXXFLAGS+=	-D_GLIBCXX_USE_C99
+
+PLIST_FILES=	bin/${PORTNAME} bin/clingo
+
+do-install:
+	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/build/debug/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+	${INSTALL_PROGRAM} ${INSTALL_WRKSRC}/build/debug/clingo ${STAGEDIR}${PREFIX}/bin/clingo
+
+.include <bsd.port.mk>

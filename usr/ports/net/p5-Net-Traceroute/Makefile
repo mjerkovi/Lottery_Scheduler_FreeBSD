@@ -1,0 +1,19 @@
+# Created by: kuriyama
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-Traceroute/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Net-Traceroute
+PORTVERSION=	1.15
+PORTREVISION=	1
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:HAG
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	kuriyama@FreeBSD.org
+COMMENT=	Perl module to parse traceroute(8)
+
+USES=		perl5
+USE_PERL5=	configure
+NO_ARCH=	YES
+
+.include <bsd.port.mk>

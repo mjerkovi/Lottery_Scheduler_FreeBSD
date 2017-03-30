@@ -1,0 +1,32 @@
+# Created by: Murilo Opsfelder <mopsfelder@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-Mojolicious/Makefile 404084 2015-12-21 03:37:45Z adamw $
+
+PORTNAME=	Mojolicious
+PORTVERSION=	6.38
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	adamw@FreeBSD.org
+COMMENT=	High-level MVC web framework written in Perl
+
+LICENSE=	ART20
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BUILD_DEPENDS=	p5-EV>=4:${PORTSDIR}/devel/p5-EV
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+OPTIONS_DEFINE=	IPV6 TLS
+OPTIONS_DEFAULT=TLS
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+IPV6_CATEGORIES=	ipv6
+IPV6_BUILD_DEPENDS=	p5-IO-Socket-IP>=0.37:${PORTSDIR}/net/p5-IO-Socket-IP
+IPV6_RUN_DEPENDS=	p5-IO-Socket-IP>=0.37:${PORTSDIR}/net/p5-IO-Socket-IP
+TLS_BUILD_DEPENDS=	p5-IO-Socket-SSL>=1.75:${PORTSDIR}/security/p5-IO-Socket-SSL
+TLS_RUN_DEPENDS=	p5-IO-Socket-SSL>=1.75:${PORTSDIR}/security/p5-IO-Socket-SSL
+
+.include <bsd.port.mk>

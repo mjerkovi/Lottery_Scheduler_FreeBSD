@@ -1,0 +1,26 @@
+# Created by: lbartoletti <coder@tuxfamily.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/libgaiagraphics/Makefile 390310 2015-06-22 18:33:20Z antoine $
+
+PORTNAME=	libgaiagraphics
+PORTVERSION=	0.5
+PORTREVISION=	3
+CATEGORIES=	graphics geography
+MASTER_SITES=	http://www.gaia-gis.it/gaia-sins/
+
+MAINTAINER=	coder@tuxfamily.org
+COMMENT=	Library supporting common-utility raster handling methods
+
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
+		libtiff.so:${PORTSDIR}/graphics/tiff \
+		libgeotiff.so:${PORTSDIR}/graphics/libgeotiff \
+		libcairo.so:${PORTSDIR}/graphics/cairo
+
+USES=		gmake iconv jpeg pathfix pkgconfig libtool
+USE_LDCONFIG=	yes
+
+CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS= CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
+
+.include <bsd.port.mk>

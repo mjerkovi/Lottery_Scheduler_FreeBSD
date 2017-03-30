@@ -1,0 +1,36 @@
+# Created by: Michael Johnson <ahze@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/libieee1284/Makefile 393429 2015-08-02 15:03:19Z tijl $
+
+PORTNAME=	libieee1284
+PORTVERSION=	0.2.10
+PORTREVISION=	2
+CATEGORIES=	sysutils
+MASTER_SITES=	http://cyberelk.net/tim/data/libieee1284/stable/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	IEEE 1284 communication library
+
+LICENSE=	GPLv2
+
+ONLY_FOR_ARCHS=	i386
+
+USES=		libtool tar:bzip2
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+
+PORTDOCS=	README README.FreeBSD
+
+OPTIONS_DEFINE=	PYTHON
+OPTIONS_SUB=	yes
+
+PYTHON_USES=	python
+PYTHON_CFLAGS=	-I${PYTHON_INCLUDEDIR}
+PYTHON_LDFLAGS=	-L${PYTHON_LIBDIR}
+PYTHON_CONFIGURE_ON=	--with-python=yes
+PYTHON_CONFIGURE_OFF=	--with-python=no
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

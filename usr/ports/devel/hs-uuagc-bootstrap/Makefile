@@ -1,0 +1,18 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-uuagc-bootstrap/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	uuagc-bootstrap
+PORTVERSION=	0.9.40.2
+PORTREVISION=	13
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Attribute Grammar System of Universiteit Utrecht
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	haskell-src-exts>=1.11.1 mtl>=1.1.1.1 uulib>=0.9.14
+
+EXECUTABLE=	uuagc-bootstrap
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

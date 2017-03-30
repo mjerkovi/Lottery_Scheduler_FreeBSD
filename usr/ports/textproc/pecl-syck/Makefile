@@ -1,0 +1,26 @@
+# Created by: Ditesh Shashikant Gathani <ditesh@gathani.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/pecl-syck/Makefile 379814 2015-02-24 15:46:31Z vanilla $
+
+PORTNAME=	syck
+PORTVERSION=	0.9.3
+PORTREVISION=	1
+CATEGORIES=	textproc pear
+MASTER_SITES=	http://pecl.php.net/get/
+PKGNAMEPREFIX=	pecl-
+DIST_SUBDIR=	PECL
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	PECL extension which facilitates YAML parsing
+
+LICENSE=	PHP301
+
+BUILD_DEPENDS=	${LOCALBASE}/lib/libsyck.a:${PORTSDIR}/textproc/syck
+
+USES=		tar:tgz
+USE_PHP=	spl hash
+USE_PHP_BUILD=	yes
+USE_PHPEXT=	yes
+
+CONFIGURE_ARGS=	--enable-syck
+
+.include <bsd.port.mk>

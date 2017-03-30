@@ -1,0 +1,37 @@
+# Created by: riggs
+# $FreeBSD: tags/RELEASE_10_3_0/audio/ifp-line/Makefile 393950 2015-08-11 17:25:15Z amdmi3 $
+
+PORTNAME=	ifp-line
+PORTVERSION=	0.3
+CATEGORIES=	audio
+MASTER_SITES=	SF/ifp-driver/${PORTNAME}/${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Command line interface to iRiver music players
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		autoreconf iconv
+GNU_CONFIGURE=	yes
+MAKE_JOBS_UNSAFE=	yes
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib -lusb
+
+PLIST_FILES=	bin/ifp man/man1/ifp.1.gz
+PORTDOCS=	NEWS README TIPS nonroot.sh
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		'/LIBUSB/s|ERROR|WARN|' ${WRKSRC}/configure.ac
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/ifp ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/ifp.1 ${STAGEDIR}${MANPREFIX}/man/man1
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

@@ -1,0 +1,51 @@
+# Created by: Emanuel Haupt <ehaupt@critical.ch>
+# $FreeBSD: tags/RELEASE_10_3_0/net/httping/Makefile 378770 2015-02-10 12:51:43Z ehaupt $
+
+PORTNAME=	httping
+PORTVERSION=	2.4
+CATEGORIES=	net
+MASTER_SITES=	http://www.vanheusden.com/httping/ \
+		LOCAL/ehaupt
+
+MAINTAINER=	ehaupt@FreeBSD.org
+COMMENT=	Ping-like tool for HTTP requests
+
+LICENSE=	GPLv2
+
+USES=		gmake gettext tar:tgz
+
+PLIST_FILES=	bin/httping man/man1/httping.1.gz
+
+OPTIONS_DEFINE=	NCURSES FFTW SSL
+
+OPTIONS_DEFAULT=NCURSES SSL
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MNCURSES}
+MAKE_ENV+=	NC=yes
+CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+.else
+MAKE_ENV+=	NC=no
+.endif
+
+.if ${PORT_OPTIONS:MFFTW}
+MAKE_ENV+=	FW=yes
+LIB_DEPENDS+=	libfftw3.so:${PORTSDIR}/math/fftw3
+.else
+MAKE_ENV+=	FW=no
+.endif
+
+.if ${PORT_OPTIONS:MSSL}
+MAKE_ENV+=	SSL=yes
+USE_OPENSSL=	yes
+.else
+MAKE_ENV+=	SSL=no
+.endif
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.1 ${STAGEDIR}${MANPREFIX}/man/man1
+
+.include <bsd.port.mk>

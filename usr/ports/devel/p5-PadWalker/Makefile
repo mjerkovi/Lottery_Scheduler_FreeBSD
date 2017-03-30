@@ -1,0 +1,23 @@
+# Created by: Anton Berezin <tobez@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-PadWalker/Makefile 400282 2015-10-27 15:51:25Z sunpoet $
+
+PORTNAME=	PadWalker
+PORTVERSION=	2.2
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:ROBIN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	PadWalker - play with Perl lexical variables
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+USES=		perl5
+USE_PERL5=	configure
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/PadWalker/PadWalker.so
+
+.include <bsd.port.mk>

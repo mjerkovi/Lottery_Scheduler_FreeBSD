@@ -1,0 +1,23 @@
+# Created by: Kevin Golding <ports@caomhin.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-django-threaded-multihost/Makefile 376109 2015-01-03 08:41:20Z mva $
+
+PORTNAME=	django-threaded-multihost
+PORTVERSION=	1.4.1
+PORTREVISION=	2
+CATEGORIES=	www python
+MASTER_SITES=	http://www.caomhin.org/geek/ports/
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	ports@caomhin.org
+COMMENT=	Multi-host utilities to Django
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools_hg>=0.4:${PORTSDIR}/devel/py-setuptools_hg
+RUN_DEPENDS=	${PYTHON_SITELIBDIR}/django/bin/django-admin.py:${PORTSDIR}/www/py-django
+
+LICENSE=	BSD3CLAUSE
+
+WRKSRC=		${WRKDIR}/${PORTNAME}
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

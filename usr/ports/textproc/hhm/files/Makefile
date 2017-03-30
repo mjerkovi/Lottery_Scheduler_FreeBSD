@@ -1,0 +1,11 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/hhm/files/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+PROG=	hhm
+
+LDADD=	-L${PREFIX}/lib -llzxcomp -lm
+CFLAGS=	-I${PREFIX}/include
+BINDIR=	${PREFIX}/bin
+
+NO_MAN=	#
+
+.include <bsd.prog.mk>

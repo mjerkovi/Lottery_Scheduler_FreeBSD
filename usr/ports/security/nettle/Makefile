@@ -1,0 +1,51 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/security/nettle/Makefile 397384 2015-09-20 19:21:15Z amdmi3 $
+
+PORTNAME=	nettle
+PORTVERSION=	2.7.1
+CATEGORIES=	security
+MASTER_SITES=	GNU \
+		http://www.lysator.liu.se/~nisse/archive/:liu \
+		ftp://ftp.lysator.liu.se/pub/security/lsh/:liu
+
+MAINTAINER=	johans@FreeBSD.org
+COMMENT=	Low-level cryptographic library
+
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/COPYING.LIB
+
+LIB_DEPENDS=	libgmp.so:${PORTSDIR}/math/gmp
+
+USES=		gmake makeinfo
+USE_OPENSSL=	yes
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV+=	M4="/usr/bin/m4 -g"
+CONFIGURE_ARGS=	--enable-shared
+MAKE_ARGS=	pkgconfigdir="${PREFIX}/libdata/pkgconfig"
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+USE_LDCONFIG=	yes
+
+PORTDOCS=	NEWS README TODO nettle.html nettle.pdf
+PORTEXAMPLES=	*.c *.h
+INFO=		nettle
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "sparc64"
+CONFIGURE_ENV+=	CCPIC=-fPIC
+.endif
+
+post-install-EXAMPLES-on:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	cd ${WRKSRC}/examples && ${INSTALL_DATA} ${PORTEXAMPLES} \
+		${STAGEDIR}${EXAMPLESDIR}
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.post.mk>

@@ -1,0 +1,24 @@
+# Created by: petef@FreeBSD.org
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-File-Rsync/Makefile 402215 2015-11-22 04:50:46Z bofh $
+
+PORTNAME=	File-Rsync
+PORTVERSION=	0.48
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Perl convenience wrapper for the rsync(1) program
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	rsync:${PORTSDIR}/net/rsync \
+		p5-IPC-Run3>=0.042:${PORTSDIR}/devel/p5-IPC-Run3
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+NO_ARCH=	yes
+
+.include <bsd.port.mk>

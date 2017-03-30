@@ -1,0 +1,23 @@
+# Created by: Alexander Yerenkow <yerenkow@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/games/residualvm/Makefile 385523 2015-05-06 16:04:20Z mat $
+
+PORTNAME=	residualvm
+PORTVERSION=	0.1.1
+PORTREVISION=	2
+CATEGORIES=	games
+
+MAINTAINER=	yerenkow@gmail.com
+COMMENT=	ResidualVM allows you to indulge with classic games like Grim Fandango
+
+USE_GITHUB=	yes
+
+USE_SDL=	sdl
+HAS_CONFIGURE=	yes
+USES=		gmake
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|{datarootdir}/man|{prefix}/man|' ${WRKSRC}/configure
+
+.include <bsd.port.mk>

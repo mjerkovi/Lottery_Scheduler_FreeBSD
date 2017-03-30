@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-blaze-textual/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	blaze-textual
+PORTVERSION=	0.2.1.0
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Fast rendering of common datatypes
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	blaze-builder>=0.2.1.4 double-conversion>=0.2.0.1 \
+		old-locale text>=0.11.0.2 vector
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

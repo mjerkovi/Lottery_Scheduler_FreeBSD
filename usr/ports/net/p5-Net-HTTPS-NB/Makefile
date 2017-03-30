@@ -1,0 +1,24 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-HTTPS-NB/Makefile 399379 2015-10-15 20:17:26Z sunpoet $
+
+PORTNAME=	Net-HTTPS-NB
+PORTVERSION=	0.14
+CATEGORIES=	net www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Non-blocking HTTPS client
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-IO-Socket-SSL>=0.98:${PORTSDIR}/security/p5-IO-Socket-SSL \
+		p5-Net-HTTP>=0:${PORTSDIR}/net/p5-Net-HTTP
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

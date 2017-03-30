@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/games/pycadia/files/pycadia.sh.in 335900 2013-12-08 14:58:36Z nemysis $
+#
+
+cd "%%DATADIR%%"
+exec %%PYTHON_CMD%% ./pycadia.py "${@}"

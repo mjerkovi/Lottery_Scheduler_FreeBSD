@@ -1,0 +1,24 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/rubygem-gitlab_omniauth-ldap/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	gitlab_omniauth-ldap
+PORTVERSION=	1.2.1
+CATEGORIES=	net rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	LDAP strategy for OmniAuth
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-net-ldap>=0.9:${PORTSDIR}/net/rubygem-net-ldap \
+		rubygem-omniauth>=1.0:${PORTSDIR}/security/rubygem-omniauth \
+		rubygem-pyu-ruby-sasl>=0.0.3.1:${PORTSDIR}/security/rubygem-pyu-ruby-sasl \
+		rubygem-rubyntlm>=0.3:${PORTSDIR}/net/rubygem-rubyntlm
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

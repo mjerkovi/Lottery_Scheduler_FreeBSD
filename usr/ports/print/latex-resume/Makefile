@@ -1,0 +1,37 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/print/latex-resume/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	resume
+PORTVERSION=	20010823
+PORTREVISION=	3
+CATEGORIES=	print
+MASTER_SITES=	TEX_CTAN/macros/latex/contrib/${PORTNAME}
+PKGNAMEPREFIX=	latex-
+DISTNAME=	res
+EXTRACT_SUFX=	.cls
+DIST_SUBDIR=	${PKGNAMEPREFIX}${PORTNAME}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Resume class for LaTeX
+
+USE_TEX=	latex
+NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
+EXTRACT_CMD=	${CP}
+EXTRACT_BEFORE_ARGS=	# empty
+EXTRACT_AFTER_ARGS=	.
+
+TEXMFDIR=	share/texmf
+MKTEXLSR=	${LOCALBASE}/bin/mktexlsr
+CLASSDIR=	${TEXMFDIR}/tex/latex/${PORTNAME}
+CLASS_FILES=	${DISTFILES}
+
+PLIST_SUB=	MKTEXLSR=${MKTEXLSR} \
+		CLASSDIR=${CLASSDIR}
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${CLASSDIR}
+	${INSTALL_DATA} ${CLASS_FILES:S@^@${WRKSRC}/@} \
+		${STAGEDIR}${PREFIX}/${CLASSDIR}
+
+.include <bsd.port.mk>

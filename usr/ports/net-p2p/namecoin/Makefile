@@ -1,0 +1,99 @@
+# Created by: Chad J. Milios <milios@ccsys.com>
+# $FreeBSD: tags/RELEASE_10_3_0/net-p2p/namecoin/Makefile 404743 2015-12-29 14:30:46Z mat $
+
+PORTNAME=	namecoin
+PORTVERSION=	0.3.80
+PORTREVISION=	1
+DISTVERSIONPREFIX=	nc
+PORTEPOCH=	1
+CATEGORIES=	net-p2p dns
+
+MAINTAINER=	milios@ccsys.com
+COMMENT=	Decentralized, open DNS system and general purpose key/value store
+
+LICENSE=	MIT
+
+LIB_DEPENDS=	libboost_date_time.so:${PORTSDIR}/devel/boost-libs
+
+OPTIONS_DEFINE=	X11 UPNP QRCODES DBUS
+OPTIONS_DEFAULT=	X11 QRCODES
+
+UPNP_DESC=	Build with UPNP support
+QRCODES_DESC=	Build with QR code display
+
+USE_GITHUB=	yes
+
+USES=		gmake compiler:c++11-lib
+MAKE_JOBS_UNSAFE=yes
+USE_OPENSSL=	yes
+USE_BDB=	yes
+WANT_BDB_VER=	48
+
+CXXFLAGS+=	-I${LOCALBASE}/include -I${BDB_INCLUDE_DIR}
+CXXFLAGS+=	-L${LOCALBASE}/lib -L${BDB_LIB_DIR}
+CXXFLAGS+=	-DCRYPTOPP_DISABLE_ASM
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MX11}
+USE_QT4=	corelib network gui qmake_build linguist_build uic_build moc_build rcc_build
+
+BINARY=		namecoin-qt
+LIB_DEPENDS+=	libprotobuf.so:${PORTSDIR}/devel/protobuf
+.else
+BINARY=		namecoind
+MAKE_ARGS+=	-C ${WRKSRC}/src
+USE_GNOME=	glib20
+.endif
+
+.if ${PORT_OPTIONS:MQRCODES}
+LIB_DEPENDS+=	libqrencode.so:${PORTSDIR}/graphics/libqrencode
+QMAKE_USE_QRCODE=1
+.else
+QMAKE_USE_QRCODE=0
+.endif
+
+.if ${PORT_OPTIONS:MDBUS}
+USE_QT4+=	dbus
+QMAKE_USE_DBUS=	1
+.else
+QMAKE_USE_DBUS=	0
+.endif
+
+PLIST_FILES+=	bin/${BINARY}
+
+.if ${PORT_OPTIONS:MUPNP}
+LIB_DEPENDS+=	libminiupnpc.so:${PORTSDIR}/net/miniupnpc
+CXXFLAGS+=	-I${LOCALBASE}/include/miniupnpc
+QMAKE_USE_UPNP=	1
+.else
+QMAKE_USE_UPNP=	-
+.endif
+
+.include <bsd.port.pre.mk>
+
+post-patch:
+.if !${PORT_OPTIONS:MX11}
+	@cd ${WRKSRC}/src && ${CP} ${FILESDIR}/makefile.unix Makefile
+	@${REINPLACE_CMD} \
+		-e 's|^USE_UPNP.*$$|USE_UPNP=${QMAKE_USE_UPNP}|' \
+		${WRKSRC}/src/Makefile
+.endif
+
+do-configure:
+.if ${PORT_OPTIONS:MX11}
+	cd ${WRKSRC} && ${SETENV} ${QMAKE_ENV} \
+		${QMAKE} ${QMAKE_ARGS} USE_UPNP=${QMAKE_USE_UPNP} USE_QRCODE=${QMAKE_USE_QRCODE} \
+		QMAKE_LRELEASE=${LRELEASE} INCLUDEPATH+=${BDB_INCLUDE_DIR} \
+		QMAKE_LIBDIR+=${BDB_LIB_DIR} ${BINARY}.pro
+.endif
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/bin
+.if ${PORT_OPTIONS:MX11}
+	${INSTALL_PROGRAM} ${WRKSRC}/${BINARY} ${STAGEDIR}${PREFIX}/bin/
+.else
+	${INSTALL_PROGRAM} ${WRKSRC}/src/${BINARY} ${STAGEDIR}${PREFIX}/bin/
+.endif
+
+.include <bsd.port.post.mk>

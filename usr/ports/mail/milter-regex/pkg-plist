@@ -1,0 +1,3 @@
+libexec/milter-regex
+man/man8/milter-regex.8.gz
+@dir(mailnull,mail,750) %%SPOOLDIR%%

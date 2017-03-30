@@ -1,0 +1,36 @@
+# Created by: James Hunt <james.hunt@ubuntu.com>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/procenv/Makefile 395213 2015-08-25 03:15:41Z amdmi3 $
+
+PORTNAME=	procenv
+PORTVERSION=	0.36
+CATEGORIES=	sysutils
+MASTER_SITES=	https://launchpad.net/procenv/trunk/${PORTVERSION}/+download/ \
+		http://people.canonical.com/~jhunt/debian/procenv/${PORTVERSION}/ \
+		DEBIAN
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Utility to show process environment
+
+LICENSE=	GPLv3 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+BUILD_DEPENDS=	xmlwf:${PORTSDIR}/textproc/expat2
+
+USES=		autoreconf gmake perl5
+GNU_CONFIGURE=	yes
+USE_PERL5=	build
+
+PLIST_FILES=	bin/procenv \
+		man/man1/procenv.1.gz
+
+# Test to ensure procenv will actually run.
+#
+# This has the attractive side-effect of displaying the environment
+# of the build system which may be of interest to those fixing FTBFS
+# packages that build correctly locally.
+regression-test: build
+	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} check
+
+test: regression-test
+
+.include <bsd.port.mk>

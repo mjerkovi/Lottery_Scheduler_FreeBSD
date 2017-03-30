@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-conduit/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	conduit
+PORTVERSION=	1.2.5
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Streaming data processing library
+
+LICENSE=	MIT
+
+USE_CABAL=	exceptions>=0.6 lifted-base>=0.1 mmorph mtl resourcet>=1.1 \
+		transformers-base>=0.4.1 void>=0.5.5
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

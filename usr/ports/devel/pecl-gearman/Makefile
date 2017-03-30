@@ -1,0 +1,24 @@
+# Created by: Gea-Suan Lin <gslin@gslin.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/pecl-gearman/Makefile 402450 2015-11-26 14:39:58Z miwi $
+
+PORTNAME=	gearman
+PORTVERSION=	1.1.2
+CATEGORIES=	devel
+MASTER_SITES=	http://pecl.php.net/get/
+PKGNAMEPREFIX=	pecl-
+DIST_SUBDIR=	PECL
+
+MAINTAINER=	miwi@FreeBSD.org
+COMMENT=	Gearman API
+
+LICENSE=	PHP301
+
+LIB_DEPENDS=	libgearman.so:${PORTSDIR}/devel/gearmand
+
+USES=		tar:tgz
+CONFIGURE_ARGS=	--with-gearman
+PHP_MODNAME=	${PORTNAME}
+USE_PHP=	yes
+USE_PHPEXT=	yes
+
+.include <bsd.port.mk>

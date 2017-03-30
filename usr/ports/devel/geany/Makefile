@@ -1,0 +1,41 @@
+# Created by: Remington Lang <MrL0Lz@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/geany/Makefile 395656 2015-08-31 08:57:38Z makc $
+
+PORTNAME=	geany
+PORTVERSION=	1.25
+CATEGORIES=	devel editors
+MASTER_SITES=	http://download.geany.org/ SF
+
+MAINTAINER=	makc@FreeBSD.org
+COMMENT=	Fast and lightweight GTK+ IDE
+
+LICENSE=	GPLv2
+
+GNU_CONFIGURE=	yes
+INSTALLS_ICONS=	yes
+USE_GNOME=	gtk20 intltool
+USES=		desktop-file-utils gettext-tools \
+		gmake libtool pathfix pkgconfig tar:bzip2
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+OPTIONS_DEFINE=	VTE NLS DOCS
+OPTIONS_DEFAULT=	VTE
+OPTIONS_SUB=	yes
+
+NLS_USES=	gettext-runtime
+NLS_CONFIGURE_ENABLE=	nls
+
+VTE_DESC=	Embedded virtual terminal
+VTE_CONFIGURE_ENABLE=	vte
+VTE_USE=	GNOME=vte
+
+post-patch-DOCS-off:
+	@${REINPLACE_CMD} -e '/^SUBDIRS/ s|doc||' ${WRKSRC}/Makefile.in
+
+post-patch-NLS-off:
+	@${REINPLACE_CMD} -e '/^SUBDIRS/ s|po||' ${WRKSRC}/Makefile.in
+
+.include <bsd.port.mk>

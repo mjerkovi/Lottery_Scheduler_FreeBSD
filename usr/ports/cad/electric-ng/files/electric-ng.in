@@ -1,0 +1,17 @@
+#!/bin/csh
+#
+# $MBSDlabs$
+# $FreeBSD: tags/RELEASE_10_3_0/cad/electric-ng/files/electric-ng.in 340851 2014-01-23 19:55:14Z mat $
+
+set JAVA = "%%LOCALBASE%%/bin/java"
+set LIBFILES = "%%LIBFILES%%"
+set JARPATH = "%%JAVALIBDIR%%"
+setenv JAVA_VERSION "%%JAVA_VERSION%%"
+
+if ( "${LIBFILES}" != "" ) then
+	set CLASSPATH = :`echo ${LIBFILES} | sed -E -e 's,[[:space:]]+,:,g'`
+else
+	set CLASSPATH = ""
+endif
+
+exec "${JAVA}" -cp %%JAVAJARDIR%%/%%JARFILE%%"${CLASSPATH}" com.sun.electric.Launcher

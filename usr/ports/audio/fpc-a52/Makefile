@@ -1,0 +1,22 @@
+# Created by: Christopher Key <cjk32@cam.ac.uk>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/fpc-a52/Makefile 403082 2015-12-05 23:29:36Z marino $
+
+CATEGORIES=	audio lang
+PKGNAMESUFFIX=	-a52
+
+MAINTAINER=	freebsd-fpc@FreeBSD.org
+COMMENT=	Free Pascal interface to a52 library
+
+USE_FPC=	yes
+
+MASTERDIR=	${.CURDIR}/../../lang/fpc
+WRKUNITDIR=	${FPCSRCDIR}/packages/${PKGNAMESUFFIX:S/-//}
+EXTRACTUNITDIR=	${WRKUNITDIR}
+
+OPTIONS_DEFINE=	LIBA52
+LIBA52_DESC=	Install a52 library
+OPTIONS_DEFAULT=	LIBA52
+
+LIBA52_LIB_DEPENDS=	liba52.so:${PORTSDIR}/audio/liba52
+
+.include "${MASTERDIR}/Makefile"

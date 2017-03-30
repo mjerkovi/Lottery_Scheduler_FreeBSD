@@ -1,0 +1,42 @@
+# Created by: Michael Johnson <ahze@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/accessibility/accerciser/Makefile 401900 2015-11-18 22:13:53Z rm $
+#   $MCom: ports/trunk/accessibility/accerciser/Makefile 19980 2014-10-17 06:01:57Z gusi $
+
+PORTNAME=	accerciser
+PORTVERSION=	3.14.0
+PORTREVISION=	1
+CATEGORIES=	accessibility gnome
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome3
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	Interactive Python accessibility explorer for GNOME
+
+BUILD_DEPENDS=	gsettings-desktop-schemas>=3.2.0:${PORTSDIR}/devel/gsettings-desktop-schemas \
+		itstool:${PORTSDIR}/textproc/itstool \
+		at-spi2-core>=2.1.5:${PORTSDIR}/accessibility/at-spi2-core
+RUN_DEPENDS=	gsettings-desktop-schemas>=3.2.0:${PORTSDIR}/devel/gsettings-desktop-schemas \
+		at-spi2-core>=2.1.5:${PORTSDIR}/accessibility/at-spi2-core
+
+USES=		gettext gmake pkgconfig python:3 shebangfix tar:xz
+USE_GNOME=	gtk30 intlhack py3gobject3
+INSTALLS_ICONS=	yes
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+SHEBANG_FILES=	plugins/ipython_view.py
+
+GLIB_SCHEMAS=	org.a11y.Accerciser.gschema.xml
+
+.include <bsd.port.pre.mk>
+
+.if ${PYTHON_REL} < 3500
+PYOEXTENSION=	pyo
+.else
+PYOEXTENSION=	opt-1.pyc
+.endif
+
+PLIST_SUB+=	PYOEXTENSION=${PYOEXTENSION} \
+		PYVER=${PYTHON_VER:S/.//}
+
+.include <bsd.port.post.mk>

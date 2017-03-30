@@ -1,0 +1,27 @@
+# Created by: Torsten Zuhlsdorff <ports@toco-domains.de>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/rubygem-actionmailer41/Makefile 402315 2015-11-23 19:01:10Z sunpoet $
+
+PORTNAME=	actionmailer
+PORTVERSION=	4.1.14
+CATEGORIES=	mail rubygems
+MASTER_SITES=	RG
+PKGNAMESUFFIX=	41
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Easy email delivery and testing for Ruby
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/MIT-LICENSE
+
+RUN_DEPENDS=	rubygem-actionpack41>=${PORTVERSION}:${PORTSDIR}/www/rubygem-actionpack41 \
+		rubygem-actionview41>=${PORTVERSION}:${PORTSDIR}/devel/rubygem-actionview41 \
+		rubygem-mail>=2.5.4:${PORTSDIR}/mail/rubygem-mail
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PORTSCOUT=	limit:^4\.1
+
+.include <bsd.port.mk>

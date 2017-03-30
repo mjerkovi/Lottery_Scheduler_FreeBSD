@@ -1,0 +1,36 @@
+# Created by: trasz <trasz@pin.if.uz.zgora.pl>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/nekobee/Makefile 385514 2015-05-06 12:57:55Z mat $
+
+PORTNAME=	nekobee
+PORTVERSION=	0.1.8
+PORTREVISION=	3
+CATEGORIES=	audio
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	DSSI plugin that emulates the sound of the TB-303 Bassline
+
+LICENSE=	GPLv2 # (or later)
+
+BUILD_DEPENDS=	${LOCALBASE}/include/dssi.h:${PORTSDIR}/audio/dssi
+LIB_DEPENDS=	libdssialsacompat.so:${PORTSDIR}/audio/libdssialsacompat \
+		liblo.so:${PORTSDIR}/audio/liblo \
+		libjack.so:${PORTSDIR}/audio/jack
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	gordonjcp
+
+USES=		pkgconfig waf
+USE_GNOME=	gtk20
+
+CPPFLAGS+=	-I${LOCALBASE}/include/dssi -I${LOCALBASE}/include
+LDFLAGS+=	-lm
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		'/LINKFLAGS/s|^|#|' ${WRKSRC}/wscript
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/dssi/nekobee.so
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/dssi/nekobee/nekobee_gtk
+
+.include <bsd.port.mk>

@@ -1,0 +1,23 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/libyaml/Makefile 383836 2015-04-12 01:20:44Z jpaetzel $
+
+PORTNAME=	libyaml
+PORTVERSION=	0.1.6
+PORTREVISION=	2
+CATEGORIES=	textproc
+MASTER_SITES=	http://pyyaml.org/download/libyaml/
+DISTNAME=	yaml-${PORTVERSION}
+DIST_SUBDIR=	repacked
+
+MAINTAINER=	jpaetzel@FreeBSD.org
+COMMENT=	YAML 1.1 parser and emitter written in C
+
+LICENSE=	MIT
+
+GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
+USES=		cpe libtool pathfix
+CPE_VENDOR=	pyyaml
+USE_LDCONFIG=	yes
+
+.include <bsd.port.mk>

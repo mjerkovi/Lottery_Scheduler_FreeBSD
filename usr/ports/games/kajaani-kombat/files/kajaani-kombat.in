@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/games/kajaani-kombat/files/kajaani-kombat.in 309106 2012-12-17 16:00:14Z pawel $
+#
+
+cd "%%DATADIR%%"
+exec ./kajaani-kombat "${@}"

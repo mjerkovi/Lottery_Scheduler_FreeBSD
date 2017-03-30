@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-conduit-extra/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	conduit-extra
+PORTVERSION=	1.1.9.1
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Batteries included conduit: adapters for common libraries
+
+LICENSE=	MIT
+
+USE_CABAL=	attoparsec>=0.10 blaze-builder>=0.3 conduit>=1.1 \
+		monad-control network>=2.3 primitive>=0.5 resourcet>=1.1 \
+		stm streaming-commons>=0.1.11 text transformers-base
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

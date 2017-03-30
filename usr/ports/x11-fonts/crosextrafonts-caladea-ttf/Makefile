@@ -1,0 +1,27 @@
+# $FreeBSD: tags/RELEASE_10_3_0/x11-fonts/crosextrafonts-caladea-ttf/Makefile 381876 2015-03-21 23:05:19Z bapt $
+
+PORTNAME=	crosextrafonts
+PORTVERSION=	20130214
+PORTREVISION=	1
+CATEGORIES=	x11-fonts
+MASTER_SITES=	http://gsdview.appspot.com/chromeos-localmirror/distfiles/
+PKGNAMESUFFIX=	-caladea
+
+MAINTAINER=	office@FreeBSD.org
+COMMENT=	Font created by Google for ChromeOS to replace MS Cambria
+
+LICENSE=	APACHE20
+
+USES=		fonts
+USE_XORG=	x11
+
+SUB_FILES=	pkg-message
+NO_BUILD=	yes
+
+FONTNAME=	Caladea
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} *.ttf ${STAGEDIR}${FONTSDIR}
+
+.include <bsd.port.mk>

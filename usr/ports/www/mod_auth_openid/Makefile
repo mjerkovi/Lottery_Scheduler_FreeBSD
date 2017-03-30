@@ -1,0 +1,44 @@
+# Created by: Sutra Zhou <zhoushuqun@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/mod_auth_openid/Makefile 387446 2015-05-26 00:00:34Z amdmi3 $
+
+PORTNAME=	mod_auth_openid
+PORTVERSION=	0.8
+PORTREVISION=	1
+DISTVERSIONPREFIX=	v
+CATEGORIES=	www
+PKGNAMEPREFIX=	${APACHE_PKGNAMEPREFIX}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Authentication module for the Apache 2 webserver with OpenID
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libopkele.so:${PORTSDIR}/devel/libopkele \
+		libsqlite3.so:${PORTSDIR}/databases/sqlite3
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	bmuller
+
+PLIST_FILES=	${APACHEMODDIR}/mod_auth_openid.so
+
+USE_APACHE=	22+
+USES=		autoreconf cpe gmake libtool pkgconfig
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--with-pcre=${LOCALBASE}
+
+CPE_VENDOR=	findingscience
+
+CFLAGS+=	-I${LOCALBASE}/include -I/usr/include/openssl
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|$${APXS} -i|$${APXS} -S LIBEXECDIR=${STAGEDIR}${PREFIX}/${APACHEMODDIR} -i|' \
+		${WRKSRC}/src/Makefile.am
+
+pre-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/${APACHEMODDIR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${APACHEMODDIR}/${PORTNAME}.so
+
+.include <bsd.port.mk>

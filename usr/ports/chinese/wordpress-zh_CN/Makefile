@@ -1,0 +1,56 @@
+# Created by: Joe Horn <joehorn@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/chinese/wordpress-zh_CN/Makefile 410593 2016-03-08 01:02:33Z junovitch $
+
+PORTNAME=	wordpress
+PORTVERSION=	4.4.2
+DISTVERSIONSUFFIX=	-zh_CN
+CATEGORIES=	chinese www
+MASTER_SITES=	http://cn.wordpress.org/
+PKGNAMESUFFIX=	-zh_CN
+
+MAINTAINER=	miwi@FreeBSD.org
+COMMENT=	State-of-the-art semantic personal publishing platform
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/license.txt
+
+WRKSRC=		${WRKDIR}/${PORTNAME}
+
+USE_PHP=	curl gd mysqli pcre tokenizer xml zip
+NO_ARCH=	yes
+NO_BUILD=	yes
+WANT_PHP_WEB=	yes
+
+PLIST=		${WRKDIR}/pkg-plist
+WWWDIR=		${PREFIX}/www/${PORTNAME}${PKGNAMESUFFIX}
+
+PORTDOCS=	readme.html
+
+OPTIONS_DEFINE=	DOCS
+
+SUB_FILES=	pkg-message
+
+pre-everything::
+	@${ECHO_CMD} "If you want to upgrade, you must read upgrade document."
+	@${ECHO_CMD} ""
+	@sleep 1
+
+pre-install:
+	${ECHO_CMD} '@owner www' > ${PLIST}
+	${ECHO_CMD} '@group www' >> ${PLIST}
+	cd ${WRKSRC}/ && ${FIND} -s * -type f | ${SED} -e 's|^|%%WWWDIR%%/|' >> ${PLIST}
+	${ECHO_CMD} '@owner' >> ${PLIST}
+	${ECHO_CMD} '@group' >> ${PLIST}
+	if [ ! -f ${WRKSRC}/wp-config-sample.php ]; then ${CP} \
+		${WRKSRC}/wp-config.php.sample ${WRKSRC}/wp-config.php; fi
+
+do-install:
+	${MKDIR} ${STAGEDIR}${WWWDIR}/
+	${CP} -R ${WRKSRC}/ ${STAGEDIR}${WWWDIR}/
+	${FIND} ${STAGEDIR}${WWWDIR}/ -type d -exec ${CHMOD} g+w '{}' \;
+
+do-install-DOCS-on:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}/
+	cd ${WRKSRC}/ && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}/
+
+.include <bsd.port.mk>

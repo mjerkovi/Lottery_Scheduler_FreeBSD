@@ -1,0 +1,25 @@
+# Created by: ntarmos@ceid.upatras.gr
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libhid/Makefile 377770 2015-01-23 22:50:49Z antoine $
+
+PORTNAME=	libhid
+PORTVERSION=	0.2.16
+PORTREVISION=	3
+CATEGORIES=	devel
+MASTER_SITES=	http://alioth.debian.org/frs/download.php/1958/
+
+MAINTAINER=	ntarmos@cs.uoi.gr
+COMMENT=	User-space HID access library written in C
+
+BUILD_DEPENDS=	${LOCALBASE}/bin/xsltproc:${PORTSDIR}/textproc/libxslt \
+		docbook-xsl>0:${PORTSDIR}/textproc/docbook-xsl \
+		${LOCALBASE}/bin/swig1.3:${PORTSDIR}/devel/swig13
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--without-doxygen --disable-werror
+INSTALL_TARGET=	install-strip
+USES=		gmake libtool pathfix python
+USE_LDCONFIG=	yes
+
+EXTRA_PATCHES=	${FILESDIR}/extra-patch-usb
+
+.include <bsd.port.mk>

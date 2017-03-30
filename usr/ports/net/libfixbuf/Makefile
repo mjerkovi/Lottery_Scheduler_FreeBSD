@@ -1,0 +1,21 @@
+# Created by: David Thiel <lx@redundancy.redundancy.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/libfixbuf/Makefile 389010 2015-06-09 23:29:35Z lx $
+
+PORTNAME=	libfixbuf
+PORTVERSION=	1.6.2
+CATEGORIES=	net
+MASTER_SITES=	http://tools.netsa.cert.org/releases/ \
+		http://redundancy.redundancy.org/mirror/
+
+MAINTAINER=	lx@FreeBSD.org
+COMMENT=	Library for using the IP Flow Information Export protocol
+
+LICENSE=	LGPL21
+
+GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
+USES=		libtool pathfix pkgconfig
+USE_GNOME=	glib20
+USE_LDCONFIG=	yes
+
+.include <bsd.port.mk>

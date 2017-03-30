@@ -1,0 +1,33 @@
+# Created by: Martin Wilke <miwi@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/openpgpsdk/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	openpgpsdk
+PORTVERSION=	0.9
+CATEGORIES=	security
+MASTER_SITES=	http://openpgp.nominet.org.uk/downloads/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	OpenPGP SDK
+
+BROKEN=		unfetchable
+
+BUILD_DEPENDS=	gpg2:${PORTSDIR}/security/gnupg
+LIB_DEPENDS=	libcunit.so:${PORTSDIR}/devel/cunit
+
+USES=		perl5 shebangfix tar:tgz
+SHEBANG_FILES=	configure util/*.pl
+HAS_CONFIGURE=	yes
+CONFIGURE_ARGS=	--without-idea --with-cunit=${LOCALBASE}
+
+PLIST_FILES=	bin/openpgp lib/libops.a
+
+post-patch:
+	@${REINPLACE_CMD} 's|-Werror -W -g|${CFLAGS}|' ${WRKSRC}/configure
+	@${FIND} ${WRKSRC} -name Makefile.template -exec ${REINPLACE_CMD} \
+		's|-Werror -g|${CFLAGS}|; /^LDFLAGS/ s|-g|${LDFLAGS}|' {} \;
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/openpgp ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/lib/libops.a ${STAGEDIR}${PREFIX}/lib
+
+.include <bsd.port.mk>

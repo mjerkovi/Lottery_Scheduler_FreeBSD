@@ -1,0 +1,4 @@
+.\" $FreeBSD: releng/10.3/tools/build/options/WITHOUT_CCD 278717 2015-02-13 21:32:05Z ngie $
+Set to not build
+.Xr geom_ccd 4
+and related utilities.

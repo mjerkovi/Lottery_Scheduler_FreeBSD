@@ -1,0 +1,28 @@
+# Created by: Dmitry Marakasov <amdmi3@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/pire/Makefile 398125 2015-09-28 17:20:42Z amdmi3 $
+
+PORTNAME=	pire
+PORTVERSION=	0.0.5
+DISTVERSIONPREFIX=	release-
+PORTREVISION=	1
+CATEGORIES=	devel
+
+MAINTAINER=	amdmi3@FreeBSD.org
+COMMENT=	Perl Incompatible Regular Expressions library
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	dprokoptsev
+
+LICENSE=	LGPL3 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
+USES=		autoreconf bison gmake libtool
+USE_LDCONFIG=	yes
+TEST_TARGET=	check
+
+ONLY_FOR_ARCHS=	amd64 i386 ia64
+ONLY_FOR_ARCHS_REASON=	not yet ported to big-endian platforms
+
+.include <bsd.port.mk>

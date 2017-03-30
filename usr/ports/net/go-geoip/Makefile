@@ -1,0 +1,28 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/go-geoip/Makefile 405131 2016-01-03 11:33:09Z antoine $
+
+PORTNAME=	geoip
+PORTVERSION=	0.0.0.20131016
+CATEGORIES=	net
+MASTER_SITES=	GH GHC
+PKGNAMEPREFIX=	go-
+
+MAINTAINER=	kuriyama@FreeBSD.org
+COMMENT=	Go library to wrap the libgeoip C library
+
+LICENSE=	MIT
+
+LIB_DEPENDS=	libGeoIP.so:${PORTSDIR}/net/GeoIP
+
+USES=		compiler
+USE_GITHUB=	yes
+GH_ACCOUNT=	abh
+GH_TAGNAME=	da13074
+
+GO_PKGNAME=	github.com/${GH_ACCOUNT}/${PORTNAME}
+
+.include <bsd.port.pre.mk>
+.include "${PORTSDIR}/lang/go/files/bsd.go.mk"
+.if ${COMPILER_TYPE} == clang && ${CC} == cc
+CC=	clang
+.endif
+.include <bsd.port.post.mk>

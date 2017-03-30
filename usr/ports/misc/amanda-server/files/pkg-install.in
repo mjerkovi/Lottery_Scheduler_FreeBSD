@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/misc/amanda-server/files/pkg-install.in 340719 2014-01-22 15:52:06Z mat $
+
+if [ "$2" != "POST-INSTALL" ]; then
+	exit 0
+fi
+
+%%PERL%% -i -pe "s|\" client amrecover ndmp\"|\" server restore client amrecover ndmp\"|" ${PKG_PREFIX}/%%SITE_PERL_REL%%/Amanda/Constants.pm

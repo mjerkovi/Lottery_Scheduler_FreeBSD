@@ -1,0 +1,30 @@
+# Created by: eivind
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/cdiff/Makefile 384718 2015-04-25 09:11:32Z mat $
+
+PORTNAME=	cdiff
+PORTVERSION=	0.9.7
+PORTEPOCH=	1
+MASTER_SITES=	LOCAL/mat/cdiff GH
+CATEGORIES=	textproc
+
+MAINTAINER=	mat@FreeBSD.org
+COMMENT=	Diff readability enhancer for color terminals
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USE_GITHUB=
+GH_ACCOUNT=	ymattw
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+OPTIONS_DEFINE=	DOCS
+
+PORTDOCS=	README.rst
+
+post-install:
+	${INSTALL} -d ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

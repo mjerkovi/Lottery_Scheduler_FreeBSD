@@ -1,0 +1,38 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/py-gdal/Makefile 401532 2015-11-13 19:12:49Z sunpoet $
+
+PORTNAME=	gdal
+PORTVERSION=	2.0.1
+CATEGORIES=	graphics python
+MASTER_SITES=	http://download.osgeo.org/gdal/${PORTVERSION}/ \
+		ftp://ftp.remotesensing.org/pub/gdal/${PORTVERSION}/ \
+		LOCAL/sunpoet
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Python binding for GDAL
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/../../LICENSE.TXT
+
+LIB_DEPENDS=	libgdal.so:${PORTSDIR}/graphics/gdal
+
+OPTIONS_DEFINE=	NUMPY
+NUMPY_DESC=	Enable array support via NumPy
+
+USE_PYTHON=	autoplist concurrent distutils
+USES=		python shebangfix tar:xz
+
+WRKSRC_SUBDIR=	swig/python
+
+SHEBANG_FILES=	scripts/*.py
+
+NUMPY_BUILD_DEPENDS=	${PKGNAMEPREFIX}numpy>=1.0.0:${PORTSDIR}/math/py-numpy
+NUMPY_RUN_DEPENDS=	${PKGNAMEPREFIX}numpy>=1.0.0:${PORTSDIR}/math/py-numpy
+NUMPY_USES=		fortran
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/*.py ${STAGEDIR}${PREFIX}/bin/
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/osgeo/*.so
+
+.include <bsd.port.mk>

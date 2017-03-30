@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/news/xpn/files/xpn.in 340872 2014-01-24 00:14:07Z mat $
+#
+if [ -z "$1" ] ; then
+    export XPN_ARGS=-d
+else
+    export XPN_ARGS="$@"
+fi
+exec %%PYTHON_CMD%% %%DATADIR%%/%%XPN%% ${XPN_ARGS}

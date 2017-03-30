@@ -1,0 +1,31 @@
+# Created by: Po-Chien Lin <linpc@cs.nctu.edu.tw>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-jsmin/Makefile 404338 2015-12-24 10:10:49Z miwi $
+
+PORTNAME=	jsmin
+PORTVERSION=	2.2.0
+CATEGORIES=	devel www python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	vlad-fbsd@acheronmedia.com
+COMMENT=	JavaScript minifier written in Python
+
+LICENSE=	MIT
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+NO_ARCH=	yes
+
+DOCSDIR=	${PREFIX}/share/doc/${PKGNAMEPREFIX}${PORTNAME}
+PORTDOCS=	PKG-INFO
+
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+
+do-test:
+	@(cd ${WRKSRC}/${PORTNAME} && ${PYTHON_CMD} test.py)
+
+.include <bsd.port.mk>

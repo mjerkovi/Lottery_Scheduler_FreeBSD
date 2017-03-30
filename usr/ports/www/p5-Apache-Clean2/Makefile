@@ -1,0 +1,31 @@
+# Created by: Martin Matuska <martin@matuska.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-Apache-Clean2/Makefile 394508 2015-08-17 14:20:40Z mat $
+
+PORTNAME=	Apache-Clean
+PORTVERSION=	2.00
+DISTVERSIONSUFFIX=	_7
+PORTREVISION=	3
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN/Apache/GEOFF
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Mod_perl interface into HTML::Clean
+
+BUILD_DEPENDS=	${APACHE_PKGNAMEPREFIX}mod_perl2>=0:${PORTSDIR}/www/mod_perl2 \
+		p5-HTML-Clean>=0.8:${PORTSDIR}/www/p5-HTML-Clean
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+USE_APACHE=	22+
+
+DOCSDIR=	${PREFIX}/share/doc/${PKGNAMEPREFIX}${PORTNAME}
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

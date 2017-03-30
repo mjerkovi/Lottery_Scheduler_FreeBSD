@@ -1,0 +1,17 @@
+# Created by: Giuseppe Pilichi aka Jacula Modyun <jacula@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/hs-HGL/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	HGL
+PORTVERSION=	3.2.0.5
+PORTREVISION=	2
+CATEGORIES=	graphics haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Simple Haskell graphics library based on X11 or Win32
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	X11
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

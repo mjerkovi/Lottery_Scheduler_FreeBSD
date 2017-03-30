@@ -1,0 +1,23 @@
+# Created by: Dave Chapeskie <dchapes@ddm.on.ca>
+# $FreeBSD: tags/RELEASE_10_3_0/games/xmemory/Makefile 373817 2014-12-03 13:37:16Z amdmi3 $
+
+PORTNAME=	xmemory
+PORTVERSION=	3.7
+PORTREVISION=	2
+CATEGORIES=	games
+MASTER_SITES=	XCONTRIB/games/multiplayer
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Multi-player memory game
+
+USES=		imake tar:tgz
+USE_XORG=	x11 xext
+MAKE_ENV=	DATADIR="${DATADIR}"
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.man ${STAGEDIR}${MAN1PREFIX}/man/man1/${PORTNAME}.1
+	${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/*.mem ${STAGEDIR}${DATADIR}/
+
+.include <bsd.port.mk>

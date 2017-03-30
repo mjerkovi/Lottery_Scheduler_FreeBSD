@@ -1,0 +1,31 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/rsstail/Makefile 393064 2015-07-28 10:43:12Z antoine $
+
+PORTNAME=	rsstail
+PORTVERSION=	2.0
+PORTREVISION=	1
+CATEGORIES=	www
+MASTER_SITES=	http://www.vanheusden.com/${PORTNAME}/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Simple RSS monitor
+
+LICENSE=	GPLv2
+
+LIB_DEPENDS=	libmrss.so:${PORTSDIR}/textproc/libmrss
+
+CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+USES=		iconv tar:tgz
+
+PLIST_FILES=	bin/${PORTNAME} \
+		man/man1/${PORTNAME}.1.gz
+
+post-patch:
+	@${REINPLACE_CMD} -e '/^CFLAGS/ s|=|+=|; /^LDFLAGS/ s|=|+=|; s|-liconv|${ICONV_LIB}|' ${WRKSRC}/Makefile
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.1 ${STAGEDIR}${MAN1PREFIX}/man/man1/
+
+.include <bsd.port.mk>

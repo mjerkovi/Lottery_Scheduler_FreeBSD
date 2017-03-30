@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/hs-pureMD5/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	pureMD5
+PORTVERSION=	2.1.2.1
+PORTREVISION=	10
+CATEGORIES=	security haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Haskell-only implementation of MD5 digest (hash) yalgorithm
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	cereal>=0.2 crypto-api tagged
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

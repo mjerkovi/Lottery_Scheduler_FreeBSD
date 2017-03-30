@@ -1,0 +1,20 @@
+# Created by: chinsan <chinsan.tw@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/fapg/Makefile 378355 2015-02-03 14:56:26Z mi $
+
+PORTNAME=	fapg
+PORTVERSION=	0.42
+CATEGORIES=	audio
+MASTER_SITES=	http://royale.zerezo.com/${PORTNAME}/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Fast Audio Playlist Generator
+
+LICENSE=	GPLv2
+
+LIB_DEPENDS=	liburiparser.so:${PORTSDIR}/net/uriparser
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS+=--with-uriparser="${LOCALBASE}"
+PLIST_FILES=	bin/fapg man/man1/fapg.1.gz
+
+.include <bsd.port.mk>

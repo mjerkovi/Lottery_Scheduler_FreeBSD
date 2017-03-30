@@ -1,0 +1,21 @@
+# Created by: nadav@libagent.org
+# $FreeBSD: tags/RELEASE_10_3_0/hebrew/he2/Makefile 377795 2015-01-24 15:07:39Z antoine $
+
+PORTNAME=	he2
+PORTVERSION=	0.61
+PORTREVISION=	3
+CATEGORIES=	hebrew editors
+MASTER_SITES=	SF/${PORTNAME}/HebrewEditor/${PORTVERSION}
+
+MAINTAINER=	cpm@fbsd.es
+COMMENT=	Editor for editing (primarily LaTeX) Hebrew files
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	iw-elmar-fonts>0:${PORTSDIR}/hebrew/elmar-fonts
+
+USES=		gmake
+GNU_CONFIGURE=	yes
+ALL_TARGET=	-j`${SYSCTL} -n hw.ncpu`
+
+.include <bsd.port.mk>

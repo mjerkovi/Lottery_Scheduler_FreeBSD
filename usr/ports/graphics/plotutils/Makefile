@@ -1,0 +1,28 @@
+# Created by: Chuck Robey <chuckr@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/plotutils/Makefile 404327 2015-12-23 23:12:22Z stephen $
+
+PORTNAME=	plotutils
+PORTVERSION=	2.6
+PORTREVISION=	7
+PORTEPOCH=	1
+CATEGORIES=	graphics
+MASTER_SITES=	GNU
+
+MAINTAINER=	stephen@FreeBSD.org
+COMMENT=	Plotting library and toolkit
+
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
+
+USES=		gmake libtool	# parallel builds are broken with bmake(1)
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--enable-libplotter --enable-libxmi
+USE_LDCONFIG=	yes
+USE_XORG=	xaw
+TEST_TARGET=	check
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+INFO=		libxmi plotutils
+
+.include <bsd.port.mk>

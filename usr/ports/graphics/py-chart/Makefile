@@ -1,0 +1,20 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/py-chart/Makefile 395047 2015-08-22 17:48:35Z hrs $
+
+PORTNAME=	chart
+PORTVERSION=	1.39
+PORTREVISION=	6
+CATEGORIES=	graphics python
+MASTER_SITES=	http://download.gna.org/pychart/
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	PyChart-${PORTVERSION}
+
+MAINTAINER=	nivit@FreeBSD.org
+COMMENT=	Create high quality Encapsulated Postscript, PDF, or PNG charts
+
+LICENSE=	GPLv2
+
+USE_PYTHON=	distutils autoplist
+USES=		ghostscript:run python:2.7
+
+.include <bsd.port.mk>

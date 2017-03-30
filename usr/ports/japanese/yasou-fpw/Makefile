@@ -1,0 +1,34 @@
+# Created by: Hideyuki KURASHINA <rushani@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/japanese/yasou-fpw/Makefile 380473 2015-03-05 03:22:42Z amdmi3 $
+
+PORTNAME=	yasou-fpw
+PORTVERSION=	1.0.b0
+CATEGORIES=	japanese
+MASTER_SITES=	http://openlab.jp/edict/fpw/dist/yasou/ \
+		ftp://ftp.rediris.es/sites/ftp.freebsd.org/pub/FreeBSD/ports/distfiles/ \
+		ftp://relay1.tomsk.gov.ru/pub/FreeBSD/ports/distfiles/
+DISTNAME=	${PORTNAME}${PORTVERSION:S/.b0/beta0/}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Yasou picture book (EPWING V1 format) by SAS
+
+NO_CDROM=	No commercial use, and no redistribution allowed with fee except media and/or shipping cost
+
+USES=		zip
+NO_BUILD=	yes
+WRKSRC=		${WRKDIR}/yasou
+EXTRACT_BEFORE_ARGS=	-qL
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/dict/yasou-fpw/yasou/data
+	${INSTALL_DATA} ${WRKSRC}/yasou/data/honmon \
+		${STAGEDIR}${PREFIX}/share/dict/yasou-fpw/yasou/data
+	${INSTALL_DATA} ${WRKSRC}/catalogs \
+		${STAGEDIR}${PREFIX}/share/dict/yasou-fpw
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} readme.fpw yasoufpw.txt \
+	       ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

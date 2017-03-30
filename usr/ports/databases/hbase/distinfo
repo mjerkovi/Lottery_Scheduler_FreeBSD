@@ -1,0 +1,4 @@
+SHA256 (hadoop/hbase-1.1.2-src.tar.gz) = f107753b41786bdfa255d9fb2ba0ca2a3dc57c390a615b6677c8fcee644ddfd7
+SIZE (hadoop/hbase-1.1.2-src.tar.gz) = 15625945
+SHA256 (hadoop/FreeBSD-hbase-1.1.2-maven-repository.tar.gz) = 47a8560697a6716d5551a4facb4d4ad2ca814a5b86d5fdbfdd67cc17cdd25d63
+SIZE (hadoop/FreeBSD-hbase-1.1.2-maven-repository.tar.gz) = 276578582

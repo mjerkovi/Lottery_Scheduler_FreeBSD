@@ -1,0 +1,34 @@
+# Created by: Stephen Montgomery-Smith <stephen@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/math/octave-forge-database/Makefile 385630 2015-05-07 14:21:52Z stephen $
+
+PORTNAME=	octave-forge-database
+PORTVERSION=	2.3.2
+CATEGORIES=	math
+
+MAINTAINER=	stephen@FreeBSD.org
+COMMENT=	Octave-forge package ${OCTAVE_PKGNAME}
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKDIR}/${OCTSRC}/COPYING
+
+# OCTSRC is the name of the directory of the package.
+# It is usually ${OCTAVE_PKGNAME} or ${DISTNAME}.
+OCTSRC=		${DISTNAME}
+
+WRKSRC=		${WRKDIR}/${OCTSRC}/src
+
+GNU_CONFIGURE=	yes
+USES+=		pgsql
+ALL_TARGET=
+
+.include "${.CURDIR}/../../Mk/bsd.octave.mk"
+
+post-build:
+	${RM} -f ${WRKSRC}/Makefile ${WRKSRC}/configure
+	cd ${WRKDIR} && ${TAR} cfz ${DISTNAME}.tar.gz ${OCTSRC}
+
+post-patch:
+	${REINPLACE_CMD} 's#postgresql/##' ${WRKSRC}/*
+	${REINPLACE_CMD} 's#endian.h#sys/endian.h#' ${WRKSRC}/wrap_endian.h
+
+.include <bsd.port.mk>

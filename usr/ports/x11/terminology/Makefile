@@ -1,0 +1,29 @@
+# Created by: Grzegorz Blach <gblach@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/x11/terminology/Makefile 397232 2015-09-18 11:56:12Z gblach $
+
+PORTNAME=	terminology
+PORTVERSION=	0.9.1
+CATEGORIES=	x11 enlightenment
+MASTER_SITES=	http://download.enlightenment.org/rel/apps/${PORTNAME}/
+
+MAINTAINER=	enlightenment@FreeBSD.org
+COMMENT=	EFL Terminal Emulator
+
+LICENSE=	BSD2CLAUSE
+
+LIB_DEPENDS=	libefl.so:${PORTSDIR}/devel/efl \
+		libelementary.so:${PORTSDIR}/x11-toolkits/elementary
+
+DIST_SUBDIR=	enlightenment
+GNU_CONFIGURE=	yes
+USES=		compiler:c11 pkgconfig tar:xz
+
+OPTIONS_DEFINE=		NLS
+OPTIONS_SUB=		yes
+
+.include <bsd.port.options.mk>
+
+NLS_USES=		gettext
+NLS_CONFIGURE_ENABLE=	nls
+
+.include <bsd.port.mk>

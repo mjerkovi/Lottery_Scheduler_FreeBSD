@@ -1,0 +1,24 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/parano/Makefile 393444 2015-08-02 20:23:55Z kwm $
+
+PORTNAME=	parano
+PORTVERSION=	0.3.5
+PORTREVISION=	5
+CATEGORIES=	security
+MASTER_SITES=	BERLIOS
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Gnome program to deal with hashfiles
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USE_GNOME=	pygnome2 intltool
+USES=		desktop-file-utils gettext gmake python shared-mime-info
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-update-mime-database
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+.include <bsd.port.mk>

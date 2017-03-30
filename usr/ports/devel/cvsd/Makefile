@@ -1,0 +1,49 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/devel/cvsd/Makefile 395777 2015-09-01 16:20:47Z amdmi3 $
+
+PORTNAME=	cvsd
+PORTVERSION=	1.0.18
+CATEGORIES=	devel
+MASTER_SITES=	http://arthurdejong.org/cvsd/ \
+		http://wiftp.com/
+
+MAINTAINER=	rum1cro@yandex.ru
+COMMENT=	CVS pserver daemon
+
+LICENSE=	GPLv2
+
+EXTRA_PATCHES=	${FILESDIR}/extra-cvsd-buildroot.in
+
+USE_RC_SUBR=	cvsd
+USES=		perl5
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--with-libwrap
+MAKE_ARGS=	ACLOCAL="${TRUE}" AUTOCONF="${TRUE}" AUTOMAKE="${TRUE}" \
+		AUTOHEADER="${TRUE}"
+
+OPTIONS_DEFINE=	DOCS
+
+PORTDOCS=	FAQ NEWS README
+
+.include <bsd.port.pre.mk>
+
+.if ${OSVERSION} > 1000000
+BUILD_DEPENDS+=	cvs:${PORTSDIR}/devel/cvs
+RUN_DEPENDS+=	cvs:${PORTSDIR}/devel/cvs
+.endif
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/cvsd ${STAGEDIR}${PREFIX}/sbin/cvsd
+.for f in cvsd-buginfo cvsd-buildroot cvsd-passwd
+	${INSTALL_SCRIPT} ${WRKSRC}/${f} ${STAGEDIR}${PREFIX}/sbin
+.endfor
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/cvsd
+	${INSTALL_DATA} ${WRKSRC}/cvsd.conf-dist ${STAGEDIR}${PREFIX}/etc/cvsd/cvsd.conf.sample
+	${INSTALL_MAN} ${WRKSRC}/*.5 ${STAGEDIR}${MAN5PREFIX}/man/man5
+	${INSTALL_MAN} ${WRKSRC}/*.8 ${STAGEDIR}${MAN8PREFIX}/man/man8
+
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.post.mk>

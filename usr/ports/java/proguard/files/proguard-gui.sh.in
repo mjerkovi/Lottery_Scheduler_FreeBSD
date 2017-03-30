@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/java/proguard/files/proguard-gui.sh.in 340872 2014-01-24 00:14:07Z mat $
+
+exec "%%LOCALBASE%%/bin/java" -DsuppressSwingDropSupport=true -Xmx256m -jar "%%DATADIR%%/proguardgui.jar" "$@"

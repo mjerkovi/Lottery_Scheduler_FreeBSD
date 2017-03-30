@@ -1,0 +1,27 @@
+# Created by: Sergei Kolobov <sergei@kolobov.com>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/puredb/Makefile 388455 2015-06-03 17:23:54Z amdmi3 $
+
+PORTNAME=	puredb
+PORTVERSION=	2.1
+PORTREVISION=	2
+CATEGORIES=	databases
+MASTER_SITES=	http://pureftpd.sourceforge.net/puredb/
+DISTNAME=	pure-db-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Set of libraries for creating and reading constant databases
+
+USES=		libtool
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+DOCS=		AUTHORS FORMAT_DESCR NEWS README
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

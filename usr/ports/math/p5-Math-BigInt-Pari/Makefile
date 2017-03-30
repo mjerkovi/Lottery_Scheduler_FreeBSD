@@ -1,0 +1,21 @@
+# Created by: Andrey <gugu@zoo.rambler.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/math/p5-Math-BigInt-Pari/Makefile 402295 2015-11-23 18:24:32Z sunpoet $
+
+PORTNAME=	Math-BigInt-Pari
+PORTVERSION=	1.23
+CATEGORIES=	math perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Use Math::Pari for Math::BigInt routines
+
+BUILD_DEPENDS=	p5-Math-BigInt>=1.999709:${PORTSDIR}/math/p5-Math-BigInt \
+		p5-Math-Pari>=2.010709:${PORTSDIR}/math/p5-Math-Pari
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+NO_ARCH=	yes
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

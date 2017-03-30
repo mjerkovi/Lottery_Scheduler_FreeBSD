@@ -1,0 +1,35 @@
+# Created by: Yinghong.Liu <liu_yinghong@yahoo.com.cn>
+# $FreeBSD: tags/RELEASE_10_3_0/multimedia/mimms/Makefile 404721 2015-12-29 09:41:41Z amdmi3 $
+
+PORTNAME=	mimms
+DISTVERSION=	3.2.1
+CATEGORIES=	multimedia net
+MASTER_SITES=	SAVANNAH
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Download streams using the MMS protocol
+
+LICENSE=	GPLv3 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libmms.so:${PORTSDIR}/net/libmms
+
+USES=		python tar:bzip2
+USE_PYTHON=	distutils
+PYDISTUTILS_PKGVERSION=	3.2
+NO_ARCH=	yes
+
+PORTDOCS=	AUTHORS COPYING NEWS README
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|share/man/man1|man/man1|' ${WRKSRC}/setup.py
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for doc in ${PORTDOCS}
+	${INSTALL_DATA} ${WRKSRC}/${doc} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

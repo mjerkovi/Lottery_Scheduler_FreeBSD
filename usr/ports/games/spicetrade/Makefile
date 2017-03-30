@@ -1,0 +1,32 @@
+# Created by: Daniel Roethlisberger <daniel@roe.ch>
+# $FreeBSD: tags/RELEASE_10_3_0/games/spicetrade/Makefile 375273 2014-12-22 21:38:23Z bapt $
+
+PORTNAME=	spicetrade
+PORTVERSION=	1.2
+PORTREVISION=	3
+CATEGORIES=	games java
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/Spice%20Trade%20v${PORTVERSION}
+DISTNAME=	Spicetrade-${PORTVERSION}
+EXTRACT_SUFX=	.jar
+EXTRACT_ONLY=
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Colourful 14th century Arab spice trading game
+
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+DATADIR=	${JAVASHAREDIR}/${PORTNAME}
+NO_BUILD=	yes
+
+SUB_FILES=	${PORTNAME}
+SUB_LIST=	JARFILE="${DATADIR}/${DISTFILES}"
+
+PLIST_FILES=	bin/spicetrade %%DATADIR%%/${DISTFILES}
+PLIST_DIRS=	%%DATADIR%%
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${DISTDIR}/${DISTFILES} ${STAGEDIR}${DATADIR}
+
+.include <bsd.port.mk>

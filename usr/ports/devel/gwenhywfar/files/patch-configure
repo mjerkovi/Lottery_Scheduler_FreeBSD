@@ -1,0 +1,11 @@
+--- configure.orig	2015-05-25 16:16:33 UTC
++++ configure
+@@ -20986,7 +20986,7 @@ $as_echo_n "checking for fox libraries..
+ 
+ # Check whether --with-fox-libs was given.
+ if test "${with_fox_libs+set}" = set; then :
+-  withval=$with_fox_libs; fox_libs="$withval"
++  withval=$with_fox_libs; local_fox_libs="$withval"
+ else
+ 
+       ac_ext=cpp

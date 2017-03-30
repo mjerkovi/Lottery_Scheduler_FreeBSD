@@ -1,0 +1,38 @@
+# Created by: Gabor Kovesdan <gabor@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/math/gnubc/Makefile 392542 2015-07-19 22:20:31Z bapt $
+
+PORTNAME=	bc
+PORTVERSION=	1.06
+PORTREVISION=	3
+CATEGORIES=	math
+MASTER_SITES=	GNU
+PKGNAMEPREFIX=	gnu
+
+MAINTAINER=	gabor@FreeBSD.org
+COMMENT=	GNU bc/dc calculator
+
+LICENSE=	GPLv2
+
+GNU_CONFIGURE=	yes
+USES=		libedit
+CONFIGURE_ARGS+=	--with-libedit
+INFO=		bc \
+		dc
+PLIST_FILES=	bin/bc \
+		bin/dc \
+		man/man1/bc.1.gz \
+		man/man1/dc.1.gz
+PORTEXAMPLES=	ckbook.b \
+		pi.b \
+		primes.b \
+		twins.b
+
+OPTIONS_DEFINE=	EXAMPLES
+
+post-install:
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+.for f in ${PORTEXAMPLES}
+	${INSTALL_DATA} ${WRKSRC}/Examples/${f} ${STAGEDIR}${EXAMPLESDIR}
+.endfor
+
+.include <bsd.port.mk>

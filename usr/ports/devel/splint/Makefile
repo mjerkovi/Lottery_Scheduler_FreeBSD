@@ -1,0 +1,23 @@
+# Created by: moeding
+# $FreeBSD: tags/RELEASE_10_3_0/devel/splint/Makefile 340962 2014-01-25 00:23:18Z bapt $
+
+PORTNAME=	splint
+PORTVERSION=	3.1.2
+CATEGORIES=	devel security
+MASTER_SITES=	http://www.splint.org/downloads/
+EXTRACT_SUFX=	.src.tgz
+
+MAINTAINER=	lwhsu@FreeBSD.org
+COMMENT=	Tool for statically checking sourcecode for security vulnerabilities
+
+USES=		gmake
+GNU_CONFIGURE=	yes
+MAKE_JOBS_UNSAFE=	yes
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|%%PREFIX%%|${PREFIX}|g' ${WRKSRC}/src/Headers/constants.h
+	${FIND} ${WRKSRC} -name Makefile.in | ${XARGS} \
+		 ${REINPLACE_CMD} -e '/^pkgdatadir =/s|=.*|=${DATADIR}|'
+
+.include <bsd.port.mk>

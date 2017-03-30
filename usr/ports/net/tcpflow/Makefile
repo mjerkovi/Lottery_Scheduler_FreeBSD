@@ -1,0 +1,34 @@
+# Created by: Jose M. Alcaide <jose@we.lc.ehu.es>
+# $FreeBSD: tags/RELEASE_10_3_0/net/tcpflow/Makefile 400111 2015-10-24 08:40:13Z antoine $
+
+PORTNAME=	tcpflow
+PORTVERSION=	1.4.5
+CATEGORIES=	net
+MASTER_SITES=	http://www.digitalcorpora.org/downloads/${PORTNAME}/
+
+MAINTAINER=	antoine@FreeBSD.org
+COMMENT=	Program that captures data transmitted as part of TCP connections
+
+LICENSE=	GPLv3
+
+BUILD_DEPENDS=	${LOCALBASE}/include/boost/icl/interval.hpp:${PORTSDIR}/devel/boost-libs
+LIB_DEPENDS=	libcairo.so:${PORTSDIR}/graphics/cairo
+
+USE_OPENSSL=	yes
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV=	ac_cv_lib_md_MD5=no \
+		ac_cv_header_tre_tre_h=no ac_cv_lib_tre_tre_regcomp=no \
+		ac_cv_header_sqlite3_h=no ac_cv_lib_sqlite3_sqlite3_libversion=no
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+
+PLIST_FILES=	bin/tcpflow man/man1/tcpflow.1.gz
+PORTDOCS=	AUTHORS ChangeLog NEWS README
+
+OPTIONS_DEFINE=	DOCS
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

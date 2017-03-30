@@ -1,0 +1,28 @@
+# Created by: vanilla
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/pecl-ctemplate/Makefile 398222 2015-09-30 15:52:53Z vanilla $
+
+PORTNAME=	cTemplate
+PORTVERSION=	1.12
+CATEGORIES=	textproc pear
+DISTVERSIONPREFIX=	v
+PKGNAMEPREFIX=	pecl-
+DIST_SUBDIR=	PECL
+
+MAINTAINER=	vanilla@FreeBSD.org
+COMMENT=	PECL extension for ctemplate library
+
+LIB_DEPENDS=	libctemplate.so:${PORTSDIR}/textproc/google-ctemplate
+
+USES=		tar:xz
+USE_PHP=	yes
+USE_PHPEXT=	yes
+USE_GITHUB=	yes
+GH_ACCOUNT=	vanillahsu
+GH_PROJECT=	pecl-ctemplate
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib ${EXTRA_LIBS}
+
+CONFIGURE_ARGS=	--with-cTemplate=${LOCALBASE}
+
+.include <bsd.port.mk>

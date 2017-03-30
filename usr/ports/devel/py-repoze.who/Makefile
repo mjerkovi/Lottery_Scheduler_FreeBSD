@@ -1,0 +1,26 @@
+# Created by: Wen Heping <wenheping@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-repoze.who/Makefile 375378 2014-12-24 00:14:11Z bofh $
+
+PORTNAME=	repoze.who
+PORTVERSION=	2.2
+PORTREVISION=	1
+CATEGORIES=	devel python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Identification and authentication framework for WSGI
+
+LICENSE=	REPOZE
+LICENSE_NAME=	Repoze License
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}webob>=0:${PORTSDIR}/www/py-webob \
+		${PYTHON_PKGNAMEPREFIX}zope.interface>=3.5.2:${PORTSDIR}/devel/py-zope.interface
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

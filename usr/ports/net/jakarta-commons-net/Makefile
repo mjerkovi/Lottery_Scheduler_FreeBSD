@@ -1,0 +1,35 @@
+# Created by: Sergey Matveychuk <sem@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/jakarta-commons-net/Makefile 403362 2015-12-09 07:03:26Z vanilla $
+
+PORTNAME=	commons-net
+PORTVERSION=	3.4
+CATEGORIES=	net java
+MASTER_SITES=	APACHE_COMMONS_BINARIES
+PKGNAMEPREFIX=	jakarta-
+DISTNAME=	${PORTNAME}-${PORTVERSION}-bin
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Collection of network protocol implementations for Java
+
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+NO_BUILD=	yes
+
+OPTIONS_DEFINE=	DOCS
+
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+
+JARFILE=	${PORTNAME}-${PORTVERSION}.jar
+DESTJARFILE=	${PORTNAME}.jar
+PLIST_FILES=	%%JAVAJARDIR%%/${DESTJARFILE}
+PORTDOCS=	*
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/${JARFILE} \
+		${STAGEDIR}${JAVAJARDIR}/${DESTJARFILE}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} apidocs ${STAGEDIR}${DOCSDIR})
+	(cd ${WRKSRC} && ${INSTALL_DATA} LICENSE.txt NOTICE.txt \
+		RELEASE-NOTES.txt ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

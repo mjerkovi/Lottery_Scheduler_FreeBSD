@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/aoi/files/aoi.in 348869 2014-03-23 16:42:51Z nemysis $
+
+export JAVA_VERSION="%%JAVA_VERSION%%"
+
+cd "%%DATADIR%%" && exec "%%LOCALBASE%%/bin/java" \
+-jar "%%DATADIR%%/ArtOfIllusion.jar" "${@}"

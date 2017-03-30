@@ -1,0 +1,21 @@
+# Created by: Alexander Logvinov <ports@logvinov.com>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/rubygem-captcha/Makefile 388478 2015-06-03 18:45:35Z sunpoet $
+
+PORTNAME=	captcha
+PORTVERSION=	1.2.2
+CATEGORIES=	graphics rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Simple CAPTCHA written in Ruby
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-rmagick>=2.9.2:${PORTSDIR}/graphics/rubygem-rmagick
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

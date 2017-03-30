@@ -1,0 +1,17 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/xpi-resurrectpages/Makefile 341214 2014-01-26 15:13:02Z miwi $
+
+PORTNAME=	resurrectpages
+PORTVERSION=	2.0.7
+DISTVERSIONSUFFIX=	-fx
+CATEGORIES=	www
+
+MAINTAINER=	gecko@FreeBSD.org
+COMMENT=	Resurrects pages from big page caches/mirrors
+
+XPI_DISTNAME=	resurrect_pages
+XPI_NUM=	2570
+XPI_ID=		{0c8fbd76-bdeb-4c52-9b24-d587ce7b9dc3}
+
+.include "${.CURDIR}/../xpi-adblock/Makefile.xpi"
+.include <bsd.port.mk>

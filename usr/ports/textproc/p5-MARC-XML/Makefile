@@ -1,0 +1,25 @@
+# Created by: Dmitry Sivachenko <demon@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/p5-MARC-XML/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	MARC-XML
+PORTVERSION=	1.0.3
+PORTREVISION=	1
+CATEGORIES=	textproc perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	demon@FreeBSD.org
+COMMENT=	Extension to the MARC-Record distribution for working with XML data
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-MARC-Record>=2:${PORTSDIR}/textproc/p5-MARC-Record \
+		p5-MARC-Charset>=0.98:${PORTSDIR}/textproc/p5-MARC-Charset \
+		p5-XML-SAX>=0.12:${PORTSDIR}/textproc/p5-XML-SAX
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

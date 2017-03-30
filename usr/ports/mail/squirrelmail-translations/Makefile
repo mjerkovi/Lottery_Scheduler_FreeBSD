@@ -1,0 +1,34 @@
+# Created by: Adam Weinberger <adamw@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/squirrelmail-translations/Makefile 400590 2015-10-31 21:40:08Z adamw $
+
+PORTNAME=	squirrelmail-translations
+PORTVERSION=	20151031
+CATEGORIES=	mail www
+MASTER_SITES=	LOCAL/adamw/squirrelmail
+DISTNAME=	squirrelmail-${PORTVERSION}_0200-SVN.locales
+DIST_SUBDIR=	squirrelmail
+
+MAINTAINER=	adamw@FreeBSD.org
+COMMENT=	NLS translations for Squirrelmail (mail/squirrelmail)
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	squirrelmail>=${PORTVERSION}:${PORTSDIR}/mail/squirrelmail
+
+USES=		tar:bzip2 gettext
+WRKSRC=		${WRKDIR}/squirrelmail.locales
+
+# if you were using WITHOUT_WWWDIR, use SQUIRRELDIR=${PREFIX}/squirrelmail
+SQUIRRELDIR?=	${PREFIX}/www/squirrelmail
+PLIST_SUB=	SQUIRRELDIR="${SQUIRRELDIR:S,^${PREFIX}/,,}"
+
+do-build:
+# The en_US help files are included with the main tarball
+	@${RM} -r ${WRKSRC}/help/en_US
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${SQUIRRELDIR}
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} "help images locale" ${STAGEDIR}${SQUIRRELDIR})
+	${FIND} ${STAGEDIR}${SQUIRRELDIR} -type d -empty -delete
+
+.include <bsd.port.mk>

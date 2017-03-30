@@ -1,0 +1,27 @@
+# Created by: Craig Boston <craig@yekse.gank.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/vde/Makefile 379637 2015-02-23 01:19:36Z amdmi3 $
+
+PORTNAME=	vde
+PORTVERSION=	1.5.7
+CATEGORIES=	net
+MASTER_SITES=	SF/${PORTNAME}/OldFiles
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	User-mode virtual ethernet infrastructure
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+CONFLICTS=	vde2-[0-9]*
+
+MAKE_ARGS=	CC="${CC}"
+USE_LDCONFIG=	yes
+USE_CSTD=	gnu89
+USES=		gmake tar:tgz
+
+CFLAGS+=	-fPIC
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvdetap.so
+
+.include <bsd.port.mk>

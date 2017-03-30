@@ -1,0 +1,22 @@
+# Created by: Naresh Venkateshappa <nareshov@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/x11-fonts/fonts-indic/Makefile 381876 2015-03-21 23:05:19Z bapt $
+
+PORTNAME=	fonts-indic
+PORTVERSION=	2.1.5
+PORTREVISION=	3
+CATEGORIES=	x11-fonts
+MASTER_SITES=	http://gentoo.osuosl.org/distfiles/
+
+MAINTAINER=	nareshov@gmail.com
+COMMENT=	The Lohit family of Indic fonts
+
+USES=		fonts
+
+NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${FONTSDIR}
+	${INSTALL_DATA} ${WRKSRC}/*/*/*.ttf ${STAGEDIR}${FONTSDIR}
+
+.include <bsd.port.mk>

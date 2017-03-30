@@ -1,0 +1,34 @@
+# Created by: Tim Middleton <x@vex.net>
+# $FreeBSD: tags/RELEASE_10_3_0/irc/py-supybot/Makefile 393232 2015-07-30 11:36:23Z amdmi3 $
+
+PORTNAME=	supybot
+PORTVERSION=	0.83.4.1
+PORTREVISION=	1
+CATEGORIES=	irc python
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/Supybot-${PORTVERSION}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	Supybot-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Supybot - A Superb Python IRC bot
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		python tar:bzip2
+USE_PYTHON=	distutils
+PYDISTUTILS_PKGVERSION=	0.83.1+darcs
+PYDISTUTILS_EGGINFO=	supybot-${PORTVERSION}-py${PYTHON_VER}.egg-info
+NO_ARCH=	yes
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/docs/man/*.1 ${STAGEDIR}${MAN1PREFIX}/man/man1/
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for f in ACKS ChangeLog README RELNOTES
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}
+.endfor
+	${INSTALL_DATA} ${WRKSRC}/docs/GETTING_STARTED ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

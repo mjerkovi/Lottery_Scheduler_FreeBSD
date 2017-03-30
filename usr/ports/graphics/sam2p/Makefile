@@ -1,0 +1,43 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/sam2p/Makefile 395047 2015-08-22 17:48:35Z hrs $
+
+PORTNAME=	sam2p
+PORTVERSION=	0.49.2
+PORTREVISION=	1
+PORTEPOCH=	1
+CATEGORIES=	graphics
+MASTER_SITES=	GOOGLE_CODE
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Converts raster (bitmap) image formats into PS or PDF files
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	zip:${PORTSDIR}/archivers/zip \
+		tif22pnm:${PORTSDIR}/graphics/tif22pnm
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+USES=		ghostscript:run gmake jpeg:run perl5
+USE_PERL5=	build
+USE_GCC=	any
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV=	ac_cv_path_pts_bash="${SH}"
+CONFIGURE_ARGS=	--enable-gif
+MAKE_ARGS=	CXXX="${CXX}" LDALL="${CXX}" CXXFLAGSB="${CXXFLAGS}" CC="${CC}" CXX="${CXX}"
+ALL_TARGET=	${PORTNAME}
+
+PORTDOCS=	*
+PORTEXAMPLES=	*
+PLIST_FILES=	bin/${PORTNAME}
+
+do-install:
+	(cd ${WRKSRC} && ${INSTALL_PROGRAM} ${PORTNAME} \
+		${STAGEDIR}${PREFIX}/bin)
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC} && ${INSTALL_DATA} README ${STAGEDIR}${DOCSDIR})
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	@(cd ${WRKSRC}/examples && ${COPYTREE_SHARE} . \
+		${STAGEDIR}${EXAMPLESDIR})
+
+.include <bsd.port.mk>

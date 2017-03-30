@@ -1,0 +1,33 @@
+# Created by: Dmitry Marakasov <amdmi3@amdmi3.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/games/bitefusion/Makefile 384344 2015-04-20 10:35:06Z jbeich $
+
+PORTNAME=	bitefusion
+PORTVERSION=	1.0.2
+PORTREVISION=	3
+CATEGORIES=	games
+MASTER_SITES=	http://www.junoplay.com/files/ \
+		http://mirror.amdmi3.ru/distfiles/
+
+MAINTAINER=	amdmi3@FreeBSD.org
+COMMENT=	Snake game with 8 levels
+
+GNU_CONFIGURE=	yes
+USES=		gmake
+USE_SDL=	sdl
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib -lm
+
+PLIST_FILES=	bin/bitefusion
+
+DESKTOP_ENTRIES="Bitefusion" \
+		"${COMMENT}" \
+		"" \
+		"${PORTNAME}" \
+		"Game;ArcadeGame;" \
+		""
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|-linux-gnu|-portbld-${OPSYS:tl}|' \
+		${WRKSRC}/configure
+
+.include <bsd.port.mk>

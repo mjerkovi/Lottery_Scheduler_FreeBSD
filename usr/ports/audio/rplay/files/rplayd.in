@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/audio/rplay/files/rplayd.in 340851 2014-01-23 19:55:14Z mat $
+#
+
+# PROVIDE: rplayd
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf to enable rplayd
+#
+#rplayd_enable="YES"
+#
+
+. /etc/rc.subr
+
+name=rplayd
+rcvar=rplayd_enable
+
+load_rc_config $name
+
+# set defaults:
+: ${rplayd_enable:="NO"}
+
+command=%%PREFIX%%/sbin/${name}
+
+run_rc_command "$1"

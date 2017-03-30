@@ -1,0 +1,42 @@
+# Created by: Joe Maloney jmaloney@pkgdemon.com>
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/alacarte/Makefile 401900 2015-11-18 22:13:53Z rm $
+#   $MCom: ports/trunk/deskutils/alacarte/Makefile 19804 2014-08-13 14:55:11Z kwm $
+
+PORTNAME=	alacarte
+PORTVERSION=	3.11.91
+PORTREVISION=	2
+CATEGORIES=	deskutils gnome
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome3
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	Freedesktop compliant menu editor for GNOME
+
+BUILD_DEPENDS=	docbook-xsl>=0:${PORTSDIR}/textproc/docbook-xsl
+
+USES=		gettext gmake pkgconfig python:3 tar:xz
+USE_GNOME=	gnomemenus3 gnomeprefix intlhack libxslt:build \
+		py3gobject3
+INSTALLS_ICONS=	yes
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|from gi._glib import|from gi.repository.GLib import|g' \
+		${WRKSRC}/Alacarte/util.py
+	@${REINPLACE_CMD} -e "s|ron\['XDG_MENU_PREFIX'\]|ron.get('XDG_MENU_PREFIX', '')|g" \
+		${WRKSRC}/Alacarte/MenuEditor.py
+
+.include <bsd.port.pre.mk>
+
+.if ${PYTHON_REL} < 3500
+PYOEXTENSION=	pyo
+.else
+PYOEXTENSION=	opt-1.pyc
+.endif
+
+PLIST_SUB+=	PYOEXTENSION=${PYOEXTENSION} \
+		PYVER=${PYTHON_VER:S/.//}
+
+.include <bsd.port.post.mk>

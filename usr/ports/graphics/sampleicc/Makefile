@@ -1,0 +1,25 @@
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/sampleicc/Makefile 359808 2014-06-30 07:31:32Z bapt $
+
+PORTNAME=	sampleicc
+PORTVERSION=	1.6.8
+CATEGORIES=	graphics devel
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}%20tar/SampleIcc-${PORTVERSION}/
+DISTNAME=	SampleICC-${PORTVERSION}
+
+MAINTAINER=	office@FreeBSD.org
+COMMENT=	Library for reading, writing, manipulating, and applying ICC profiles
+
+LICENSE=	ICC
+LICENSE_NAME=	The ICC Software License, Version 0.2
+LICENSE_FILE=	${WRKSRC}/COPYING
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff
+
+GNU_CONFIGURE=	yes
+USES=	libtool pathfix
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+CONFIGURE_ARGS=	--with-tifflib=${LOCALBASE}
+
+.include <bsd.port.mk>

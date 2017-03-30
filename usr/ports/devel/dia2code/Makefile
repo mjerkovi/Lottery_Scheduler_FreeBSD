@@ -1,0 +1,28 @@
+# Created by: Ying-Chieh Liao <ijliao@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/dia2code/Makefile 376202 2015-01-04 10:54:42Z bofh $
+
+PORTNAME=	dia2code
+PORTVERSION=	0.8.7
+CATEGORIES=	devel
+MASTER_SITES=	SF
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Small utility used to generate code from a Dia diagram
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		gmake
+USE_GNOME=	libxml2
+GNU_CONFIGURE=	yes
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+PLIST_FILES=	bin/dia2code \
+		man/man1/dia2code.1.gz
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/dia2code.1 ${STAGEDIR}${MANPREFIX}/man/man1
+
+.include <bsd.port.mk>

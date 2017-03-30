@@ -1,0 +1,31 @@
+# Created by: Wen Heping <wenheping@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/java/jtiger/Makefile 404204 2015-12-22 03:22:46Z wen $
+
+PORTNAME=	jtiger
+PORTVERSION=	2.1.0376
+CATEGORIES=	java devel
+MASTER_SITES=	http://kaiwitte.org/jtiger/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Unit Test Framework and Tools for the Java2 Platform
+
+USE_JAVA=	1.6
+NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
+
+SRCFILES=	src test-src
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/jtiger.jar ${STAGEDIR}${JAVAJARDIR}/jtiger.jar
+	${MKDIR} ${STAGEDIR}${DATADIR}
+	cd ${WRKSRC} && ${COPYTREE_SHARE} "${SRCFILES}" ${STAGEDIR}${DATADIR}
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	cd ${WRKSRC}/samples && ${COPYTREE_SHARE} . ${STAGEDIR}${EXAMPLESDIR}
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/changes.html ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/cpl-v10.html ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

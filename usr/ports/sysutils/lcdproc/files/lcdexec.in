@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/lcdproc/files/lcdexec.in 340872 2014-01-24 00:14:07Z mat $
+#
+# PROVIDE: lcdexec
+# REQUIRE: LCDd
+#
+# DO NOT CHANGE THESE DEFAULT VALUES HERE
+# SET THEM IN THE /etc/rc.conf FILE
+#
+
+. /etc/rc.subr
+
+name="lcdexec"
+rcvar=lcdexec_enable
+
+load_rc_config $name
+
+: ${lcdexec_enable="NO"}
+: ${lcdexec_conf="%%PREFIX%%/etc/lcdexec.conf"}
+: ${lcdexec_flags="-c ${lcdexec_conf}"}
+
+required_files=${lcdexec_conf}
+command="%%PREFIX%%/bin/lcdexec"
+
+run_rc_command "$1"

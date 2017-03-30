@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/lang/lci/Makefile 387986 2015-05-30 21:25:06Z mat $
+
+PORTNAME=	lci
+PORTVERSION=	0.11.2
+DISTVERSIONPREFIX=	v
+PORTREVISION=	2
+CATEGORIES=	lang
+
+MAINTAINER=	che@bein.link
+COMMENT=	Original LOLCODE interpreter
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	justinmeza
+
+USES=		cmake readline
+CFLAGS+=	${CPPFLAGS}
+PLIST_FILES=	bin/lci
+
+.include <bsd.port.mk>

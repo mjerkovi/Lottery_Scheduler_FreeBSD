@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/dns/maradns/files/zoneserver.in 345251 2014-02-20 15:44:56Z mat $
+#
+
+# PROVIDE: zoneserver
+# REQUIRE: SERVERS
+# BEFORE: DAEMON
+# KEYWORD: shutdown
+#
+
+. /etc/rc.subr
+
+: ${zoneserver_enable="NO"}
+: ${maradns_conf="%%ETCDIR%%/mararc"}
+
+name="zoneserver"
+rcvar=zoneserver_enable
+command="%%PREFIX%%/bin/duende"
+pidfile="/var/run/${name}.pid"
+command_args="--pid=${pidfile} %%PREFIX%%/sbin/zoneserver -f ${maradns_conf}"
+
+load_rc_config $name
+
+run_rc_command "$1"

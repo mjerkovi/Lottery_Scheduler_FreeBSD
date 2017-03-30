@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/audio/musiccontrol/files/musiccontrol 340851 2014-01-23 19:55:14Z mat $
+
+"%%LOCALBASE%%/bin/java" -jar "%%JAVAJARDIR%%/MusicControl-0.3.jar" "$*"

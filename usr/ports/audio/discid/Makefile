@@ -1,0 +1,27 @@
+# Created by: Oliver Breuninger <ob@breuninger.org>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/discid/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+PORTNAME=	discid
+PORTVERSION=	1.3
+PORTREVISION=	1
+CATEGORIES=	audio
+MASTER_SITES=	http://jeremy.zawodny.com/c/discid/
+DISTNAME=	${PORTNAME}-freebsd-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Identify audio cd in your drive
+
+WRKSRC=		${WRKDIR}/freebsd
+
+PLIST_FILES=	bin/discid
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|^void main|int main|' ${WRKSRC}/${PORTNAME}.c
+
+do-build:
+	cd ${WRKSRC} && ${CC} ${CFLAGS} -o ${PORTNAME} ${PORTNAME}.c
+
+do-install:
+	cd ${WRKSRC} && ${INSTALL_PROGRAM} ${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

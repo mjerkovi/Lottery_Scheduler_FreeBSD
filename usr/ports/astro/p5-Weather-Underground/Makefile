@@ -1,0 +1,24 @@
+# Created by: Simon Olofsson <simon@olofsson.de>
+# $FreeBSD: tags/RELEASE_10_3_0/astro/p5-Weather-Underground/Makefile 385804 2015-05-08 17:27:02Z adamw $
+
+PORTNAME=	Weather-Underground
+PORTVERSION=	3.03
+PORTREVISION=	1
+CATEGORIES=	astro perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Retrieve weather information from wunderground.com
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-HTML-Parser>=0:${PORTSDIR}/www/p5-HTML-Parser \
+		p5-libwww>=0:${PORTSDIR}/www/p5-libwww
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

@@ -1,0 +1,25 @@
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/kfilemetadata/Makefile 395464 2015-08-28 10:48:41Z makc $
+
+PORTNAME=	kfilemetadata
+PORTVERSION=	${KDE4_VERSION}
+PORTREVISION=	2
+CATEGORIES=	sysutils kde
+MASTER_SITES=	KDE/${KDE4_BRANCH}/${PORTVERSION}/src
+DIST_SUBDIR=	KDE/${PORTVERSION}
+
+MAINTAINER=	kde@FreeBSD.org
+COMMENT=	Library for extracting file metadata
+
+LIB_DEPENDS=	libpoppler-qt4.so:${PORTSDIR}/graphics/poppler-qt4 \
+		libtag.so:${PORTSDIR}/audio/taglib \
+		libexiv2.so:${PORTSDIR}/graphics/exiv2 \
+		libswscale.so:${PORTSDIR}/multimedia/ffmpeg \
+		libepub.so:${PORTSDIR}/textproc/ebook-tools \
+		libqmobipocket.so:${PORTSDIR}/graphics/kdegraphics4-mobipocket
+
+USE_KDE4=	kdeprefix automoc4 kdelibs
+USES=		cmake:outsource tar:xz
+USE_QT4=	corelib qmake_build moc_build rcc_build uic_build
+USE_LDCONFIG=	yes
+
+.include <bsd.port.mk>

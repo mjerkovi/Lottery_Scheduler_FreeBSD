@@ -1,0 +1,23 @@
+# Created by: Gerrit Beine <tux@pinguru.net>
+# $FreeBSD: tags/RELEASE_10_3_0/x11/bbappconf/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+PORTNAME=	bbappconf
+PORTVERSION=	0.0.2
+PORTREVISION=	2
+CATEGORIES=	x11
+MASTER_SITES=	SF/bbtools/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Application configuring tool for the blackbox window manager
+
+USE_XORG=	x11
+GNU_CONFIGURE=	yes
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/bbappconf ${STAGEDIR}${PREFIX}/bin
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/bbtools
+.for a in README.bbappconf bbappconf.bb bbappconf.nobb
+	${INSTALL_DATA} ${WRKSRC}/data/${a} ${STAGEDIR}${PREFIX}/share/bbtools
+.endfor
+
+.include <bsd.port.mk>

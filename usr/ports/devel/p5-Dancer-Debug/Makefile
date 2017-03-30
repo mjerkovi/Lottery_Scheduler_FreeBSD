@@ -1,0 +1,26 @@
+# Created by: Geistteufel <geistteufel@yahoo.fr>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Dancer-Debug/Makefile 395263 2015-08-25 14:51:32Z sunpoet $
+
+PORTNAME=	Dancer-Debug
+PORTVERSION=	0.03
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Dancer::Debug - Extend Plack::Middleware::Debug
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Class-Method-Modifiers>=0:${PORTSDIR}/devel/p5-Class-Method-Modifiers \
+		p5-Dancer>=0:${PORTSDIR}/www/p5-Dancer \
+		p5-Plack-Middleware-Debug>=0:${PORTSDIR}/www/p5-Plack-Middleware-Debug
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+NO_ARCH=	yes
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

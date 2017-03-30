@@ -1,0 +1,4 @@
+bin/gtk-knocker
+share/gtk-knocker/pixmaps/knocker.xpm
+share/gtk-knocker/pixmaps/knocker_ico.xpm
+man/man1/gtk-knocker.1.gz

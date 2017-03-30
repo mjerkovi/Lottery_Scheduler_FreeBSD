@@ -1,0 +1,24 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Data-Rand-Obscure/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Data-Rand-Obscure
+PORTVERSION=	0.021
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	tj@FreeBSD.org
+COMMENT=	Perl module for generating (fairly) random strings easily
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Carp-Clan>=6.04:${PORTSDIR}/devel/p5-Carp-Clan \
+		p5-Object-Tiny>=1.08:${PORTSDIR}/devel/p5-Object-Tiny
+RUN_DEPENDS=	p5-Carp-Clan>=6.04:${PORTSDIR}/devel/p5-Carp-Clan \
+		p5-Object-Tiny>=1.08:${PORTSDIR}/devel/p5-Object-Tiny
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

@@ -1,0 +1,54 @@
+# Created by: Nicola Vitale <nivit@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-pip/Makefile 407948 2016-02-03 08:00:34Z koobs $
+
+PORTNAME=	pip
+PORTVERSION=	7.1.2
+PORTREVISION=	1
+CATEGORIES=	devel python
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	python@FreeBSD.org
+COMMENT=	Tool for installing and managing Python packages
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+# Tests also need bzr, git, otherwise they fail
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest>0:${PORTSDIR}/devel/py-pytest \
+		${PYTHON_PKGNAMEPREFIX}pytest-capturelog>0:${PORTSDIR}/devel/py-pytest-capturelog \
+		${PYTHON_PKGNAMEPREFIX}pytest-timeout>0:${PORTSDIR}/devel/py-pytest-timeout \
+		${PYTHON_PKGNAMEPREFIX}pytest-xdist>0:${PORTSDIR}/devel/py-pytest-xdist \
+		${PYTHON_PKGNAMEPREFIX}virtualenv>=1.10:${PORTSDIR}/devel/py-virtualenv \
+		${PYTHON_PKGNAMEPREFIX}scripttest>=1.3:${PORTSDIR}/devel/py-scripttest \
+		${PYTHON_PKGNAMEPREFIX}mock>0:${PORTSDIR}/devel/py-mock \
+		${PYTHON_PKGNAMEPREFIX}pretend>0:${PORTSDIR}/devel/py-pretend \
+		${PYTHON_PKGNAMEPREFIX}freezegun>0:${PORTSDIR}/devel/py-freezegun \
+		git>0:${PORTSDIR}/devel/git \
+		bzr>0:${PORTSDIR}/devel/bzr
+
+OPTIONS_DEFINE=	DOCS
+
+DOCS_BUILD_DEPENDS=	sphinx-build:${PORTSDIR}/textproc/py-sphinx
+DOCS_PORTDOCS=	*
+DOCS_VARS=	PYDISTUTILS_BUILD_TARGET=build_sphinx \
+		PYDISTUTILS_BUILDARGS="-n --all-files --fresh-env"
+
+USES=		python shebangfix
+USE_GITHUB=	yes
+USE_PYTHON=	autoplist concurrent distutils
+
+SHEBANG_FILES=	pip/__init__.py
+
+GH_ACCOUNT=	pypa
+
+NO_ARCH=	yes
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/build/sphinx/html && \
+	${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR} "! -name .buildinfo -and ! -name objects.inv")
+
+do-test:
+	cd ${WRKSRC} && ${PYTHON_CMD} ${PYDISTUTILS_SETUP} test
+
+.include <bsd.port.mk>

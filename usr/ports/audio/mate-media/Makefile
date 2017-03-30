@@ -1,0 +1,32 @@
+# Created by: Joe Marcus Clarke <marcus@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/mate-media/Makefile 393031 2015-07-27 20:19:33Z kwm $
+
+PORTNAME=	mate-media
+PORTVERSION=	1.10.0
+CATEGORIES=	audio mate
+MASTER_SITES=	MATE
+DIST_SUBDIR=	mate
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	Multimedia applications for the MATE desktop
+
+BUILD_DEPENDS=	itstool:${PORTSDIR}/textproc/itstool
+LIB_DEPENDS=	libcanberra-gtk.so:${PORTSDIR}/audio/libcanberra \
+		libmatemixer.so:${PORTSDIR}/audio/libmatemixer \
+		libunique-1.0.so:${PORTSDIR}/x11-toolkits/unique
+
+PORTSCOUT=	limitw:1,even
+
+USES=		gettext gmake libtool pathfix pkgconfig tar:xz
+USE_MATE=	desktop panel
+USE_GNOME=	glib20 gtk20 intlhack libxml2
+USE_LDCONFIG=	yes
+USE_GSTREAMER=	good
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--with-gtk=2.0
+INSTALLS_ICONS=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+.include <bsd.port.mk>

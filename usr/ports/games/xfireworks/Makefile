@@ -1,0 +1,23 @@
+# Created by: Sakai Hiroaki <sakai@seki.ee.kagu.sut.ac.jp>
+# $FreeBSD: tags/RELEASE_10_3_0/games/xfireworks/Makefile 333690 2013-11-13 14:27:33Z danilo $
+
+PORTNAME=	xfireworks
+PORTVERSION=	1.4
+PORTREVISION=	2
+CATEGORIES=	games
+MASTER_SITES=	http://kozos.jp/myfreesoft/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Fireworks on X
+
+LICENSE=	GPLv2 GPLv3
+LICENSE_COMB=	dual
+
+USE_XORG=	x11
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/xfireworks ${STAGEDIR}${PREFIX}/bin/xfireworks
+	${INSTALL_MAN} ${WRKSRC}/xfireworks.1 ${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_DATA} ${WRKSRC}/xfireworks.conf ${STAGEDIR}${PREFIX}/etc/xfireworks.conf.sample
+
+.include <bsd.port.mk>

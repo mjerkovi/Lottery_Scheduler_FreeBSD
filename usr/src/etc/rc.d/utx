@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# $FreeBSD: releng/10.3/etc/rc.d/utx 279497 2015-03-01 21:22:34Z ngie $
+#
+
+# PROVIDE: utx
+# REQUIRE: DAEMON FILESYSTEMS
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="utx"
+start_cmd="utx boot"
+stop_cmd="utx shutdown"
+
+load_rc_config $name
+run_rc_command "$1"

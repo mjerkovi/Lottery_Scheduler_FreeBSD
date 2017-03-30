@@ -1,0 +1,30 @@
+# Created by: Martin Matuska <mm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/zfs-stats/Makefile 399684 2015-10-19 14:50:52Z amdmi3 $
+
+PORTNAME=	zfs-stats
+PORTVERSION=	1.2.2
+PORTREVISION=	1
+CATEGORIES=	sysutils
+MASTER_SITES=	GHC
+
+MAINTAINER=	mm@FreeBSD.org
+COMMENT=	Display human-readable ZFS statistics
+
+LICENSE=	BSD2CLAUSE
+
+USES=		perl5 shebangfix
+USE_GITHUB=	yes
+GH_ACCOUNT=	mmatuska
+
+NO_BUILD=	yes
+SHEBANG_FILES=	zfs-*
+perl_OLD_CMD=	"/usr/bin/env -iS perl"
+
+PLIST_FILES=	bin/zfs-stats \
+		bin/zfs-mon
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/zfs-stats ${STAGEDIR}${PREFIX}/bin/zfs-stats
+	${INSTALL_SCRIPT} ${WRKSRC}/zfs-mon ${STAGEDIR}${PREFIX}/bin/zfs-mon
+
+.include <bsd.port.mk>

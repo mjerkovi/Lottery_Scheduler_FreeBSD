@@ -1,0 +1,30 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/security/py-twofish/Makefile 388643 2015-06-05 21:10:28Z amdmi3 $
+
+PORTNAME=	twofish
+PORTVERSION=	0.7
+PORTREVISION=	2
+CATEGORIES=	security python
+MASTER_SITES=	SF/${PORTNAME}-py/${PORTNAME}-py/${PORTVERSION}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	twofishmodule-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Twofish cryptographic module for Python
+
+USES=		python:2 shebangfix
+SHEBANG_FILES=	cryptfile.py decryptfile.py
+GNU_CONFIGURE=	yes
+CFLAGS+=	-fPIC
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
+	${INSTALL_DATA} ${WRKSRC}/_twofish.so ${STAGEDIR}${PYTHON_SITELIBDIR}
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/_twofish.so
+	${INSTALL_SCRIPT} ${WRKSRC}/*.py ${STAGEDIR}${PYTHON_SITELIBDIR}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,23 @@
+# $FreeBSD: tags/RELEASE_10_3_0/lang/gcc5-aux/Makefile.version 403112 2015-12-06 13:21:55Z marino $
+
+GCC_BRANCH=		5
+GCC_POINT=		3.0
+GCC_VERSION=		${GCC_BRANCH}.${GCC_POINT}
+SNAPSHOT=		20151204
+BUILD_RELEASE=		yes
+MAIN_PR=		0
+UTIL_PR=		0
+ARMV7_PR=		0
+X86_PR=			0
+
+.if ${BUILD_RELEASE:Mno}
+# Snapshot naming pattern
+IDENTIFICATION=	gcc-${GCC_BRANCH}-${SNAPSHOT}
+MS_SUBDIR=		snapshots/${GCC_BRANCH}-${SNAPSHOT}
+PHASE=			snapshot
+.else
+# Release naming pattern
+IDENTIFICATION=		gcc-${GCC_VERSION}
+MS_SUBDIR=		releases/gcc-${GCC_VERSION}
+PHASE=			release
+.endif

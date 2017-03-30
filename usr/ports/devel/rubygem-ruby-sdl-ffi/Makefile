@@ -1,0 +1,22 @@
+# Created by: Christoph Kick
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-ruby-sdl-ffi/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	ruby-sdl-ffi
+PORTVERSION=	0.4
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Low-level binding to SDL and related libraries using Ruby-FFI
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-nice-ffi>=0.2:${PORTSDIR}/devel/rubygem-nice-ffi
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

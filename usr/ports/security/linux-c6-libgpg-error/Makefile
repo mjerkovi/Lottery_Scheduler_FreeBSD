@@ -1,0 +1,20 @@
+# Created by: Johannes Meixner <xmj@chaot.net>
+# $FreeBSD: tags/RELEASE_10_3_0/security/linux-c6-libgpg-error/Makefile 372445 2014-11-11 13:06:39Z xmj $
+
+PORTNAME=	libgpg-error
+PORTVERSION=	1.7
+PORTREVISION=	1
+CATEGORIES=	security linux
+
+MAINTAINER=	emulation@FreeBSD.org
+COMMENT=	Common error values for all GnuPG components
+
+USE_LINUX=	c6
+USE_LINUX_RPM=	yes
+RPMVERSION=	4.el6
+USE_LDCONFIG=	yes
+BRANDELF_FILES=	usr/bin/gpg-error
+
+DESCR=		${.CURDIR}/../libgpg-error/pkg-descr
+
+.include <bsd.port.mk>

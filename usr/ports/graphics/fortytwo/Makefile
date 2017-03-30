@@ -1,0 +1,34 @@
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/fortytwo/Makefile 397315 2015-09-19 10:33:34Z theraven $
+
+PORTNAME=	fortytwo
+PORTVERSION=	0.2.0
+PORTREVISION=	6
+CATEGORIES=	graphics gnustep
+MASTER_SITES=	SF/${PORTNAME}/FT%20%2842%29/${PORTVERSION}
+DISTFILES=	FT-${PORTVERSION}-src.tgz \
+		FT-${PORTVERSION}-api-ref.tgz
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Graph management system for GNUstep
+
+LICENSE=	LGPL21
+
+USES=		gnustep
+USE_GNUSTEP=	back build
+
+LIB_DEPENDS=	libEncore.so:${PORTSDIR}/devel/fortytwo-encore \
+		libBDB.so:${PORTSDIR}/databases/fortytwo-bdb
+DEFAULT_LIBVERSION=	0.1
+USE_GNUSTEP_LDCONFIG=	${GNUSTEP_LOCAL_LIBRARIES}
+USE_BDB=	43+
+
+WRKSRC=		${WRKDIR}/FT-${PORTVERSION}
+DOCSDIR=	${GNUSTEP_PREFIX}/Local/Library/Documentation/FT
+
+ADDITIONAL_OBJCFLAGS+=	-I${BDB_INCLUDE_DIR}
+ADDITIONAL_LDFLAGS+=	-L${BDB_LIB_DIR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Library/Frameworks/FT.framework/Versions/0/libFT.so
+
+.include <bsd.port.mk>

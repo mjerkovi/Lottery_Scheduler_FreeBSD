@@ -1,0 +1,28 @@
+# Created by: jasone
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libedit/Makefile 384764 2015-04-26 09:28:09Z bapt $
+
+PORTNAME=	libedit
+PORTVERSION=	${EDITVERSION}.${EDITDATE}
+DISTVERSION=	${EDITDATE}-${EDITVERSION}
+PORTREVISION=	1
+CATEGORIES=	devel
+MASTER_SITES=	http://thrysoee.dk/editline/
+
+MAINTAINER=	bapt@FreeBSD.org
+COMMENT=	Command line editor library
+
+LICENSE=	BSD2CLAUSE
+
+USES=		libtool pathfix
+EDITVERSION=	3.1
+EDITDATE=	20150325
+WRKSRC=		${WRKDIR}/${PORTNAME}-${EDITDATE}-${EDITVERSION}
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+CONFIGURE_ARGS=	--enable-widec
+MAKE_ENV=	LC_ALL=C
+
+CONFLICT_INSTALL=	editline-*
+
+.include <bsd.port.mk>

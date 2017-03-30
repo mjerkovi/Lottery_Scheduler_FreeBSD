@@ -1,0 +1,19 @@
+# Created by: laddassm
+# $FreeBSD: tags/RELEASE_10_3_0/editors/klat4/Makefile 373636 2014-11-29 18:22:32Z tijl $
+
+PORTNAME=	klat4
+PORTVERSION=	0.6.1
+PORTREVISION=	13
+CATEGORIES=	editors
+MASTER_SITES=	http://klat.algebraical.info/
+
+MAINTAINER=	anna.ladilova@gmail.com
+COMMENT=	LaTeX source editor for KDE4
+
+LICENSE=	GPLv2 # (or later)
+
+USES=		cmake gettext-tools tar:bzip2
+USE_KDE4=	automoc4 kate kdelibs kdeprefix
+USE_QT4=	moc_build qmake_build rcc_build uic_build
+
+.include <bsd.port.mk>

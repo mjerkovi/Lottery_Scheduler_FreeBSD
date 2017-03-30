@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# $FreeBSD: releng/10.3/etc/rc.d/autounmountd 289519 2015-10-18 14:59:38Z trasz $
+#
+
+# PROVIDE: autounmountd
+# REQUIRE: DAEMON
+# KEYWORD: nojail
+
+. /etc/rc.subr
+
+name="autounmountd"
+rcvar="autofs_enable"
+pidfile="/var/run/${name}.pid"
+command="/usr/sbin/${name}"
+
+load_rc_config $name
+run_rc_command "$1"

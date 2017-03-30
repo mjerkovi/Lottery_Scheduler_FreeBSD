@@ -1,0 +1,21 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/rubygem-acts-as-taggable-on/Makefile 401440 2015-11-12 21:42:28Z sunpoet $
+
+PORTNAME=	acts-as-taggable-on
+PORTVERSION=	2.4.1
+CATEGORIES=	www rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	kuriyama@FreeBSD.org
+COMMENT=	Tag a single model on several contexts
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.md
+
+RUN_DEPENDS=	rubygem-rails>=3.0:${PORTSDIR}/www/rubygem-rails
+
+NO_ARCH=	yes
+USE_RUBY=	YES
+USE_RUBYGEMS=	YES
+RUBYGEM_AUTOPLIST=	YES
+
+.include <bsd.port.mk>

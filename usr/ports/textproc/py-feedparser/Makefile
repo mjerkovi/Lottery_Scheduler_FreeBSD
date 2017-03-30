@@ -1,0 +1,32 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/py-feedparser/Makefile 374183 2014-12-07 10:01:36Z mva $
+
+PORTNAME=	feedparser
+PORTVERSION=	5.1.3
+PORTREVISION=	3
+CATEGORIES=	textproc python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	sbz@FreeBSD.org
+COMMENT=	Universal feed parser written in Python
+
+LICENSE=	MIT
+
+USES=		python tar:bzip2
+USE_PYTHON=	distutils autoplist
+
+OPTIONS_DEFINE=	DOCS
+
+PORTDOCS=	NEWS PKG-INFO README
+
+.include <bsd.port.options.mk>
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+
+regression-test: extract
+	@(cd ${WRKSRC}/${PORTNAME}; ${PYTHON_CMD} ${PORTNAME}test.py)
+
+.include <bsd.port.mk>

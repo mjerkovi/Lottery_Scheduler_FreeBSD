@@ -1,0 +1,27 @@
+# Created by: Sergey Akifyev <asa@gascom.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/mpiosh/Makefile 374886 2014-12-18 11:03:03Z bapt $
+
+PORTNAME=	mpiosh
+PORTVERSION=	0.7.1.p2
+PORTREVISION=	3
+CATEGORIES=	audio
+MASTER_SITES=	SF/mpio/mpio%20pre-release/0.7.1-pre2
+DISTNAME=	mpio-${PORTVERSION:S|.p|_pre|}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Digit@lway MPIO MP3 player tool
+
+USES=		autoreconf iconv libtool readline
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib ${ICONV_LIB}
+
+EXTRA_PATCHES=	${FILESDIR}/extra-patch-configure.in
+
+post-patch:
+	@${REINPLACE_CMD} -e 's/%%ICONV_LIB%%/${ICONV_LIB}/' ${WRKSRC}/mpiosh/Makefile.am
+
+.include <bsd.port.mk>

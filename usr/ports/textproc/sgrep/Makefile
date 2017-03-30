@@ -1,0 +1,22 @@
+# Created by: <koshy@india.hp.com>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/sgrep/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	sgrep
+PORTVERSION=	0.99
+PORTREVISION=	1
+CATEGORIES=	textproc
+MASTER_SITES=	ftp://ftp.cs.helsinki.fi/pub/Software/Local/Sgrep/ \
+		LOCAL/jkoshy
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Grep for structured text like SGML and HTML
+
+CONFLICTS=	sgrep2-1.*
+
+# Override the install target in the supplied makefile
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/sgrep ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/sgrep.1 ${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_DATA} ${WRKSRC}/sample.sgreprc ${STAGEDIR}${PREFIX}/share/sgreprc
+
+.include <bsd.port.mk>

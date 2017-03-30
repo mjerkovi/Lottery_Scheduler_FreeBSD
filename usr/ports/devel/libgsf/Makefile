@@ -1,0 +1,22 @@
+# Created by: Maxim Sobolev <sobomax@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libgsf/Makefile 393426 2015-08-02 15:02:01Z kwm $
+
+PORTNAME=	libgsf
+PORTVERSION=	1.14.34
+CATEGORIES=	devel
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome2
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	Extensible I/O abstraction for dealing with structured file formats
+
+USES=		gettext gmake libtool pathfix pkgconfig tar:xz
+USE_GNOME=	gdkpixbuf2 intlhack introspection:build libxml2
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+CONFIGURE_ARGS=	--enable-introspection
+
+.include <bsd.port.mk>

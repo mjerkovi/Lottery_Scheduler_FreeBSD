@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-language-c/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	language-c
+PORTVERSION=	0.4.7
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Analysis and generation of C code
+
+LICENSE=	BSD3CLAUSE
+
+USE_ALEX=	yes
+USE_HAPPY=	yes
+USE_CABAL=	syb
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

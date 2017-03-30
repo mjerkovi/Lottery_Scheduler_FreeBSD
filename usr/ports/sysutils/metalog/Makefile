@@ -1,0 +1,38 @@
+# Created by: Sergei Kolobov <sergei@kolobov.com>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/metalog/Makefile 380388 2015-03-03 18:18:31Z antoine $
+
+PORTNAME=	metalog
+PORTVERSION=	3
+PORTREVISION=	1
+PORTEPOCH=	1
+CATEGORIES=	sysutils
+MASTER_SITES=	SF/${PORTNAME}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Modern syslogd replacement with PCRE support
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre
+
+USES=		pkgconfig tar:xz
+USE_RC_SUBR=	${PORTNAME}
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--sysconfdir=${PREFIX}/etc
+
+PORTDOCS=	AUTHORS NEWS README
+
+OPTIONS_DEFINE=	DOCS UNICODE
+
+UNICODE_CONFIGURE_WITH=	unicode
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/etc/|${PREFIX}/etc/|' ${WRKSRC}/man/*[58].in
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/metalog.conf ${STAGEDIR}${PREFIX}/etc/metalog.conf.sample
+
+.include <bsd.port.mk>

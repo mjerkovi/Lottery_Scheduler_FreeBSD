@@ -1,0 +1,31 @@
+# Created by: Gustau Perez i Querol <gustau.perez@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/gnome-shell-extension-openweather/Makefile 404743 2015-12-29 14:30:46Z mat $
+
+PORTNAME=	gnome-shell-extension-openweather
+PORTVERSION=	0.0.0.20150613
+CATEGORIES=	deskutils gnome
+DIST_SUBDIR=	gnome3
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	OpenWeather extension for the GNOME3 shell
+
+BUILD_DEPENDS=	gnome-autogen.sh:${PORTSDIR}/devel/gnome-common \
+		gsettings-desktop-schemas>=3.12.0:${PORTSDIR}/devel/gsettings-desktop-schemas
+RUN_DEPENDS=	gnome-shell>=0:${PORTSDIR}/x11/gnome-shell \
+		gsettings-desktop-schemas>=3.12.0:${PORTSDIR}/devel/gsettings-desktop-schemas
+
+USES=		autoreconf gettext gmake libtool pkgconfig tar:xz
+USE_GNOME=	glib20 intltool
+USE_GITHUB=	yes
+USE_LDCONFIG=	yes
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+GLIB_SCHEMAS=	org.gnome.shell.extensions.openweather.gschema.xml
+
+GH_ACCOUNT=	jenslody
+GH_TAGNAME=	0162cf7
+
+PKGMESSAGE=	../gnome-shell-extra-extensions/pkg-message.slaves
+
+.include <bsd.port.mk>

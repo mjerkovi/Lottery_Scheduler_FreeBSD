@@ -1,0 +1,25 @@
+# Created by: Jason Helfman <jgh@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/rubygem-jquery-rails4/Makefile 401447 2015-11-12 21:42:55Z sunpoet $
+
+PORTNAME=	jquery-rails
+PORTVERSION=	4.0.5
+CATEGORIES=	www rubygems
+MASTER_SITES=	RG
+PKGNAMESUFFIX=	4
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Provides a Rails generator for jQuery
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	rubygem-rails-dom-testing>=1.0:${PORTSDIR}/textproc/rubygem-rails-dom-testing \
+		rubygem-railties4>=4.2.0:${PORTSDIR}/www/rubygem-railties4 \
+		rubygem-thor>=0.14:${PORTSDIR}/devel/rubygem-thor
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

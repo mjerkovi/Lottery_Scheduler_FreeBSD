@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/latex-service/Makefile 397315 2015-09-19 10:33:34Z theraven $
+
+PORTNAME=	latex
+PORTVERSION=	0.1
+PORTREVISION=	5
+CATEGORIES=	textproc gnustep
+MASTER_SITES=	http://www.roard.com/latexservice/download/
+PKGNAMESUFFIX=	-service${PKGNAMESUFFIX2}
+DISTNAME=	LaTeXService-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	LaTeX service for GNUstep
+
+LICENSE=	GPLv2
+
+USES=		tar:tgz gnustep
+USE_GNUSTEP=	back build
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Library/Services/LaTeX.service/LaTeX
+
+.include <bsd.port.mk>

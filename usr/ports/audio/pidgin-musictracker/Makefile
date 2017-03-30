@@ -1,0 +1,29 @@
+# Created by: ports@c0decafe.net
+# $FreeBSD: tags/RELEASE_10_3_0/audio/pidgin-musictracker/Makefile 386037 2015-05-11 00:03:34Z amdmi3 $
+
+PORTNAME=	musictracker
+PORTVERSION=	0.4.1
+PORTREVISION=	10
+CATEGORIES=	audio
+MASTER_SITES=	GOOGLE_CODE
+PKGNAMEPREFIX=	pidgin-
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Plugin for Pidgin to displays the music track currently playing
+
+LICENSE=	GPLv2
+
+BUILD_DEPENDS=	${LOCALBASE}/include/pidgin/pidgin.h:${PORTSDIR}/net-im/pidgin
+RUN_DEPENDS=	pidgin:${PORTSDIR}/net-im/pidgin
+LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre
+
+USES=		gmake libtool pkgconfig tar:bzip2
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-static
+CPPFLAGS+=	-I${LOCALBASE}/include -Wno-return-type
+LDFLAGS+=	-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+PLIST_FILES=	lib/pidgin/musictracker.so
+
+.include <bsd.port.mk>

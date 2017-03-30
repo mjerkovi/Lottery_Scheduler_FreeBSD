@@ -1,0 +1,32 @@
+# Created by: Lung-Pin Chang <changlp@cs.nctu.edu.tw>
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-django_compressor/Makefile 375871 2014-12-31 06:41:03Z koobs $
+
+PORTNAME=	django_compressor
+PORTVERSION=	1.4
+CATEGORIES=	www python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	changlp@cs.nctu.edu.tw
+COMMENT=	Compresses linked and inline JavaScript/CSS into a single cached file
+
+LICENSE=	MIT
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}versiontools>=1.8.2:${PORTSDIR}/devel/py-versiontools
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django-appconf>=0.4:${PORTSDIR}/www/py-django-appconf
+
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+OPTIONS_DEFINE=		BEAUTIFULSOUP LXML HTML5LIB SLIMIT
+BEAUTIFULSOUP_DESC=	Enable BeautifulSoupParser
+LXML_DESC=		Enable LxmlParser
+HTML5LIB_DESC=		Enable Html5LibParser
+SLIMIT_DESC=		Enable SlimIt JavaScript filter
+
+BEAUTIFULSOUP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=4:${PORTSDIR}/www/py-beautifulsoup
+LXML_RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}lxml>0:${PORTSDIR}/devel/py-lxml
+HTML5LIB_RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}html5lib>0:${PORTSDIR}/www/py-html5lib
+SLIMIT_RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}slimit>=0.8.1:${PORTSDIR}/www/py-slimit
+
+.include <bsd.port.mk>

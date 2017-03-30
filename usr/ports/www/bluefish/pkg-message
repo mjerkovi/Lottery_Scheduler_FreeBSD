@@ -1,0 +1,11 @@
+$FreeBSD: tags/RELEASE_10_3_0/www/bluefish/pkg-message 340719 2014-01-22 15:52:06Z mat $
+----------------------------------------------------------------------------
+WARNING:
+
+DUE CHANGE OF tidy to tidy4
+
+If ~/.bluefish exists, the commands should be manually fixed opening the 
+preferences window (Edit->Preferences) and then changing tidy to tidy4 in
+"External filters" and "Output parser" preferences.
+
+----------------------------------------------------------------------------

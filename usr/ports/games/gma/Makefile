@@ -1,0 +1,25 @@
+# Created by: Ying-Chieh Liao <ijliao@csie.nctu.edu.tw>
+# $FreeBSD: tags/RELEASE_10_3_0/games/gma/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	gma
+PORTVERSION=	0.6
+CATEGORIES=	games
+MASTER_SITES=	http://www.student.nada.kth.se/~d92-jwa/code/gma/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Go-moku game which learns playing the game from studying its opponent
+
+BROKEN=		unfetchable
+
+LICENSE=	GPLv2 # (or later)
+
+GNU_CONFIGURE=	yes
+
+PLIST_FILES=	bin/apprentice.gmaplayer bin/gma-console
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|stl\.h|map| ; \
+		 s|^CXXFLAGS|#CXXFLAGS|' ${WRKSRC}/configure
+
+.include <bsd.port.mk>

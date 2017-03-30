@@ -1,0 +1,30 @@
+# Created by: Steve Wills <swills@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/rubygem-rye/Makefile 396607 2015-09-10 22:38:49Z amdmi3 $
+
+PORTNAME=	rye
+PORTVERSION=	0.9.13
+PORTREVISION=	1
+CATEGORIES=	net rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	swills@FreeBSD.org
+COMMENT=	Safely run SSH commands on a bunch of machines at the same time
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+RUN_DEPENDS=	rubygem-annoy>=0:${PORTSDIR}/devel/rubygem-annoy \
+		rubygem-docile>=1.0.1:${PORTSDIR}/devel/rubygem-docile \
+		rubygem-highline>=1.5.1:${PORTSDIR}/devel/rubygem-highline \
+		rubygem-net-scp>=1.0.2:${PORTSDIR}/security/rubygem-net-scp \
+		rubygem-net-ssh>=2.0.13:${PORTSDIR}/security/rubygem-net-ssh \
+		rubygem-sysinfo>=0.8.1:${PORTSDIR}/devel/rubygem-sysinfo
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	try/*.rb tst/*.rb
+
+.include <bsd.port.mk>

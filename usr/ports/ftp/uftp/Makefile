@@ -1,0 +1,29 @@
+# Created by: George V. Neville-Neil <gnn@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/ftp/uftp/Makefile 386668 2015-05-18 09:54:46Z demon $
+
+PORTNAME=	uftp
+PORTVERSION=	4.7
+PORTEPOCH=	1
+CATEGORIES=	ftp
+MASTER_SITES=	http://uftp-multicast.sourceforge.net/downloads/
+EXTRACT_SUFX=	.tar
+
+MAINTAINER=	demon@FreeBSD.org
+COMMENT=	Multicast capable FTP client and server
+
+LICENSE=	GPLv3
+
+MAKEFILE=	makefile
+USES=		gmake
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/uftp ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_PROGRAM} ${WRKSRC}/uftpd ${STAGEDIR}${PREFIX}/sbin/
+	${INSTALL_PROGRAM} ${WRKSRC}/uftp_keymgt ${STAGEDIR}${PREFIX}/bin/
+	${INSTALL_PROGRAM} ${WRKSRC}/uftpproxyd ${STAGEDIR}${PREFIX}/sbin/
+	${INSTALL_MAN} ${WRKSRC}/uftp.1 ${STAGEDIR}${MANPREFIX}/man/man1/
+	${INSTALL_MAN} ${WRKSRC}/uftpd.1 ${STAGEDIR}${MANPREFIX}/man/man1/
+	${INSTALL_MAN} ${WRKSRC}/uftpproxyd.1 ${STAGEDIR}${MANPREFIX}/man/man1/
+	${INSTALL_MAN} ${WRKSRC}/uftp_keymgt.1 ${STAGEDIR}${MANPREFIX}/man/man1/
+
+.include <bsd.port.mk>

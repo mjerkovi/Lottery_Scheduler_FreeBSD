@@ -1,0 +1,24 @@
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/rcadm/Makefile 385665 2015-05-07 20:24:15Z mat $
+
+PORTNAME=	rcadm
+PORTVERSION=	0.1
+CATEGORIES=	sysutils
+
+MAINTAINER=	reinier@skoef.nl
+COMMENT=	Utility for adminstrating rc.conf
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	skoef
+GH_TAGNAME=	7a1bf44
+
+PLIST_FILES=	sbin/${PORTNAME}
+
+do-build:
+.for file in ${PORTNAME}
+	${REINPLACE_CMD} -e 's#/usr/local#${LOCALBASE}#g' ${WRKSRC}/${file}
+.endfor
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/sbin
+
+.include <bsd.port.mk>

@@ -1,0 +1,31 @@
+# Created by: Sergey Skvortsov <skv@protey.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/security/p5-POE-Component-SSLify/Makefile 376755 2015-01-11 13:29:30Z sunpoet $
+
+PORTNAME=	POE-Component-SSLify
+PORTVERSION=	1.012
+CATEGORIES=	security perl5
+MASTER_SITES=	CPAN/${PORTNAME:C/-.*//}/APOCAL
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Integrate SSL into POE
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Net-SSLeay>=1.36:${PORTSDIR}/security/p5-Net-SSLeay \
+		p5-POE>=1.267:${PORTSDIR}/devel/p5-POE \
+		p5-Task-Weaken>=1.03:${PORTSDIR}/devel/p5-Task-Weaken
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-FailWarnings>=0:${PORTSDIR}/devel/p5-Test-FailWarnings
+
+USES=		perl5
+USE_PERL5=	modbuildtiny
+
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} < 502000
+TEST_DEPENDS+=	p5-Test-Simple>=1.001.002:${PORTSDIR}/devel/p5-Test-Simple
+.endif
+
+.include <bsd.port.post.mk>

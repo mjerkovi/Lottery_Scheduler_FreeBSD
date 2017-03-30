@@ -1,0 +1,25 @@
+# Created by: Lars Thegler <lth@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Parse-CPAN-Meta/Makefile 388583 2015-06-05 14:21:43Z mat $
+
+PORTNAME=	Parse-CPAN-Meta
+PORTVERSION=	1.44.14
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:DAGOLDEN
+PKGNAMEPREFIX=	p5-
+DISTNAME=	${PORTNAME}-${PORTVERSION:R}${PORTVERSION:E}
+
+MAINTAINER=	lth@FreeBSD.org
+COMMENT=	Parse META.yml and other similar CPAN metadata files
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-CPAN-Meta-YAML>=0.011:${PORTSDIR}/devel/p5-CPAN-Meta-YAML
+RUN_DEPENDS=	p5-CPAN-Meta-YAML>=0.011:${PORTSDIR}/devel/p5-CPAN-Meta-YAML
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

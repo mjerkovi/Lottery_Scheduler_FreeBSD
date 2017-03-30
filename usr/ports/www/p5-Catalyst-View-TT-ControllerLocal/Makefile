@@ -1,0 +1,25 @@
+# Created by: Lars Balker Rasmussen <lbr@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-Catalyst-View-TT-ControllerLocal/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Catalyst-View-TT-ControllerLocal
+PORTVERSION=	0.02
+PORTREVISION=	2
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Catalyst TT View with template names relative to the Controller
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Catalyst-Runtime>=5.7000:${PORTSDIR}/www/p5-Catalyst-Runtime \
+		p5-Catalyst-Devel>=1.00:${PORTSDIR}/www/p5-Catalyst-Devel \
+		p5-Catalyst-View-TT>=0:${PORTSDIR}/www/p5-Catalyst-View-TT
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

@@ -1,0 +1,4 @@
+bin/treescan
+%%PERL5_MAN3%%/IO::AIO.3.gz
+%%SITE_ARCH%%/IO/AIO.pm
+%%SITE_ARCH%%/auto/IO/AIO/AIO.so

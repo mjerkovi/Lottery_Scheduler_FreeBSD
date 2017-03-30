@@ -1,0 +1,25 @@
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/p5-feedgnuplot/Makefile 402784 2015-12-01 20:41:39Z pi $
+
+PORTNAME=	feedgnuplot
+PORTVERSION=	1.36
+CATEGORIES=	graphics perl5
+MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/D/DK/DKOGAN/
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	pi@FreeBSD.org
+COMMENT=	General purpose pipe-oriented plotting tool
+
+LICENSE=	ART10 GPLv3
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-String-ShellQuote>=0.50:${PORTSDIR}/textproc/p5-String-ShellQuote \
+		p5-IPC-Run>=0:${PORTSDIR}/devel/p5-IPC-Run
+RUN_DEPENDS:=	${BUILD_DEPENDS} \
+		gnuplot:${PORTSDIR}/math/gnuplot
+
+USES=		perl5
+USE_PERL5=	configure
+
+PLIST_FILES=	bin/feedgnuplot ${SITE_MAN1}/feedgnuplot.1.gz
+
+.include <bsd.port.mk>

@@ -1,0 +1,18 @@
+# Created by: Palle Girgensohn <girgen@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/postgresql90-client/Makefile 407633 2016-01-31 13:36:47Z girgen $
+
+PORTNAME=	postgresql
+
+COMMENT=	PostgreSQL database (client)
+
+MASTERDIR=	${.CURDIR}/../postgresql90-server
+
+BUILD_DIRS=	config src/include src/interfaces src/port \
+		src/bin/pg_dump src/bin/psql src/bin/scripts src/bin/pg_config \
+		doc src/makefiles
+INSTALL_DIRS=	${BUILD_DIRS}
+CLIENT_ONLY=	yes
+COMPONENT=	-client
+USE_LDCONFIG=	yes
+
+.include "${MASTERDIR}/Makefile"

@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/databases/elixir-ecto_migrate/Makefile 397931 2015-09-26 07:35:21Z olgeni $
+
+PORTNAME=	ecto_migrate
+PORTVERSION=	0.6.2
+DISTVERSIONPREFIX=	v
+CATEGORIES=	databases
+PKGNAMEPREFIX=	elixir-
+
+MAINTAINER=	olgeni@FreeBSD.org
+COMMENT=	Automatic migrations for Ecto
+
+LICENSE=	APACHE20
+
+USES=		elixir
+USE_GITHUB=	yes
+GH_ACCOUNT=	xerions
+
+MIX_BUILD_DEPS=	databases/elixir-ecto
+MIX_RUN_DEPS:=	${MIX_BUILD_DEPS}
+MIX_REWRITE=	yes
+
+.include <bsd.port.mk>

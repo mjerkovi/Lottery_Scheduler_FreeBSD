@@ -1,0 +1,46 @@
+# $FreeBSD: tags/RELEASE_10_3_0/emulators/openmsx/Makefile 397517 2015-09-21 19:09:01Z johans $
+
+PORTNAME=	openmsx
+PORTVERSION=	0.12.0
+CATEGORIES=	emulators
+MASTER_SITES=	https://github.com/openMSX/openMSX/releases/download/RELEASE_${PORTVERSION:S/./_/g}/
+
+MAINTAINER=	johans@FreeBSD.org
+COMMENT=	Open source MSX emulator
+
+LICENSE=	GPLv2
+
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
+		libogg.so:${PORTSDIR}/audio/libogg \
+		libvorbis.so:${PORTSDIR}/audio/libvorbis \
+		libtheora.so:${PORTSDIR}/multimedia/libtheora \
+		libao.so:${PORTSDIR}/audio/libao
+
+MAKEFILE=	GNUmakefile
+USES=		gmake python tcl
+USE_GCC=	yes
+USE_GL=		glew
+USE_SDL=	sdl ttf
+
+MAKE_ARGS=	INSTALL_BINARY_DIR=${PREFIX}/bin \
+		INSTALL_SHARE_DIR=${DATADIR} \
+		INSTALL_DOC_DIR=${DOCSDIR} \
+		OPENMSX_CXX=${CXX} \
+		CXXFLAGS="${CXXFLAGS}"
+
+PLIST_FILES=	bin/openmsx
+PORTDATA=	*
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+
+# Use dummy target rather than rewriting makefile
+DOCS_MAKE_ARGS_OFF=	INSTALL_DOC_DIR=${WRKSRC}/dummy
+
+post-patch:
+	@${REINPLACE_CMD} -e 's/{TCL_LIB_SPEC}/& $${TCL_LD_FLAGS}/' \
+		${WRKSRC}/build/libraries.py
+	@${REINPLACE_CMD} -e '/^SYMLINK_FOR_BINARY/s/true/false/' \
+		${WRKSRC}/build/custom.mk
+
+.include <bsd.port.mk>

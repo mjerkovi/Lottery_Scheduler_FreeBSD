@@ -1,0 +1,42 @@
+# Created by: ade, archie
+# $FreeBSD: tags/RELEASE_10_3_0/x11-fm/nautilus/Makefile 403595 2015-12-12 11:01:36Z kwm $
+
+PORTNAME=	nautilus
+PORTVERSION=	3.16.3
+CATEGORIES=	x11-fm gnome
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome3
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	File manager for the GNOME desktop
+
+BUILD_DEPENDS=	gnome-icon-theme>=0:${PORTSDIR}/misc/gnome-icon-theme \
+		gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-schemas
+LIB_DEPENDS=	libexif.so:${PORTSDIR}/graphics/libexif \
+		libnotify.so:${PORTSDIR}/devel/libnotify \
+		libexempi.so:${PORTSDIR}/textproc/exempi
+RUN_DEPENDS=	gnome-icon-theme>=0:${PORTSDIR}/misc/gnome-icon-theme \
+		gsettings-desktop-schemas>=0:${PORTSDIR}/devel/gsettings-desktop-schemas
+
+PORTSCOUT=	limitw:1,even
+
+USES=		desktop-file-utils gettext gmake libtool pathfix \
+		pkgconfig tar:xz
+USE_GNOME=	intlhack gnomedesktop3 libxml2 gvfs introspection:build
+USE_LDCONFIG=	yes
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+CONFIGURE_ARGS=	--disable-packagekit
+INSTALL_TARGET=	install-strip
+
+GLIB_SCHEMAS=	org.gnome.nautilus.gschema.xml
+
+OPTIONS_SUB=	yes
+OPTIONS_DEFINE=	TRACKER
+OPTIONS_DEFAULT=TRACKER
+TRACKER_DESC=	Tracker support
+TRACKER_LIB_DEPENDS=	libtracker-control-1.0.so:${PORTSDIR}/sysutils/tracker
+TRACKER_CONFIGURE_ENABLE=	tracker
+
+.include <bsd.port.mk>

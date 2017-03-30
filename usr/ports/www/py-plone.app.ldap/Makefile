@@ -1,0 +1,31 @@
+# Created by: Lawrence Stewart <lstewart@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-plone.app.ldap/Makefile 405764 2016-01-11 05:23:46Z rm $
+
+PORTNAME=	plone.app.ldap
+PORTVERSION=	1.3.2
+CATEGORIES=	www python zope
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DIST_SUBDIR=	zope
+
+MAINTAINER=	zope@FreeBSD.org
+COMMENT=	LDAP control panel for Plone
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}Products.CMFCore>=2.1.0:${PORTSDIR}/devel/py-Products.CMFCore \
+		${PYTHON_PKGNAMEPREFIX}Products.PloneLDAP>=1.0:${PORTSDIR}/www/py-Products.PloneLDAP \
+		${PYTHON_PKGNAMEPREFIX}plone.memoize>0:${PORTSDIR}/www/py-plone.memoize \
+		${PYTHON_PKGNAMEPREFIX}Products.GenericSetup>0:${PORTSDIR}/devel/py-Products.GenericSetup \
+		${PYTHON_PKGNAMEPREFIX}ldap>0:${PORTSDIR}/net/py-ldap \
+		${PYTHON_PKGNAMEPREFIX}zope.component>0:${PORTSDIR}/devel/py-zope.component \
+		${PYTHON_PKGNAMEPREFIX}zope.i18nmessageid>0:${PORTSDIR}/textproc/py-zope.i18nmessageid \
+		${PYTHON_PKGNAMEPREFIX}zope.interface>0:${PORTSDIR}/devel/py-zope.interface \
+		${PYTHON_PKGNAMEPREFIX}zope.lifecycleevent>0:${PORTSDIR}/devel/py-zope.lifecycleevent \
+		${PYTHON_PKGNAMEPREFIX}zope.schema>0:${PORTSDIR}/devel/py-zope.schema
+
+NO_ARCH=	yes
+USES=		python:2.7 zip
+USE_PYTHON=	autoplist distutils
+
+.include <bsd.port.mk>

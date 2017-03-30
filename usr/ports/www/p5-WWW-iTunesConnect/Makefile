@@ -1,0 +1,27 @@
+# Created by: Brandon Fosdick <bfoz@bfoz.net>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-WWW-iTunesConnect/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	WWW-iTunesConnect
+PORTVERSION=	1.16
+PORTREVISION=	3
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+DISTNAME=	${PKGNAMEPREFIX}${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	bfoz@bfoz.net
+COMMENT=	Client interface for Apple's iTunes Connect service
+
+BUILD_DEPENDS=	p5-HTML-Tree>=0:${PORTSDIR}/www/p5-HTML-Tree \
+		p5-libwww>=5.829:${PORTSDIR}/www/p5-libwww \
+		p5-Net-SSLeay>=0:${PORTSDIR}/security/p5-Net-SSLeay \
+		p5-HTML-Form>=0:${PORTSDIR}/www/p5-HTML-Form
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+PLIST_FILES=	%%SITE_PERL%%/WWW/iTunesConnect.pm \
+		%%PERL5_MAN3%%/WWW::iTunesConnect.3.gz
+
+.include <bsd.port.mk>

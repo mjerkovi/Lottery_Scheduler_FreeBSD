@@ -1,0 +1,18 @@
+# Created by: Giuseppe Pilichi aka Jacula Modyun <jacula@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/hs-oeis/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	oeis
+PORTVERSION=	0.3.6
+CATEGORIES=	www haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Interface to the Online Encyclopedia of Integer Sequences (OEIS)
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	HTTP>=4000.2 network>=2.6 network-uri>=2.6
+
+FLAGS_ENABLE=	network-uri
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

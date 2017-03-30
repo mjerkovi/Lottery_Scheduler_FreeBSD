@@ -1,0 +1,20 @@
+# Created by: arved
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-open4/Makefile 391473 2015-07-06 18:05:37Z sunpoet $
+
+PORTNAME=	open4
+PORTVERSION=	1.3.4
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Open4 manages child processes and their io handles
+
+LICENSE=	BSD2CLAUSE RUBY
+LICENSE_COMB=	dual
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

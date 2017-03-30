@@ -1,0 +1,21 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-aniso8601/Makefile 401596 2015-11-14 20:44:02Z rm $
+
+PORTNAME=	aniso8601
+PORTVERSION=	1.1.0
+CATEGORIES=	devel python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	rm@FreeBSD.org
+COMMENT=	Library for parsing ISO 8601 strings
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dateutil>0:${PORTSDIR}/devel/py-dateutil
+
+NO_ARCH=	yes
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+.include <bsd.port.mk>

@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/dns/maradns/files/Deadwood.in 345251 2014-02-20 15:44:56Z mat $
+#
+
+# PROVIDE: Deadwood
+# REQUIRE: SERVERS
+# BEFORE: DAEMON
+# KEYWORD: shutdown
+#
+
+. /etc/rc.subr
+
+: ${dwood3_enable="NO"}
+: ${dwood3_conf="%%ETCDIR%%/dwood3rc"}
+
+name="Deadwood"
+rcvar=dwood3_enable
+command="%%PREFIX%%/bin/duende"
+pidfile="/var/run/${name}.pid"
+command_args="--pid=${pidfile} %%PREFIX%%/sbin/Deadwood -f ${dwood3_conf}"
+
+load_rc_config $name
+
+run_rc_command "$1"

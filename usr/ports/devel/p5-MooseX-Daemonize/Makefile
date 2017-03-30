@@ -1,0 +1,29 @@
+# Created by: Lars Balker Rasmussen <lbr@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-MooseX-Daemonize/Makefile 394686 2015-08-19 03:54:26Z sunpoet $
+
+PORTNAME=	MooseX-Daemonize
+PORTVERSION=	0.20
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Role for daemonizing your Moose based application
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Moose>=0.33:${PORTSDIR}/devel/p5-Moose \
+		p5-MooseX-Getopt>=0.07:${PORTSDIR}/devel/p5-MooseX-Getopt \
+		p5-MooseX-Types-Path-Class>=0:${PORTSDIR}/devel/p5-MooseX-Types-Path-Class
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Fatal>=0:${PORTSDIR}/devel/p5-Test-Fatal
+BUILD_DEPENDS+=	p5-Devel-CheckOS>=1.63:${PORTSDIR}/devel/p5-Devel-CheckOS
+
+DEPRECATED=	Deprecated by upstream, use devel/p5-Daemon-Control instead
+
+NO_ARCH=	yes
+USES=		perl5
+USE_PERL5=	modbuildtiny
+
+.include <bsd.port.mk>

@@ -1,0 +1,19 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/rubygem-parallel/Makefile 392787 2015-07-24 08:59:00Z sunpoet $
+
+PORTNAME=	parallel
+PORTVERSION=	1.6.1
+CATEGORIES=	sysutils rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Run any kind of code in parallel processes
+
+LICENSE=	MIT
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

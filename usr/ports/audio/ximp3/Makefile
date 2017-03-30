@@ -1,0 +1,26 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/audio/ximp3/Makefile 385061 2015-04-30 20:00:23Z amdmi3 $
+
+PORTNAME=	ximp3
+PORTVERSION=	0.1.15
+CATEGORIES=	audio
+MASTER_SITES=	SUNSITE/apps/sound/players/mp3
+
+MAINTAINER=	amdmi3@FreeBSD.org
+COMMENT=	Simple console MP3 player
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+GNU_CONFIGURE=	yes
+PORTDOCS=	*
+
+PLIST_FILES=	bin/${PORTNAME}
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

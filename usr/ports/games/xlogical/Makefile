@@ -1,0 +1,36 @@
+# Created by: Aaron Baugher
+# $FreeBSD: tags/RELEASE_10_3_0/games/xlogical/Makefile 384380 2015-04-20 19:06:29Z tijl $
+
+PORTNAME=	xlogical
+PORTVERSION=	1.0p8
+PORTREVISION=	10
+CATEGORIES=	games
+MASTER_SITES=	http://changeling.ixionstudios.com/xlogical/downloads/ \
+		http://freebsd.portsreview.info/downloads/
+DISTNAME=	${PORTNAME}-${PORTVERSION:S/p/-/}
+
+MAINTAINER=	aaron@baugher.biz
+COMMENT=	Remake of the classic puzzle game Logical
+
+LICENSE=	GPLv2
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--localstatedir="${PREFIX}/var"
+USES=		autoreconf dos2unix gmake tar:bzip2
+USE_SDL=	sdl image mixer
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.options.mk>
+
+post-extract:
+	@${CHMOD} 755 ${WRKSRC}/missing
+	@${RM} ${WRKSRC}/LICENSE
+
+post-install:
+.if ${PORT_OPTIONS:MDOCS}
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/[A-Z][A-Z]* ${STAGEDIR}${DOCSDIR}
+.endif
+
+.include <bsd.port.mk>

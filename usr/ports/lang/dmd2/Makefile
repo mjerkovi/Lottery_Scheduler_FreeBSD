@@ -1,0 +1,100 @@
+# Created by: Ruben <chromium@hybridsource.org>
+# $FreeBSD: tags/RELEASE_10_3_0/lang/dmd2/Makefile 404315 2015-12-23 19:25:48Z cy $
+
+PORTNAME=	dmd
+PKGNAMESUFFIX=	3
+PORTVERSION=	2.069.2
+CATEGORIES=	lang
+MASTER_SITES=	http://ftp.digitalmars.com/
+DISTNAME=	dmd.${PORTVERSION}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
+		dmd.2.067.1${EXTRACT_SUFX}
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
+
+MAINTAINER=	cy@FreeBSD.org
+COMMENT=	D 2.0 compiler, not officially validated for FreeBSD
+
+USES=		gmake zip
+MAKEFILE=	posix.mak
+MAKE_ARGS=	AUTO_BOOTSTRAP=1
+MAKE_ENV+=	WRKDIR=${WRKDIR}
+EXAMPLESDIR=	${PREFIX}/share/examples/dmd2
+DOCSDIR=	${PREFIX}/share/doc/dmd2
+PORTDOCS=	*.txt html/
+WRKSRC=		${WRKDIR}/dmd2/src/${PORTNAME}
+LICENSE_COMB=	multi
+LICENSE=	ART10 DMD BSL
+LICENSE_NAME_DMD=	Digital Mars license
+LICENSE_FILE_DMD=	${WRKSRC}/backendlicense.txt
+LICENSE_PERMS_DMD=	no-dist-mirror no-dist-sell no-pkg-mirror no-pkg-sell auto-accept
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.pre.mk>
+
+NOT_FOR_ARCHS=		powerpc
+NOT_FOR_ARCHS_REASON=	not yet ported to this architecture
+
+.if ${ARCH} == "sparc64"
+BROKEN=		Does not install on sparc64: divide-by-zero error
+.endif
+
+.if ${ARCH} == "amd64"
+MAKE_ARGS+=	MODEL=64
+MODEL=		64
+.else
+MAKE_ARGS+=	MODEL=32
+MODEL=		32
+.endif
+
+.if defined(WITH_DEBUG)
+BUILD=		debug
+MAKE_ARGS+=	DEBUG_FLAGS=-g\ -DDEBUG=1\ -DUNITTEST
+.endif
+
+MODULEDIR=	${PREFIX}/include/d/phobos2
+
+post-patch:
+	@${REINPLACE_CMD} -e "s|g++|${CXX}|" \
+			  -e "s|/etc|${PREFIX}/etc|" \
+		${WRKSRC}/posix.mak
+	@${REINPLACE_CMD} -e "s|gcc|${CC}|" ${WRKSRC}/link.d
+	@${REINPLACE_CMD} -e "s|cc|${CC}|" ${WRKSRC}/../phobos/posix.mak
+	@${REINPLACE_CMD} -e "s|/etc|${PREFIX}/etc|"	\
+			  -e "s|\(dmd\)|\12|gI"		\
+			  -e "s|\\\BR|.BR|"		\
+		${WRKDIR}/dmd2/man/man1/dmd.1		\
+		${WRKDIR}/dmd2/man/man5/dmd.conf.5
+	@${REINPLACE_CMD} -e '/^SYSCONFDIR=/s|/etc/|${PREFIX}/etc/|' ${WRKSRC}/posix.mak
+	@${REINPLACE_CMD} -e "s|%@P%/../../src/phobos|${MODULEDIR}|"	\
+			  -e "s|%@P%/../lib|${PREFIX}/lib|"		\
+			  -e "s|%@P%/../../src/druntime|${PREFIX}/include/d/druntime|"	\
+			  ${WRKDIR}/dmd2/freebsd/bin${MODEL}/dmd.conf
+	@${ECHO_CMD} >> ${WRKDIR}/dmd2/freebsd/bin${MODEL}/dmd.conf
+
+do-install:
+	${INSTALL_MAN} ${WRKDIR}/dmd2/man/man1/dmd.1 ${STAGEDIR}${MANPREFIX}/man/man1/dmd.1
+	${INSTALL_MAN} ${WRKDIR}/dmd2/man/man5/dmd.conf.5 ${STAGEDIR}${MANPREFIX}/man/man5/dmd.conf.5
+	${INSTALL_DATA} ${WRKDIR}/dmd2/freebsd/bin${MODEL}/dmd.conf ${STAGEDIR}${PREFIX}/etc/dmd.conf.sample
+	${INSTALL_PROGRAM} ${WRKSRC}/dmd ${STAGEDIR}${PREFIX}/bin/dmd
+	${INSTALL_DATA} ${WRKSRC}/../../freebsd/lib${MODEL}/libphobos2.a ${STAGEDIR}${PREFIX}/lib
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKDIR}/dmd2/freebsd/bin32/dmd.conf ${STAGEDIR}${EXAMPLESDIR}/dmd32.conf
+	${INSTALL_DATA} ${WRKDIR}/dmd2/freebsd/bin64/dmd.conf ${STAGEDIR}${EXAMPLESDIR}/dmd64.conf
+	cd ${WRKDIR}/dmd2 && ${COPYTREE_SHARE} samples ${STAGEDIR}${EXAMPLESDIR}
+	${MKDIR} ${STAGEDIR}${MODULEDIR}/etc/c
+	${INSTALL_DATA} ${WRKSRC}/../phobos/*.d ${STAGEDIR}${MODULEDIR}
+	${INSTALL_DATA} ${WRKSRC}/../phobos/etc/c/zlib.d ${STAGEDIR}${MODULEDIR}/etc/c
+	${INSTALL_DATA} ${WRKSRC}/../phobos/etc/c/curl.d ${STAGEDIR}${MODULEDIR}/etc/c
+	${INSTALL_DATA} ${WRKSRC}/../phobos/etc/c/sqlite3.d ${STAGEDIR}${MODULEDIR}/etc/c
+	cd ${WRKSRC}/../phobos && ${COPYTREE_SHARE} std ${STAGEDIR}${MODULEDIR}
+	${MKDIR} ${STAGEDIR}${MODULEDIR}/../druntime
+	cd ${WRKSRC}/../druntime && ${COPYTREE_SHARE} import ${STAGEDIR}${MODULEDIR}/../druntime
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/*.txt ${STAGEDIR}${DOCSDIR}
+	cd ${WRKDIR}/dmd2 && ${COPYTREE_SHARE} html ${STAGEDIR}${DOCSDIR}
+
+pre-configure:
+	${MAKE} -f Makefile.bootstrap BOOTDIR=${WRKDIR}
+
+.include <bsd.port.post.mk>

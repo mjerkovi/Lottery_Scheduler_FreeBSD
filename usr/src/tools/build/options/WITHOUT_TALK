@@ -1,0 +1,5 @@
+.\" $FreeBSD: releng/10.3/tools/build/options/WITHOUT_TALK 278710 2015-02-13 21:19:54Z ngie $
+Set to not build or install
+.Xr talk 1
+and
+.Xr talkd 8 .

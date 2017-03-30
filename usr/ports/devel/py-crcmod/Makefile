@@ -1,0 +1,30 @@
+# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-crcmod/Makefile 401604 2015-11-14 21:24:30Z rm $
+
+PORTNAME=	crcmod
+PORTVERSION=	1.7
+PORTREVISION=	2
+CATEGORIES=	devel python
+MASTER_SITES=	CHEESESHOP \
+		SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}/
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	rm@FreeBSD.org
+COMMENT=	Module for Cyclic Redundancy Check (CRC) calculations
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+DOCSDIR=	${PREFIX}/share/doc/${PYTHON_PKGNAMEPREFIX}${PORTNAME}
+PORTDOCS=	*
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${WRKSRC}/changelog ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} html ${STAGEDIR}${DOCSDIR})
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/crcmod/_crcfunext.so
+
+.include <bsd.port.mk>

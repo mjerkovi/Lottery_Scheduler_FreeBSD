@@ -1,0 +1,27 @@
+# Created by: Cheng-Lung Sung <clsung@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-requests-oauth-hook/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	requests-oauth-hook
+PORTVERSION=	0.1.4
+PORTREVISION=	2
+CATEGORIES=	www python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	This is an OAuth hook for py-requests
+
+BROKEN=		unfetchable
+
+LICENSE=	BSD3CLAUSE
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests1>0:${PORTSDIR}/www/py-requests1 \
+		${PYTHON_PKGNAMEPREFIX}oauth2>0:${PORTSDIR}/net/py-oauth2
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+post-extract:
+	${RM} -r ${WRKSRC}/tests
+
+.include <bsd.port.mk>

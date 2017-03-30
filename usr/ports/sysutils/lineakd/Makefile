@@ -1,0 +1,40 @@
+# Created by: Kay Lehmann
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/lineakd/Makefile 386622 2015-05-17 15:04:39Z amdmi3 $
+
+PORTNAME=	lineakd
+PORTVERSION=	0.9
+PORTREVISION=	4
+CATEGORIES=	sysutils
+MASTER_SITES=	SF/lineak/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+DIST_SUBDIR=	lineak
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Lineakd is a daemon which enables special keys on internet keyboards
+
+USES=		gmake libtool
+USE_LDCONFIG=	yes
+USE_XORG=	x11 xext xt
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	kde_cv_prog_cxx_fno_check_new=no
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+DOCS=		README TODO AUTHORS
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|-ldl||' \
+		${WRKSRC}/lineak/Makefile.in ${WRKSRC}/lineakd/Makefile.in
+	@${REINPLACE_CMD} -e 's|-O2||' ${WRKSRC}/configure
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for i in ${DOCS}
+	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${DOCSDIR}
+.endfor
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/lineakd.conf.example ${STAGEDIR}${EXAMPLESDIR}
+
+.include <bsd.port.mk>

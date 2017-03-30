@@ -1,0 +1,29 @@
+# $FreeBSD: tags/RELEASE_10_3_0/x11-fonts/vollkorn-ttf/Makefile 381876 2015-03-21 23:05:19Z bapt $
+
+PORTNAME=	vollkorn-ttf
+PORTVERSION=	3.005
+CATEGORIES=	x11-fonts
+MASTER_SITES=	http://vollkorn-typeface.com/download/
+DISTNAME=	vollkorn-${PORTVERSION:S|.|-|}
+
+MAINTAINER=	rakuco@FreeBSD.org
+COMMENT=	Free and healthy typeface for bread and butter use
+
+LICENSE=	OFL11
+
+NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
+USES=		fonts zip
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	cd ${WRKSRC} && \
+		${INSTALL_DATA} TTF/Vollkorn-*.ttf ${STAGEDIR}${FONTSDIR}
+
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && \
+		${INSTALL_DATA} Fontlog.txt OFL-FAQ.txt ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

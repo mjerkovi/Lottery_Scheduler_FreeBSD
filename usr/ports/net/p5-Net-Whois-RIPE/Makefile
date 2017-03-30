@@ -1,0 +1,25 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-Whois-RIPE/Makefile 388833 2015-06-08 09:55:46Z mich $
+
+PORTNAME=	Net-Whois-RIPE
+PORTVERSION=	2.006
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:AASSAD
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	mich@FreeBSD.org
+COMMENT=	Implementation of RIPE Whois
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Iterator-Util>=0:${PORTSDIR}/devel/p5-Iterator-Util
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Exception>=0:${PORTSDIR}/devel/p5-Test-Exception \
+		p5-WWW-Mechanize>=0:${PORTSDIR}/www/p5-WWW-Mechanize
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

@@ -1,0 +1,20 @@
+# Created by: Gerard Seibert <gerard@seibercom.net>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-CGI-Session-ExpireSessions/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	CGI-Session-ExpireSessions
+PORTVERSION=	1.12
+PORTREVISION=	1
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	gerard@seibercom.net
+COMMENT=	Perl module to delete expired CGI::Session-type sessions
+
+RUN_DEPENDS=	p5-CGI-Session>=4.14:${PORTSDIR}/www/p5-CGI-Session
+TEST_DEPENDS=	p5-Test-Pod>=0:${PORTSDIR}/devel/p5-Test-Pod
+
+USES=		perl5 tar:tgz
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

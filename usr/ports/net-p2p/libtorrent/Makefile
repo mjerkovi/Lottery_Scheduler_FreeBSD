@@ -1,0 +1,60 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net-p2p/libtorrent/Makefile 402121 2015-11-21 02:10:04Z sunpoet $
+
+PORTNAME=	libtorrent
+PORTVERSION=	0.13.6
+CATEGORIES=	net-p2p
+MASTER_SITES=	http://rtorrent.net/downloads/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	BitTorrent Library written in C++
+
+LICENSE=	GPLv2 GPLv3
+LICENSE_COMB=	dual
+LICENSE_FILE_GPLv2=	${WRKSRC}/COPYING
+
+CONFLICTS_INSTALL=	rblibtorrent-[0-9]* rblibtorrent-devel-[0-9]*
+
+OPTIONS_DEFINE=	IPV6 KQUEUE
+OPTIONS_DEFAULT=KQUEUE
+KQUEUE_DESC=	Use kqueue(2) support
+
+CONFIGURE_ARGS=	--disable-debug
+CONFIGURE_ENV=	OPENSSL_LIBS="-L${OPENSSLBASE}/lib -ssl -crypto" OPENSSL_CFLAGS="-I${OPENSSLBASE}/include"
+GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
+USE_LDCONFIG=	yes
+USE_OPENSSL=	yes
+USES=		compiler:c++11-lang libtool pathfix pkgconfig
+
+IPV6_CONFIGURE_ENABLE=	ipv6
+KQUEUE_CONFIGURE_WITH=	kqueue
+
+.include <bsd.port.pre.mk>
+
+# Disable amd64 atomic ops on i386 when using gcc
+# undefined reference to __sync_add_and_fetch_8
+# undefined reference to __sync_fetch_and_and_8
+.if ${ARCH} == "i386" && ${COMPILER_TYPE} == "gcc"
+CONFIGURE_ARGS+=--disable-instrumentation
+.endif
+
+# Workaround to build on >= 10.x
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1000000
+USE_CXXSTD=	c++11
+EXTRA_PATCHES+=	${FILESDIR}/extra-clang
+.endif
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|-O3|${CFLAGS}|' ${WRKSRC}/configure
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1000000
+	@${FIND} ${WRKSRC} \( -name '*.h' -o -name '*.cc' \) -type f \
+		-exec ${REINPLACE_CMD} -e 's/tr1::/std::/g' {} \; \
+		-exec ${REINPLACE_CMD} -e 's/std::std::/std::/g' {} \; \
+		-exec ${REINPLACE_CMD} -e '/namespace tr1/d' {} \; \
+		-exec ${REINPLACE_CMD} -e '/include/s,tr1/,,' {} \;
+	@${REINPLACE_CMD} -e 's/\.assign/.fill/' \
+		${WRKSRC}/src/torrent/utils/extents.h \
+		${WRKSRC}/src/torrent/utils/log.cc
+.endif
+
+.include <bsd.port.post.mk>

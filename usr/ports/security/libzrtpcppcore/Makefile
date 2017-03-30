@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/libzrtpcppcore/Makefile 403514 2015-12-11 10:02:35Z sunpoet $
+
+PORTNAME=	libzrtpcppcore
+DISTVERSIONPREFIX=	V
+DISTVERSION=	4.4.0
+CATEGORIES=	security
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	GNU ZRTP library
+
+LICENSE=	LGPL3 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	wernerd
+GH_PROJECT=	ZRTPCPP
+
+USES=		cmake:outsource
+CMAKE_ARGS=	-DCORE_LIB=true
+USE_LDCONFIG=	yes
+
+.include <bsd.port.mk>

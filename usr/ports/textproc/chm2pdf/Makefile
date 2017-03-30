@@ -1,0 +1,24 @@
+# Created by: Kevin Lo <kevlo@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/chm2pdf/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	chm2pdf
+PORTVERSION=	0.9.1
+PORTREVISION=	3
+CATEGORIES=	textproc python
+MASTER_SITES=	GOOGLE_CODE
+
+MAINTAINER=	kevlo@FreeBSD.org
+COMMENT=	Python script that converts CHM files into PDF files
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	htmldoc:${PORTSDIR}/textproc/htmldoc \
+		${PYTHON_SITELIBDIR}/chm/chm.py:${PORTSDIR}/textproc/pychm
+
+USES=		python
+USE_PYTHON=	distutils
+PYDISTUTILS_PKGVERSION=	0.9
+
+PLIST_FILES=	bin/chm2pdf
+
+.include <bsd.port.mk>

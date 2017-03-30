@@ -1,0 +1,33 @@
+# Created by: gnn
+# $FreeBSD: tags/RELEASE_10_3_0/net/py-pcs/Makefile 397387 2015-09-20 19:22:12Z amdmi3 $
+
+PORTNAME=	pcs
+PORTVERSION=	0.6
+CATEGORIES=	net python
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/Beta-${PORTVERSION}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	gnn@FreeBSD.org
+COMMENT=	Protocol Construction Set
+
+LICENSE=	BSD3CLAUSE
+
+PORTDOCS=	pcs.pdf
+PORTEXAMPLES=	*
+
+BUILD_DEPENDS=	cython>=0.11.2:${PORTSDIR}/lang/cython
+
+USES=		python
+USE_PYTHON=	distutils pythonprefix
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC}/docs/Web && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+
+post-install-EXAMPLES-on:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	cd ${WRKSRC}/scripts && ${INSTALL_DATA} ${PORTEXAMPLES} ${STAGEDIR}${EXAMPLESDIR}
+
+.include <bsd.port.mk>

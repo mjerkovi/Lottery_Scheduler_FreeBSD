@@ -1,0 +1,31 @@
+# Created by: Boris Samorodov <bsam@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/linux-nero/Makefile 393817 2015-08-09 19:14:13Z netchild $
+
+PORTNAME=	nero
+PORTVERSION=	4.0.0.0
+PORTREVISION=	2
+CATEGORIES=	sysutils emulators
+MASTER_SITES=	http://ftp20.us.nero.com/software/NeroLINUX/
+DISTNAME=	${PORTNAME}linux-${PORTVERSION}-x86
+EXTRACT_SUFX=	.rpm
+DIST_SUBDIR=	rpm
+
+MAINTAINER=	emulation@FreeBSD.org
+COMMENT=	CD/DVD disk burner
+
+RESTRICTED=	Must be downloaded from their website and a serial number must be bought
+
+ONLY_FOR_ARCHS=	i386 amd64
+USE_LINUX_RPM=	yes
+USE_LINUX_APPS=	gtk2
+USE_LDCONFIG=	yes
+BRANDELF_DIRS=	usr/bin
+SRC_DISTFILES=
+PLIST=		${MASTERDIR}/pkg-plist
+
+# normalize permissions of symbolic links to prevent a package with
+# missing files
+post-extract:
+	${FIND} ${WRKSRC} -type l -exec ${CHMOD} -h 0755 {} \;
+
+.include <bsd.port.mk>

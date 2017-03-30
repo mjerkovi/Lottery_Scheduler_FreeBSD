@@ -1,0 +1,41 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/unieject/Makefile 379564 2015-02-21 22:56:57Z amdmi3 $
+
+PORTNAME=	unieject
+PORTVERSION=	6
+PORTREVISION=	4
+CATEGORIES=	sysutils
+MASTER_SITES=	SF
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Eject(1) replacement
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libconfuse.so:${PORTSDIR}/devel/libconfuse \
+		libpcre.so:${PORTSDIR}/devel/pcre \
+		libcdio.so:${PORTSDIR}/sysutils/libcdio
+
+USES=		tar:bzip2 pathfix pkgconfig gettext iconv libtool
+USE_GNOME=	glib20
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-silent-rules \
+		--disable-doc
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		'/-D_POSIX_C_SOURCE/s|^CPPFLAGS|#CPPFLAGS|' ${WRKSRC}/configure
+	@${REINPLACE_CMD} -e \
+		'/^install-data-am:/s|install-dist_docDATA|| ; \
+		 /^install-data-am:/s|install-dist_htmlDATA||' ${WRKSRC}/Makefile.in
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/unieject.conf.sample ${STAGEDIR}${PREFIX}/etc
+
+.include <bsd.port.mk>

@@ -1,0 +1,30 @@
+# Created by: TAKATSU Tomonari <tota@rtfm.jp>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/silentbob/Makefile 339784 2014-01-15 15:20:21Z tota $
+
+PORTNAME=	silentbob
+PORTVERSION=	3.0
+CATEGORIES=	devel
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}2/${PORTNAME}-${PORTVERSION:C@\.[0-9]+$@@}/
+
+MAINTAINER=	tota@FreeBSD.org
+COMMENT=	Yet another sourcecode indexing tool
+
+LICENSE=	GPLv2
+
+USES=		cmake:outsource
+
+PORTDOCS=	README
+PLIST_FILES=	bin/silentbob
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${RM} ${WRKSRC}/CMakeCache.txt
+	@${REINPLACE_CMD} -e '/lib\/silent_bob/s|/usr|${PREFIX}|' \
+		${WRKSRC}/src/init.cxx
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

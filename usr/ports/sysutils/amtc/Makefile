@@ -1,0 +1,31 @@
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/amtc/Makefile 399602 2015-10-17 20:35:26Z pi $
+
+PORTNAME=	amtc
+PORTVERSION=	0.8.4
+CATEGORIES=	sysutils
+
+MAINTAINER=	tony.li@tony.li
+COMMENT=	Threaded Intel AMT/vPro mass management tool
+
+LICENSE=	CC3.0
+LICENSE_NAME=	Creative Commons Attribution 3.0 Unported
+LICENSE_TEXT=	http://creativecommons.org/licenses/by/3.0/
+LICENSE_PERMS=	auto-accept pkg-sell pkg-mirror dist-sell dist-mirror
+
+BUILD_DEPENDS=	xxd:${PORTSDIR}/editors/vim-lite
+LIB_DEPENDS+=	libgcrypt.so:${PORTSDIR}/security/libgcrypt \
+		libcurl.so:${PORTSDIR}/ftp/curl
+
+USES=		perl5 shebangfix
+USE_GITHUB=	yes
+GH_ACCOUNT=	schnoddelbotz
+GH_TAGNAME=	e7822e8
+USE_PERL5=	build
+SHEBANG_FILES=	${WRKSRC}/../amtc-web/cli/amtc-web.phpsh
+
+WRKSRC_SUBDIR=	src
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/amtc
+
+.include <bsd.port.mk>

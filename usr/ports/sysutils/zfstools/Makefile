@@ -1,0 +1,35 @@
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/zfstools/Makefile 398124 2015-09-28 17:09:32Z bdrewery $
+
+PORTNAME=	zfstools
+DISTVERSIONPREFIX=v
+DISTVERSION=	0.3.6
+PORTREVISION=	0
+CATEGORIES=	sysutils ruby
+MASTER_SITES=	GH \
+		http://mirror.shatow.net/freebsd/${PORTNAME}/
+
+MAINTAINER=	bdrewery@FreeBSD.org
+COMMENT=	OpenSolaris-compatible auto snapshotting for ZFS
+
+LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	bdrewery
+
+USE_RUBY=	yes
+NO_BUILD=	yes
+
+SUB_FILES=	pkg-message
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.options.mk>
+
+do-install:
+	@cd ${WRKSRC}/bin && ${COPYTREE_BIN} . ${STAGEDIR}${PREFIX}/sbin
+	@cd ${WRKSRC}/lib && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_SITELIBDIR}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

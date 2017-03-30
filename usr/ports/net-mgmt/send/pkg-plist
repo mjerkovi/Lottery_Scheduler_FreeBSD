@@ -1,0 +1,7 @@
+sbin/cgatool
+sbin/ipexttool
+sbin/sendd
+etc/sendd/sendd.conf-dist
+etc/sendd/params.conf-dist
+etc/sendd/ipext.conf-dist
+etc/sendd/ipext_verify.conf-dist

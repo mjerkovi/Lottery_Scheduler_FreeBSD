@@ -1,0 +1,43 @@
+# Created by: nbm
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-sip/Makefile 403662 2015-12-13 12:45:25Z rakuco $
+
+PORTNAME=	sip
+PORTVERSION=	${SIP_VERSION}
+PORTEPOCH=	1
+CATEGORIES=	devel python
+MASTER_SITES=	${MASTER_SITES_SIP}
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	${SIP_DISTNAME}
+
+MAINTAINER=	kde@FreeBSD.org
+COMMENT=	Python to C and C++ bindings generator
+
+USES=		python pyqt:sip
+USE_PYTHON=	concurrent py3kplist
+USE_PYQT=	#
+
+CONFIGURE_ARGS=	-b ${PREFIX}/bin -d ${PYTHONPREFIX_SITELIBDIR} \
+		-e ${PYTHONPREFIX_INCLUDEDIR} -v ${DATADIR} \
+		CC="${CC}" CXX="${CXX}" LINK="${CXX}" LINK_SHLIB="${CXX}" \
+		CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}" \
+		INCDIR="${LOCALBASE}/include" LIBDIR="${LOCALBASE}/lib"
+
+PORTDOCS=	*
+
+OPTIONS_DEFINE=		DOCS DEBUG
+DEBUG_CONFIGURE_ON=	--debug
+
+do-configure:
+	cd ${WRKSRC} && ${PYTHON_CMD} configure.py ${CONFIGURE_ARGS}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${DOCSDIR} && cd ${WRKSRC}/doc/html && \
+		${COPYTREE_SHARE} \. ${STAGEDIR}${DOCSDIR}
+	${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \
+		-f -d ${PYTHONPREFIX_SITELIBDIR} \
+		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+	${PYTHON_CMD} -O ${PYTHON_LIBDIR}/compileall.py \
+		-f -d ${PYTHONPREFIX_SITELIBDIR} \
+		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+
+.include <bsd.port.mk>

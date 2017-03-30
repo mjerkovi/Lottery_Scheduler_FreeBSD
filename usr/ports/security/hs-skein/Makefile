@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/hs-skein/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	skein
+PORTVERSION=	1.0.9.3
+CATEGORIES=	security haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Skein, a family of cryptographic hash functions
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	cereal>=0.3 crypto-api>=0.6 tagged>=0.2
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

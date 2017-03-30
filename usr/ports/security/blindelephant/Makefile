@@ -1,0 +1,40 @@
+# Created by: Niels Heinen
+# $FreeBSD: tags/RELEASE_10_3_0/security/blindelephant/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	blindelephant
+PORTVERSION=	1.0
+PORTREVISION=	20100819
+CATEGORIES=	security www
+MASTER_SITES=	LOCAL/niels \
+		http://people.freebsd.org/~niels/distfiles/
+DISTNAME=	${PORTNAME}-${PORTREVISION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Fingerprint the web applications used by a web site
+
+LICENSE=	LGPL3
+
+USES=		python tar:bzip2
+USE_PYTHON=	distutils
+
+SUB_FILES=	${PORTNAME}.sh
+SUB_LIST=	PYTHON_CMD=${PYTHON_CMD} \
+		PATH=${PYTHONPREFIX_SITELIBDIR}/${PORTNAME}
+
+OPTIONS_DEFINE=	DOCS
+
+PORTDOCS=	README Blind_Elephant_BlackHat_2010.pdf
+
+post-extract:
+	@${MV} ${WRKSRC}/src/* ${WRKSRC}
+	@${MV} "${WRKSRC}/doc/Blind Elephant - BlackHat 2010.pdf" \
+	${WRKSRC}/Blind_Elephant_BlackHat_2010.pdf
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKDIR}/${PORTNAME}.sh ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.	for I in ${PORTDOCS}
+		${INSTALL_DATA} ${WRKSRC}/${I} ${STAGEDIR}${DOCSDIR}
+.	endfor
+
+.include <bsd.port.mk>

@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/hs-http-conduit/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	http-conduit
+PORTVERSION=	2.1.8
+CATEGORIES=	www haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	HTTP client package with conduit interface and HTTPS support
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	conduit>=0.5.5 http-client>=0.4.19 http-client-tls>=0.2.2 \
+		http-types>=0.7 lifted-base>=0.1 monad-control mtl \
+		resourcet>=1.1
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

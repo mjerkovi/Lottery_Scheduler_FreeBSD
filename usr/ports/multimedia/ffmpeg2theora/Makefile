@@ -1,0 +1,28 @@
+# Created by: Anders Nordby <anders@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/multimedia/ffmpeg2theora/Makefile 384038 2015-04-15 08:20:27Z tijl $
+
+PORTNAME=	ffmpeg2theora
+PORTVERSION=	0.29
+PORTREVISION=	2
+CATEGORIES=	multimedia
+MASTER_SITES=	http://v2v.cc/~j/ffmpeg2theora/downloads/
+
+MAINTAINER=	wg@FreeBSD.org
+COMMENT=	Reencode many media file formats to Ogg Theora
+
+LICENSE=	GPLv3
+
+LIB_DEPENDS=	libavcodec.so:${PORTSDIR}/multimedia/ffmpeg \
+		libkate.so:${PORTSDIR}/multimedia/libkate \
+		libtheora.so:${PORTSDIR}/multimedia/libtheora
+
+USES=		iconv pkgconfig scons tar:bzip2
+MAKE_ARGS=	APPEND_CCFLAGS="${CFLAGS} ${CPPFLAGS}" \
+		APPEND_LINKFLAGS="${LDFLAGS} ${LIBS}"
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib ${ICONV_LIB}
+
+PLIST_FILES=	bin/ffmpeg2theora man/man1/ffmpeg2theora.1.gz
+
+.include <bsd.port.mk>

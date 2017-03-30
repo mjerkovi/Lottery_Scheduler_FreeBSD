@@ -1,0 +1,29 @@
+# Created by: Alexander Leidinger <netchild@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/pecl-ssh2/Makefile 402450 2015-11-26 14:39:58Z miwi $
+
+PORTNAME=	ssh2
+PORTVERSION=	0.12
+CATEGORIES=	security pear
+MASTER_SITES=	http://pecl.php.net/get/
+PKGNAMEPREFIX=	pecl-
+
+MAINTAINER=	miwi@FreeBSD.org
+COMMENT=	PECL extension to the libssh2 library
+
+LICENSE=	PHP301
+
+LIB_DEPENDS=	libssh2.so:${PORTSDIR}/security/libssh2
+
+USES=		tar:tgz
+USE_PHP=	yes
+USE_PHPEXT=	yes
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib ${EXTRA_LIBS}
+
+CONFIGURE_ARGS=	--with-ssh2
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|\$$SSH2_DIR/lib|\$$SSH2_DIR/\$$PHP_LIBDIR|g' ${WRKSRC}/config.m4
+
+.include <bsd.port.mk>

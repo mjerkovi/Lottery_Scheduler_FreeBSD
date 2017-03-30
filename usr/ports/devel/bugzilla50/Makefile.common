@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/bugzilla50/Makefile.common 391770 2015-07-12 07:57:47Z ohauer $
+
+DIST_SUBDIR=	${PORTNAME}
+PKGNAMESUFFIX=	50
+
+CONFLICTS_INSTALL=	\
+		bugzilla5[^0].* \
+		bugzilla4*
+
+PORTSCOUT=	limitw:1,even
+
+WWWDIR=		${PREFIX}/www/bugzilla
+
+BINMODE=	700
+
+NO_BUILD=	yes
+

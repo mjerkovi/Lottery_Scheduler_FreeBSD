@@ -1,0 +1,23 @@
+# Created by: Emanuel Haupt <ehaupt@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/dns/dnswall/Makefile 376393 2015-01-06 09:37:27Z ehaupt $
+
+PORTNAME=	dnswall
+PORTVERSION=	0.1.4
+PORTREVISION=	1
+CATEGORIES=	dns security
+MASTER_SITES=	GOOGLE_CODE LOCAL/ehaupt
+PROJECTHOST=	google-dnswall
+
+MAINTAINER=	ehaupt@FreeBSD.org
+COMMENT=	Daemon that filters out private IP addresses in DNS responses
+
+GNU_CONFIGURE=	yes
+USES=		autoreconf dos2unix
+WRKSRC=		${WRKDIR}/${PORTNAME}
+
+PORTDOCS=	README
+PLIST_FILES=	bin/dnswall
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.mk>

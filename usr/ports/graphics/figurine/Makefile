@@ -1,0 +1,41 @@
+# Created by: Marc Fonvieille <blackend@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/figurine/Makefile 395389 2015-08-26 18:26:14Z amdmi3 $
+
+PORTNAME=	figurine
+PORTVERSION=	1.0.5
+PORTREVISION=	5
+CATEGORIES=	graphics
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Drawing program for X11
+
+LICENSE=	GPLv2
+
+OPTIONS_DEFINE=	DOCS
+
+RUN_DEPENDS=	fig2dev:${PORTSDIR}/print/transfig
+
+GNU_CONFIGURE=	yes
+USE_XORG=	xpm
+
+PLIST_FILES=	bin/figurine \
+		man/man1/figurine.1.gz
+
+PORTDOCS=	*
+
+# Optimizations produce bad assembly code on sparc64
+CFLAGS_sparc64=	-O0
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|datadir = @datadir@|datadir = @datadir@/doc|' \
+		${WRKSRC}/Makefile.in \
+		${WRKSRC}/src/Makefile.in \
+		${WRKSRC}/Doc/Makefile.in \
+		${WRKSRC}/examples/Makefile.in
+
+post-patch-DOCS-off:
+	@${REINPLACE_CMD} -e "s|Doc examples src|src|" \
+		${WRKSRC}/Makefile.in
+
+.include <bsd.port.mk>

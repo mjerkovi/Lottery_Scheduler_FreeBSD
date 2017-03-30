@@ -1,0 +1,18 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-hsb2hs/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	hsb2hs
+PORTVERSION=	0.3.1
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Preprocesses a file, adding blobs from files as string literals
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	preprocessor-tools>1.0
+
+EXECUTABLE=	hsb2hs
+STANDALONE=	yes
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

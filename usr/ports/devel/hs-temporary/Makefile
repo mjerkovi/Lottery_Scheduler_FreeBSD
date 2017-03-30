@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-temporary/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	temporary
+PORTVERSION=	1.2.0.3
+PORTREVISION=	2
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Portable temporary file and directory support for Windows and Unix
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	exceptions>=0.6
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

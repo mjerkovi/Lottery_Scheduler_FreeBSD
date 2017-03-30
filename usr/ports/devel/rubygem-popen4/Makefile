@@ -1,0 +1,26 @@
+# Created by: rpsfa@rit.edu
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-popen4/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	popen4
+PORTVERSION=	0.1.4
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+DISTNAME=	${GEM_NAME}
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Cross platform API for managing child processes
+
+LICENSE=	GPLv2 RUBY
+LICENSE_COMB=	dual
+
+RUN_DEPENDS=	rubygem-open4>=0.4.0:${PORTSDIR}/devel/rubygem-open4 \
+		rubygem-platform>=0.4.0:${PORTSDIR}/devel/rubygem-platform
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+GEM_NAME=	POpen4-${PORTVERSION}
+
+.include <bsd.port.mk>

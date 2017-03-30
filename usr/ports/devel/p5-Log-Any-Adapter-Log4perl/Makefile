@@ -1,0 +1,23 @@
+# Created by: Evgeniy Kosov <evgeniy@kosov.su>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Log-Any-Adapter-Log4perl/Makefile 383245 2015-04-04 21:10:50Z sunpoet $
+
+PORTNAME=	Log-Any-Adapter-Log4perl
+PORTVERSION=	0.08
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Log::Any adapter for Log4perl
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Log-Any>=1.03:${PORTSDIR}/devel/p5-Log-Any \
+		p5-Log-Log4perl>=1.32:${PORTSDIR}/devel/p5-Log-Log4perl
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

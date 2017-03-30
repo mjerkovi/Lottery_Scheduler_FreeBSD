@@ -1,0 +1,53 @@
+# Created by: Mathieu Arnold <mat@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/dns/yadifa/Makefile 396966 2015-09-15 15:26:19Z mat $
+
+PORTNAME=	yadifa
+PORTVERSION=	2.1.3
+DISTVERSIONSUFFIX=	-5519
+CATEGORIES=	dns ipv6
+MASTER_SITES=	http://cdn.yadifa.eu/sites/default/files/releases/ LOCAL/mat/yadifa
+
+MAINTAINER=	mat@FreeBSD.org
+COMMENT=	Authoritative nameserver with DNSSEC capabilities
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+GNU_CONFIGURE=	yes
+USES=		libtool compiler:c11
+USE_OPENSSL=	yes
+CONFIGURE_ARGS=	--localstatedir=/var
+
+OPTIONS_DEFINE=	CTRL DOCS EXAMPLES TCL RRL MESSAGES NSID
+OPTIONS_DEFAULT=	RRL NSID
+OPTIONS_SUB=	yes
+
+CTRL_DESC=	Remote control
+RRL_DESC=	Response Rate Limiting
+MESSAGES_DESC=	Use messages instead of send (if many ip aliases)
+NSID_DESC=	Name Server Identifier Option
+
+CTRL_CONFIGURE_ENABLE=	ctrl
+TCL_USES=	tcl
+TCL_CONFIGURE_ENABLE=	tcl
+RRL_CONFIGURE_ENABLE=	rrl
+MESSAGES_CONFIGURE_ENABLE=	messages
+NSID_CONFIGURE_ENABLE=	nsid
+
+USE_RC_SUBR=	${PORTNAME}d
+
+PORTDOCS=	AUTHORS COPYING ChangeLog \
+		INSTALL NEWS README TODO VERSION
+
+post-configure:
+	${REINPLACE_CMD} -e 's|^docdir = .*|docdir = ${EXAMPLESDIR}|' ${WRKSRC}/etc/Makefile
+	${REINPLACE_CMD} -e 's|/usr/local/var|/var|' -e 's|/var/zones|/var/${PORTNAME}|' ${WRKSRC}/etc/yadifad.conf.example
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/etc/yadifad.conf.example \
+		${STAGEDIR}${PREFIX}/etc/yadifad.conf.sample
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+	@${MV} ${STAGEDIR}/var/zones ${STAGEDIR}/var/${PORTNAME}
+
+.include <bsd.port.mk>

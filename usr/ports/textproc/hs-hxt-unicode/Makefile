@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/hs-hxt-unicode/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	hxt-unicode
+PORTVERSION=	9.0.2.4
+CATEGORIES=	textproc haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Unicode en-/decoding functions for utf8, iso-latin-* and other encodings
+
+LICENSE=	MIT
+
+USE_CABAL=	hxt-charproperties>=9.0
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

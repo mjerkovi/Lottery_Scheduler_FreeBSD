@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-exceptions/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	exceptions
+PORTVERSION=	0.8.0.2
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Extensible optionally-pure exceptions
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	mtl>=2.0 stm>=2.2 transformers-compat>=0.3
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

@@ -1,0 +1,8 @@
+bin/detox
+bin/inline-detox
+@sample etc/detoxrc.sample
+@sample %%DATADIR%%/iso8859_1.tbl.sample
+@sample %%DATADIR%%/unicode.tbl.sample
+man/man1/detox.1.gz
+man/man5/detox.tbl.5.gz
+man/man5/detoxrc.5.gz

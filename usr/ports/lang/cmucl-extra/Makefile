@@ -1,0 +1,31 @@
+# Created by: Scott Flatman <sf@dsinw.com>
+# $FreeBSD: tags/RELEASE_10_3_0/lang/cmucl-extra/Makefile 400848 2015-11-05 12:36:25Z mat $
+
+PORTNAME=	cmucl-extra
+PORTVERSION=	19c
+PORTREVISION=	1
+CATEGORIES=	lang lisp
+MASTER_SITES=	ftp://ftp.common-lisp.net/pub/project/cmucl/release/${PORTVERSION}/ \
+		http://www.pmsf.de/pub/cmucl/release/${PORTVERSION}/ \
+		ftp://ftp.averillpark.net/cmucl/release/${PORTVERSION}/ \
+		ftp://ftp.linux.org.uk/pub/lisp/cmucl/release/${PORTVERSION}/ \
+		ftp://ftp.tepus.com/pub/project/cmucl/release/${PORTVERSION}/
+DISTNAME=	cmucl-${PORTVERSION}-x86-FreeBSD.extra
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Optional extras for the CMU implementation of Common Lisp
+
+BUILD_DEPENDS=	lisp:${PORTSDIR}/lang/cmucl
+RUN_DEPENDS=	lisp:${PORTSDIR}/lang/cmucl
+
+USES=		tar:bzip2
+NO_WRKSUBDIR=	yes
+NO_BUILD=	yes
+
+do-install:
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} lib ${STAGEDIR}${PREFIX})
+	${CHMOD} u+w ${STAGEDIR}${PREFIX}/lib/cmucl/lib/motifd
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/cmucl/lib/motifd
+	${CHMOD} u-w ${STAGEDIR}${PREFIX}/lib/cmucl/lib/motifd
+
+.include <bsd.port.mk>

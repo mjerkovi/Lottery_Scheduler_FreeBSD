@@ -1,0 +1,24 @@
+# Created by: Wen Heping <wen@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Rose-URI/Makefile 382578 2015-03-29 10:20:05Z wen $
+
+PORTNAME=	Rose-URI
+PORTVERSION=	1.02
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:JSIRACUSA
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Easy and efficient manipulation of URI components
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Rose-Object>=0.854:${PORTSDIR}/devel/p5-Rose-Object \
+		p5-URI>0:${PORTSDIR}/net/p5-URI
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

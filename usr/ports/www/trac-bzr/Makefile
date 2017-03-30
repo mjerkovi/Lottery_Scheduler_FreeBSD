@@ -1,0 +1,27 @@
+# Created by: Radim Kolar <hsn@sanatana.dharma>
+# $FreeBSD: tags/RELEASE_10_3_0/www/trac-bzr/Makefile 386824 2015-05-20 01:19:10Z amdmi3 $
+
+PORTNAME=	bzr
+PORTVERSION=	20110228
+PORTREVISION=	3
+CATEGORIES=	www
+MASTER_SITES=	http://schema.filez.com/distfiles/
+PKGNAMEPREFIX=	trac-
+DISTNAME=	${PKGNAMEPREFIX}${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	hsn@sendmail.cz
+COMMENT=	Bazaar-NG plugin for Trac
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	tracd:${PORTSDIR}/www/trac \
+		bzr:${PORTSDIR}/devel/bzr
+
+USES=		python:2 tar:bzip2
+USE_PYTHON=	distutils autoplist
+
+post-patch:
+	${REINPLACE_CMD} -e 's|tag_date = 1||' ${WRKSRC}/setup.cfg
+
+.include "${.CURDIR}/../../www/trac/plugin.mk"
+.include <bsd.port.mk>

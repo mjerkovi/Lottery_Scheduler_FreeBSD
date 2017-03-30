@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-resourcet/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	resourcet
+PORTVERSION=	1.1.6
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Deterministic allocation and freeing of scarce resources
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	exceptions>=0.5 lifted-base>=0.1 mmorph monad-control>=0.3.1 \
+		mtl>=2.0 transformers-base>=0.4.1 transformers-compat>=0.3
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

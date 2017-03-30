@@ -1,0 +1,21 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/xpi-fasterfox/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	fasterfox
+PORTVERSION=	2.0.0
+DISTVERSIONSUFFIX=	-fx
+CATEGORIES=	www
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Performance and network tweaks for Firefox
+
+BROKEN=		unfetchable
+
+XPI_NUM=	1269
+XPI_ID=		{c36177c0-224a-11da-8cd6-0800200c9a66}
+XPI_FILES=	chrome/fasterfox.jar chrome.manifest defaults/preferences/fasterfox.js \
+		install.rdf readme.txt
+XPI_DIRS=	chrome defaults/preferences defaults
+
+.include "../xpi-adblock/Makefile.xpi"
+.include <bsd.port.mk>

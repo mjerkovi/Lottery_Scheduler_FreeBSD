@@ -1,0 +1,75 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/webkit-qt5/Makefile 396047 2015-09-03 21:57:40Z makc $
+
+PORTNAME=	webkit
+DISTVERSION=	${QT5_VERSION}
+PORTREVISION=	2
+CATEGORIES=	www
+PKGNAMEPREFIX=	qt5-
+
+MAINTAINER=	kde@FreeBSD.org
+COMMENT=	Qt WebKit implementation
+
+LIB_DEPENDS=	libfontconfig.so:${PORTSDIR}/x11-fonts/fontconfig \
+		libicui18n.so:${PORTSDIR}/devel/icu \
+		libpng.so:${PORTSDIR}/graphics/png \
+		libwebp.so:${PORTSDIR}/graphics/webp
+BUILD_DEPENDS=	${LOCALBASE}/bin/flex:${PORTSDIR}/textproc/flex
+
+USE_GL=		gl
+USE_GNOME=	libxml2 libxslt
+USE_PERL5=	build
+USE_QT5=	core gui network opengl printsupport qml quick sql \
+		testlib widgets buildtools_build
+QT_DIST=	${PORTNAME}
+USE_RUBY=	yes
+RUBY_NO_RUN_DEPENDS=	yes
+USE_SQLITE=	3
+USE_XORG=	x11 xcomposite xrender
+USES=		bison gmake gperf jpeg perl5 pkgconfig python:build qmake:outsource
+# Use flex(1) from ports.
+MAKE_ENV=	PATH="${LOCALBASE}/bin:${PATH}"
+# "all" builds many more targets. The default one is called "first" in
+# QtWebKit, and is invoked by default when make is called without arguments.
+ALL_TARGET=	first
+USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
+
+QT_DEFINES=	ACCESSIBILITY
+QT_CONFIG=	accessibility accessibility-atspi-bridge
+
+OPTIONS_DEFINE=	GSTREAMER
+OPTIONS_DEFAULT=GSTREAMER
+
+GSTREAMER_USE=	GNOME=glib20 GSTREAMER=yes
+
+.include <bsd.port.pre.mk>
+
+# Base ld(1) segfaults on PowerPC (inherited from Qt 4):
+# http://bugs.freebsd.org/173042
+.if ${ARCH} == "powerpc"
+BUILD_DEPENDS+=	${LOCALBASE}/bin/ld:${PORTSDIR}/devel/binutils
+.endif
+
+post-patch:
+	${REINPLACE_CMD} -e 's,python,${PYTHON_VERSION},g' \
+		-e 's,$$$${PYTHON},${PYTHON_VERSION},g' \
+		${WRKSRC}/Source/WebCore/DerivedSources.make \
+		${WRKSRC}/Source/WebCore/DerivedSources.pri \
+		${WRKSRC}/Source/WebKit2/DerivedSources.make \
+		${WRKSRC}/Source/WebKit2/DerivedSources.pri \
+		${WRKSRC}/Source/JavaScriptCore/DerivedSources.make \
+		${WRKSRC}/Source/JavaScriptCore/DerivedSources.pri \
+		${WRKSRC}/Tools/qmake/mkspecs/features/configure.prf
+
+pre-configure:
+	@${REINPLACE_CMD} -Ee 's|linux-?\*|unix|g' \
+		${WRKSRC}/Source/JavaScriptCore/DerivedSources.pri \
+		${WRKSRC}/Source/JavaScriptCore/JavaScriptCore.pri \
+		${WRKSRC}/Source/JavaScriptCore/Target.pri \
+		${WRKSRC}/Source/WebCore/WebCore.pri \
+		${WRKSRC}/Tools/qmake/mkspecs/features/features.prf
+.if ! ${PORT_OPTIONS:MGSTREAMER}
+	@${REINPLACE_CMD} -e 's|packagesExist.*gstreamer.*|false {|' \
+		${WRKSRC}/Tools/qmake/mkspecs/features/features.prf
+.endif
+
+.include <bsd.port.post.mk>

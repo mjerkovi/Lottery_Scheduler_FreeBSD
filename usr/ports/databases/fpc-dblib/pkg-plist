@@ -1,0 +1,3 @@
+lib/fpc/%%PORTVERSION%%/fpmkinst/%%BUILDNAME%%/dblib.fpm
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/dblib/dblib.o
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/dblib/dblib.ppu

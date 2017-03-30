@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/dns/maradns/files/maradns.in 345251 2014-02-20 15:44:56Z mat $
+#
+
+# PROVIDE: maradns
+# REQUIRE: SERVERS
+# BEFORE: DAEMON
+# KEYWORD: shutdown
+#
+
+. /etc/rc.subr
+
+: ${maradns_enable="NO"}
+: ${maradns_conf="%%ETCDIR%%/mararc"}
+
+name="maradns"
+rcvar=maradns_enable
+command="%%PREFIX%%/bin/duende"
+pidfile="/var/run/${name}.pid"
+command_args="--pid=${pidfile} %%PREFIX%%/sbin/maradns -f ${maradns_conf}"
+
+load_rc_config $name
+
+run_rc_command "$1"

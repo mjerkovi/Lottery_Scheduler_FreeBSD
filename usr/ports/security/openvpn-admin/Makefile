@@ -1,0 +1,41 @@
+# Created by: Remington Lang <MrL0Lz@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/security/openvpn-admin/Makefile 393444 2015-08-02 20:23:55Z kwm $
+
+PORTNAME=	openvpn-admin
+PORTVERSION=	1.9.4
+PORTREVISION=	5
+CATEGORIES=	security gnome
+MASTER_SITES=	SF/${PORTNAME}/OldFiles
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	GUI frontend to openvpn
+
+LICENSE=	LGPL21 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	openvpn:${PORTSDIR}/security/openvpn
+
+WRKSRC=		${WRKDIR}/${DISTNAME:S/b//}
+
+USES=		gettext gmake pkgconfig
+USE_GNOME=	gtksharp20 intltool
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+
+post-patch:
+	@${REINPLACE_CMD} -e 's,/usr/bin/iconv,${LOCALBASE}/bin/iconv,g' \
+		${WRKSRC}/intltool-merge.in
+	@${REINPLACE_CMD} -e 's,/etc/openvpn,${PREFIX}/etc/openvpn,' \
+		${WRKSRC}/src/Configuration.cs
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/openvpn-admin ${STAGEDIR}${PREFIX}/sbin
+	${INSTALL_DATA} ${WRKSRC}/openvpn-admin.desktop \
+		${STAGEDIR}${PREFIX}/share/applications
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/${PORTNAME}
+	${INSTALL_DATA} ${WRKSRC}/src/openvpn-admin.exe \
+		${STAGEDIR}${PREFIX}/lib/${PORTNAME}
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/openvpn
+
+.include <bsd.port.mk>

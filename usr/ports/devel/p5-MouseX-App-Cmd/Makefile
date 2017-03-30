@@ -1,0 +1,29 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-MouseX-App-Cmd/Makefile 376635 2015-01-09 18:07:20Z sunpoet $
+
+PORTNAME=	MouseX-App-Cmd
+PORTVERSION=	0.30
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Mashes up MouseX::Getopt and App::Cmd
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-App-Cmd>=0.321:${PORTSDIR}/devel/p5-App-Cmd \
+		p5-Getopt-Long-Descriptive>=0.091:${PORTSDIR}/devel/p5-Getopt-Long-Descriptive \
+		p5-Mouse>=0:${PORTSDIR}/devel/p5-Mouse \
+		p5-MouseX-ConfigFromFile>=0:${PORTSDIR}/devel/p5-MouseX-ConfigFromFile \
+		p5-MouseX-Getopt>=0:${PORTSDIR}/devel/p5-MouseX-Getopt \
+		p5-YAML>=0:${PORTSDIR}/textproc/p5-YAML \
+		p5-namespace-autoclean>=0:${PORTSDIR}/devel/p5-namespace-autoclean
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Output>=0:${PORTSDIR}/devel/p5-Test-Output
+
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

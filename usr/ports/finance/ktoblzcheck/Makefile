@@ -1,0 +1,30 @@
+# Created by: Thomas Gellekum <tg@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/finance/ktoblzcheck/Makefile 396696 2015-09-11 18:42:50Z amdmi3 $
+
+PORTNAME=	ktoblzcheck
+PORTVERSION=	1.48
+PORTREVISION=	1
+CATEGORIES=	finance german
+MASTER_SITES=	SF/${PORTNAME}
+
+MAINTAINER=	jhale@FreeBSD.org
+COMMENT=	Check bank codes of German banks
+
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		libtool pathfix perl5
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+OPTIONS_DEFINE=	PYTHON
+OPTIONS_SUB=	yes
+
+PYTHON_USES=			python:2
+PYTHON_CONFIGURE_ENABLE=	python
+
+post-patch:
+	@${REINPLACE_CMD} -e "s/-lstdc++//g" ${WRKSRC}/src/lib/Makefile.in
+
+.include <bsd.port.mk>

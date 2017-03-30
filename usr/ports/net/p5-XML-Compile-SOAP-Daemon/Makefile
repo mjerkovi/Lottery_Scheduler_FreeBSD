@@ -1,0 +1,27 @@
+# Created by: Lars Thegler <lth@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-XML-Compile-SOAP-Daemon/Makefile 377173 2015-01-16 13:46:16Z sunpoet $
+
+PORTNAME=	XML-Compile-SOAP-Daemon
+PORTVERSION=	3.11
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Base class for SOAP message servers
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Log-Report>=0.90:${PORTSDIR}/devel/p5-Log-Report \
+		p5-XML-Compile>=1.44:${PORTSDIR}/textproc/p5-XML-Compile \
+		p5-XML-Compile-Cache>=0.991:${PORTSDIR}/textproc/p5-XML-Compile-Cache \
+		p5-XML-Compile-SOAP>=3.00:${PORTSDIR}/net/p5-XML-Compile-SOAP \
+		p5-XML-Compile-WSDL11>=3.00:${PORTSDIR}/net/p5-XML-Compile-WSDL11
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-XML-Compile-Tester>=0.90:${PORTSDIR}/devel/p5-XML-Compile-Tester
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

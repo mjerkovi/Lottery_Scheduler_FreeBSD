@@ -1,0 +1,31 @@
+# Created by: Artyom Mirgorodskiy <artyom.mirgorodsky@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/x11-toolkits/linux-c6-pango/Makefile 393817 2015-08-09 19:14:13Z netchild $
+
+PORTNAME=	pango
+PORTVERSION=	1.28.1
+PORTREVISION=	2
+CATEGORIES=	x11-toolkits linux
+
+MAINTAINER=	emulation@FreeBSD.org
+
+COMMENT=	Pango library (Linux  CentOS ${LINUX_DIST_VER})
+
+CONFLICTS=	linux-pango-[0-9]* linux-f10-pango-[0-9]*
+
+ONLY_FOR_ARCHS=	i386 amd64
+USE_LINUX=	c6
+USE_LINUX_APPS=	cairo expat fontconfig xorglibs
+USE_LINUX_RPM=	yes
+RPMVERSION=	10.el6
+
+.if defined(OVERRIDE_LINUX_BASE_PORT) && ${OVERRIDE_LINUX_BASE_PORT} == "c6_64"
+BRANDELF_FILES=	usr/bin/pango-querymodules-64
+.else
+BRANDELF_FILES=	usr/bin/pango-querymodules-32
+.endif
+
+USE_LDCONFIG=	yes
+
+DESCR=		${.CURDIR}/../${PORTNAME}/pkg-descr
+
+.include <bsd.port.mk>

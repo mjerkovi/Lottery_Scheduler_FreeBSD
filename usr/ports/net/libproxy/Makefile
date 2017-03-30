@@ -1,0 +1,75 @@
+# Created by: Joe Marcus Clarke <marcus@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/libproxy/Makefile 406679 2016-01-19 09:51:13Z rakuco $
+#    $MCom: ports/net/libproxy/Makefile,v 1.1 2011/01/12 13:10:52 kwm Exp $
+
+PORTNAME=	libproxy
+PORTVERSION=	0.4.6
+PORTREVISION?=	1
+CATEGORIES?=	net devel
+MASTER_SITES=	GOOGLE_CODE
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT?=	Library that provides automatic proxy configuration management
+
+USES+=		cmake cpe
+CPE_VENDOR=	libproxy_project
+
+PLIST_SUB+=	VERSION=${PORTVERSION}
+
+.if !defined(LIBPROXY_SLAVE)
+USE_LDCONFIG=	yes
+CMAKE_ARGS+=	-DWITH_PYTHON:BOOL=OFF  -DWITH_PERL:BOOL=OFF \
+		-DWITH_GNOME:BOOL=OFF -DWITH_KDE4:BOOL=OFF \
+		-DWITH_WEBKIT:BOOL=OFF -DWITH_MOZJS:BOOL=OFF \
+		-DWITH_NETWORKMANAGER:BOOL=OFF -DWITH_VALA:BOOL=ON
+.else
+PORTSCOUT=	ignore:1
+
+# Libproxy is build for the slave ports, since I haven't been able to find
+# out how to only build optional code with cmake.
+# Patches for this problem are welcome.
+
+. if ${LIBPROXY_SLAVE}=="python"
+CMAKE_ARGS+=	-DWITH_PYTHON:BOOL=ON
+. else
+CMAKE_ARGS+=	-DWITH_PYTHON:BOOL=OFF
+. endif
+
+. if ${LIBPROXY_SLAVE}=="perl"
+CMAKE_ARGS+=	-DWITH_PERL:BOOL=ON
+. else
+CMAKE_ARGS+=	-DWITH_PERL:BOOL=OFF
+. endif
+
+. if ${LIBPROXY_SLAVE}=="gnome"
+CMAKE_ARGS+=	-DWITH_GNOME:BOOL=ON
+. else
+CMAKE_ARGS+=	-DWITH_GNOME:BOOL=OFF
+. endif
+
+. if ${LIBPROXY_SLAVE}=="kde"
+CMAKE_ARGS+=	-DWITH_KDE4:BOOL=ON
+. else
+CMAKE_ARGS+=	-DWITH_KDE4:BOOL=OFF
+. endif
+
+. if ${LIBPROXY_SLAVE}=="webkit"
+CMAKE_ARGS+=	-DWITH_WEBKIT:BOOL=ON
+. else
+CMAKE_ARGS+=	-DWITH_WEBKIT:BOOL=OFF
+. endif
+
+. if ${LIBPROXY_SLAVE}=="mozjs"
+CMAKE_ARGS+=	-DWITH_MOZJS:BOOL=ON
+. else
+CMAKE_ARGS+=	-DWITH_MOZJS:BOOL=OFF
+. endif
+.endif
+
+# This will be removed after the update to 0.4.12.
+.if !target(post-install)
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/libproxy/${PORTVERSION}/modules/
+.endif
+
+.include <bsd.port.mk>

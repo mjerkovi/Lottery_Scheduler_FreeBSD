@@ -1,0 +1,29 @@
+# Created by: Douglas Thrift <douglas@douglasthrift.net>
+# $FreeBSD: tags/RELEASE_10_3_0/security/py-SecretStorage/Makefile 401892 2015-11-18 20:05:25Z rm $
+
+PORTNAME=	SecretStorage
+PORTVERSION=	2.1.2
+CATEGORIES=	security python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	douglas@douglasthrift.net
+COMMENT=	Store passwords using the SecretService DBus API
+
+LICENSE=	BSD3CLAUSE
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pycrypto>0:${PORTSDIR}/security/py-pycrypto
+
+NO_ARCH=	yes
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+.include <bsd.port.pre.mk>
+
+.if ${PYTHON_REL} > 3000
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}dbus>=0.84.0:${PORTSDIR}/devel/py3-dbus
+.else
+RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}dbus>=0.84.0:${PORTSDIR}/devel/py-dbus
+.endif
+
+.include <bsd.port.post.mk>

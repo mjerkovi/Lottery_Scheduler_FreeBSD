@@ -1,0 +1,20 @@
+# Created by: Kris Kennaway <kris@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/x11/xwatchwin/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	xwatchwin
+PORTVERSION=	1.1.1
+PORTREVISION=	3
+CATEGORIES=	x11
+MASTER_SITES=	XCONTRIB/utilities
+DISTNAME=	xwatchwin
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Watch a window on another X server
+
+PLIST_FILES=	bin/xwatchwin \
+		man/man1/xwatchwin.1.gz
+
+USES=		imake tar:Z
+USE_XORG=	x11 xext
+
+.include <bsd.port.mk>

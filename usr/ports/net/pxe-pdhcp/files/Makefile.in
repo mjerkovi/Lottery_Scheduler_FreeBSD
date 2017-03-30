@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/pxe-pdhcp/files/Makefile.in 340722 2014-01-22 17:00:46Z mat $
+
+PROG=		pxe-pdhcp
+SRCS=		pdhcp.c pxe-pdhcp.c
+MAN=		${PROG}.8
+NO_MANCOMPRESS=
+
+PREFIX?=	/usr/local
+LOCALBASE?=	/usr/local
+MANDIR?=	${PREFIX}/man/man
+BINDIR?=	${PREFIX}/sbin
+
+.if !empty(PORTDOCS)
+FILES=		README.md
+FILESDIR?=	${PREFIX}/share/doc/${PROG}
+
+beforeinstall:
+	mkdir -p ${DESTDIR}${FILESDIR}
+.endif
+
+.include <bsd.prog.mk>
+

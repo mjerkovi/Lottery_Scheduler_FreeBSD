@@ -1,0 +1,29 @@
+# Created by: Edwin Groothuis <edwin@mavetju.org>
+# $FreeBSD: tags/RELEASE_10_3_0/games/fxsudoku/Makefile 403659 2015-12-13 09:41:22Z bapt $
+
+PORTNAME=	fxsudoku
+PORTVERSION=	0.5.1
+PORTREVISION=	26
+CATEGORIES=	games
+MASTER_SITES=	http://www.fifthplanet.net/files/
+
+MAINTAINER=	edwin@mavetju.org
+COMMENT=	Implementation of the Sudoku game
+
+BROKEN=		unfetchable
+
+LIB_DEPENDS=	libFOX-1.6.so:${PORTSDIR}/x11-toolkits/fox16
+
+USES=		tar:bzip2 gmake
+PLIST_FILES=	bin/fxsudoku
+
+post-extract:
+	${CP} ${FILESDIR}/config.freebsd ${WRKSRC}/build
+
+do-build:
+	cd ${WRKSRC} && MAKE=${MAKE_CMD} ./gb
+
+do-install:
+	cd ${WRKSRC} && MAKE=${MAKE_CMD} ./gb install --prefix=${STAGEDIR}${PREFIX}
+
+.include <bsd.port.mk>

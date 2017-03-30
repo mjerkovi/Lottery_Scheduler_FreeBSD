@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/git-extras/Makefile 404787 2015-12-29 21:55:52Z robak $
+
+PORTNAME=	git-extras
+PORTVERSION=	4.0.0
+CATEGORIES=	devel
+
+MAINTAINER=	igor.ostapenko@gmail.com
+COMMENT=	Sub-commands for repo summary, repl, changelog population, and more
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	git:${PORTSDIR}/devel/git \
+		bash:${PORTSDIR}/shells/bash
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	tj
+
+USES=		gmake
+
+NO_BUILD=	yes
+
+.include <bsd.port.mk>

@@ -1,0 +1,9 @@
+# $FreeBSD: releng/10.3/lib/libc/tests/Makefile.netbsd-tests 291870 2015-12-05 21:49:35Z ngie $
+
+OBJTOP?=	${.OBJDIR:H:H:H:H}
+SRCTOP?=	${.CURDIR:H:H:H:H}
+TESTSRC?=	${SRCTOP}/contrib/netbsd-tests/lib/libc/${.CURDIR:T}
+
+WARNS?=		2
+
+.include <netbsd-tests.test.mk>

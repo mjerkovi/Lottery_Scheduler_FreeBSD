@@ -1,0 +1,18 @@
+# Created by: Dan Rench <citric@cubicone.tmetic.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Child/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Child
+PORTVERSION=	0.009
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:EXODIST
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	citric@cubicone.tmetic.com
+COMMENT=	Object oriented simple interface to fork()
+
+USES=		perl5
+USE_PERL5=	modbuild
+
+.include <bsd.port.mk>

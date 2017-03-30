@@ -1,0 +1,40 @@
+# Created by: Travis Poppe <tlp@liquidx.org>
+# $FreeBSD: tags/RELEASE_10_3_0/games/cavezofphear/Makefile 374089 2014-12-06 08:50:49Z amdmi3 $
+
+PORTNAME=	cavezofphear
+PORTVERSION=	0.5.1
+CATEGORIES=	games
+MASTER_SITES=	http://www.x86.no/cavezofphear/ \
+		http://mirror.amdmi3.ru/distfiles/
+DISTNAME=	phear-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Boulder Dash / Digger-like game written using ncurses
+
+LICENSE=	GPLv3 # (or later)
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BUILD_WRKSRC=	${WRKDIR}/${DISTNAME}/src
+
+USES=		gmake tar:bzip2
+MAKE_ARGS=	CC="${CC}" CFLAGS="${CFLAGS}"
+ALL_TARGET=	phear
+
+PORTDOCS=	ChangeLog README README-EDITOR TODO
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|\./data|${DATADIR}/data|' ${WRKSRC}/src/chk.c
+	@${REINPLACE_CMD} -e 's|\./phear|phear|' ${WRKSRC}/README-EDITOR
+
+do-install:
+	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/phear ${STAGEDIR}${PREFIX}/bin
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	(cd ${WRKSRC}; ${COPYTREE_SHARE} data ${STAGEDIR}${DATADIR})
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for f in ${PORTDOCS}
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

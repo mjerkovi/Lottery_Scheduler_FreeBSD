@@ -1,0 +1,26 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/rubygem-rdtool/Makefile 400025 2015-10-23 13:51:10Z amdmi3 $
+
+PORTNAME=	rdtool
+PORTVERSION=	0.6.38
+PORTREVISION=	3
+CATEGORIES=	textproc ruby
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	RD to HTML/man/etc. converter (RD is to Ruby as POD is to Perl)
+
+LICENSE=	GPLv2 GPLv3 RUBY
+LICENSE_COMB=	dual
+
+NO_ARCH=	yes
+
+USES=		shebangfix
+SHEBANG_FILES=	bin/rd2 bin/rdswap.rb
+ruby_OLD_CMD=	/usr/bin/ruby1.9.1
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/rd2 bin/rdswap.rb
+
+.include <bsd.port.mk>

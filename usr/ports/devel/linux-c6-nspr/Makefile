@@ -1,0 +1,24 @@
+# Created by: Artyom Mirgorodskiy <artyom.mirgorodsky@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/linux-c6-nspr/Makefile 409078 2016-02-18 00:13:34Z des $
+
+PORTNAME=	nspr
+PORTVERSION=	4.10.8
+PORTREVISION=	2
+CATEGORIES=	devel linux
+MASTER_SITES=	CENTOS_LINUX_UPDATES
+
+MAINTAINER=	emulation@FreeBSD.org
+COMMENT=	Netscape Portable Runtime (Linux CentOS ${LINUX_DIST_VER})
+
+CONFLICTS=	linux-f10-nspr-[0-9]*
+
+ONLY_FOR_ARCHS=	i386 amd64
+RPMVERSION=	2.el6_7
+USE_LINUX=	c6
+
+USE_LINUX_RPM=	yes
+USE_LDCONFIG=	yes
+
+DESCR=		${.CURDIR}/../${PORTNAME}/pkg-descr
+
+.include <bsd.port.mk>

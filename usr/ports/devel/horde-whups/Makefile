@@ -1,0 +1,42 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/horde-whups/Makefile 393467 2015-08-03 07:55:38Z mm $
+
+PORTNAME=	whups
+PORTVERSION=	3.0.4
+CATEGORIES=	devel www pear
+PKGNAMEPREFIX=	horde-
+
+MAINTAINER=	horde@FreeBSD.org
+COMMENT=	Horde bug tracking/ticketing system
+
+LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=	horde cpe
+USE_PHP=	gettext json
+USE_HORDE_BUILD=	Horde_Role
+USE_HORDE_RUN=	Horde_Role \
+		horde \
+		Horde_Auth \
+		Horde_Autoloader \
+		Horde_Compress \
+		Horde_Core \
+		Horde_Date \
+		Horde_Db \
+		Horde_Exception \
+		Horde_Form \
+		Horde_Group \
+		Horde_Mail \
+		Horde_Mime \
+		Horde_Mime_Viewer \
+		Horde_Notification \
+		Horde_Perms \
+		Horde_Prefs \
+		Horde_Scheduler \
+		Horde_Share \
+		Horde_Support \
+		Horde_Text_Filter \
+		Horde_Util \
+		Horde_Vfs \
+		Horde_View
+
+.include <bsd.port.mk>

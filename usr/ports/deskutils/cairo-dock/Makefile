@@ -1,0 +1,46 @@
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/cairo-dock/Makefile 385877 2015-05-09 09:58:04Z amdmi3 $
+
+PORTNAME=	cairo-dock
+PORTVERSION=	3.4.1
+CATEGORIES=	deskutils
+
+MAINTAINER=	fidaj@ukr.net
+COMMENT=	Cairo-Dock is a light and eye-candy dock
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libcairo.so:${PORTSDIR}/graphics/cairo \
+		libcurl.so:${PORTSDIR}/ftp/curl \
+		libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
+		libgtkglext-x11-1.0.so:${PORTSDIR}/x11-toolkits/gtkglext
+RUN_DEPENDS=	bash:${PORTSDIR}/shells/bash \
+		sox:${PORTSDIR}/audio/sox
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	Cairo-Dock
+GH_PROJECT=	${PORTNAME}-core
+
+GNU_CONFIGURE=	yes
+USE_GNOME=	glib20 gtk30 librsvg2 libxml2
+USE_LDCONFIG=	yes
+USE_XORG=	xrender xtst
+USES=		cmake gettext pathfix pkgconfig
+LDFLAGS+=	-L${LOCALBASE}/lib
+CMAKE_ARGS+=	-Dinstall-pc-path:STRING="${LOCALBASE}/libdata/pkgconfig"
+CMAKE_ARGS+=	-DROOT_PREFIX:PATH=${STAGEDIR}
+CMAKE_ARGS+=	-DCMAKE_INSTALL_MANDIR:PATH=man
+
+post-patch:
+	@${FIND} ${WRKSRC} -type f -name "*" | ${XARGS} ${REINPLACE_CMD} -e \
+	    's|/usr/share/pixmaps/|${LOCALBASE}/share/pixmaps/|g; \
+	     s|/usr/bin/cairo-dock|${LOCALBASE}/bin/cairo-dock|g; \
+	     s|/bin/bash|${LOCALBASE}/bin/bash|g; \
+	     s|/usr/share/applications|${LOCALBASE}/share/applications|g; \
+	     s|/usr/share/icons|${LOCALBASE}/share/icons|g; \
+	     s|%%LOCALBASE%%|${LOCALBASE}|g;'
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgldi.so
+
+.include <bsd.port.mk>

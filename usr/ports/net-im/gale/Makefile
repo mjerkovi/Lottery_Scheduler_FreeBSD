@@ -1,0 +1,37 @@
+# Created by: Peter Haight <peterh@sapros.com>
+# $FreeBSD: tags/RELEASE_10_3_0/net-im/gale/Makefile 388704 2015-06-07 14:52:14Z amdmi3 $
+
+PORTNAME=	gale
+PORTVERSION=	0.99f
+PORTREVISION=	7
+CATEGORIES=	net-im
+MASTER_SITES=	http://download.ofb.net/${PORTNAME}/
+DISTNAME=	${PORTNAME}-${PORTVERSION}ruit
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Secure instant messaging system
+
+LIB_DEPENDS=	libgc.so:${PORTSDIR}/devel/boehm-gc \
+		libwwwcore.so:${PORTSDIR}/www/libwww \
+		libadns.so:${PORTSDIR}/dns/adns
+
+USES=		iconv libtool
+GNU_CONFIGURE=	yes
+USE_GNOME=	glib12
+USE_OPENSSL=	yes
+USE_LDCONFIG=	yes
+MAKE_JOBS_UNSAFE=	yes
+
+CPPFLAGS+=	-I${LOCALBASE}/include \
+		-I${LOCALBASE}/include/w3c-libwww
+LIBS+=		-L${LOCALBASE}/lib
+
+post-patch:
+	@${REINPLACE_CMD} 's/-liconv/${ICONV_LIB}/' ${WRKSRC}/configure
+	@${REINPLACE_CMD} -e 's/\(^noinst_PROGRAMS =.*\)test-oop/\1/' \
+		${WRKSRC}/liboop/Makefile.in
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+
+.include <bsd.port.mk>

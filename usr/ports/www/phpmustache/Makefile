@@ -1,0 +1,34 @@
+# Created by: Steve Polyack <spolyack@collaborativefusion.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/phpmustache/Makefile 385665 2015-05-07 20:24:15Z mat $
+
+PORTNAME=	phpmustache
+PORTVERSION=	2.6.0
+DISTVERSIONPREFIX=	v
+CATEGORIES=	www
+
+MAINTAINER=	steve.polyack@intermedix.com
+COMMENT=	PHP5 code for Mustache
+
+LICENSE=	MIT
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	bobthecow
+GH_PROJECT=	mustache.php
+
+USE_PHP=	yes
+USE_PHP_BUILD=	yes
+
+SUB_FILES=	pkg-message
+
+OPTIONS_DEFINE=	EXAMPLES
+
+do-build:
+	@${WRKSRC}/bin/build_bootstrap.php
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/mustache.php ${STAGEDIR}${DATADIR}
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${CP} -R ${WRKSRC}/test/fixtures/examples/* ${STAGEDIR}${EXAMPLESDIR}
+
+.include <bsd.port.mk>

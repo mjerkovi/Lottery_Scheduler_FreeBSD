@@ -1,0 +1,24 @@
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/imageviewer/Makefile 397315 2015-09-19 10:33:34Z theraven $
+
+PORTNAME=	imageviewer
+PORTVERSION=	0.6.3
+PORTREVISION=	6
+CATEGORIES=	graphics gnustep
+MASTER_SITES=	http://www.nice.ch/~phip/ \
+		LOCAL/dinoex
+
+DISTNAME=	ImageViewer-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	GNUstep Image Viewer
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		gnustep
+USE_GNUSTEP=	back build
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/GNUstep/System/Applications/ImageViewer.app/ImageViewer
+
+.include <bsd.port.mk>

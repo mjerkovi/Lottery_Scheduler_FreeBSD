@@ -1,0 +1,70 @@
+# Created by: Valery Komarov <komarov@valerka.net>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/thrift-cpp/Makefile 402888 2015-12-03 17:01:00Z rakuco $
+
+PORTNAME=	thrift
+PORTVERSION=	${THRIFT_PORTVERSION} # to keep in sync with thrift
+PORTREVISION=	2
+PORTEPOCH=	1
+CATEGORIES=	devel
+PKGNAMESUFFIX=	-cpp
+MASTER_SITES=		APACHE/thrift/${PORTVERSION}
+DISTNAME=		thrift-${PORTVERSION}
+
+MAINTAINER=	komarov@valerka.net
+COMMENT=	C++ interface to Thrift
+
+DISTINFO_FILE=		${.CURDIR}/../thrift/distinfo
+
+LIB_DEPENDS=	libboost_system.so:${PORTSDIR}/devel/boost-libs \
+		libevent.so:${PORTSDIR}/devel/libevent2
+
+USES=			autoreconf pkgconfig gmake compiler libtool
+GNU_CONFIGURE=		yes
+USE_LDCONFIG=		yes
+MAKE_JOBS_UNSAFE=	yes
+PLIST_SUB=		PORTVERSION="${THRIFT_PORTVERSION}"
+
+OPTIONS_DEFINE=		QT4
+QT4_CONFIGURE_WITH=	qt4
+QT4_USE=		QT4=network,moc_build,qmake_build,rcc_build,uic_build
+
+OPTIONS_SUB=		yes
+
+CONFIGURE_ARGS+=	\
+		--without-c_glib \
+		--with-cpp \
+		--without-csharp \
+		--without-erlang \
+		--without-haskell \
+		--without-java \
+		--without-perl \
+		--without-php \
+		--without-php_extension \
+		--without-python \
+		--without-ruby \
+		--without-go
+
+# src/thrift/transport/TSSLSocket.cpp:147: error: 'TLSv1_1_method' was not declared in this scope
+# src/thrift/transport/TSSLSocket.cpp:149: error: 'TLSv1_2_method' was not declared in this scope
+BROKEN_FreeBSD_9=	does not build with 9.x base OpenSSL
+
+.include <bsd.port.pre.mk>
+
+.if ${COMPILER_TYPE} == clang
+USE_CXXSTD=	c++11
+.endif
+
+post-patch:
+	@${REINPLACE_CMD} 's,^pkgconfigdir = .*,pkgconfigdir=$${prefix}/libdata/pkgconfig,' ${WRKSRC}/lib/cpp/Makefile.am
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${LN} -sf libthrift-${PORTVERSION}.so ${STAGEDIR}${PREFIX}/lib/libthrift.so.0
+	${LN} -sf libthriftnb-${PORTVERSION}.so ${STAGEDIR}${PREFIX}/lib/libthriftnb.so.0
+	${LN} -sf libthriftz-${PORTVERSION}.so ${STAGEDIR}${PREFIX}/lib/libthriftz.so.0
+
+post-install-QT4-on:
+	${LN} -sf libthriftqt-${PORTVERSION}.so ${STAGEDIR}${PREFIX}/lib/libthriftqt.so.0
+
+.include "../thrift/bsd.thrift.mk"
+.include <bsd.port.post.mk>

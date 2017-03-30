@@ -1,0 +1,3 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/aspell/files/aspell.ver.in 340872 2014-01-24 00:14:07Z mat $
+# Installed by textproc/aspell, please don't edit manually!
+VER=	%%VERINST%%

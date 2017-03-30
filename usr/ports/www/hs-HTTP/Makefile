@@ -1,0 +1,20 @@
+# Created by: Giuseppe Pilichi aka Jacula Modyun <jacula@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/hs-HTTP/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	HTTP
+PORTVERSION=	4000.2.20
+CATEGORIES=	www haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Library for client-side HTTP
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	mtl>=2.0 network>=2.6 network-uri>=2.6 old-time>=1.0.0.0 \
+		parsec>=2.0
+
+FLAGS_ENABLE=	network-uri
+FLAGS_DISABLE=	mtl1 warn-as-error network23 conduit10 warp-tests
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

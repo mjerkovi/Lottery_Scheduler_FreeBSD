@@ -1,0 +1,2 @@
+/* $FreeBSD: releng/10.3/lib/libc/libc.ldscript 258398 2013-11-20 20:24:59Z peter $ */
+GROUP ( @@SHLIB@@ @@LIBDIR@@/libc_nonshared.a @@LIBDIR@@/libssp_nonshared.a )

@@ -1,0 +1,94 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/math/py-matplotlib/Makefile 400758 2015-11-04 20:11:00Z sunpoet $
+
+PORTNAME=	matplotlib
+PORTVERSION=	1.4.3
+PORTREVISION=	1
+CATEGORIES=	math python
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}/
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	mainland@apeiron.net
+COMMENT=	Plotting library uses a syntax familiar to MATLAB users
+
+LICENSE=	PSFL
+
+BUILD_DEPENDS=	${PYNUMPY}
+LIB_DEPENDS=	libfreetype.so:${PORTSDIR}/print/freetype2 \
+		libpng.so:${PORTSDIR}/graphics/png
+RUN_DEPENDS=	${PYNUMPY} \
+		${PYTHON_PKGNAMEPREFIX}dateutil>=1.4:${PORTSDIR}/devel/py-dateutil \
+		${PYTHON_PKGNAMEPREFIX}pytz>=0:${PORTSDIR}/devel/py-pytz \
+		${PYTHON_PKGNAMEPREFIX}pyparsing>=0:${PORTSDIR}/devel/py-pyparsing
+
+USES=		pkgconfig python shebangfix uniquefiles:dirs
+USE_PYTHON=	autoplist distutils
+CFLAGS+=	-I${LOCALBASE}/include
+
+OPTIONS_DEFINE=		EXAMPLES GTKBACKEND GTKAGGBACKEND QT4AGGBACKEND \
+			TKAGGBACKEND WXAGGBACKEND
+OPTIONS_DEFAULT=	GTKBACKEND GTKAGGBACKEND TKAGGBACKEND
+OPTIONS_SUB=		yes
+GTKBACKEND_DESC=	GTK backend support
+GTKBACKEND_VARS=	GTK_BACKEND=True
+GTKBACKEND_VARS_OFF=	GTK_BACKEND=False
+GTKBACKEND_USE=		GNOME=gtk20,pygtk2
+GTKAGGBACKEND_DESC=	GTKAgg backend support
+GTKAGGBACKEND_USE=	GNOME=gtk20,pygtk2
+GTKAGGBACKEND_VARS=	GTKAGG_BACKEND=True
+GTKAGGBACKEND_VARS_OFF=	GTKAGG_BACKEND=False
+QT4AGGBACKEND_DESC=	Qt4Agg backend support
+QT4AGGBACKEND_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}qt4-gui>=4.8.5:${PORTSDIR}/x11-toolkits/py-qt4-gui
+QT4AGGBACKEND_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}qt4-gui>=4.8.5:${PORTSDIR}/x11-toolkits/py-qt4-gui
+QT4AGGBACKEND_VARS=	QT4AGG_BACKEND=True
+QT4AGGBACKEND_VARS_OFF=	QT4AGG_BACKEND=False
+TKAGGBACKEND_DESC=	TKAgg backend support
+TKAGGBACKEND_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tkinter>0:${PORTSDIR}/x11-toolkits/py-tkinter
+TKAGGBACKEND_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tkinter>0:${PORTSDIR}/x11-toolkits/py-tkinter
+TKAGGBACKEND_USES=	tk:run
+TKAGGBACKEND_VARS=	TKAGG_BACKEND=True
+TKAGGBACKEND_VARS_OFF=	TKAGG_BACKEND=False
+WXAGGBACKEND_DESC=	WXAgg backend support
+WXAGGBACKEND_USE=	WX=2.8+
+WXAGGBACKEND_CONFIGURE_ENV=	WX_CONFIG="${WX_CONFIG}"
+WXAGGBACKEND_VARS=	WXAGG_BACKEND=True WX_COMPS=python:lib WX_UNICODE=yes
+WXAGGBACKEND_VARS_OFF=	WXAGG_BACKEND=False
+
+PORTEXAMPLES=	*
+
+.if defined(PACKAGE_BUILDING)
+GTKBACKEND_BUILD_DEPENDS=	Xvfb:${PORTSDIR}/x11-servers/xorg-vfbserver
+GTKAGGBACKEND_BUILD_DEPENDS=	Xvfb:${PORTSDIR}/x11-servers/xorg-vfbserver
+QT4AGGBACKEND_BUILD_DEPENDS+=	Xvfb:${PORTSDIR}/x11-servers/xorg-vfbserver
+TKAGGBACKEND_BUILD_DEPENDS+=	Xvfb:${PORTSDIR}/x11-servers/xorg-vfbserver
+WXAGGBACKEND_BUILD_DEPENDS=	Xvfb:${PORTSDIR}/x11-servers/xorg-vfbserver
+.endif
+
+post-extract:
+	${FIND} ${WRKSRC} -name \*.py | ${XARGS} ${CHMOD} -x
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
+			 -e 's|%%TCL_INCLUDEDIR%%|${TCL_INCLUDEDIR}|g' \
+			 -e 's|%%TK_INCLUDEDIR%%|${TK_INCLUDEDIR}|g' \
+			 -e 's|%%TCL_LIBDIR%%|${TCL_LIBDIR}|g' \
+			 -e 's|%%TK_LIBDIR%%|${TK_LIBDIR}|g' \
+			 -e 's|%%TCL_VER%%|${TCL_SHLIB_VER}|g' \
+			 -e 's|%%TK_VER%%|${TK_SHLIB_VER}|g' \
+		${WRKSRC}/setupext.py
+	${REINPLACE_CMD} -e 's|%%GTK_BACKEND%%|${GTK_BACKEND}|g' \
+			 -e 's|%%GTKAGG_BACKEND%%|${GTKAGG_BACKEND}|g' \
+			 -e 's|%%QT4AGG_BACKEND%%|${QT4AGG_BACKEND}|g' \
+			 -e 's|%%TKAGG_BACKEND%%|${TKAGG_BACKEND}|g' \
+			 -e 's|%%WXAGG_BACKEND%%|${WXAGG_BACKEND}|g' \
+		${WRKSRC}/setup.cfg
+
+post-install:
+	@${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR}/matplotlib -name '*.so' \
+		| ${XARGS} ${STRIP_CMD}
+
+post-install-EXAMPLES-on:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${CP} -R ${WRKSRC}/examples/ ${STAGEDIR}${EXAMPLESDIR}
+
+.include <bsd.port.mk>

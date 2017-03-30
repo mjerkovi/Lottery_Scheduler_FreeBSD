@@ -1,0 +1,34 @@
+# Created by: jupengfei <jupengfei@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-CPAN-Meta/Makefile 389053 2015-06-10 16:46:03Z sunpoet $
+
+PORTNAME=	CPAN-Meta
+PORTVERSION=	2.150005
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Distribution metadata for a CPAN dist
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} < 501800
+BUILD_DEPENDS+=	p5-CPAN-Meta-Requirements>=2.121:${PORTSDIR}/devel/p5-CPAN-Meta-Requirements \
+		p5-CPAN-Meta-YAML>=0.008:${PORTSDIR}/devel/p5-CPAN-Meta-YAML
+RUN_DEPENDS+=	p5-CPAN-Meta-Requirements>=2.121:${PORTSDIR}/devel/p5-CPAN-Meta-Requirements \
+		p5-CPAN-Meta-YAML>=0.008:${PORTSDIR}/devel/p5-CPAN-Meta-YAML
+.endif
+
+.if ${PERL_LEVEL} < 502000
+BUILD_DEPENDS+=	p5-Parse-CPAN-Meta>=1.44.14:${PORTSDIR}/devel/p5-Parse-CPAN-Meta
+RUN_DEPENDS+=	p5-Parse-CPAN-Meta>=1.44.14:${PORTSDIR}/devel/p5-Parse-CPAN-Meta
+.endif
+
+.include <bsd.port.post.mk>

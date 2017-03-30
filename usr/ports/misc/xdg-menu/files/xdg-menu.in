@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/misc/xdg-menu/files/xdg-menu.in 314520 2013-03-18 02:31:52Z beech $
+#
+
+cd "%%DATADIR%%"
+exec ./AppRun

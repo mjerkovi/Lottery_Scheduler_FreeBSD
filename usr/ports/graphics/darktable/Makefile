@@ -1,0 +1,117 @@
+# Created by: Alexey Dokuchaev <danfe@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/darktable/Makefile 404469 2015-12-25 20:42:54Z amdmi3 $
+
+PORTNAME=	darktable
+PORTVERSION=	1.6.9
+CATEGORIES=	graphics
+MASTER_SITES=	https://github.com/darktable-org/${PORTNAME}/releases/download/release-${PORTVERSION}/
+
+MAINTAINER=	dumbbell@FreeBSD.org
+COMMENT=	Virtual lighttable and darkroom for photographers
+
+LICENSE=	GPLv3
+
+BUILD_DEPENDS=	xsltproc:${PORTSDIR}/textproc/libxslt
+LIB_DEPENDS=	libexiv2.so:${PORTSDIR}/graphics/exiv2 \
+		liblensfun.so:${PORTSDIR}/graphics/lensfun \
+		liblcms2.so:${PORTSDIR}/graphics/lcms2 \
+		libcurl.so:${PORTSDIR}/ftp/curl
+
+ONLY_FOR_ARCHS=	i386 amd64
+ONLY_FOR_ARCHS_REASON=	uses SSE instructions
+
+USES=		compiler:c++11-lib cmake:outsource desktop-file-utils	\
+		ninja pkgconfig tar:xz
+USE_GNOME=	gtk20 intltool librsvg2
+USE_SQLITE=	yes
+USE_LDCONFIG=	${PREFIX}/lib/${PORTNAME}
+INSTALLS_ICONS=	yes
+LDFLAGS+=	-L${LOCALBASE}/lib -lintl
+
+OPTIONS_DEFINE=	COLORD DOCS FB_PICASA FLICKR GEO GNOMEKEYRING GPHOTO	\
+		GRAPHMAGICK LIBSECRET LUA NLS OPENEXR OPENJPEG RAWSPEED	\
+		SLIDESHOW SQUISH WEBP
+
+GEO_DESC=	Support geotagging
+FB_PICASA_DESC=	Support export to Facebook and Picasa
+LIBSECRET_DESC=	Support libsecret as password backend
+SQUISH_DESC=	Compress thumbnail via libsquish
+RAWSPEED_DESC=	Compile with rawspeed backend
+SLIDESHOW_DESC=	Build OpenGL/SDL slideshow viewer
+
+OPTIONS_DEFAULT=COLORD FB_PICASA FLICKR GEO GPHOTO LUA NLS OPENEXR	\
+		OPENJPEG RAWSPEED SLIDESHOW SQUISH WEBP
+OPTIONS_SUB=	yes
+
+CMAKE_ARGS+=	-DBINARY_PACKAGE_BUILD=1
+CMAKE_ARGS+=	-DBUILD_CMSTEST:BOOL=ON
+CMAKE_ARGS+=	-DUSE_KWALLET:BOOL=ON
+
+# darktable 1.4 can use colord but provides its own libcolord,
+# statically linked to libdarktable.so.
+COLORD_LIB_DEPENDS=	libcolord.so:${PORTSDIR}/graphics/colord
+COLORD_CMAKE_OFF=	-DUSE_COLORD:BOOL=OFF
+
+FB_PICASA_LIB_DEPENDS=	libjson-glib-1.0.so:${PORTSDIR}/devel/json-glib
+FB_PICASA_CMAKE_OFF=	-DUSE_GLIBJSON:BOOL=OFF
+
+FLICKR_LIB_DEPENDS=	libflickcurl.so:${PORTSDIR}/www/flickcurl
+FLICKR_CMAKE_OFF=	-DUSE_FLICKR:BOOL=OFF
+
+GEO_LIB_DEPENDS=	libsoup-2.4.so:${PORTSDIR}/devel/libsoup
+GEO_CMAKE_OFF=		-DUSE_GEO:BOOL=OFF
+
+GNOMEKEYRING_LIB_DEPENDS=libgnome-keyring.so:${PORTSDIR}/security/libgnome-keyring
+GNOMEKEYRING_CMAKE_OFF=	-DUSE_GNOME_KEYRING:BOOL=OFF
+
+GPHOTO_LIB_DEPENDS=	libgphoto2.so:${PORTSDIR}/graphics/libgphoto2
+GPHOTO_CMAKE_OFF=	-DUSE_CAMERA_SUPPORT:BOOL=OFF
+
+GRAPHMAGICK_LIB_DEPENDS=libGraphicsMagick.so:${PORTSDIR}/graphics/GraphicsMagick
+GRAPHMAGICK_CMAKE_OFF=	-DUSE_GRAPHICSMAGICK:BOOL=OFF
+
+LIBSECRET_LIB_DEPENDS=	libsecret-1.so:${PORTSDIR}/security/libsecret
+LIBSECRET_CMAKE_OFF=	-DUSE_LIBSECRET:BOOL=OFF
+
+LUA_USES=		lua:52
+LUA_CMAKE_OFF=		-DUSE_LUA:BOOL=OFF
+
+NLS_USES=		gettext
+NLS_CMAKE_OFF=		-DUSE_NLS:BOOL=OFF
+
+OPENEXR_LIB_DEPENDS=	libIlmImf.so:${PORTSDIR}/graphics/OpenEXR
+OPENEXR_CMAKE_OFF=	-DUSE_OPENEXR:BOOL=OFF
+
+OPENJPEG_LIB_DEPENDS=	libopenjpeg.so:${PORTSDIR}/graphics/openjpeg15
+OPENJPEG_CMAKE_OFF=	-DUSE_OPENJPEG:BOOL=OFF
+
+RAWSPEED_CMAKE_OFF=	-DDONT_USE_RAWSPEED:BOOL=ON
+
+SLIDESHOW_USE=		GL=gl SDL=sdl
+SLIDESHOW_CMAKE_OFF=	-DBUILD_SLIDESHOW:BOOL=OFF
+
+SQUISH_BUILD_DEPENDS=	${LOCALBASE}/lib/libsquish.a:${PORTSDIR}/graphics/squish
+SQUISH_CMAKE_OFF=	-DUSE_SQUISH:BOOL=OFF
+
+WEBP_LIB_DEPENDS=	libwebp.so:${PORTSDIR}/graphics/webp
+WEBP_CMAKE_OFF=		-DUSE_WEBP:BOOL=OFF
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == amd64 && ${COMPILER_TYPE} == clang
+# Enable OpenMP support with Clang 3.7.
+BUILD_DEPENDS+=	clang37:${PORTSDIR}/devel/llvm37
+RUN_DEPENDS+=	clang37:${PORTSDIR}/devel/llvm37
+
+CPP=		${LOCALBASE}/bin/clang-cpp37
+CC=		${LOCALBASE}/bin/clang37
+CXX=		${LOCALBASE}/bin/clang++37
+LDFLAGS+=	-L${LOCALBASE}/llvm37/lib -lomp
+.endif
+
+.if defined(WITH_DEBUG)
+CMAKE_BUILD_TYPE=	RelWithDebInfo
+STRIP=
+.endif
+
+.include <bsd.port.post.mk>

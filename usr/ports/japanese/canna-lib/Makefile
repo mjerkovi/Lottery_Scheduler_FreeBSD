@@ -1,0 +1,24 @@
+# Created by: hrs
+# $FreeBSD: tags/RELEASE_10_3_0/japanese/canna-lib/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	canna
+PORTVERSION=	3.7p3
+PORTREVISION=	9
+CATEGORIES=	japanese
+MASTER_SITES=	SFJP/canna/9565
+PKGNAMESUFFIX=	-lib
+DISTNAME=	Canna${PORTVERSION:S/.//g}
+
+MAINTAINER=	hrs@FreeBSD.org
+COMMENT=	Kana-to-Kanji conversion system, library part
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYRIGHT
+
+USES=		imake:notall,noman tar:bzip2
+USE_LDCONFIG=	yes
+ALL_TARGET=	canna
+INSTALL_TARGET=	instsgs
+MAKE_JOBS_UNSAFE=	yes
+
+.include <bsd.port.mk>

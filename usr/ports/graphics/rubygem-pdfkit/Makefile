@@ -1,0 +1,22 @@
+# Created by: rpsfa@rit.edu
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/rubygem-pdfkit/Makefile 395427 2015-08-27 13:26:34Z sunpoet $
+
+PORTNAME=	pdfkit
+PORTVERSION=	0.8.2
+CATEGORIES=	graphics rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Uses wkhtmltopdf to create PDFs using HTML
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	wkhtmltopdf:${PORTSDIR}/converters/wkhtmltopdf
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

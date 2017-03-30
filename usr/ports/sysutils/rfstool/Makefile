@@ -1,0 +1,24 @@
+# Created by: trevor
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/rfstool/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	rfstool
+PORTVERSION=	0.14
+CATEGORIES=	sysutils
+MASTER_SITES=	NETBSD
+DISTNAME=	rfstool-0.14-source
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Read from a Reiser file system
+
+PLIST_FILES=	bin/rfstool
+USES=		zip
+WRKSRC=		${WRKDIR}/rfstool-0.14/RFSTOOL
+MAKEFILE=	makefile.gcc3x
+
+post-extract:
+	@${REINPLACE_CMD} -e "s,g++,\$${CXX},g" ${WRKSRC}/${MAKEFILE}
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/rfstool ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

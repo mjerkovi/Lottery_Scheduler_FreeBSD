@@ -1,0 +1,6 @@
+# $FreeBSD: tags/RELEASE_10_3_0/lang/pike78/Makefile.common 356893 2014-06-07 10:00:54Z johans $
+
+# Also used by www/caudium14
+
+PIKEVERSION=	7.8.866
+

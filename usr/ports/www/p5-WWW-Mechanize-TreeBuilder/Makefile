@@ -1,0 +1,27 @@
+# Created by: Alex Deiter <Alex.Deiter@Gmail.COM>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-WWW-Mechanize-TreeBuilder/Makefile 400832 2015-11-05 10:27:43Z culot $
+
+PORTNAME=	WWW-Mechanize-TreeBuilder
+PORTVERSION=	1.20000
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	alex.deiter@gmail.com
+COMMENT=	Combine WWW::Mechanize and HTML::TreeBuilder
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-MooseX-Role-Parameterized>=0:${PORTSDIR}/devel/p5-MooseX-Role-Parameterized \
+		p5-HTML-Tree>=0:${PORTSDIR}/www/p5-HTML-Tree \
+		p5-Moose>=2.1200:${PORTSDIR}/devel/p5-Moose
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Params-Util>0:${PORTSDIR}/devel/p5-Params-Util \
+		p5-Test-WWW-Mechanize>0:${PORTSDIR}/devel/p5-Test-WWW-Mechanize
+
+NO_ARCH=	yes
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

@@ -1,0 +1,28 @@
+# Created by: Nobutaka Mantani <nobutaka@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Mac-PropertyList/Makefile 385356 2015-05-03 21:24:29Z amdmi3 $
+
+PORTNAME=	Mac-PropertyList
+PORTVERSION=	1.41
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	nobutaka@FreeBSD.org
+COMMENT=	Perl extension for parsing Mac OS X property lists
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-XML-Entities>=0:${PORTSDIR}/textproc/p5-XML-Entities
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.pre.mk>
+
+.if ${PERL_LEVEL} < 501800
+BUILD_DEPENDS+=	p5-ExtUtils-MakeMaker>=6.64:${PORTSDIR}/devel/p5-ExtUtils-MakeMaker
+.endif
+
+.include <bsd.port.post.mk>

@@ -1,0 +1,27 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Test-MockObject/Makefile 389576 2015-06-14 04:27:54Z kuriyama $
+
+PORTNAME=	Test-MockObject
+PORTVERSION=	1.20150527
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	kuriyama@FreeBSD.org
+COMMENT=	Tests remote URLs or local web files
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-UNIVERSAL-can>=1.20110617:${PORTSDIR}/devel/p5-UNIVERSAL-can \
+		p5-UNIVERSAL-isa>=1.20110614:${PORTSDIR}/devel/p5-UNIVERSAL-isa
+RUN_DEPENDS=	p5-UNIVERSAL-can>=1.20110617:${PORTSDIR}/devel/p5-UNIVERSAL-can \
+		p5-UNIVERSAL-isa>=1.20110614:${PORTSDIR}/devel/p5-UNIVERSAL-isa
+TEST_DEPENDS=	p5-Test-Exception>=0.31:${PORTSDIR}/devel/p5-Test-Exception \
+		p5-Test-Warn>=0.23:${PORTSDIR}/devel/p5-Test-Warn
+
+USES=		perl5
+USE_PERL5=	configure
+INSTALL_TARGET=	pure_install
+NO_ARCH=	YES
+
+.include <bsd.port.mk>

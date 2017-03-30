@@ -1,0 +1,22 @@
+# Created by: Glen Barber <gjb@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/rubygem-ruby-qmail/Makefile 401438 2015-11-12 21:42:20Z sunpoet $
+
+PORTNAME=	ruby-qmail
+PORTVERSION=	0.1.1
+CATEGORIES=	mail rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby qmail library
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	rubygem-rspec>=1.2.9:${PORTSDIR}/devel/rubygem-rspec
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

@@ -1,0 +1,42 @@
+# Created by: Cheng-Lung Sung <clsung@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/googlemock/Makefile 398458 2015-10-03 01:31:58Z jbeich $
+
+PORTNAME=	googlemock
+PORTVERSION=	1.7.0
+DISTVERSIONPREFIX=	release-
+PORTREVISION=	1
+CATEGORIES=	devel
+
+MAINTAINER=	jbeich@FreeBSD.org
+COMMENT=	Library for writing and using C++ mock classes
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BUILD_DEPENDS=	${LOCALBASE}/share/aclocal/ax_pthread.m4:${PORTSDIR}/devel/autoconf-archive \
+		googletest>=1.7.0:${PORTSDIR}/devel/googletest
+LIB_DEPENDS=	libgtest.so:${PORTSDIR}/devel/googletest
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	google
+
+USES=		autoreconf libtool
+GNU_CONFIGURE=	yes
+# fused-src python tests are only useful for bundling. There's no point in
+# running them before installing system-wide without source files.
+CONFIGURE_ENV=	ac_cv_path_PYTHON=":"
+TEST_TARGET=	check
+INSTALL_TARGET=	install-strip
+USE_LDCONFIG=	yes
+
+post-patch:
+	@${REINPLACE_CMD} '/acx_pthread.m4/d' ${WRKSRC}/configure.ac
+# enable vendor make install again (revert 52277c9)
+	@${REINPLACE_CMD} -E 's/install-(exec|data)-local/&-dummy/' \
+		${WRKSRC}/Makefile.am
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/gmock-config ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/gmock_doctor.py ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

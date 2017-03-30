@@ -1,0 +1,27 @@
+# Created by: Eugene Grosbein <ports@grosbein.net>
+# $FreeBSD: tags/RELEASE_10_3_0/net/py-msrplib/Makefile 379442 2015-02-20 15:48:57Z sunpoet $
+
+PORTNAME=	msrplib
+PORTVERSION=	0.14.4
+PORTREVISION=	1
+CATEGORIES=	net python
+MASTER_SITES=	http://download.ag-projects.com/SipClient/ \
+		http://www.grosbein.net/python/
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	python-${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	ports@grosbein.net
+COMMENT=	Python MSRP client library
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gnutls>=1.1.6:${PORTSDIR}/security/py-gnutls \
+		${PYTHON_PKGNAMEPREFIX}eventlet>=0.9.15:${PORTSDIR}/net/py-eventlet \
+		${PYTHON_PKGNAMEPREFIX}application>=1.1.0:${PORTSDIR}/devel/py-application
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		python twisted:names
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

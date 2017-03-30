@@ -1,0 +1,33 @@
+# Created by: Adam Weinberger <adamw@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/gnome-nettool/Makefile 396075 2015-09-04 10:43:19Z kwm $
+
+PORTNAME=	gnome-nettool
+PORTVERSION=	3.8.1
+PORTEPOCH=	1
+CATEGORIES=	net gnome
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome3
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	GNOME utility that provides network information statistics
+
+BUILD_DEPENDS=	itstool:${PORTSDIR}/textproc/itstool
+LIB_DEPENDS=	libgtop-2.0.so:${PORTSDIR}/devel/libgtop
+
+USE_GNOME=	gtk30 intlhack libxml2:build
+USES=		gettext gmake libtool pathfix pkgconfig tar:xz
+INSTALLS_ICONS=	yes
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+GLIB_SCHEMAS=	org.gnome.gnome-nettool.gschema.xml
+
+.include <bsd.port.options.mk>
+
+.if ${OPSYS} == DragonFly || (${OPSYS} == FreeBSD && ${OSVERSION} > 1000000)
+RUN_DEPENDS+=	${LOCALBASE}/bin/dig:${PORTSDIR}/dns/bind-tools
+.endif
+
+.include <bsd.port.mk>

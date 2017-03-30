@@ -1,0 +1,21 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/hs-authenticate/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	authenticate
+PORTVERSION=	1.3.2.11
+CATEGORIES=	www haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Authentication methods for Haskell web applications
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	aeson>=0.5 attoparsec blaze-builder case-insensitive>=0.2 \
+		conduit>=0.5 http-conduit>=1.5 http-types>=0.6 monad-control \
+		network>=2.6 network-uri>=2.6 resourcet \
+		tagstream-conduit>=0.5.5 text unordered-containers \
+		xml-conduit>=1.0
+
+FLAGS_ENABLE=	network-uri
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

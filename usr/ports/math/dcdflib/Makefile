@@ -1,0 +1,34 @@
+# Created by: Anton Berezin <tobez@plab.ku.dk>
+# $FreeBSD: tags/RELEASE_10_3_0/math/dcdflib/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	dcdflib.c
+PORTVERSION=	1.1
+PORTREVISION=	1
+CATEGORIES=	math
+MASTER_SITES=	ftp://odin.mda.uth.tmc.edu/pub/source/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Library of C Routines for Cumulative Distribution Functions
+
+BROKEN=		unfetchable
+
+WRKSRC=		${WRKDIR}/dcdflib.c/src
+USES=		uidfix
+USE_LDCONFIG=	yes
+MAKEFILE=	${FILESDIR}/Makefile.lib
+DOCSDIR=	${PREFIX}/share/doc/${PORTNAME:S/.c//}
+OPTIONS_DEFINE= DOCS
+
+.if defined(NO_PROFILE)
+PLIST_SUB+=	PROFILE="@comment "
+.else
+PLIST_SUB+=	PROFILE=""
+.endif
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	@${INSTALL_DATA} ${WRKSRC}/../doc/dcdflib.chs ${STAGEDIR}${DOCSDIR}
+	@${INSTALL_DATA} ${WRKSRC}/../doc/dcdflib.fdoc ${STAGEDIR}${DOCSDIR}
+	@${INSTALL_DATA} ${WRKSRC}/../README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

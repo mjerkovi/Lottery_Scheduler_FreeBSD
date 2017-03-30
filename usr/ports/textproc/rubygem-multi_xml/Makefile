@@ -1,0 +1,24 @@
+# Created by: Cheng-Lung Sung <clsung@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/rubygem-multi_xml/Makefile 391473 2015-07-06 18:05:37Z sunpoet $
+
+PORTNAME=	multi_xml
+PORTVERSION=	0.5.5
+CATEGORIES=	textproc rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Ruby library provide swappable XML backends
+
+LICENSE=	MIT
+
+OPTIONS_DEFINE=	NOKOGIRI
+NOKOGIRI_DESC=	Nokogiri is a HTML, XML, SAX, and Reader parser
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+NOKOGIRI_RUN_DEPENDS=	rubygem-nokogiri>=0:${PORTSDIR}/textproc/rubygem-nokogiri
+
+.include <bsd.port.mk>

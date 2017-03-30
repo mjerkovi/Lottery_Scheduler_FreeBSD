@@ -1,0 +1,20 @@
+# Created by: Li-Wen Hsu <lwhsu@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/py-amqplib/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	amqplib
+PORTVERSION=	1.0.2
+PORTREVISION=	1
+CATEGORIES=	net python
+MASTER_SITES=	GOOGLE_CODE \
+		CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	lwhsu@FreeBSD.org
+COMMENT=	AMQP Client Library
+
+PROJECTHOST=	py-amqplib
+
+USES=		python tar:tgz
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

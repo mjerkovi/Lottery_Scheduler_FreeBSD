@@ -1,0 +1,27 @@
+# Created by: Mikhail Teterin <mi@aldan.algebra.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-uncompyle2/Makefile 386691 2015-05-18 17:07:45Z mat $
+
+PORTNAME=	uncompyle2
+PORTVERSION=	1.1
+CATEGORIES=	devel
+PKGNAMEPREFIX=	py-
+
+MAINTAINER=	mi@aldan.algebra.com
+COMMENT=	Decompiler for Python's .pyc and .pyo files
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	Mysterie
+GH_TAGNAME=	3956a5a
+USES=		python:2
+USE_PYTHON=	distutils
+REINPLACE_ARGS=	-i ""
+
+pre-patch:
+	# Removing blanks at EOL
+	${FIND} ${WRKSRC} -type f -print0 | \
+		${XARGS} -0 ${REINPLACE_CMD} -E 's/[[:blank:]]+$$//g'
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/uncompyle2.py ${STAGEDIR}${PREFIX}/bin/uncompyle2
+
+.include <bsd.port.mk>

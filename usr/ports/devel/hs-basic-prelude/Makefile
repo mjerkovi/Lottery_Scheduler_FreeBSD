@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-basic-prelude/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	basic-prelude
+PORTVERSION=	0.5.0
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Enhanced core prelude; a common foundation for alternate preludes
+
+LICENSE=	MIT
+
+USE_CABAL=	hashable lifted-base ReadArgs>=1.2 safe text \
+		unordered-containers vector
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

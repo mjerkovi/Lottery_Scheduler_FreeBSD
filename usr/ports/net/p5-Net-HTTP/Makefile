@@ -1,0 +1,23 @@
+# Created by: Frederic Culot <culot@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-HTTP/Makefile 386927 2015-05-21 11:40:42Z culot $
+
+PORTNAME=	Net-HTTP
+PORTVERSION=	6.09
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Low-level HTTP client
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-IO-Socket-SSL>=1.38:${PORTSDIR}/security/p5-IO-Socket-SSL \
+		p5-URI>=0:${PORTSDIR}/net/p5-URI
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

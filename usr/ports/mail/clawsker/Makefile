@@ -1,0 +1,38 @@
+# Created by: Pawel Pekala <c0rn@o2.pl>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/clawsker/Makefile 403568 2015-12-11 22:34:20Z pawel $
+
+PORTNAME=	clawsker
+PORTVERSION=	0.7.13
+CATEGORIES=	mail
+MASTER_SITES=	http://www.claws-mail.org/tools/
+
+MAINTAINER=	pawel@FreeBSD.org
+COMMENT=	Applet to edit Claws Mail's hidden preferences
+
+LICENSE=	GPLv3
+
+RUN_DEPENDS=	p5-Gtk2>=0:${PORTSDIR}/x11-toolkits/p5-Gtk2 \
+		p5-Locale-gettext>=0:${PORTSDIR}/devel/p5-Locale-gettext
+
+USES=		shebangfix perl5
+SHEBANG_FILES=	${PORTNAME}
+NO_ARCH=	yes
+
+PORTDOCS=	NEWS README
+
+OPTIONS_DEFINE=	DOCS NLS
+OPTIONS_SUB=	yes
+
+NLS_USES=	gettext
+
+post-patch:
+	@${REINPLACE_CMD} '/^DATADIR/s|/share||' ${WRKSRC}/Makefile
+
+post-patch-NLS-off:
+	@${REINPLACE_CMD} '/-C po/d' ${WRKSRC}/Makefile
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|g} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

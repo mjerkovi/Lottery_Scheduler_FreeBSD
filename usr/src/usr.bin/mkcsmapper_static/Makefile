@@ -1,0 +1,14 @@
+# $FreeBSD: releng/10.3/usr.bin/mkcsmapper_static/Makefile 276486 2014-12-31 23:25:37Z ngie $
+
+.PATH: ${.CURDIR}/../../lib/libc/iconv ${.CURDIR}/../mkcsmapper
+
+PROG=	mkcsmapper_static
+SRCS=	citrus_bcs.c citrus_db_factory.c citrus_db_hash.c \
+	citrus_lookup_factory.c citrus_pivot_factory.c
+MAN=
+NO_SHARED= yes
+
+build-tools: mkcsmapper_static
+
+.include "${.CURDIR}/../mkcsmapper/Makefile.inc"
+.include <bsd.prog.mk>

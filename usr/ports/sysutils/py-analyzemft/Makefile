@@ -1,0 +1,31 @@
+# Created by: Antoine Brodin <antoine@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/py-analyzemft/Makefile 388048 2015-05-31 07:30:55Z antoine $
+
+PORTNAME=	analyzemft
+PORTVERSION=	2.0.18
+CATEGORIES=	sysutils devel python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	analyzeMFT-${PORTVERSION}
+
+MAINTAINER=	antoine@FreeBSD.org
+COMMENT=	Analyze the MFT from a NTFS filesystem
+
+LICENSE=	CPL
+LICENSE_NAME=	Common Public License
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+USES=		python:2
+USE_PYTHON=	distutils autoplist
+
+DOCSDIR=	${PREFIX}/share/doc/py-${PORTNAME}
+PORTDOCS=	CHANGES.txt README.txt
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

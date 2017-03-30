@@ -1,0 +1,26 @@
+# Created by: Gea-Suan Lin <gslin@gslin.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-Dropbox-API/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Net-Dropbox-API
+PORTVERSION=	1.9
+PORTREVISION=	1
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Dropbox API interface
+
+BUILD_DEPENDS=	p5-Data-Random>=0:${PORTSDIR}/devel/p5-Data-Random \
+		p5-HTTP-Message>=0:${PORTSDIR}/www/p5-HTTP-Message \
+		p5-JSON>=0:${PORTSDIR}/converters/p5-JSON \
+		p5-Mouse>=0:${PORTSDIR}/devel/p5-Mouse \
+		p5-Net-OAuth>=0:${PORTSDIR}/net/p5-Net-OAuth \
+		p5-common-sense>=0:${PORTSDIR}/devel/p5-common-sense \
+		p5-libwww>=0:${PORTSDIR}/www/p5-libwww
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

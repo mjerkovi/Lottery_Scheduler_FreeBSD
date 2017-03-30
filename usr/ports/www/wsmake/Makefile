@@ -1,0 +1,23 @@
+# Created by: Joseph Koshy <jkoshy@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/wsmake/Makefile 396368 2015-09-08 11:30:07Z amdmi3 $
+
+PORTNAME=	wsmake
+PORTVERSION=	0.7.901
+CATEGORIES=	www
+MASTER_SITES=	SF/${PORTNAME}/OldFiles
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Software for production and maintenance of web sites
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		gmake tar:bzip2
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--enable-gwsmake=no --enable-iswmake=no
+
+INFO=		wsmake iwsmake gwsmake
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.mk>

@@ -1,0 +1,24 @@
+# Created by: Simon Marlow <simonmar@microsoft.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-happy/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	happy
+PORTVERSION=	1.19.5
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Happy is a parser generator for Haskell
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	mtl>=1.0
+
+XMLDOCS=	doc/happy:html
+USE_AUTOTOOLS=	autoconf:env
+
+STANDALONE=	yes
+EXECUTABLE=	happy
+
+INSTALL_PORTEXAMPLES=	@(cd ${WRKSRC}/examples/ && ${COPYTREE_SHARE} \* ${STAGEDIR}${EXAMPLESDIR})
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

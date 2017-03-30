@@ -1,0 +1,22 @@
+# Created by: Steve Wills <steve@mouf.net>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-CGI-Application-Plugin-Config-YAML/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	CGI-Application-Plugin-Config-YAML
+PORTVERSION=	0.01
+PORTREVISION=	1
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	swills@FreeBSD.org
+COMMENT=	Add Config::YAML support to CGI::Application
+
+BUILD_DEPENDS=	p5-CGI-Application>4.01:${PORTSDIR}/www/p5-CGI-Application \
+		p5-Config-YAML>=0:${PORTSDIR}/devel/p5-Config-YAML
+RUN_DEPENDS=	p5-CGI-Application>4.01:${PORTSDIR}/www/p5-CGI-Application \
+		p5-Config-YAML>=0:${PORTSDIR}/devel/p5-Config-YAML
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

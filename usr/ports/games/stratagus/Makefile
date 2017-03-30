@@ -1,0 +1,66 @@
+# Created by: Travis Poppe <tlp@liquidx.org>
+# $FreeBSD: tags/RELEASE_10_3_0/games/stratagus/Makefile 386234 2015-05-13 18:19:09Z amdmi3 $
+
+PORTNAME=	stratagus
+PORTVERSION=	2.3.0
+CATEGORIES=	games
+MASTER_SITES=	http://launchpadlibrarian.net/200661330/
+DISTNAME=	${PORTNAME}_${PORTVERSION}.orig
+
+MAINTAINER=	amdmi3@FreeBSD.org
+COMMENT=	Free cross-platform real-time strategy gaming engine
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
+		libtolua++-${LUA_VER}.so:${PORTSDIR}/lang/tolua++
+
+USE_GL=		gl glu
+USE_SDL=	sdl
+USE_SQLITE=	3
+USES=		cmake:outsource lua:51 pkgconfig
+CMAKE_ARGS=	-DGAMEDIR:STRING="bin" \
+		-DTOLUA++_APP:STRING="tolua++-${LUA_VER}" \
+		-DTOLUA++_INCLUDE_DIR:STRING="${LUA_INCDIR}" \
+		-DTOLUA++_LIBRARY:STRING="${LUA_LIBDIR}/libtolua++.so" \
+		-DENABLE_DEV:BOOL=ON
+
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	MIKMOD MNG THEORA VORBIS X11 FLUIDSYNTH DOCS
+OPTIONS_DEFAULT=MIKMOD MNG THEORA VORBIS X11 FLUIDSYNTH
+
+MIKMOD_LIB_DEPENDS=	libmikmod.so:${PORTSDIR}/audio/libmikmod
+MIKMOD_CMAKE_ON=	-DWITH_MIKMOD:BOOL=ON
+MIKMOD_CMAKE_OFF=	-DWITH_MIKMOD:BOOL=OFF
+
+MNG_DESC=		MNG image library support
+MNG_LIB_DEPENDS=	libmng.so:${PORTSDIR}/graphics/libmng
+MNG_CMAKE_ON=		-DWITH_MNG:BOOL=ON
+MNG_CMAKE_OFF=		-DWITH_MNG:BOOL=OFF
+
+THEORA_LIB_DEPENDS=	libtheora.so:${PORTSDIR}/multimedia/libtheora
+THEORA_CMAKE_ON=	-DWITH_THEORA:BOOL=ON
+THEORA_CMAKE_OFF=	-DWITH_THEORA:BOOL=OFF
+
+VORBIS_LIB_DEPENDS=	libvorbis.so:${PORTSDIR}/audio/libvorbis
+VORBIS_CMAKE_ON=	-DWITH_OGGVORBIS:BOOL=ON
+VORBIS_CMAKE_OFF=	-DWITH_OGGVORBIS:BOOL=OFF
+
+X11_DESC=		X11 clipboard pasting support
+X11_USE=		XORG=x11
+X11_CMAKE_ON=		-DWITH_X11:BOOL=ON
+X11_CMAKE_OFF=		-DWITH_X11:BOOL=OFF
+
+FLUIDSYNTH_DESC=	FluidSynth sound library support
+FLUIDSYNTH_LIB_DEPENDS=	libfluidsynth.so:${PORTSDIR}/audio/fluidsynth
+FLUIDSYNTH_CMAKE_ON=	-DWITH_FLUIDSYNTH:BOOL=ON
+FLUIDSYNTH_CMAKE_OFF=	-DWITH_FLUIDSYNTH:BOOL=OFF
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/doc/stratagus.6 ${STAGEDIR}${MAN6PREFIX}/man/man6
+	cd ${WRKSRC}/doc && ${COPYTREE_SHARE} "[a-z]*.html *.txt graphics scripts" \
+		${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

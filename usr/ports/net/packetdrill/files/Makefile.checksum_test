@@ -1,0 +1,5 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/packetdrill/files/Makefile.checksum_test 340722 2014-01-22 17:00:46Z mat $
+
+PROG=	checksum_test
+
+.include <bsd.prog.mk>

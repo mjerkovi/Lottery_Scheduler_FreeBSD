@@ -1,0 +1,30 @@
+# Created by: <glewis@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/dom4j/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+PORTNAME=	dom4j
+PORTVERSION=	1.6.1
+PORTREVISION=	2
+CATEGORIES=	textproc java
+MASTER_SITES=	SF
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Open Source XML framework for Java
+
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+NO_BUILD=	yes
+
+OPTIONS_DEFINE=	DOCS
+
+PLIST_FILES=	%%JAVAJARDIR%%/${PORTNAME}.jar
+
+PORTDOCS=	*
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/${PORTNAME}-${PORTVERSION}.jar \
+			${STAGEDIR}${JAVAJARDIR}/${PORTNAME}.jar
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/LICENSE.txt ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

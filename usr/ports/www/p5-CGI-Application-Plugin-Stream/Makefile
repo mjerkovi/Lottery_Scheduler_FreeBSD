@@ -1,0 +1,23 @@
+# Created by: George Hartzell <hartzell@alerce.com>
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-CGI-Application-Plugin-Stream/Makefile 381378 2015-03-16 10:24:24Z bofh $
+
+PORTNAME=	CGI-Application-Plugin-Stream
+PORTVERSION=	2.12
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Plugin that adds file streaming support to CGI::Application
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-CGI-Application>=0:${PORTSDIR}/www/p5-CGI-Application \
+		p5-File-MMagic>=0:${PORTSDIR}/devel/p5-File-MMagic
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

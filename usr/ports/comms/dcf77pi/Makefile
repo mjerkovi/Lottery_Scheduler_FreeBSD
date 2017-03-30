@@ -1,0 +1,37 @@
+# Created by: rene@FreeBSD.org
+# $FreeBSD: tags/RELEASE_10_3_0/comms/dcf77pi/Makefile 405794 2016-01-11 18:32:36Z rene $
+
+PORTNAME=	dcf77pi
+PORTVERSION=	3.4.2
+CATEGORIES=	comms
+
+MAINTAINER=	rene@FreeBSD.org
+COMMENT=	DCF77 receiver/logger/analyzer and library for the Raspberry Pi
+
+LICENSE=	BSD2CLAUSE
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	rene0
+
+OPTIONS_DEFINE=	DOXYGEN
+
+DOXYGEN_BUILD_DEPENDS=	doxygen:${PORTSDIR}/devel/doxygen
+DOXYGEN_ALL_TARGET=	all doxygen
+
+USES=		ncurses
+USE_LDCONFIG=	yes
+
+PATCH_STRIP=	-p1
+PORTDOCS=	README.md
+DOXYGEN_PORTDOCS=	html/*
+
+INSTALL_TARGET=	install-strip
+DOXYGEN_INSTALL_TARGET=	install-doxygen
+
+post-install:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for f in ${PORTDOCS}
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

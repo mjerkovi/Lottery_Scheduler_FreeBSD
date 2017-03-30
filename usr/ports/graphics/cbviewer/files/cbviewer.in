@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/cbviewer/files/cbviewer.in 348875 2014-03-23 17:19:09Z nemysis $
+#
+
+export JAVA_VERSION="%%JAVA_VERSION%%"
+
+cd "%%DATADIR%%" && exec "%%LOCALBASE%%/bin/java" \
+-jar "%%DATADIR%%/CBViewer.jar" "${@}"

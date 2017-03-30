@@ -1,0 +1,9 @@
+lib/libbeidpkcs11.so
+lib/libbeidpkcs11.so.0
+lib/libbeidpkcs11.so.0.0.0
+libexec/beid-askaccess
+libexec/beid-askpin
+libexec/beid-badpin
+libexec/beid-changepin
+libexec/beid-spr-askpin
+libexec/beid-spr-changepin

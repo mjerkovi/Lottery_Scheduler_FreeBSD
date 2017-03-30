@@ -1,0 +1,38 @@
+# Created by: Kubilay Kocak <koobs@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/py-pynsq/Makefile 394508 2015-08-17 14:20:40Z mat $
+
+PORTNAME=	pynsq
+PORTVERSION=	0.5.1
+DISTVERSIONPREFIX=	v
+PORTREVISION=	1
+CATEGORIES=	net python
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	koobs@FreeBSD.org
+COMMENT=	Official Python client library for NSQ
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tornado>0:${PORTSDIR}/www/py-tornado
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tornado>0:${PORTSDIR}/www/py-tornado \
+		${PYTHON_PKGNAMEPREFIX}pytest>0:${PORTSDIR}/devel/py-pytest \
+		${PYTHON_PKGNAMEPREFIX}mock>0:${PORTSDIR}/devel/py-mock
+
+OPTIONS_DEFINE=	TESTS
+TESTS_DESC=	Install tools to run test suite
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+USE_GITHUB=	yes
+GH_ACCOUNT=	bitly
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MTESTS}
+BUILD_DEPENDS:=	${TEST_DEPENDS}
+.endif
+
+regression-test: build
+	@cd ${WRKSRC} && ${PYTHON_CMD} ${PYSETUP} test
+
+.include <bsd.port.mk>

@@ -1,0 +1,5 @@
+This is Google's reference implementation of OGC KML 2.2. It also includes
+implementations of Google's gx: extensions used by Google Earth, as well as
+several utility libraries for working with other formats.
+
+WWW: https://github.com/google/libkml

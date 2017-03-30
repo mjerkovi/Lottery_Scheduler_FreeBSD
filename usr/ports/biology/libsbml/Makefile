@@ -1,0 +1,53 @@
+# Created by: Wen Heping <wenheping@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/biology/libsbml/Makefile 399316 2015-10-14 23:51:20Z amdmi3 $
+
+PORTNAME=	libsbml
+PORTVERSION=	5.11.4
+PORTREVISION=	1
+CATEGORIES=	biology devel
+MASTER_SITES=	SF/sbml/${PORTNAME}/${PORTVERSION}/stable
+DISTNAME=	libSBML-${PORTVERSION}-core-src
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	API Library for Working with SBML File
+
+LICENSE=	LGPL21
+LICENSE_FILE=	${WRKSRC}/COPYING.txt
+
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+
+USES=		cmake:outsource iconv:build
+USE_GNOME=	libxml2
+USE_LDCONFIG=	yes
+
+CFLAGS+=	-I${ICONV_PREFIX}/include
+LDFLAGS+=	-L${ICONV_PREFIX}/lib
+
+OPTIONS_DEFINE=	EXAMPLES PYTHON RUBY
+OPTIONS_SUB=	yes
+
+PYTHON_BUILD_DEPENDS=	swig2.0:${PORTSDIR}/devel/swig20
+PYTHON_USES=		python
+PYTHON_CMAKE_ON=	-DWITH_PYTHON:BOOL=ON \
+			-DPYTHON_INCLUDE_DIR:STRING="${PYTHON_INCLUDEDIR}" \
+			-DPYTHON_LIBRARY:STRING="${PYTHONBASE}/lib/lib${PYTHON_VERSION}.so" \
+			-DPYTHON_EXECUTABLE:STRING="${PYTHON_CMD}"
+
+RUBY_BUILD_DEPENDS=	swig2.0:${PORTSDIR}/devel/swig20
+RUBY_USE=		ruby=yes
+RUBY_CMAKE_ON=		-DWITH_RUBY:BOOL=ON
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|/usr/local/include|${LOCALBASE}/include| ; \
+		s|/usr/local/lib|${LOCALBASE}/lib| ; \
+		s|$${CMAKE_INSTALL_LIBDIR}/pkgconfig|libdata/pkgconfig| ; \
+		/$${DOCUMENTATION_FILES}/s|^|#|' ${WRKSRC}/CMakeLists.txt
+
+post-install-EXAMPLES-on:
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	@${TAR} -C ${WRKSRC}/examples --exclude "*Makefile*" -cf - . | \
+		${TAR} -C ${STAGEDIR}${EXAMPLESDIR} --unlink -xf -
+	@${CHMOD} -R a+rX ${STAGEDIR}${EXAMPLESDIR}
+
+.include <bsd.port.mk>

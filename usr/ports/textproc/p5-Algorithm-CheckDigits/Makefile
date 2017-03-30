@@ -1,0 +1,23 @@
+# Created by: Steve Wills <swills@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/p5-Algorithm-CheckDigits/Makefile 383844 2015-04-12 08:45:54Z mat $
+
+PORTNAME=	Algorithm-CheckDigits
+PORTVERSION=	1.3.0
+PORTREVISION=	1
+DISTVERSIONPREFIX=	v
+CATEGORIES=	textproc perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	swills@FreeBSD.org
+COMMENT=	Perl extension to generate and test check digits
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+TEST_DEPENDS=	p5-Probe-Perl>=0:${PORTSDIR}/sysutils/p5-Probe-Perl
+
+USES=		perl5
+USE_PERL5=	modbuild
+
+.include <bsd.port.mk>

@@ -1,0 +1,22 @@
+# Created by: Steven Kreuzer <skreuzer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/py-xlutils/Makefile 374183 2014-12-07 10:01:36Z mva $
+
+PORTNAME=	xlutils
+PORTVERSION=	1.7.0
+CATEGORIES=	textproc python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	skreuzer@FreeBSD.org
+COMMENT=	Utilities for working with Excel files that require both xlrd and xlwt
+
+LICENSE=	MIT
+
+BUILD_DEPENDS=  ${PYTHON_PKGNAMEPREFIX}xlrd>=0.7.2:${PORTSDIR}/textproc/py-xlrd \
+				${PYTHON_PKGNAMEPREFIX}xlwt>=0.7.4:${PORTSDIR}/textproc/py-xlwt
+RUN_DEPENDS:=   ${BUILD_DEPENDS}
+
+USES=		python:2
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

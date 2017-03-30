@@ -1,0 +1,23 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/p5-Cookie-Baker/Makefile 389605 2015-06-14 08:35:26Z kuriyama $
+
+PORTNAME=	Cookie-Baker
+PORTVERSION=	0.05
+CATEGORIES=	www perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	kuriyama@FreeBSD.org
+COMMENT=	Perl extension for cookie string generator/parser
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+RUN_DEPENDS=	\
+	p5-URI>0:${PORTSDIR}/net/p5-URI
+BUILD_DEPENDS=	${RUN_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	modbuild
+NO_ARCH=	YES
+
+.include <bsd.port.mk>

@@ -1,0 +1,12 @@
+#! /bin/sh
+# $FreeBSD: tags/RELEASE_10_3_0/www/zenphoto/files/pkg-deinstall.in 340719 2014-01-22 15:52:06Z mat $
+#
+
+PATH=/bin:/usr/bin:/usr/sbin
+
+if [ "$2" != "POST-DEINSTALL" ]; then
+    exit 0
+fi
+if [ -d %%WWWDIR%% ]; then
+        echo "===> You may delete '%%WWWDIR%%' if you want to really delete your gallery."
+fi

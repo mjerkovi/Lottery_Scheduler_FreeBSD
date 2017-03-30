@@ -1,0 +1,23 @@
+# Created by: haikal
+# $FreeBSD: tags/RELEASE_10_3_0/net-p2p/gnewtellium/Makefile 375378 2014-12-24 00:14:11Z bofh $
+
+PORTNAME=	gnewtellium
+PORTVERSION=	0.05b
+PORTREVISION=	5
+CATEGORIES=	net-p2p
+MASTER_SITES=	SF
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Gnutella client
+
+PORTSCOUT=	skipv:0.05	# older than current one
+
+USE_GNOME=	gtk12
+USES=		gmake
+GNU_CONFIGURE=	yes
+MAKE_ARGS=	ACLOCAL="${TRUE}" AUTOCONF="${TRUE}" AUTOMAKE="${TRUE}" \
+		AUTOHEADER="${TRUE}"
+
+PLIST_FILES=	bin/gnewtellium %%DATADIR%%/pixmaps/gnewtellium.xpm
+
+.include <bsd.port.mk>

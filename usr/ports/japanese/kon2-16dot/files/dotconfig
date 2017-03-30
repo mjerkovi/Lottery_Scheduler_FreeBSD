@@ -1,0 +1,12 @@
+# $FreeBSD: tags/RELEASE_10_3_0/japanese/kon2-16dot/files/dotconfig 342297 2014-02-02 14:09:50Z pawel $
+BINDIR	= $(S_TOPDIR)/bin
+LIBDIR	= $(S_TOPDIR)/etc
+MANDIR	= $(S_TOPDIR)/man/ja/man
+FONTDIR	= $(S_TOPDIR)/share/fonts/bdf
+CONFIG_NAME = kon.cfg
+CFLAGS  += -DCONFIG_NAME=\"$(TOPDIR)/etc/$(CONFIG_NAME)\"
+
+HAS_VGA = HAS_VGA
+FLD_MINIX = FLD_MINIX
+FLD_BDF = FLD_BDF
+HAS_MOUSE = HAS_MOUSE

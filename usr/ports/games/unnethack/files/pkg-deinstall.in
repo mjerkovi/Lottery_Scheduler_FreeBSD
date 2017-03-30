@@ -1,0 +1,10 @@
+#!/bin/sh
+# $FreeBSD: tags/RELEASE_10_3_0/games/unnethack/files/pkg-deinstall.in 340719 2014-01-22 15:52:06Z mat $
+
+if [ "$2" = "POST-DEINSTALL" -a -d "%%VARDIR%%" ]; then
+	echo ""
+	echo "    If unnethack is being removed permanently, please remove"
+	echo ""
+        echo "        %%VARDIR%%"
+	echo ""
+fi

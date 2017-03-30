@@ -1,0 +1,27 @@
+# Created by: Oleg Ginzburg <olevole@olevole.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/ioping/Makefile 399954 2015-10-22 10:10:38Z danfe $
+
+PORTNAME=	ioping
+PORTVERSION=	0.9
+CATEGORIES=	sysutils
+
+MAINTAINER=	olevole@olevole.ru
+COMMENT=	Simple disk I/0 latency measuring tool
+
+LICENSE=	GPLv3
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	koct9i
+GH_TAGNAME=	6e41a3c
+
+PLIST_FILES=	bin/ioping man/man1/ioping.1.gz
+
+do-build:
+	(cd ${WRKSRC} && ${CC} ${CFLAGS} -DVERSION=${PORTVERSION} ioping.c \
+		-o ioping ${LDFLAGS} -lm)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/ioping ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/ioping.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+
+.include <bsd.port.mk>

@@ -1,0 +1,54 @@
+--- doc/barman.5.orig	2015-09-25 15:06:25 UTC
++++ doc/barman.5
+@@ -8,7 +8,7 @@ The system\-level Barman configuration f
+ .IP
+ .nf
+ \f[C]
+-/etc/barman.conf
++/usr/local/etc/barman.conf
+ \f[]
+ .fi
+ .PP
+@@ -16,7 +16,7 @@ or
+ .IP
+ .nf
+ \f[C]
+-/etc/barman/barman.conf
++/usr/local/etc/barman/barman.conf
+ \f[]
+ .fi
+ .PP
+@@ -42,9 +42,9 @@ configurations.
+ If the value of \f[C]configuration_files_directory\f[] is a directory,
+ Barman reads all files with \f[C]\&.conf\f[] extension that exist in
+ that folder.
+-For example, if you set it to \f[C]/etc/barman.d\f[], you can specify
++For example, if you set it to \f[C]/usr/local/etc/barman.d\f[], you can specify
+ your PostgreSQL servers placing each section in a separate
+-\f[C]\&.conf\f[] file inside the \f[C]/etc/barman.d\f[] folder.
++\f[C]\&.conf\f[] file inside the \f[C]/usr/local/etc/barman.d\f[] folder.
+ .SH OPTIONS
+ .TP
+ .B active
+@@ -445,7 +445,7 @@ Here is an example of configuration file
+ \f[C]
+ [barman]
+ ;\ Main\ directory
+-barman_home\ =\ /var/lib/barman
++barman_home\ =\ /var/barman
+ 
+ ;\ System\ user
+ barman_user\ =\ barman
+@@ -465,10 +465,10 @@ reuse_backup\ =\ link
+ description\ =\ \ "Main\ PostgreSQL\ Database"
+ 
+ ;\ SSH\ options
+-ssh_command\ =\ ssh\ postgres\@pg
++ssh_command\ =\ ssh\ pgsql\@pg
+ 
+ ;\ PostgreSQL\ connection\ string
+-conninfo\ =\ host=pg\ user=postgres
++conninfo\ =\ host=pg\ user=pgsql\ db=postgres
+ 
+ ;\ Minimum\ number\ of\ required\ backups\ (redundancy)
+ minimum_redundancy\ =\ 1

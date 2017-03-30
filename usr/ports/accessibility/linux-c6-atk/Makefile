@@ -1,0 +1,21 @@
+# Created by: Artyom Mirgorodskiy <artyom.mirgorodsky@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/accessibility/linux-c6-atk/Makefile 409078 2016-02-18 00:13:34Z des $
+
+PORTNAME=	atk
+PORTVERSION=	1.30.0
+CATEGORIES=	accessibility linux
+
+MAINTAINER=	emulation@FreeBSD.org
+COMMENT=	Accessibility Toolkit, Linux/i386 binary (Linux CentOS ${LINUX_DIST_VER})
+
+LICENSE=	GPLv3
+
+CONFLICTS=	linux-atk-[0-9]* linux-f10-atk-[0-9]*
+
+ONLY_FOR_ARCHS=	i386 amd64
+USE_LINUX=	c6
+RPMVERSION=	1.el6
+USE_LINUX_RPM=	yes
+USE_LDCONFIG=	yes
+
+.include <bsd.port.mk>

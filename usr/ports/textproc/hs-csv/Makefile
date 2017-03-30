@@ -1,0 +1,17 @@
+# Created by: Kaspars Bankovskis <kaspars@bankovskis.lv>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/hs-csv/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	csv
+PORTVERSION=	0.1.2
+PORTREVISION=	14
+CATEGORIES=	textproc haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	CSV library for Haskell
+
+LICENSE=	MIT
+
+USE_CABAL=	parsec
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

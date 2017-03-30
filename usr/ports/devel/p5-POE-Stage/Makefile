@@ -1,0 +1,27 @@
+# Created by: Sergey Skvortsov <skv@protey.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-POE-Stage/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	POE-Stage
+PORTVERSION=	0.0600
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+DISTVERSION=	0.060
+PORTREVISION=	1
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Base class for formalized POE components
+
+BUILD_DEPENDS=	p5-POE>=1.351:${PORTSDIR}/devel/p5-POE \
+		p5-PadWalker>=1.93:${PORTSDIR}/devel/p5-PadWalker \
+		p5-Net-DNS>=0.68:${PORTSDIR}/dns/p5-Net-DNS \
+		p5-Devel-LexAlias>=0.04:${PORTSDIR}/devel/p5-Devel-LexAlias \
+		p5-Lexical-Persistence>=1.020:${PORTSDIR}/devel/p5-Lexical-Persistence \
+		p5-Attribute-Handlers>=0.93:${PORTSDIR}/devel/p5-Attribute-Handlers
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

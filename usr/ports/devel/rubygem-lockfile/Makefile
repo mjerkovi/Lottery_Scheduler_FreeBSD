@@ -1,0 +1,21 @@
+# Created by: Dennis Herrmann <adox@mcx2.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-lockfile/Makefile 389365 2015-06-13 13:51:40Z sunpoet $
+
+PORTNAME=	lockfile
+PORTVERSION=	2.1.3
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Ruby library for creating NFS safe lockfiles
+
+LICENSE=	RUBY
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/rlock
+
+.include <bsd.port.mk>

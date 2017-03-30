@@ -1,0 +1,20 @@
+# Created by: Michael Moll <kvedulv@kvedulv.de>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-table_print/Makefile 391796 2015-07-12 16:07:51Z sunpoet $
+
+PORTNAME=	table_print
+PORTVERSION=	1.5.4
+CATEGORIES=	devel ruby
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Turn objects into formatted columns
+
+LICENSE=	MIT
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

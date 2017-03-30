@@ -1,0 +1,39 @@
+# Created by: Ade Lovett <ade@lovett.com>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/gdk-pixbuf/Makefile 393733 2015-08-08 14:23:26Z kwm $
+#    $MCom: ports/graphics/gdk-pixbuf/Makefile,v 1.2 2006/09/10 00:51:10 mezz Exp $
+
+PORTNAME=	gdk-pixbuf
+PORTVERSION=	0.22.0
+PORTREVISION=	17
+CATEGORIES=	graphics
+MASTER_SITES=	GNOME
+DISTNAME=	gdk-pixbuf-${PORTVERSION}
+DIST_SUBDIR=	gnome
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	Graphic library for GTK+
+
+LICENSE=	LGPL20 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING.LIB
+
+LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png \
+		libtiff.so:${PORTSDIR}/graphics/tiff
+
+PORTSCOUT=	ignore:1
+
+USES=		cpe gmake jpeg libtool pathfix tar:bzip2
+CPE_VENDOR=	gnome
+USE_XORG=	xt xi x11
+USE_GNOME=	gtk12
+USE_LDCONFIG=	yes
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--with-html-dir=${PREFIX}/share/doc \
+		--disable-gtk-doc
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${STAGEDIR}${PREFIX}/lib -L${LOCALBASE}/lib
+
+post-patch:
+	@${REINPLACE_CMD} '/confexecdir =/s/=.*/= $$(sysconfdir)/' \
+		${WRKSRC}/Makefile.in
+
+.include <bsd.port.mk>

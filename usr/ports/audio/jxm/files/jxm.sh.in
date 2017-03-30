@@ -1,0 +1,5 @@
+#! /bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/audio/jxm/files/jxm.sh.in 340851 2014-01-23 19:55:14Z mat $
+
+JAVA_VERSION="%%JAVA_VERSION%%" JAVA_OS="native" "%%LOCALBASE%%/bin/java" -jar "%%JAVAJARDIR%%/jxm.jar" "$@"

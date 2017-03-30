@@ -1,0 +1,22 @@
+# Created by: Wen Heping<wenheping@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-sequel/Makefile 402966 2015-12-04 12:34:59Z sunpoet $
+
+PORTNAME=	sequel
+PORTVERSION=	4.29.0
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Database Toolkit for Ruby
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/MIT-LICENSE
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/sequel
+
+.include <bsd.port.mk>

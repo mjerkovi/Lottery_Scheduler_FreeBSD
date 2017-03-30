@@ -1,0 +1,32 @@
+# Created by: Stephen Hurd <shurd@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/comms/fllog/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	fllog
+PORTVERSION=	1.2.0
+CATEGORIES=	comms hamradio
+MASTER_SITES=	http://www.w1hkj.com/downloads/fllog/ \
+		LOCAL/shurd
+
+MAINTAINER=	hamradio@FreeBSD.org
+COMMENT=	Ham Radio logging program
+
+LICENSE=	GPLv2
+
+LIB_DEPENDS=	libfltk.so:${PORTSDIR}/x11-toolkits/fltk
+
+USES=		gmake
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV=	FLTK_CONFIG="${LOCALBASE}/bin/fltk-config"
+
+OPTIONS_DEFINE=	NATIVE_OPT
+
+NATIVE_OPT_DESC=	Enable Native Optimizations
+
+PLIST_FILES=	bin/fllog \
+		share/applications/fllog.desktop \
+		share/pixmaps/fllog.xpm
+
+NATIVE_OPT_CONFIGURE_ON=	--enable-optimizations=native
+NATIVE_OPT_CONFIGURE_OFF=	--enable-optimizations=none
+
+.include <bsd.port.mk>

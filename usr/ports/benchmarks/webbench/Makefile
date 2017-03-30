@@ -1,0 +1,26 @@
+# Created by: Radim Kolar
+# $FreeBSD: tags/RELEASE_10_3_0/benchmarks/webbench/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	webbench
+PORTVERSION=	1.5
+CATEGORIES=	benchmarks www
+MASTER_SITES=	SUNSITE/apps/www/servers
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Simple forking web benchmark
+
+MAKE_ARGS+=	CFLAGS="${CPPFLAGS} ${CFLAGS}"
+
+PORTDOCS=	copyright changelog
+
+PLIST_FILES=	bin/webbench \
+		man/man1/webbench.1.gz
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/webbench ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/webbench.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/debian/copyright ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/debian/changelog ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

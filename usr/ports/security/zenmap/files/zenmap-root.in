@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/security/zenmap/files/zenmap-root.in 405321 2016-01-05 23:29:49Z amdmi3 $
+#
+
+exec %%DATADIR%%/su-to-zenmap.sh zenmap

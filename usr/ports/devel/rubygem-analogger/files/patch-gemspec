@@ -1,0 +1,11 @@
+--- analogger.gemspec.orig	2014-11-29 13:26:51 UTC
++++ analogger.gemspec
+@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
+   s.email = "wyhaines@gmail.com"
+   s.executables = ["analogger"]
+   s.extra_rdoc_files = ["README"]
+-  s.files = ["INSTALL", "README", "analogger.gemspec", "bin", "bin/analogger", "doc", "external", "external/package.rb", "external/test_support.rb", "setup.rb", "src", "src/swiftcore", "src/swiftcore/Analogger", "src/swiftcore/Analogger.rb", "src/swiftcore/Analogger/Client.rb", "test", "test/TC_Analogger.rb", "test/analogger.cnf", "test/analogger2.cnf", "test/log", "test/tc_template.rb"]
++  s.files = ["INSTALL", "README", "analogger.gemspec", "bin", "bin/analogger", "external", "external/package.rb", "external/test_support.rb", "setup.rb", "src", "src/swiftcore", "src/swiftcore/Analogger", "src/swiftcore/Analogger.rb", "src/swiftcore/Analogger/Client.rb", "test", "test/TC_Analogger.rb", "test/analogger.cnf", "test/analogger2.cnf", "test/tc_template.rb"]
+   s.homepage = "http://analogger.swiftcore.org/"
+   s.rdoc_options = ["--title", "Swiftcore::Analogger", "--main", "README", "--line-numbers"]
+   s.required_ruby_version = Gem::Requirement.new("> 0.0.0")

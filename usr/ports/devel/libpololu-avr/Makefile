@@ -1,0 +1,25 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libpololu-avr/Makefile 397538 2015-09-22 13:48:20Z jonathan $
+
+PORTNAME=	libpololu-avr
+PORTVERSION=	140513
+CATEGORIES=	devel
+MASTER_SITES=	http://www.pololu.com/file/download/
+EXTRACT_SUFX=	.zip?file_id=0J757
+
+MAINTAINER=	jonathan@FreeBSD.org
+COMMENT=	Support libraries for Pololu robots
+
+LICENSE=	MIT
+
+BUILD_DEPENDS=	avr-gcc:${PORTSDIR}/devel/avr-gcc \
+		${LOCALBASE}/avr/lib/libc.a:${PORTSDIR}/devel/avr-libc
+
+USES=		gmake zip
+
+PREFIX=		${LOCALBASE}/avr
+
+WRKSRC=		${WRKDIR}/${PORTNAME}
+MAKE_ENV=	LIB=${STAGEDIR}${PREFIX}/lib
+ALL_TARGET=	library_files
+
+.include <bsd.port.mk>

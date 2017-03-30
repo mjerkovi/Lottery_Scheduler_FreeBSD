@@ -1,0 +1,36 @@
+# Created by: Dmitry Marakasov <amdmi3@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/autopano-sift-c/Makefile 390310 2015-06-22 18:33:20Z antoine $
+
+PORTNAME=	autopano-sift-C
+PORTVERSION=	2.5.1
+PORTREVISION=	5
+CATEGORIES=	graphics
+MASTER_SITES=	SF/hugin/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	amdmi3@FreeBSD.org
+COMMENT=	Automatic panorama control point generation tool, C port
+
+LIB_DEPENDS=	libtiff.so:${PORTSDIR}/graphics/tiff \
+		libpng.so:${PORTSDIR}/graphics/png \
+		libpano13.so:${PORTSDIR}/graphics/libpano13
+
+RESTRICTED=	May be covered by patents
+
+CONFLICTS=	autopano-sift-[0-9]*
+
+USE_GNOME=	libxml2
+USES=		cmake jpeg
+
+PORTDOCS=	*
+
+.include <bsd.port.options.mk>
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|share/man|man|' -e '/set(all_libs/s/$$/ m/' \
+		${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.1ST ${STAGEDIR}${DOCSDIR}/
+
+.include <bsd.port.mk>

@@ -1,0 +1,35 @@
+# Created by: Rusmir Dusko <nemysis@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/loook/Makefile 374183 2014-12-07 10:01:36Z mva $
+
+PORTNAME=	loook
+PORTVERSION=	0.6.5
+CATEGORIES=	textproc
+MASTER_SITES=	http://www.danielnaber.de/loook/
+DISTNAME=	${PORTNAME}
+DIST_SUBDIR=	python
+
+MAINTAINER=	koalative@gmail.com
+COMMENT=	Simple Python tool that search in LibreOffice/OpenOffice files
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}tkinter>=0:${PORTSDIR}/x11-toolkits/py-tkinter \
+		${PYTHON_PKGNAMEPREFIX}iniparse>=0:${PORTSDIR}/devel/py-iniparse
+
+WRKSRC=		${WRKDIR}
+
+USES=		python:2 zip
+NO_BUILD=	yes
+
+PLIST_FILES=	bin/${PORTNAME}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/usr/bin/python|${PYTHON_CMD}|' \
+		${WRKSRC}/${PORTNAME}.py
+	@(cd ${WRKSRC} ; ${RM} *.py.bak)
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME}.py \
+		${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+
+.include <bsd.port.mk>

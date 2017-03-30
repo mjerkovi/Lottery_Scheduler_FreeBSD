@@ -1,0 +1,33 @@
+# $FreeBSD: tags/RELEASE_10_3_0/ports-mgmt/portrac/Makefile 407034 2016-01-23 15:30:34Z rakuco $
+
+PORTNAME=	portrac
+PORTVERSION=	0.5
+CATEGORIES=	ports-mgmt
+MASTER_SITES=	http://e-soul.org/distfiles/ \
+		http://home.e-soul.org/~mgp/distfiles/
+
+MAINTAINER=	Mario.G.Pavlov@gmail.com
+COMMENT=	Simple GUI tool for tracking port updates
+
+LICENSE=	BSD2CLAUSE
+
+BROKEN_sparc64=	fails to compile: error in C++ code
+
+PLIST_FILES=	bin/portrac \
+		share/portrac/portrac.png \
+		share/portrac/up-to-date.png \
+		share/portrac/updates-available.png
+
+# Unhide std::to_string() to fix build with GCC (ports/193528)
+CXXFLAGS=	-D_GLIBCXX_USE_C99
+
+USES=		compiler:c++11-lib qmake tar:bzip2
+USE_CXXSTD=	c++11
+USE_QT5=	widgets buildtools_build
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKDIR}/${DISTNAME}/portrac ${STAGEDIR}${PREFIX}/bin && \
+		${MKDIR} ${STAGEDIR}${DATADIR} && \
+		${INSTALL_DATA} ${WRKDIR}/${DISTNAME}/*.png ${STAGEDIR}${DATADIR}
+
+.include <bsd.port.mk>

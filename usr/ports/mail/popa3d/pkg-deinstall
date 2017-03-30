@@ -1,0 +1,10 @@
+# $FreeBSD: tags/RELEASE_10_3_0/mail/popa3d/pkg-deinstall 340719 2014-01-22 15:52:06Z mat $
+#
+
+if [ "$2" != "POST-DEINSTALL" ]; then
+    exit 0
+fi
+
+PATH=/bin
+
+echo "Remember to remove popa3d from /etc/inetd.conf and restart inetd"

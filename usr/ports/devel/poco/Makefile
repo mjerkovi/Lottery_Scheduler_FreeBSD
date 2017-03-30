@@ -1,0 +1,34 @@
+# Created by: Wes Peters <wes@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/poco/Makefile 409532 2016-02-25 16:10:24Z rakuco $
+
+PORTNAME=	poco
+DISTVERSION=	1.6.0
+CATEGORIES=	devel net
+MASTER_SITES=	http://pocoproject.org/releases/${PORTNAME}-${PORTVERSION}/
+
+MAINTAINER=	wes@FreeBSD.org
+COMMENT=	C++ libraries with a network/internet focus
+
+LICENSE=	BSL
+
+CONFLICTS=	poco-ssl-[0-9]*
+
+USES=		gmake tar:bzip2
+ALL_TARGET=	poco
+HAS_CONFIGURE=	yes
+CONFIGURE_ARGS=	--prefix=${PREFIX} --config=FreeBSD
+USE_LDCONFIG=	yes
+
+OPTIONS_DEFINE=	TEST SAMPLES
+SAMPLES_DESC=	Build sample programs
+
+TEST_CONFIGURE_OFF=	--no-tests
+SAMPLES_CONFIGURE_OFF=	--no-samples
+
+post-patch:
+	@${REINPLACE_CMD} -e 's/ =/ ?=/' ${WRKSRC}/build/config/FreeBSD
+
+post-install:
+	@${RM} -f ${STAGEDIR}${PREFIX}/include/Poco/._Version.h
+
+.include <bsd.port.mk>

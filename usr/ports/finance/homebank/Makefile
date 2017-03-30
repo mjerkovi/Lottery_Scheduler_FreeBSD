@@ -1,0 +1,36 @@
+# $FreeBSD: tags/RELEASE_10_3_0/finance/homebank/Makefile 403564 2015-12-11 22:15:58Z pawel $
+
+PORTNAME=	homebank
+PORTVERSION=	5.0.6
+CATEGORIES=	finance
+MASTER_SITES=	http://homebank.free.fr/public/
+
+MAINTAINER=	pawel@FreeBSD.org
+COMMENT=	Free, easy, personal accounting for everyone
+
+LICENSE=	GPLv2
+
+LIB_DEPENDS=	libosp.so:${PORTSDIR}/textproc/opensp
+
+GNU_CONFIGURE=	yes
+USES=		desktop-file-utils gettext gmake pkgconfig shared-mime-info
+USE_GNOME=	gtk30 intltool
+INSTALLS_ICONS=	yes
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+PORTDOCS=	AUTHORS ChangeLog NEWS README
+
+OPTIONS_DEFINE=	DOCS OFX
+OFX_DESC=	OFX file format support
+OPTIONS_DEFAULT=OFX
+
+OFX_CONFIGURE_WITH=	ofx
+OFX_LIB_DEPENDS=	libofx.so:${PORTSDIR}/finance/libofx
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

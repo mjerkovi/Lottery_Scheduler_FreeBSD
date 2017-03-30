@@ -1,0 +1,31 @@
+# Created by: Emanuel Haupt <ehaupt@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net-mgmt/nagstamon/Makefile 384538 2015-04-22 22:59:50Z amdmi3 $
+
+PORTNAME=	nagstamon
+PORTVERSION=	1.0
+CATEGORIES=	net-mgmt python
+MASTER_SITES=	https://nagstamon.ifw-dresden.de/files-nagstamon/stable/ \
+		LOCAL/ehaupt
+DISTNAME=	Nagstamon-${PORTVERSION}
+
+MAINTAINER=	ehaupt@FreeBSD.org
+COMMENT=	Nagios status monitor for your desktop
+
+LICENSE=	GPLv2
+
+RUN_DEPENDS=	sox:${PORTSDIR}/audio/sox
+
+USES=		cpe python:2
+CPE_VENDOR=	henri_wahl
+USE_PYTHON=	distutils
+USE_GNOME=	pygtk2 librsvg2
+
+WRKSRC=		${WRKDIR}/Nagstamon
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|share/\(man/man1\)|\1|' ${WRKSRC}/setup.py
+
+post-install:
+	@${LN} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}.py ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+
+.include <bsd.port.mk>

@@ -1,0 +1,28 @@
+# Created by: Stephen Montgomery-Smith <stephen@math.missouri.edu>
+# $FreeBSD: tags/RELEASE_10_3_0/math/octave-forge-fpl/Makefile 394548 2015-08-18 02:57:04Z stephen $
+
+PORTNAME=	octave-forge-fpl
+PORTVERSION=	1.3.5
+CATEGORIES=	math
+
+MAINTAINER=	stephen@FreeBSD.org
+COMMENT=	Octave-forge package ${OCTAVE_PKGNAME}
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKDIR}/${OCTSRC}/COPYING
+
+# OCTSRC is the name of the directory of the package.
+# It is usually ${OCTAVE_PKGNAME} or ${DISTNAME}.
+OCTSRC=		${OCTAVE_PKGNAME}
+
+RUN_DEPENDS+=	dx:${PORTSDIR}/graphics/opendx
+
+.include "${.CURDIR}/../../Mk/bsd.octave.mk"
+
+do-build:
+	@${DO_NADA}
+
+post-build:
+	cd ${WRKDIR} && ${TAR} cfz ${DISTNAME}.tar.gz ${OCTSRC}
+
+.include <bsd.port.mk>

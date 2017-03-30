@@ -1,0 +1,14 @@
+#
+# R32 -- Generic kernel configuration file with modifications for rescue.
+#
+# $FreeBSD: releng/10.3/tools/tools/nanobsd/rescue/R32 274561 2014-11-16 01:29:18Z imp $
+
+include GENERIC
+
+ident	R32
+
+nooptions	INVARIANTS
+nooptions	INVARIANT_SUPPORT
+nooptions	WITNESS
+nooptions	WITNESS_SKIPSPIN
+nooptions	MALLOC_DEBUG_MAXZONES

@@ -1,0 +1,13 @@
+# $FreeBSD: tags/RELEASE_10_3_0/java/openjdk6/Makefile.icedtea 340870 2014-01-23 23:34:07Z jkim $
+
+_PATCHES=
+
+.if ${PORT_OPTIONS:MICEDTEA}
+_PATCHES+= \
+	applet_hole.patch \
+	jpegclasses.patch
+.endif
+
+.for p in ${_PATCHES}
+ICEDTEA_PATCHES+=	${FILESDIR}/icedtea/${p}
+.endfor

@@ -1,0 +1,6 @@
+%%ELISPDIR%%/gitattributes-mode.el
+%%ELISPDIR%%/gitattributes-mode.elc
+%%ELISPDIR%%/gitconfig-mode.el
+%%ELISPDIR%%/gitconfig-mode.elc
+%%ELISPDIR%%/gitignore-mode.el
+%%ELISPDIR%%/gitignore-mode.elc

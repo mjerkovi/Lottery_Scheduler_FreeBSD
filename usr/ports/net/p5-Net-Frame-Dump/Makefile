@@ -1,0 +1,23 @@
+# Created by: Cheng-Lung Sung <clsung@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-Net-Frame-Dump/Makefile 376253 2015-01-04 17:12:14Z sunpoet $
+
+PORTNAME=	Net-Frame-Dump
+PORTVERSION=	1.14
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Tcpdump like perl implementation
+
+LICENSE=	ART10
+
+BUILD_DEPENDS=	p5-Class-Gomor>=1.00:${PORTSDIR}/devel/p5-Class-Gomor \
+		p5-Net-Frame>=0:${PORTSDIR}/net/p5-Net-Frame \
+    		p5-Net-Pcap>=0.12:${PORTSDIR}/net/p5-Net-Pcap
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

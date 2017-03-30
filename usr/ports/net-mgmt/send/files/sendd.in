@@ -1,0 +1,14 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net-mgmt/send/files/sendd.in 365494 2014-08-20 17:56:58Z hrs $
+#
+# PROVIDE sendd
+# REQUIRE NETWORKING
+
+. /etc/rc.subr
+
+name=sendd
+rcvar="${name}_enable"
+command="%%PREFIX%%/sbin/$name"
+required_files="%%PREFIX%%/etc/${name}/${name}.conf"
+
+load_rc_config $name
+run_rc_command "$1"

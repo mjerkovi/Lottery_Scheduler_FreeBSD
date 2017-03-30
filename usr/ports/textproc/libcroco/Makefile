@@ -1,0 +1,23 @@
+# Created by: Adam Weinberger <adamw@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/libcroco/Makefile 398388 2015-10-01 21:34:54Z amdmi3 $
+
+PORTNAME=	libcroco
+PORTVERSION=	0.6.8
+PORTREVISION=	2
+CATEGORIES=	textproc gnome
+MASTER_SITES=	GNOME
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	CSS2 parsing library
+
+LICENSE=	LGPL21
+
+GNU_CONFIGURE=	yes
+USES=		gettext gmake libtool:keepla pathfix pkgconfig tar:xz
+USE_LDCONFIG=	yes
+USE_GNOME=	glib20 libxml2
+CONFIGURE_ARGS=	--disable-gtk-doc-html
+
+PLIST_SUB=	VERSION="0.6"
+
+.include <bsd.port.mk>

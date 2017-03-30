@@ -1,0 +1,35 @@
+# Created by: Sergey Skvortsov <skv@protey.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/math/diehard/Makefile 401208 2015-11-10 20:24:22Z amdmi3 $
+
+PORTNAME=	diehard
+PORTVERSION=	0.1
+CATEGORIES=	math
+MASTER_SITES=	http://stat.fsu.edu/pub/diehard/
+DISTNAME=	die-c
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Marsaglia's Diehard Battery of Tests of Randomness
+
+ALL_TARGET=	diehard
+WRKSRC=		${WRKDIR}/die.c
+PLIST_SUB=	DOCSDIR="share/doc/${PORTNAME}" DATADIR="share/${PORTNAME}"
+
+DOCSLIST=	NOTES readme
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|operm5\.cov|${DATADIR}/operm5.cov|g;' \
+		${WRKSRC}/cdoperm5.c
+	@${REINPLACE_CMD} -e 's|CC=gcc||g;' ${WRKSRC}/Makefile
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/diehard ${STAGEDIR}${PREFIX}/bin
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/operm5.cov ${STAGEDIR}${DATADIR}
+
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${DOCSLIST:S!^!${WRKSRC}/!} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,23 @@
+# Created by: Aaron Dalton <aaron@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/p5-Petal/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Petal
+PORTVERSION=	2.23
+PORTREVISION=	1
+CATEGORIES=	textproc perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:NINE
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Perl Template Attribute Language - TAL for Perl!
+
+BUILD_DEPENDS=	p5-MKDoc-XML>=0.72:${PORTSDIR}/textproc/p5-MKDoc-XML
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Locale-Maketext-Gettext>=0:${PORTSDIR}/devel/p5-Locale-Maketext-Gettext \
+		p5-URI>=0:${PORTSDIR}/net/p5-URI
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

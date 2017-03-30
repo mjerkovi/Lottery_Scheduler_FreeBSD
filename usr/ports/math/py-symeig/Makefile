@@ -1,0 +1,37 @@
+# Created by: Li-Lun Wang <llwang@infor.org>
+# $FreeBSD: tags/RELEASE_10_3_0/math/py-symeig/Makefile 394508 2015-08-17 14:20:40Z mat $
+
+PORTNAME=	symeig
+PORTVERSION=	1.5
+PORTREVISION=	1
+CATEGORIES=	math python
+MASTER_SITES=	SF/mdp-toolkit/mdp-toolkit/2.4
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Symmetrical eigenvalue routines for NumPy
+
+LICENSE=	BSD3CLAUSE
+
+BUILD_DEPENDS+=	${PYNUMPY}
+RUN_DEPENDS+=	${PYNUMPY}
+
+USES=		fortran python:2
+USE_PYTHON=	distutils autoplist
+
+LDFLAGS+=	-shared
+
+OPTIONS_DEFINE=	ATLAS
+ATLAS_DESC=	Use optimized blas library
+
+ATLAS_LIB_DEPENDS=	libatlas.so:${PORTSDIR}/math/atlas
+ATLAS_LIB_DEPENDS_OFF=	libblas.so:${PORTSDIR}/math/blas \
+			liblapack.so:${PORTSDIR}/math/lapack
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MATLAS} && !exists(${LOCALBASE}/lib/libalapack.a)
+IGNORE=		atlas needs to be built with WITH_STATIC for symeig to function properly
+.endif
+
+.include <bsd.port.mk>

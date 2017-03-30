@@ -1,0 +1,22 @@
+# Created by: Sergey Skvortsov <skv@protey.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-POE-API-Hooks/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	POE-API-Hooks
+PORTVERSION=	1.0800
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+DISTNAME=	${PORTNAME}-${PORTVERSION:C/0+$//}
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Implement lightweight hooks into POE
+
+BUILD_DEPENDS=	p5-POE>=0:${PORTSDIR}/devel/p5-POE \
+		p5-Params-Validate>=0:${PORTSDIR}/devel/p5-Params-Validate
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

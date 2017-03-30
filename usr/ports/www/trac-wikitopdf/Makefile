@@ -1,0 +1,22 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/trac-wikitopdf/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	wikitopdf
+PORTVERSION=	2.2.2
+PORTREVISION=	6
+CATEGORIES=	www devel python
+MASTER_SITES=	LOCAL/brooks
+PKGNAMEPREFIX=	trac-
+DISTNAME=	${PORTNAME}plugin-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Plugin to generate PDF documents from the Wiki
+
+RUN_DEPENDS+=	htmldoc:${PORTSDIR}/textproc/htmldoc \
+		tracd:${PORTSDIR}/www/trac
+
+USES=		python:2
+USE_PYTHON=	distutils autoplist
+WRKSRC=		${WRKDIR}/${PORTNAME}plugin
+
+.include "${.CURDIR}/../../www/trac/plugin.mk"
+.include <bsd.port.mk>

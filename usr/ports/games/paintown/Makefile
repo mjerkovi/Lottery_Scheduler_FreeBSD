@@ -1,0 +1,36 @@
+# Created by: Bernhard Froehlich <decke@bluelife.at>
+# $FreeBSD: tags/RELEASE_10_3_0/games/paintown/Makefile 383922 2015-04-13 14:24:51Z jbeich $
+
+PORTNAME=	paintown
+PORTVERSION=	3.6.0
+PORTREVISION=	7
+CATEGORIES=	games
+MASTER_SITES=	SF
+
+MAINTAINER=	decke@FreeBSD.org
+COMMENT=	Fighting game similar to Streets of Rage and TMNT
+
+LICENSE=	BSD3CLAUSE
+
+LIB_DEPENDS=	liballeg.so:${PORTSDIR}/devel/allegro \
+		libpng.so:${PORTSDIR}/graphics/png \
+		libfreetype.so:${PORTSDIR}/print/freetype2
+
+USES=		dos2unix scons tar:bzip2
+USE_SDL=	yes
+INSTALLS_ICONS=	yes
+DOS2UNIX_REGEX=	.*\.(c|cpp|h)
+
+DESKTOP_ENTRIES="Paintown" "Fighting game similar to Streets of Rage and TMNT" \
+		"${LOCALBASE}/share/icons/hicolor/32x32/apps/paintown.png" \
+		"paintown" "Game;ActionGame;" false
+
+do-install:
+	${MKDIR} ${STAGEDIR}${DATADIR}
+	(cd ${WRKSRC} && ${SETENV} DESTDIR=${STAGEDIR} ./install.sh -d ${DATADIR} -b ${PREFIX}/bin)
+	${MKDIR} ${STAGEDIR}${LOCALBASE}/share/icons/hicolor/32x32/apps
+	${INSTALL_DATA} ${WRKSRC}/misc/icon.png \
+		${STAGEDIR}${LOCALBASE}/share/icons/hicolor/32x32/apps/paintown.png
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/paintown/paintown-bin
+
+.include <bsd.port.mk>

@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/net/openafs/files/afsserver.in 340872 2014-01-24 00:14:07Z mat $
+#
+# PROVIDE: afsserver
+# REQUIRE: NETWORKING
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# afsserver_enable (bool):	Set to NO by default.
+#				Set it to YES to enable AFS server activities.
+
+. /etc/rc.subr
+
+name="afsserver"
+rcvar="afsserver_enable"
+
+command="%%PREFIX%%/sbin/bosserver"
+
+stop_precmd="afsserver_prestop"
+
+vicedir="%%PREFIX%%/etc/openafs/server"
+required_files="${vicedir}/CellServDB ${vicedir}/KeyFile ${vicedir}/ThisCell ${vicedir}/UserList"
+
+load_rc_config "$name"
+
+: ${afsserver_enable:="NO"}
+
+afsserver_prestop()
+{
+	%%PREFIX%%/bin/bos shutdown -localauth -server localhost
+}
+
+run_rc_command "$1"

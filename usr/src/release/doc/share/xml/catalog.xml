@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- $FreeBSD: releng/10.3/release/doc/share/xml/catalog.xml 297239 2016-03-24 19:50:12Z hrs $ -->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <rewriteSystem systemIdStartString="http://www.FreeBSD.org/release/XML/"
+                 rewritePrefix="../../"/>
+  <rewriteURI uriStartString="http://www.FreeBSD.org/release/XML/"
+              rewritePrefix="../../"/>
+
+  <public publicId="-//FreeBSD//ENTITIES Release Specification//EN" uri="release.ent"/>
+  <public publicId="-//FreeBSD//ENTITIES Sponsor Specification//EN" uri="sponsor.ent"/>
+  <public publicId="-//FreeBSD//ENTITIES Vendor Specification//EN" uri="vendor.ent"/>
+  <!-- XXHRS temporarily defined -->
+  <public publicId="-//FreeBSD//ENTITIES Security Advisory List//EN" uri="security.xml"/>
+  <public publicId="-//FreeBSD//ENTITIES Errata List//EN" uri="errata.xml"/>
+  <public publicId="-//FreeBSD//ENTITIES Auto Generated Device Lists//EN" uri="dev-auto.ent"/>
+</catalog>

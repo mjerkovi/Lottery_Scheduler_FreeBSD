@@ -1,0 +1,29 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-MetaCPAN-Client/Makefile 376131 2015-01-03 17:13:15Z sunpoet $
+
+PORTNAME=	MetaCPAN-Client
+PORTVERSION=	1.008001
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:XSAWYERX
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Comprehensive, DWIM-featured client to the MetaCPAN API
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-JSON-MaybeXS>=0:${PORTSDIR}/converters/p5-JSON-MaybeXS \
+		p5-Moo>=0:${PORTSDIR}/devel/p5-Moo \
+		p5-Safe-Isa>=0:${PORTSDIR}/devel/p5-Safe-Isa \
+		p5-Search-Elasticsearch>=1.10:${PORTSDIR}/textproc/p5-Search-Elasticsearch \
+		p5-Try-Tiny>=0:${PORTSDIR}/lang/p5-Try-Tiny
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Fatal>=0:${PORTSDIR}/devel/p5-Test-Fatal \
+		p5-Test-Requires>=0:${PORTSDIR}/devel/p5-Test-Requires
+
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

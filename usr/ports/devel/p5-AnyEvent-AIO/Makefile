@@ -1,0 +1,20 @@
+# Created by: Anton Berezin <tobez@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-AnyEvent-AIO/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	AnyEvent-AIO
+PORTVERSION=	1.1
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	tobez@FreeBSD.org
+COMMENT=	Asynchronous file and directory I/O with AnyEvent
+
+BUILD_DEPENDS=	p5-AnyEvent>=3.4:${PORTSDIR}/devel/p5-AnyEvent \
+		p5-IO-AIO>=3.0:${PORTSDIR}/devel/p5-IO-AIO
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

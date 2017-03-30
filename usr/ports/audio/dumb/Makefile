@@ -1,0 +1,39 @@
+# Created by: Andreas Kohn <andreas@syndrom23.de>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/dumb/Makefile 394778 2015-08-19 13:29:59Z mat $
+
+PORTNAME=	dumb
+PORTVERSION=	0.9.3
+PORTREVISION=	3
+CATEGORIES=	audio
+MASTER_SITES=	SF
+
+MAINTAINER=	amdmi3@FreeBSD.org
+COMMENT=	IT, XM, S3M, and MOD player library
+
+USES=		gmake
+
+OPTIONS_DEFINE=	ALLEGRO
+OPTIONS_SUB=	yes
+ALLEGRO_DESC=	Enable allegro support
+
+ALLEGRO_LIB_DEPENDS=	liballeg.so:${PORTSDIR}/devel/allegro
+ALLEGRO_MAKE_ARGS=	_PORT_ALLEGRO_CFLAGS="`allegro-config --cflags`" \
+			LINK_ALLEGRO="`allegro-config --libs` -lm"
+ALLEGRO_CONFLICTS=	dumb-[0-9]*
+ALLEGRO_MAKE_ARGS_OFF=	_PORT_ALLEGRO_CFLAGS=
+ALLEGRO_CONFLICTS_OFF=	dumb-allegro-[0-9]*
+
+CFLAGS_amd64=	-fPIC
+CFLAGS_ia64=	-fPIC
+CFLAGS_sparc64=	-fPIC
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|_INSTALL_PATH := |&$${DESTDIR}|' ${WRKSRC}/Makefile
+
+do-configure:
+	@${ECHO_CMD} 'include make/unix.inc' > ${WRKSRC}/make/config.txt
+	@${ECHO_CMD} 'ALL_TARGETS := core core-examples core-headers' >> ${WRKSRC}/make/config.txt
+do-configure-ALLEGRO-on:
+	@${ECHO_CMD} 'ALL_TARGETS += allegro allegro-examples allegro-headers' >> ${WRKSRC}/make/config.txt
+
+.include <bsd.port.mk>

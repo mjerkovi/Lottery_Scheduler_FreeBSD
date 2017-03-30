@@ -1,0 +1,106 @@
+# Created by: Michael Vasilenko <acid@stu.cn.ua>
+# $FreeBSD: tags/RELEASE_10_3_0/www/elinks/Makefile 404555 2015-12-27 09:31:32Z beat $
+
+PORTNAME=	elinks
+DISTVERSION=	0.11.7
+PORTREVISION=	5
+CATEGORIES=	www
+MASTER_SITES=	http://elinks.or.cz/download/
+
+MAINTAINER=	beat@FreeBSD.org
+COMMENT=	Links text WWW browser with enhancements
+
+GNU_CONFIGURE=	yes
+USES=		bison cpe execinfo gmake localbase tar:bzip2
+USE_OPENSSL=	yes
+CONFIGURE_ARGS=	--without-zlib
+
+LIBS+=		-lexecinfo
+
+SAMBA_PORT?=	net/samba36
+
+OPTIONS_DEFINE=		88COLORS 256COLORS SPIDERMONKEY XBELMARKS LOCAL_CGI \
+			FINGER GOPHER BITTORRENT NNTP FTP FSP SMB EXMODE \
+			HIGHLIGHT IDN NOROOT FASTMEM PERL \
+			LUA GUILE ICONV MOUSE NLS
+OPTIONS_DEFAULT=	88COLORS 256COLORS FTP EXMODE HIGHLIGHT FASTMEM MOUSE
+OPTIONS_SUB=		yes
+
+88COLORS_DESC=		88 color support
+256COLORS_DESC=		256 color support
+SPIDERMONKEY_DESC=	ECMAScript support (via SpiderMonkey)
+XBELMARKS_DESC=		XBEL bookmarks (via expat)
+LOCAL_CGI_DESC=		Local CGI support
+FSP_DESC=		FSP protocol support (via fsplib)
+EXMODE_DESC=		Exmode (CLI) support
+HIGHLIGHT_DESC=		HTML highlighting using DOM engine
+NOROOT_DESC=		Prevention of usage by root
+FASTMEM_DESC=		Fast memory allocation functions
+
+NLS_USES=		gettext
+NLS_CONFIGURE_OFF=	--disable-nls
+
+GUILE_LIB_DEPENDS=	libguile.so:${PORTSDIR}/lang/guile
+GUILE_CONFIGURE_WITH=	guile
+
+LUA_USES=		lua:51
+LUA_CONFIGURE_WITH=	lua
+LUA_CPPFLAGS=		-I${LUA_INCDIR}
+LUA_LDFLAGS=		-L${LUA_LIBDIR}
+
+PERL_USES=		perl5
+PERL_CONFIGURE_WITH=	perl
+
+FASTMEM_CONFIGURE_ON=	--enable-fastmem
+
+IDN_LIB_DEPENDS=	libidn.so:${PORTSDIR}/dns/libidn
+IDN_CONFIGURE_WITH=	idn
+
+NOROOT_CONFIGURE_ON=	--enable-no-root
+
+HIGHLIGHT_CONFIGURE_ON=	--enable-html-highlight
+
+EXMODE_CONFIGURE_ON=	--enable-exmode
+
+SMB_RUN_DEPENDS=	smbclient:${PORTSDIR}/${SAMBA_PORT}
+SMB_BUILD_DEPENDS=	smbclient:${PORTSDIR}/${SAMBA_PORT}
+SMB_CONFIGURE_ENABLE=	smb
+
+FSP_RUN_DEPENDS=	${LOCALBASE}/lib/libfsplib.a:${PORTSDIR}/net/fsplib
+FSP_BUILD_DEPENDS=	${LOCALBASE}/lib/libfsplib.a:${PORTSDIR}/net/fsplib
+FSP_CONFIGURE_ENABLE=	fsp
+
+FTP_CONFIGURE_ENABLE=	ftp
+
+NNTP_CONFIGURE_ENABLE=	nntp
+
+BITTORRENT_CONFIGURE_ENABLE=	bittorrent
+
+GOPHER_CONFIGURE_ENABLE=	gopher
+
+MOUSE_CONFIGURE_ENABLE=	mouse
+
+FINGER_CONFIGURE_ENABLE=	finger
+
+LOCAL_CGI_CONFIGURE_ENABLE=	cgi
+
+XBELMARKS_LIB_DEPENDS=	libexpat.so:${PORTSDIR}/textproc/expat2
+XBELMARKS_CONFIGURE_ON=	--enable-xbel --with-expat
+XBELNARKS_CONFIGURE_OFF=--disable-xbel
+
+256COLORS_CONFIGURE_ON=	--enable-256-colors
+
+88COLORS_CONFIGURE_ON=	--enable-88-colors
+
+SPIDERMONKEY_BUILD_DEPENDS=	${LOCALBASE}/lib/libjs.so:${PORTSDIR}/lang/spidermonkey17
+SPIDERMONKEY_RUN_DEPENDS=	js:${PORTSDIR}/lang/spidermonkey17
+SPIDERMONKEY_LIB_DEPENDS=	libnspr4.so:${PORTSDIR}/devel/nspr
+SPIDERMONKEY_CFLAGS=		-I${LOCALBASE}/include/nspr
+SPIDERMONKEY_LDFLAGS=		-lnspr4 -pthread -lpthread -lm
+SPIDERMONKEY_CONFIGURE_ON=	--enable-sm-scripting --with-spidermonkey
+SPIDERMONKEY_CONFIGURE_OFF=	--disable-sm-scripting --without-spidermonkey
+
+ICONV_USES=		iconv
+ICONV_CONFIGURE_ON=	${ICONV_CONFIGURE_ARG}
+
+.include <bsd.port.mk>

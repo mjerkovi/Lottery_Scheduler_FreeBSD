@@ -1,0 +1,29 @@
+# Created by: shipley@dis.org
+# $FreeBSD: tags/RELEASE_10_3_0/misc/hello/Makefile 391079 2015-07-01 16:21:57Z amdmi3 $
+
+PORTNAME=	hello
+PORTVERSION=	2.10
+CATEGORIES=	misc
+MASTER_SITES=	GNU
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Utility for saying hello to the world and reading email
+
+LICENSE=	GPLv3 # (or later)
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		charsetfix gmake perl5
+USE_PERL5=	build
+GNU_CONFIGURE=	yes
+
+INFO=		hello
+
+OPTIONS_DEFINE=		NLS
+OPTIONS_SUB=		yes
+
+NLS_USES=		gettext
+NLS_CONFIGURE_ENABLE=	nls
+NLS_CPPFLAGS=		-I${LOCALBASE}/include
+NLS_LDFLAGS=		-L${LOCALBASE}/lib
+
+.include <bsd.port.mk>

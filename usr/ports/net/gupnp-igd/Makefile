@@ -1,0 +1,37 @@
+# Created by: Martin Wilke <miwi@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/gupnp-igd/Makefile 400803 2015-11-04 20:14:47Z sunpoet $
+
+PORTNAME=	gupnp-igd
+PORTVERSION=	0.2.4
+CATEGORIES=	net
+MASTER_SITES=	GNOME
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Library to handle UPnP IGD port mapping
+
+LICENSE=	LGPL21
+
+BUILD_DEPENDS=	gobject-introspection>=0.10:${PORTSDIR}/devel/gobject-introspection \
+		gupnp>=0.18:${PORTSDIR}/net/gupnp
+LIB_DEPENDS=	libgupnp-1.0.so:${PORTSDIR}/net/gupnp
+RUN_DEPENDS=	gupnp>=0.18:${PORTSDIR}/net/gupnp
+
+OPTIONS_DEFINE=	PYTHON
+OPTIONS_DEFAULT=PYTHON
+OPTIONS_SUB=	yes
+
+CONFIGURE_ARGS=	--enable-introspection=yes
+GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
+USE_GNOME=	glib20 introspection:build
+USE_LDCONFIG=	yes
+USES=		gmake libtool pathfix pkgconfig tar:xz
+
+PYTHON_CONFIGURE_ENABLE=python
+PYTHON_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gobject>=2.12.0:${PORTSDIR}/devel/py-gobject
+PYTHON_USES=		python:2
+
+post-patch:
+	@${REINPLACE_CMD} -e '/ --define-variable=/d' ${WRKSRC}/configure
+
+.include <bsd.port.mk>

@@ -1,0 +1,21 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-glib2/Makefile 385304 2015-05-03 19:35:49Z sunpoet $
+
+PORTNAME=	glib2
+PORTVERSION=	2.2.5
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby binding for GLib2
+
+LICENSE=	LGPL21 LGPL3
+LICENSE_COMB=	dual
+
+RUN_DEPENDS=	rubygem-pkg-config>=0:${PORTSDIR}/devel/rubygem-pkg-config
+
+USE_GNOME=	glib20
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

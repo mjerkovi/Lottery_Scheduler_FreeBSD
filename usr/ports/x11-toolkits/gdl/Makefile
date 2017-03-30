@@ -1,0 +1,26 @@
+# Created by: Maxim Sobolev <sobomax@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/x11-toolkits/gdl/Makefile 393866 2015-08-10 14:08:29Z kwm $
+
+PORTNAME=	gdl
+PORTVERSION=	3.16.0
+CATEGORIES=	x11-toolkits gnome
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome3
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	Components intended to be shared between GNOME development tools
+
+LICENSE=	LGPL20
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+PORTSCOUT=	limitw:1,even
+
+USE_GNOME=	gtk30 intlhack introspection:build
+USES=		gettext gmake libtool pathfix pkgconfig tar:xz
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+.include <bsd.port.mk>

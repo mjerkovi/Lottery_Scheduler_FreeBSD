@@ -1,0 +1,3 @@
+lib/fpc/%%PORTVERSION%%/fpmkinst/%%BUILDNAME%%/syslog.fpm
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/syslog/systemlog.o
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/syslog/systemlog.ppu

@@ -1,0 +1,9 @@
+# $FreeBSD: releng/10.3/sys/boot/Makefile.powerpc 271130 2014-09-04 20:35:53Z emaste $
+
+.if ${MK_FDT} != "no"
+SUBDIR+=		fdt
+.endif
+
+SUBDIR+=		libstand32
+SUBDIR+=		ofw
+SUBDIR+=		uboot

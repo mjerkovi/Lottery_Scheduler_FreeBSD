@@ -1,0 +1,12 @@
+# Created by: Martin Matuska <mm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/php56-opcache/Makefile 367268 2014-09-04 14:24:25Z ale $
+
+CATEGORIES=	www
+
+MASTERDIR=	${.CURDIR}/../../lang/php56
+
+PKGNAMESUFFIX=	-opcache
+
+USE_ZENDEXT=	yes
+
+.include "${MASTERDIR}/Makefile"

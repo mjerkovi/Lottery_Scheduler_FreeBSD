@@ -1,0 +1,23 @@
+# Created by: Sergey A. Osokin <osa@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libeio/Makefile 385521 2015-05-06 15:16:53Z mat $
+
+PORTNAME=	libeio
+PORTVERSION=	4.18.0
+PORTREVISION=	2
+CATEGORIES=	devel
+
+MAINTAINER=	osa@FreeBSD.org
+COMMENT=	Full-featured asynchronous I/O library for C
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	scunningham
+GH_TAGNAME=	e1a62ab
+USES=		alias autoreconf libtool
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+PLIST_FILES=	include/eio.h lib/libeio.a lib/libeio.so \
+		lib/libeio.so.1 lib/libeio.so.1.0.0
+
+.include <bsd.port.mk>

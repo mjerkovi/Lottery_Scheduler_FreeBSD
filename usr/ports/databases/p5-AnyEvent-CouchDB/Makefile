@@ -1,0 +1,30 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/p5-AnyEvent-CouchDB/Makefile 397135 2015-09-17 17:09:36Z sunpoet $
+
+PORTNAME=	AnyEvent-CouchDB
+PORTVERSION=	1.31
+PORTREVISION=	1
+CATEGORIES=	databases perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Non-blocking CouchDB client based on jquery.couch.js
+
+LICENSE=	MIT
+
+BUILD_DEPENDS=	couchdb>=0.9.0:${PORTSDIR}/databases/couchdb \
+		p5-AnyEvent-HTTP>=2.11:${PORTSDIR}/www/p5-AnyEvent-HTTP \
+		p5-CouchDB-View>=0:${PORTSDIR}/databases/p5-CouchDB-View \
+		p5-Data-Dump-Streamer>=0:${PORTSDIR}/devel/p5-Data-Dump-Streamer \
+		p5-Exception-Class>=0:${PORTSDIR}/devel/p5-Exception-Class \
+		p5-IO-All>=0:${PORTSDIR}/devel/p5-IO-All \
+		p5-JSON>=2:${PORTSDIR}/converters/p5-JSON \
+		p5-Scope-Guard>=0:${PORTSDIR}/devel/p5-Scope-Guard
+BUILD_DEPENDS:=	${BUILD_DEPENDS}
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

@@ -1,0 +1,18 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-conduit-combinators/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	conduit-combinators
+PORTVERSION=	1.0.3
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Commonly used conduit functions, for both chunked and unchunked data
+
+LICENSE=	MIT
+
+USE_CABAL=	base16-bytestring base64-bytestring>=0.1.1.1 chunked-data \
+		conduit>=1.2.2 conduit-extra>=1.1.1 monad-control \
+		mono-traversable>=0.4 mwc-random primitive resourcet \
+		text transformers-base unix-compat vector void
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

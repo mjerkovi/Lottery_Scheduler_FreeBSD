@@ -1,0 +1,31 @@
+# Created by: Jeremy Shaffner <jeremy@external.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/reportmagic/Makefile 388992 2015-06-09 19:52:49Z amdmi3 $
+
+PORTNAME=	reportmagic
+PORTVERSION=	2.21
+PORTREVISION=	4
+CATEGORIES=	www
+MASTER_SITES=	http://www.reportmagic.org/	\
+		http://www.reportmagic.org.uk/	\
+		http://www.reportmagic.de/	\
+		http://be.reportmagic.org/
+DISTNAME=	rmagic-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Web site statistics post-processor for Analog
+
+RUN_DEPENDS=	analog:${PORTSDIR}/www/analog \
+		p5-GD-Graph3d>=0:${PORTSDIR}/graphics/p5-GD-Graph3d \
+		p5-HTML-Parser>=0:${PORTSDIR}/www/p5-HTML-Parser \
+		p5-Config-IniFiles>=0:${PORTSDIR}/devel/p5-Config-IniFiles
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	rmagic.pl
+NO_BUILD=	yes
+NO_ARCH=	yes
+WRKSRC=		${WRKDIR}/${DISTNAME}
+
+do-install:
+	@cd ${WRKSRC}; ${SETENV} ${MAKE_ENV} DESTDIR=${STAGEDIR} ${PERL5} Install.PL -no_modules
+
+.include <bsd.port.mk>

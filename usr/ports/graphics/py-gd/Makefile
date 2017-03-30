@@ -1,0 +1,34 @@
+# Created by: Hye-Shik Chang <perky@fallin.lv>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/py-gd/Makefile 403270 2015-12-08 13:55:04Z vanilla $
+
+PORTNAME=	gd
+PORTVERSION=	0.59
+CATEGORIES=	graphics python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	gdmodule-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Python interface to the GD library
+
+LIB_DEPENDS=	libgd.so:${PORTSDIR}/graphics/gd
+
+USES=		python
+USE_PYTHON=	distutils autoplist pythonprefix
+PYSETUP=	setup.py
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		'/\/usr\/lib/d ; \
+		 /\/usr\/include/d ; \
+		 /\/usr\/X11R6/d ; \
+		 s|/opt/gnome|${LOCALBASE}| ; \
+		 /"jpeg", "png", "gif", "z",/d ; \
+		 /"X11", "Xpm",/d ; \
+		 /"ttf", "freetype",/d' \
+		${WRKSRC}/${PYSETUP}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/_gd.so
+
+.include <bsd.port.mk>

@@ -1,0 +1,33 @@
+# Created by: mharo@FreeBSD.org
+# $FreeBSD: tags/RELEASE_10_3_0/security/keyprint/Makefile 389816 2015-06-16 02:17:02Z amdmi3 $
+
+PORTNAME=	keyprint
+PORTVERSION=	1.0
+PORTREVISION=	1
+CATEGORIES=	security
+MASTER_SITES=	LOCAL/mharo
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Print S/Key keys on a piece of paper, twice the size of a credit card
+
+USES=		perl5 shebangfix
+USE_PERL5=	run
+SHEBANG_FILES=	keyprint
+NO_BUILD=	yes
+NO_ARCH=	yes
+
+PORTDOCS=	README
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	${REINPLACE_CMD} -e 's,__PREFIX__,${PREFIX},' ${WRKSRC}/keyprint
+
+do-install:
+	${MKDIR} ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/keyblank.ps ${STAGEDIR}${DATADIR}
+	${INSTALL_SCRIPT} ${WRKSRC}/keyprint ${STAGEDIR}${PREFIX}/bin
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,40 @@
+# Created by: Thierry Thomas <thierry@pompo.net>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/looks/Makefile 403636 2015-12-12 23:02:03Z bapt $
+
+PORTNAME=	looks
+DISTVERSION=	2_6_0
+CATEGORIES=	devel java
+MASTER_SITES=	http://www.jgoodies.com/download/libraries/${PORTNAME}/
+DISTNAME=	jgoodies-${PORTNAME}-${DISTVERSION}
+
+MAINTAINER=	makc@FreeBSD.org
+COMMENT=	Improved appearance for Java Swing applications
+
+BROKEN=		unfetchable
+
+LICENSE=	BSD3CLAUSE
+
+USES=		zip
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+NO_BUILD=	yes
+
+WRKSRC=		${WRKDIR}/jgoodies-${PORTNAME}-${PORTVERSION}
+
+JARFILE=	jgoodies-${PORTNAME}-${PORTVERSION}.jar
+
+PLIST_FILES=	%%JAVAJARDIR%%/${JARFILE} \
+		%%JAVAJARDIR%%/looks.jar
+DOCFILES=	README.html RELEASE-NOTES.txt
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/${JARFILE} ${STAGEDIR}${JAVAJARDIR}
+	${LN} -sf ${JARFILE} ${STAGEDIR}${JAVAJARDIR}/looks.jar
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${DOCFILES:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/docs/ && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

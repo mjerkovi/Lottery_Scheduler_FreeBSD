@@ -1,0 +1,27 @@
+# Created by: Blaz Zupan <blaz@si.FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/p5-Authen-SASL/Makefile 381221 2015-03-13 17:29:58Z adamw $
+
+PORTNAME=	Authen-SASL
+PORTVERSION=	2.16
+PORTREVISION=	1
+CATEGORIES=	security perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Perl5 module for SASL authentication
+
+RUN_DEPENDS=	p5-Digest-HMAC>0:${PORTSDIR}/security/p5-Digest-HMAC
+BUILD_DEPENDS:=	${RUN_DEPENDS}
+
+OPTIONS_DEFINE=	KERBEROS
+OPTIONS_DEFAULT=KERBEROS
+
+USES=		perl5
+USE_PERL5=	configure
+CONFIGURE_ENV+=	AUTOMATED_TESTING=yes
+
+KERBEROS_BUILD_DEPENDS=	p5-GSSAPI>0:${PORTSDIR}/security/p5-GSSAPI
+KERBEROS_RUN_DEPENDS=	p5-GSSAPI>0:${PORTSDIR}/security/p5-GSSAPI
+
+.include <bsd.port.mk>

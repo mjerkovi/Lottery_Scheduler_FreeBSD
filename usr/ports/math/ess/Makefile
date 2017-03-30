@@ -1,0 +1,36 @@
+# Created by: Christopher J. Ruwe
+# $FreeBSD: tags/RELEASE_10_3_0/math/ess/Makefile 404403 2015-12-25 07:04:07Z sunpoet $
+
+PORTNAME=	ess
+DISTVERSION=	15.09-1
+CATEGORIES=	math
+MASTER_SITES=	http://ess.r-project.org/downloads/ess/ \
+		http://stat.ethz.ch/ESS/downloads/ess/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	R support for Emacsen
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	R:${PORTSDIR}/math/R
+
+NO_ARCH=	yes
+
+USES=		gmake makeinfo tar:tgz
+USE_EMACS=	yes
+
+INFO=		ess
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		's|^DESTDIR|#DESTDIR| ; \
+		 s|^PREFIX|#PREFIX| ; \
+		 s|=$$(PREFIX)|=$$(DESTDIR)$$(PREFIX)| ; \
+		 s|share/info|${INFO_PATH}|' ${WRKSRC}/Makeconf
+	@${REINPLACE_CMD} -e \
+		'/^PDFs/s|=.*|=|' ${WRKSRC}/doc/Makefile
+
+.include <bsd.port.mk>

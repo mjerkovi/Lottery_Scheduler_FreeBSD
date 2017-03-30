@@ -1,0 +1,50 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/net/pen/Makefile 402371 2015-11-24 17:30:25Z danilo $
+
+PORTNAME=	pen
+PORTVERSION=	0.32.0
+CATEGORIES=	net
+MASTER_SITES=	http://siag.nu/pub/pen/
+
+MAINTAINER=	danilo@FreeBSD.org
+COMMENT=	Load balancer for UDP and TCP based protocols
+
+LIB_DEPENDS=	libGeoIP.so:${PORTSDIR}/net/GeoIP
+
+GNU_CONFIGURE=	yes
+USE_OPENSSL=	yes
+USE_RC_SUBR=	pen
+CONFIGURE_ARGS=	--with-daemon --with-docdir=${DOCSDIR} --with-geoip \
+		--with-ssl=${OPENSSLBASE}
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+
+PORTDOCS=	penstats HOWTO AUTHORS README ChangeLog COPYING
+PLIST_FILES=	bin/mergelogs bin/pen bin/penctl bin/penlog \
+		bin/penlogd man/man1/mergelogs.1.gz \
+		man/man1/pen.1.gz man/man1/penctl.1.gz \
+		man/man1/penlog.1.gz man/man1/penlogd.1.gz
+
+OPTIONS_DEFINE=	DEBUG DOCS KQUEUE
+OPTIONS_DEFAULT=KQUEUE
+KQUEUE_DESC=	Use kqueue backend
+
+.if defined(WITH_FDSETSIZE)
+CONFIGURE_ARGS+=	--with-fd_setsize=${WITH_FDSETSIZE}
+.endif
+
+KQUEUE_CONFIGURE_ON=	--with-kqueue
+KQUEUE_CONFIGURE_OFF=	--with-poll
+DEBUG_CONFIGURE_ENABLE=	debugging
+
+.include <bsd.port.pre.mk>
+
+# DSR needs a newer version of the netmap's API
+.if ${OSVERSION} < 903000 || (${OSVERSION} >= 1000000 && ${OSVERSION} < 1001000)
+CONFIGURE_ARGS+=	--without-dsr
+.endif
+
+post-patch:
+	@${REINPLACE_CMD} 's/-pg//' ${WRKSRC}/configure
+
+.include <bsd.port.post.mk>

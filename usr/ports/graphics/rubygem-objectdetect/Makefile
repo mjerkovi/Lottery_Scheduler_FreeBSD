@@ -1,0 +1,25 @@
+# Created by: TAKATSU Tomonari <tota@rtfm.jp>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/rubygem-objectdetect/Makefile 383107 2015-04-03 11:26:48Z mat $
+
+PORTNAME=	objectdetect
+PORTVERSION=	0.0.3
+PORTREVISION=	7
+CATEGORIES=	graphics rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	tota@FreeBSD.org
+COMMENT=	Simple library for detecting objects in pictures
+
+LICENSE=	MIT
+
+LIB_DEPENDS=	libopencv_legacy.so:${PORTSDIR}/graphics/opencv
+
+USES=		pkgconfig
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+post-patch:
+	${REINPLACE_CMD} -E 's|(objectdetect)|\1/version|' ${WRKSRC}/test/test_helper.rb
+
+.include <bsd.port.mk>

@@ -1,0 +1,35 @@
+# Created by: chinsan
+# $FreeBSD: tags/RELEASE_10_3_0/games/gnake/Makefile 401096 2015-11-09 12:59:03Z antoine $
+
+PORTNAME=	gnake
+PORTVERSION=	0.94b
+CATEGORIES=	games
+MASTER_SITES=	SF/fbsdports/gnake
+DISTNAME=	Gnake.${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Nibbles clone for GNU/Linux and *BSD
+
+BROKEN=		unfetchable
+
+LICENSE=	GPLv2
+
+OPTIONS_DEFINE=	DOCS
+
+LDFLAGS+=	-L${LOCALBASE}/lib -lncurses
+CFLAGS+=	-Wall
+
+WRKSRC=		${WRKDIR}/${PORTNAME}
+PORTDOCS=	README
+PLIST_FILES=	bin/${PORTNAME}
+
+do-build:
+	${CC} ${CFLAGS} ${LDFLAGS} -o ${WRKSRC}/${PORTNAME} \
+		${WRKSRC}/gnake.c
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

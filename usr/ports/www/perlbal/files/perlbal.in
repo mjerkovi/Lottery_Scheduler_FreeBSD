@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/www/perlbal/files/perlbal.in 340872 2014-01-24 00:14:07Z mat $
+#
+
+# PROVIDE: perlbal
+# REQUIRE: LOGIN
+# KEYWORK: shutdown
+
+. /etc/rc.subr
+
+name="perlbal"
+command="%%PREFIX%%/bin/perlbal"
+
+load_rc_config "$name"
+
+: ${perlbal_enable="NO"}
+: ${perlbal_configuration="%%PREFIX%%/etc/perlbal/perlbal.conf"}
+
+required_files="$perlbal_configuration"
+
+command_args="--config $required_files --daemon"
+
+run_rc_command "$1"
+

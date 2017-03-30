@@ -1,0 +1,27 @@
+# Created by: Jesse
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/pbimaker/Makefile 375112 2014-12-20 19:42:45Z bapt $
+
+PORTNAME=	pbimaker
+PORTVERSION=	1.3
+PORTREVISION=	1
+CATEGORIES=	sysutils
+MASTER_SITES=	SF/makeapbi/makeapbi/
+
+MAINTAINER=	jessefrgsmith@yahoo.ca
+COMMENT=	Program to convert ports into PBI modules
+
+LICENSE=	BSD3CLAUSE
+
+WRKSRC=		${WRKDIR}/PBIMaker
+
+PLIST_FILES=	bin/pbimaker \
+		share/pbimaker/defaulticon.png
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|CC=gcc|CC?=gcc|' \
+		-e 's|PREFIX)/|DESTDIR)$$(&|g' \
+		${WRKSRC}/Makefile
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+
+.include <bsd.port.mk>

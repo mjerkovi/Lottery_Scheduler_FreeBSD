@@ -1,0 +1,20 @@
+# Created by: Vladimir Timofeev <vovkasm@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/p5-DBIx-Class-EncodeColumns/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	DBIx-Class-EncodeColumns
+PORTVERSION=	0.02
+PORTREVISION=	1
+CATEGORIES=	databases perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	vovkasm@gmail.com
+COMMENT=	Handle column encodings
+
+RUN_DEPENDS=	p5-DBIx-Class>=0.06002:${PORTSDIR}/databases/p5-DBIx-Class
+BUILD_DEPENDS=	p5-DBIx-Class>=0.06002:${PORTSDIR}/databases/p5-DBIx-Class
+
+USES=		perl5
+USE_PERL5=	modbuild
+
+.include <bsd.port.mk>

@@ -1,0 +1,21 @@
+# Created by: Dmitry Marakasov <amdmi3@amdmi3.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/uniconvertor/Makefile 373841 2014-12-03 16:49:59Z amdmi3 $
+
+PORTNAME=	uniconvertor
+PORTVERSION=	1.1.5
+CATEGORIES=	graphics python
+MASTER_SITES=	GOOGLE_CODE \
+		http://mirror.amdmi3.ru/distfiles/
+
+MAINTAINER=	amdmi3@FreeBSD.org
+COMMENT=	Universal vector graphics translator
+
+RUN_DEPENDS=	${PYTHON_SITELIBDIR}/sk1libs/__init__.py:${PORTSDIR}/graphics/sk1libs
+
+USES=		python
+USE_PYTHON=	distutils
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/uniconvertor/app/modules/*.so
+
+.include <bsd.port.mk>

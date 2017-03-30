@@ -1,0 +1,20 @@
+# Created by: Michael Moll <kvedulv at kvedulv.de>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/rubygem-yell/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	yell
+PORTVERSION=	2.0.5
+CATEGORIES=	sysutils ruby
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Extensible logging library for Ruby
+
+LICENSE=	MIT
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

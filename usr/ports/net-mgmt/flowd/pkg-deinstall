@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+#	$FreeBSD: tags/RELEASE_10_3_0/net-mgmt/flowd/pkg-deinstall 340719 2014-01-22 15:52:06Z mat $
+#
+
+FLOWD_USER=${FLOWD_USER:=_flowd}
+
+delete_user() {
+	if pw usershow ${FLOWD_USER} 2>/dev/null 1>&2; then
+		echo "To delete flowd privilege separation user permanently, use 'pw userdel ${FLOWD_USER}'"
+	fi
+
+}
+
+case $2 in
+	POST-DEINSTALL)
+		delete_user
+		;;
+
+esac

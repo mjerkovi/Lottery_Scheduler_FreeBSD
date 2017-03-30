@@ -1,0 +1,51 @@
+# Created by: Greg Larkin <glarkin@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/statcvs/Makefile 381345 2015-03-15 15:38:30Z amdmi3 $
+
+PORTNAME=	statcvs
+PORTVERSION=	0.7.0
+PORTREVISION=	1
+CATEGORIES=	devel java
+MASTER_SITES=	SF/${PORTNAME}/Download%20StatCVS/${PORTVERSION}
+DISTNAME=	${PORTNAME}-${PORTVERSION}-source
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	CVS repository activity report generator
+
+WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
+DATADIR=	${JAVASHAREDIR}/${PORTNAME}
+
+USES=		zip
+USE_JAVA=	yes
+USE_ANT=	yes
+JAVA_VERSION=	1.6+
+
+ALL_TARGET=	jar
+
+SUB_FILES=	pkg-message
+
+PORTDOCS=	*
+PLIST_FILES=	%%DATADIR%%/statcvs.jar
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MDOCS}
+ALL_TARGET+=	javadoc
+.endif
+
+.include <bsd.port.pre.mk>
+
+.if ${JAVA_PORT_VERSION} == "1.6.0"
+PLIST_SUB=	JDK6=""
+.else
+PLIST_SUB=	JDK6="@comment "
+.endif
+
+do-install:
+	(cd ${WRKSRC}/dist && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR})
+.if ${PORT_OPTIONS:MDOCS}
+	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+.endif
+
+.include <bsd.port.post.mk>

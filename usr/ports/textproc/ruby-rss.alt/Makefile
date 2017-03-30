@@ -1,0 +1,38 @@
+# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/ruby-rss.alt/Makefile 396007 2015-09-03 16:24:53Z sunpoet $
+
+PORTNAME=	rss
+PORTVERSION=	0.2.6
+CATEGORIES=	textproc ruby
+MASTER_SITES=	http://www.cozmixng.org/~kou/download/
+PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
+PKGNAMESUFFIX=	.alt
+DIST_SUBDIR=	ruby
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby library for handling RSS (alternative impl.)
+
+LICENSE=	BSD2CLAUSE RUBY
+LICENSE_COMB=	dual
+
+RUN_DEPENDS=	ja-${RUBY_PKGNAMEPREFIX}uconv>=0:${PORTSDIR}/japanese/ruby-uconv
+
+BROKEN_RUBY22=	yes
+
+CONFLICTS_INSTALL=	ruby-rss-*
+
+OPTIONS_DEFINE=	DOCS
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBY_SETUP=	yes
+
+DOCS_EN=	README.en Tutorial.en
+DOCS_JA=	README.ja Tutorial.ja
+
+post-install-DOCS-on:
+	${MKDIR} ${STAGEDIR}${RUBY_MODDOCDIR}/ja/
+	cd ${WRKSRC}/ && ${INSTALL_DATA} ${DOCS_EN} ${STAGEDIR}${RUBY_MODDOCDIR}/
+	cd ${WRKSRC}/ && ${INSTALL_DATA} ${DOCS_JA} ${STAGEDIR}${RUBY_MODDOCDIR}/ja/
+
+.include <bsd.port.mk>

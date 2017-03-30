@@ -1,0 +1,4 @@
+.\" $FreeBSD: releng/10.3/tools/build/options/WITHOUT_PKGBOOTSTRAP 259138 2013-12-09 20:47:50Z bdrewery $
+Set to not build
+.Xr pkg 7
+bootstrap tool.

@@ -1,0 +1,21 @@
+# $FreeBSD: tags/RELEASE_10_3_0/archivers/p5-Compress-LZ4/Makefile 390918 2015-06-29 15:47:44Z adamw $
+
+PORTNAME=	Compress-LZ4
+PORTVERSION=	0.22
+CATEGORIES=	archivers perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Interface to the LZ4 (de)compressor
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+USES=		perl5
+USE_PERL5=	configure
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Compress/LZ4/LZ4.so
+
+.include <bsd.port.mk>

@@ -1,0 +1,27 @@
+# Created by: trasz <trasz@pin.if.uz.zgora.pl>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/jamin/Makefile 393444 2015-08-02 20:23:55Z kwm $
+
+PORTNAME=	jamin
+PORTVERSION=	0.95.0
+PORTREVISION=	15
+CATEGORIES=	audio
+MASTER_SITES=	SF
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	JACK Audio Mastering interface
+
+LIB_DEPENDS=	libfftw3f.so:${PORTSDIR}/math/fftw3-float \
+		libjack.so:${PORTSDIR}/audio/jack \
+		liblo.so:${PORTSDIR}/audio/liblo
+RUN_DEPENDS=	${LOCALBASE}/include/ladspa.h:${PORTSDIR}/audio/ladspa \
+		${LOCALBASE}/lib/ladspa/fast_lookahead_limiter_1913.so:${PORTSDIR}/audio/swhplugins
+BUILD_DEPENDS=	${LOCALBASE}/include/fftw3.h:${PORTSDIR}/math/fftw3
+
+GNU_CONFIGURE=	yes
+USES=		desktop-file-utils gmake libtool pkgconfig shared-mime-info
+USE_GNOME=	gtk20 intltool libxml2
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/ladspa/jamincont_1912.so
+
+.include <bsd.port.mk>

@@ -1,0 +1,18 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/rubygem-underscore-rails/Makefile 389074 2015-06-10 16:47:39Z sunpoet $
+
+PORTNAME=	underscore-rails
+PORTVERSION=	1.8.3
+CATEGORIES=	www rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Underscore.js asset pipeline provider/wrapper
+
+LICENSE=	MIT
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

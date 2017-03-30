@@ -1,0 +1,29 @@
+# Created by: LEVAI Daniel <leva@ecentrum.hu>
+# $FreeBSD: tags/RELEASE_10_3_0/security/kc/Makefile 395827 2015-09-02 09:54:52Z rakuco $
+
+PORTNAME=	kc
+PORTVERSION=	2.3.2
+PORTREVISION=	2
+CATEGORIES=	security
+
+MAINTAINER=	leva@ecentrum.hu
+COMMENT=	Console based password storing application
+
+LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2 \
+		libpcre.so:${PORTSDIR}/devel/pcre
+
+USES=		libedit pkgconfig uidfix
+USE_GITHUB=	yes
+GH_ACCOUNT=	levaidaniel
+
+PLIST_FILES=	bin/kc man/man1/kc.1.gz
+
+MAKE_ENV+=	HAVE_PCRE=yes
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|pkg-config|${LOCALBASE}/bin/pkgconf|' ${WRKSRC}/Makefile
+
+.include <bsd.port.mk>

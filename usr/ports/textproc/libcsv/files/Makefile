@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/libcsv/files/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+LIB = 	csv
+SRCS=	libcsv.c
+INCS=	csv.h
+
+SHLIB_MAJOR=	%%SHLIB_MAJOR%%
+
+LIBDIR=		${PREFIX}/lib
+INCLUDEDIR=	${PREFIX}/include
+
+MAN=	csv.3
+MANDIR=		${MANPREFIX}/man/man
+
+.include <bsd.lib.mk>

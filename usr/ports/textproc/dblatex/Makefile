@@ -1,0 +1,37 @@
+# Created by: Peter Johnson <johnson.peter@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/dblatex/Makefile 410170 2016-03-05 11:48:35Z rakuco $
+
+PORTNAME=	dblatex
+PORTVERSION=	0.3.6
+PORTREVISION=	1
+CATEGORIES=	textproc
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	DocBook to LaTeX/ConTeXt Publishing
+
+BUILD_DEPENDS=	${LOCALBASE}/share/texmf-dist/tex/generic/ifxetex/ifxetex.sty:${PORTSDIR}/print/texlive-texmf
+RUN_DEPENDS=	xsltproc:${PORTSDIR}/textproc/libxslt \
+		docbook-xml>0:${PORTSDIR}/textproc/docbook-xml
+
+USES=		tar:bzip2 python:2
+USE_PYTHON=	distutils autoplist
+USE_TEX=	dvipsk:run tex
+NO_ARCH=	yes
+
+PYDISTUTILS_INSTALLARGS+=	--catalogs=${LOCALBASE}/share/xml/catalog.ports
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e "s,share/man/man1,man/man1,g" ${WRKSRC}/setup.py
+
+post-patch-DOCS-off:
+	@${REINPLACE_CMD} -e '/pdfdocs),/d ; /htmldoc)/d' ${WRKSRC}/setup.py
+
+post-install:
+	# shebangfix can't be used because dblatex is built from scratch
+	${REINPLACE_CMD} -e 's|/usr/bin/env python|${PREFIX}/bin/python2|' \
+		${STAGEDIR}${PREFIX}/bin/dblatex
+
+.include <bsd.port.mk>

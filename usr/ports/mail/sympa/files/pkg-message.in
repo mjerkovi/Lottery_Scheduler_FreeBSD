@@ -1,0 +1,13 @@
+If you upgrade from <6.2, read
+https://www.sympa.org/faq/upgrade-to-v6.2
+
+Else upgrade with:
+  run sympa.pl --upgrade
+
+If this is your first installation of sympa, run
+  create database with this schema:
+    %%LOCALBASE%%/libexec/sympa/create_db.%%DB_TYPE%%
+  run sympa_wizard.pl
+  for wwsympa server, see samples configs in %%EXAMPLESDIR%%
+
+

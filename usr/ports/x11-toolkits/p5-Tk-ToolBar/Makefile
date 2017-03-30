@@ -1,0 +1,25 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/x11-toolkits/p5-Tk-ToolBar/Makefile 397279 2015-09-18 17:59:37Z sunpoet $
+
+PORTNAME=	Tk-ToolBar
+PORTVERSION=	0.10
+PORTREVISION=	3
+CATEGORIES=	x11-toolkits tk perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Toolbar widget for Perl/Tk
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Tk-CursorControl>=0:${PORTSDIR}/x11-toolkits/p5-Tk-CursorControl
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Pod>=1.14:${PORTSDIR}/devel/p5-Test-Pod
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5 zip
+
+.include <bsd.port.mk>

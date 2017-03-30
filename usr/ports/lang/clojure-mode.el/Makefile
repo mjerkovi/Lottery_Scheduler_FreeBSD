@@ -1,0 +1,29 @@
+# Created by: Peter Schuller <peter.schuller@infidyne.com>
+# $FreeBSD: tags/RELEASE_10_3_0/lang/clojure-mode.el/Makefile 385637 2015-05-07 16:32:43Z mat $
+
+PORTNAME=	clojure-mode.el
+PORTVERSION=	2.1.1
+PORTREVISION=	2
+PORTEPOCH=	1
+CATEGORIES=	lang elisp
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Emacs lisp module for the Clojure language
+
+LICENSE=	GPLv3
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	clojure-emacs
+GH_PROJECT=	clojure-mode
+
+USE_EMACS=	yes
+
+NO_BUILD=	yes
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/clojure-mode.el \
+		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}
+	${INSTALL_DATA} ${WRKSRC}/clojure-test-mode.el \
+		${STAGEDIR}${PREFIX}/${EMACS_SITE_LISPDIR}
+
+.include <bsd.port.mk>

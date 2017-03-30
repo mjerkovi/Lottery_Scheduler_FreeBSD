@@ -1,0 +1,19 @@
+# Created by: Giuseppe Pilichi aka Jacula Modyun <jacula@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/science/hs-bio/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	bio
+PORTVERSION=	0.5.3
+PORTREVISION=	2
+CATEGORIES=	science haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Bioinformatics library
+
+LICENSE=	LGPL21
+
+USE_CABAL=	mtl old-time parallel parsec QuickCheck>=2 random tagsoup>=0.8
+
+EXECUTABLE=	fastout flowclip flx frecover frename orf rselect-pe
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

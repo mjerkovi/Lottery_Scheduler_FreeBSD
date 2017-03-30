@@ -1,0 +1,37 @@
+# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
+# $FreeBSD: tags/RELEASE_10_3_0/japanese/ruby-mecab/Makefile 394508 2015-08-17 14:20:40Z mat $
+
+PORTNAME=	mecab
+PORTVERSION=	0.996
+PORTREVISION=	1
+CATEGORIES=	japanese textproc ruby
+MASTER_SITES=	GOOGLE_CODE
+DISTNAME=	${PORTNAME}-ruby-${PORTVERSION}
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	MeCab library module for Ruby
+
+LICENSE=	BSD3CLAUSE GPLv2 LGPL21
+LICENSE_COMB=	dual
+
+LIB_DEPENDS=	libmecab.so:${PORTSDIR}/japanese/mecab
+
+USE_RUBY=	yes
+USE_RUBY_EXTCONF=	yes
+
+INSTALL_TARGET=	site-install
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+.include <bsd.port.pre.mk>
+
+PKGNAMEPREFIX:=	${PKGNAMEPREFIX}${RUBY_PKGNAMEPREFIX}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${RUBY_SITEARCHLIBDIR}/MeCab.so
+	@${MKDIR} ${STAGEDIR}${RUBY_MODDOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/bindings.html ${STAGEDIR}${RUBY_MODDOCDIR}/
+	@${MKDIR} ${STAGEDIR}${RUBY_MODEXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/test.rb ${STAGEDIR}${RUBY_MODEXAMPLESDIR}/
+
+.include <bsd.port.post.mk>

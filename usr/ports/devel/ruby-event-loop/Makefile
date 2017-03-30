@@ -1,0 +1,33 @@
+# Created by: Alexander Botero-Lowry <alexbl@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/ruby-event-loop/Makefile 403636 2015-12-12 23:02:03Z bapt $
+
+PORTNAME=	event-loop
+PORTVERSION=	0.3
+CATEGORIES=	devel ruby
+MASTER_SITES=	http://www.brockman.se/software/ruby-event-loop/
+PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Event loop for Ruby
+
+BROKEN=		unfetchable
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+BROKEN_RUBY22=	yes
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RAKE=	yes
+
+do-configure:
+	@cd ${WRKSRC} && ${RUBY} setup.rb config --prefix=${PREFIX}
+
+do-build:
+	@cd ${WRKSRC} && ${RUBY} setup.rb setup
+
+do-install:
+	@cd ${WRKSRC} && ${RUBY} setup.rb install --prefix=${STAGEDIR}
+
+.include <bsd.port.mk>

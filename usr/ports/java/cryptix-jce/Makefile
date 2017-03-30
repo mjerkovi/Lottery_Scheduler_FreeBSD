@@ -1,0 +1,29 @@
+# $FreeBSD: tags/RELEASE_10_3_0/java/cryptix-jce/Makefile 347771 2014-03-10 15:21:21Z bapt $
+
+PORTNAME=	cryptix-jce
+PORTVERSION=	20050328
+PORTREVISION=	2
+CATEGORIES=	java security
+MASTER_SITES=	http://www.cryptix.org/
+DISTNAME=	${PORTNAME}-${PORTVERSION}-snap
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	JCE (Java Cryptography Extension) by Cryptix
+
+USES=		zip
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+NO_BUILD=	yes
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${INSTALL_DATA} ${WRKDIR}/bin/${PORTNAME}-api.jar ${STAGEDIR}${JAVAJARDIR}
+	${INSTALL_DATA} ${WRKDIR}/bin/${PORTNAME}-compat.jar ${STAGEDIR}${JAVAJARDIR}
+	${INSTALL_DATA} ${WRKDIR}/bin/${PORTNAME}-provider.jar ${STAGEDIR}${JAVAJARDIR}
+	${INSTALL_DATA} ${WRKDIR}/bin/${PORTNAME}-tests.jar ${STAGEDIR}${JAVAJARDIR}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKDIR}/README.TXT ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKDIR}/LICENCE.TXT ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

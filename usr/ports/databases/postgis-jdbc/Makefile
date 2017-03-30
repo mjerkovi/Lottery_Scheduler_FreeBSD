@@ -1,0 +1,27 @@
+# Created by: Sam Lawrance <boris@brooknet.com.au>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/postgis-jdbc/Makefile 404577 2015-12-27 15:43:36Z amdmi3 $
+
+PORTNAME=	postgis-jdbc
+PORTVERSION=	1.4.0
+CATEGORIES=	databases java geography
+MASTER_SITES=	http://freebsd.unixfreunde.de/sources/
+DISTFILES=	postgis_${PORTVERSION}.jar
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	PostGIS spatial data structures for JDBC
+
+BROKEN=		unfetchable
+
+RUN_DEPENDS=	${JAVALIBDIR}/postgresql.jar:${PORTSDIR}/databases/postgresql-jdbc
+
+USE_JAVA=	yes
+JAVA_VERSION=	1.6+
+NO_BUILD=	yes
+NO_ARCH=	yes
+
+PLIST_FILES=	%%JAVAJARDIR%%/postgis_1.4.0.jar
+
+do-install:
+	${INSTALL_DATA} ${_DISTDIR}postgis_${PORTVERSION}.jar ${STAGEDIR}${JAVAJARDIR}
+
+.include <bsd.port.mk>

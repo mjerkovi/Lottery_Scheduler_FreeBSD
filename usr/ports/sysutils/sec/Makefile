@@ -1,0 +1,38 @@
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/sec/Makefile 375112 2014-12-20 19:42:45Z bapt $
+
+PORTNAME=	sec
+PORTVERSION=	2.7.5
+PORTREVISION=	2
+CATEGORIES=	sysutils
+MASTER_SITES=	SF/simple-evcorr/${PORTNAME}/${PORTVERSION}
+
+MAINTAINER=	ecu@200ok.org
+COMMENT=	Simple event (logs) correlator
+
+LICENSE=	GPLv2
+
+USE_RC_SUBR=	sec
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	sec
+SUB_LIST=	PERL=${PERL}
+USE_PERL5=	run
+NO_BUILD=	yes
+
+PORTDOCS=	ChangeLog README
+
+PLIST_FILES=	bin/sec man/man8/sec.8.gz
+PORTCONTRIB=	convert.pl itostream.c swatch2sec.pl
+PLIST_FILES+=	${PORTCONTRIB:S|^|%%DATADIR%%/|}
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/sec.man ${STAGEDIR}${MANPREFIX}/man/man8/sec.8
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	cd ${WRKSRC}/contrib && ${INSTALL_DATA} ${PORTCONTRIB} ${STAGEDIR}${DATADIR}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

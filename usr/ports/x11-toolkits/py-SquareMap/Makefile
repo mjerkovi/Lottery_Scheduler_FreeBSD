@@ -1,0 +1,21 @@
+# Created by: Sofian Brabez <sbz@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/x11-toolkits/py-SquareMap/Makefile 396834 2015-09-13 16:55:54Z bapt $
+
+PORTNAME=	SquareMap
+PORTVERSION=	1.0.4
+PORTREVISION=	2
+CATEGORIES=	x11-toolkits python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	sbz@FreeBSD.org
+COMMENT=	Hierarchic visualization control for wxPython
+
+LICENSE=	BSD2CLAUSE
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+USE_WX=		3.0+
+WX_COMPS=	python
+
+.include <bsd.port.mk>

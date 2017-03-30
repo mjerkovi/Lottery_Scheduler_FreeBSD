@@ -1,0 +1,28 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net-im/rubygem-tinder/Makefile 398848 2015-10-08 18:43:20Z sunpoet $
+
+PORTNAME=	tinder
+PORTVERSION=	1.10.1
+CATEGORIES=	net-im rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby API for interfacing with Campfire
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/MIT-LICENSE
+
+RUN_DEPENDS=	rubygem-eventmachine>=1.0:${PORTSDIR}/devel/rubygem-eventmachine \
+		rubygem-faraday>=0.9.0:${PORTSDIR}/www/rubygem-faraday\
+		rubygem-faraday_middleware>=0.9:${PORTSDIR}/www/rubygem-faraday_middleware \
+		rubygem-hashie>=1.0:${PORTSDIR}/devel/rubygem-hashie \
+		rubygem-json>=1.8.0:${PORTSDIR}/devel/rubygem-json \
+		rubygem-mime-types>=0:${PORTSDIR}/misc/rubygem-mime-types \
+		rubygem-multi_json>=1.7:${PORTSDIR}/devel/rubygem-multi_json \
+		rubygem-twitter-stream>=0.1:${PORTSDIR}/net/rubygem-twitter-stream
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

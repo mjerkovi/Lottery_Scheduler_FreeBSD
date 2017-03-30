@@ -1,0 +1,23 @@
+# Created by: Matt Peterson <matt@peterson.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/libtrace/Makefile 384215 2015-04-18 09:47:29Z tijl $
+
+PORTNAME=	libtrace
+PORTVERSION=	3.0.19
+PORTREVISION=	1
+CATEGORIES=	net
+MASTER_SITES=	http://research.wand.net.nz/software/libtrace/
+
+MAINTAINER=	matt@peterson.org
+COMMENT=	C library for network packet capture and processing
+
+LIB_DEPENDS=	libpcap.so:${PORTSDIR}/net/libpcap
+
+CONFIGURE_ARGS=	--with-libpcap=${LOCALBASE} \
+		libtrace_doxygen=false
+
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+USES=		gmake libtool
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+.include <bsd.port.mk>

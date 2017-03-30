@@ -1,0 +1,30 @@
+# $FreeBSD: tags/RELEASE_10_3_0/x11-wm/cwm/Makefile 386691 2015-05-18 17:07:45Z mat $
+
+PORTNAME=	cwm
+PORTVERSION=	5.6
+DISTVERSIONPREFIX=	v
+CATEGORIES=	x11-wm
+MASTER_SITES=	http://chneukirchen.org/releases/ \
+
+MAINTAINER=	braakvaak@aol.com
+COMMENT=	Minimalistic window manager for X11 based on evilwm
+
+LICENSE=	BSD2CLAUSE
+
+LIB_DEPENDS=	libfontconfig.so:${PORTSDIR}/x11-fonts/fontconfig
+
+USES=		pkgconfig:build
+USE_XORG=	x11 xft xinerama xrandr
+USE_GITHUB=	yes
+GH_ACCOUNT=	chneukirchen
+
+PLIST_FILES=	bin/cwm \
+		man/man1/cwm.1.gz \
+		man/man5/cwmrc.5.gz
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/cwm ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/cwm.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/cwmrc.5 ${STAGEDIR}${MAN5PREFIX}/man/man5
+
+.include <bsd.port.mk>

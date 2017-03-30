@@ -1,0 +1,30 @@
+# Created by: Gasol Wu <gasol.wu@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/pecl-qb/Makefile 403604 2015-12-12 14:44:39Z amdmi3 $
+
+PORTNAME=	qb
+PORTVERSION=	2.4.0
+PORTREVISION=	1
+CATEGORIES=	devel
+MASTER_SITES=	http://pecl.php.net/get/
+PKGNAMEPREFIX=	pecl-
+DIST_SUBDIR=	PECL
+
+MAINTAINER=	gasol.wu@gmail.com
+COMMENT=	PHP Accelerator designed mainly for graphic work
+
+LICENSE=	PHP301
+
+USE_PHP=	yes
+USE_PHPEXT=	yes
+USES=		tar:tgz
+USE_GCC=	any
+
+.include <bsd.port.pre.mk>
+
+.if ${OSVERSION} < 1000034
+LIB_DEPENDS+=	libmissing.so:${PORTSDIR}/math/libmissing
+CONFIGURE_ARGS=	--with-libmissing=${LOCALBASE}
+EXTRA_PATCHES+=	${FILESDIR}/extra-patch-libmissing
+.endif
+
+.include <bsd.port.post.mk>

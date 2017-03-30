@@ -1,0 +1,28 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-MooseX-Types-LoadableClass/Makefile 379926 2015-02-25 17:20:47Z az $
+
+PORTNAME=	MooseX-Types-LoadableClass
+PORTVERSION=	0.013
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:ETHER
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	az@FreeBSD.org
+COMMENT=	ClassName type constraint with coercion to load the class
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+RUN_DEPENDS=	p5-Module-Runtime>=0:${PORTSDIR}/devel/p5-Module-Runtime \
+		p5-Moose>=0:${PORTSDIR}/devel/p5-Moose \
+		p5-MooseX-Types>=0.42:${PORTSDIR}/devel/p5-MooseX-Types \
+		p5-namespace-clean>=0:${PORTSDIR}/devel/p5-namespace-clean
+BUILD_DEPENDS:=	${RUN_DEPENDS}
+TEST_DEPENDS=	p5-Moose>=0:${PORTSDIR}/devel/p5-Moose \
+		p5-namespace-clean>=0:${PORTSDIR}/devel/p5-namespace-clean
+
+USES=		perl5
+USE_PERL5=	modbuildtiny
+NO_ARCH=	yes
+
+.include <bsd.port.mk>

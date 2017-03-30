@@ -1,0 +1,11 @@
+--- Makefile.orig	2003-08-28 12:22:48 UTC
++++ Makefile
+@@ -14,7 +14,7 @@ clean: recursive-clean
+ recursive-all recursive-install recursive-clean:
+ 	@target=$@; \
+ 	for i in $(SUBDIRS); do \
+-		(cd $$i && make $(ENV) $${target#recursive-}); \
++		(cd $$i && $(MAKE) $(ENV) $${target#recursive-}); \
+ 	done
+ 
+ cplayrc: cplay

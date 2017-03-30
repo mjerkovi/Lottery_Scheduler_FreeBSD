@@ -1,0 +1,28 @@
+# Created by: Ryan Steinmetz <zi@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/rubygem-rich/Makefile 402030 2015-11-20 09:15:12Z sunpoet $
+
+PORTNAME=	rich
+PORTVERSION=	1.4.6
+CATEGORIES=	textproc rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Opinionated WYSIWYG editor for Rails based on CKEditor
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/MIT-LICENSE
+
+RUN_DEPENDS=	rubygem-jquery-rails>=0:${PORTSDIR}/www/rubygem-jquery-rails \
+		rubygem-kaminari>=0:${PORTSDIR}/www/rubygem-kaminari \
+		rubygem-mime-types>=0:${PORTSDIR}/misc/rubygem-mime-types \
+		rubygem-paperclip>=0:${PORTSDIR}/devel/rubygem-paperclip \
+		rubygem-rack-raw-upload>=0:${PORTSDIR}/devel/rubygem-rack-raw-upload \
+		rubygem-rails>=3.2.0:${PORTSDIR}/www/rubygem-rails \
+		rubygem-sass-rails>=0:${PORTSDIR}/textproc/rubygem-sass-rails
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

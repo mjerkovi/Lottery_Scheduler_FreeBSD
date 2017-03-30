@@ -1,0 +1,40 @@
+# Created by: gahr
+# $FreeBSD: tags/RELEASE_10_3_0/java/netbeans-devel/Makefile 403622 2015-12-12 18:07:26Z kwm $
+
+PORTNAME=	netbeans
+DISTVERSION=	8.1beta
+CATEGORIES=	java devel
+MASTER_SITES=	http://download.netbeans.org/netbeans/8.1/beta/zip/
+PKGNAMESUFFIX=	-devel
+DISTNAME=	netbeans-${DISTVERSION}-201508041349
+
+MAINTAINER=	kwm@FreeBSD.org
+COMMENT=	Full-featured integrated environment for Java
+
+LICENSE=	CDDL GPLv2
+LICENSE_COMB=	dual
+
+USES=		zip
+USE_JAVA=	yes
+JAVA_VERSION=	1.7+
+NO_BUILD=	yes
+
+WRKSRC=		${WRKDIR}/netbeans
+PREFIXDIR=	${PREFIX}/netbeans-${PORTVERSION}
+
+PLIST_SUB+=	PORTVERSION=${PORTVERSION}
+
+IGNORE=		No development version available right now. Please use java/netbeans instead.
+
+post-patch:
+	@${REINPLACE_CMD} -e '57s|#||;57s|/path/to/jdk|${JAVA_HOME}|' \
+	    ${WRKSRC}/etc/netbeans.conf
+	${RM} ${WRKSRC}/bin/netbeans.orig
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIXDIR}
+	cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${STAGEDIR}${PREFIXDIR}
+	@${CHMOD} ${BINMODE} ${STAGEDIR}${PREFIXDIR}/bin/netbeans
+	${LN} -sf ${PREFIXDIR}/bin/netbeans ${STAGEDIR}${PREFIX}/bin/netbeans-${PORTVERSION}
+
+.include <bsd.port.mk>

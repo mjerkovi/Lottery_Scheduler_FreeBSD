@@ -1,0 +1,23 @@
+# Created by: Alonso Cardenas Marquez <acm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/fpc-libpng/Makefile 403082 2015-12-05 23:29:36Z marino $
+
+CATEGORIES=	graphics lang
+PKGNAMESUFFIX=	-libpng
+
+MAINTAINER=	freebsd-fpc@FreeBSD.org
+COMMENT=	Free Pascal interface to libpng, for reading PNG image files
+
+USE_FPC=	zlib
+USE_FPC_RUN=	yes
+
+MASTERDIR=	${.CURDIR}/../../lang/fpc
+WRKUNITDIR=	${FPCSRCDIR}/packages/${PKGNAMESUFFIX:S/-//}
+EXTRACTUNITDIR=	${WRKUNITDIR}
+
+OPTIONS_DEFINE=	LIBPNG
+LIBPNG_DESC=	Install png library for manipulating PNG images
+OPTIONS_DEFAULT=	LIBPNG
+
+LIBPNG_LIB_DEPENDS=	libpng.so:${PORTSDIR}/graphics/png
+
+.include "${MASTERDIR}/Makefile"

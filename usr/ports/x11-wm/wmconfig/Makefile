@@ -1,0 +1,31 @@
+# Created by: Tommy Scheunemann <net@arrishq.org>
+# $FreeBSD: tags/RELEASE_10_3_0/x11-wm/wmconfig/Makefile 402476 2015-11-27 07:48:49Z miwi $
+
+PORTNAME=	wmconfig
+PORTVERSION=	1.4.11
+CATEGORIES=	x11-wm
+MASTER_SITES=	https://www.arrishq.net/files/
+
+MAINTAINER=	net@arrishq.net
+COMMENT=	Menu generation tool for X window managers
+
+LICENSE=	GPLv2
+
+USES=		gmake tar:bzip2
+GNU_CONFIGURE=	yes
+
+PORTDOCS=	AUTHORS ChangeLog COPYING README TODO
+
+OPTIONS_DEFINE=	NLS DOCS
+
+OPTIONS_SUB=	yes
+NLS_CONFIGURE_ENABLE=nls
+NLS_CPPFLAGS=	-I${LOCALBASE}/include
+NLS_LDFLAGS=	-L${LOCALBASE}/lib
+NLS_USES=	gettext
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

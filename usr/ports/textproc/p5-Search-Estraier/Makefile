@@ -1,0 +1,26 @@
+# Created by: Gea-Suan Lin <gslin@gslin.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/p5-Search-Estraier/Makefile 384566 2015-04-23 13:22:00Z amdmi3 $
+
+PORTNAME=	Search-Estraier
+PORTVERSION=	0.09
+PORTREVISION=	3
+CATEGORIES=	textproc perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Pure perl module to use Hyper Estraier search engine
+
+BUILD_DEPENDS=	p5-URI>=0:${PORTSDIR}/net/p5-URI \
+		p5-libwww>=0:${PORTSDIR}/www/p5-libwww
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+TEST_DEPENDS=	p5-Test-Exception>0:${PORTSDIR}/devel/p5-Test-Exception
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	scripts/*
+USE_PERL5=	configure
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/scripts/* ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

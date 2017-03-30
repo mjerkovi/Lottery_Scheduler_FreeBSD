@@ -1,0 +1,48 @@
+# Created by: alepulver
+# $FreeBSD: tags/RELEASE_10_3_0/emulators/advancemess/Makefile 380666 2015-03-07 03:19:44Z amdmi3 $
+
+PORTNAME=	advancemess
+PORTVERSION=	0.102.0.1
+PORTREVISION=	7
+CATEGORIES=	emulators
+MASTER_SITES=	SF/advancemame/${PORTNAME}/${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	SDL MESS port with advanced TV and monitor video support
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libexpat.so:${PORTSDIR}/textproc/expat2
+
+USE_GL=		yes
+USES=		gmake
+USE_SDL=	sdl
+GNU_CONFIGURE=	yes
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=	-idirafter ${LOCALBASE}/include
+
+OPTIONS_DEFINE=	FREETYPE SLANG
+SLANG_DESC=	Enable sLang support (for video driver)
+
+FREETYPE_CONFIGURE_ENABLE=	freetype
+FREETYPE_LIB_DEPENDS=		libfreetype.so:${PORTSDIR}/print/freetype2
+
+SLANG_CONFIGURE_ENABLE=	slang
+SLANG_LIB_DEPENDS=	libslang.so:${PORTSDIR}/devel/libslang2
+
+.include <bsd.port.pre.mk>
+
+.if ${ARCH} == "i386"
+BUILD_DEPENDS+=	nasm:${PORTSDIR}/devel/nasm
+.endif
+
+post-patch:
+	@${REINPLACE_CMD} -E -e '/pkgdocdir/d' \
+		-e 's,(bin|man|pkg)dir),DESTDIR)$$(&,' \
+		${WRKSRC}/advance/advance.mak
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/advmess
+
+.include <bsd.port.post.mk>

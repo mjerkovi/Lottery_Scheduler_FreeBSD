@@ -1,0 +1,10 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/ipv6toolkit/files/Makefile.lib.in 340722 2014-01-22 17:00:46Z mat $
+
+LIB=	ipv6
+SRCS=	libipv6.c
+
+.PATH: ${.CURDIR}/../tools
+
+install:
+
+.include <bsd.lib.mk>

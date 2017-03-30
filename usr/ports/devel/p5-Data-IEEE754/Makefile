@@ -1,0 +1,22 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Data-IEEE754/Makefile 399732 2015-10-19 20:18:35Z sunpoet $
+
+PORTNAME=	Data-IEEE754
+PORTVERSION=	0.01
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Pack and unpack big-endian IEEE754 floats and doubles
+
+LICENSE=	ART20
+
+TEST_DEPENDS=	p5-Test-Bits>=0:${PORTSDIR}/devel/p5-Test-Bits
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

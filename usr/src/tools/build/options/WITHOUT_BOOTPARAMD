@@ -1,0 +1,3 @@
+.\" $FreeBSD: releng/10.3/tools/build/options/WITHOUT_BOOTPARAMD 279505 2015-03-01 22:03:52Z ngie $
+Set to not build or install
+.Xr bootparamd 8 .

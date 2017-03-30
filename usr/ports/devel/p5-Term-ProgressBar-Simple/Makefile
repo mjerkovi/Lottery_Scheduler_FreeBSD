@@ -1,0 +1,23 @@
+# Created by: adamw
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Term-ProgressBar-Simple/Makefile 378972 2015-02-14 17:26:55Z adamw $
+
+PORTNAME=	Term-ProgressBar-Simple
+PORTVERSION=	0.03
+PORTREVISION=	1
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Simpler Term::ProgressBar interface
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-Term-ProgressBar-Quiet>=0:${PORTSDIR}/devel/p5-Term-ProgressBar-Quiet
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/games/mopesnake/files/mopesnake.in 336048 2013-12-10 06:33:45Z nemysis $
+#
+
+cd "%%DATADIR%%"
+exec %%PYTHON_CMD%% ./mopesnake.py "${@}"

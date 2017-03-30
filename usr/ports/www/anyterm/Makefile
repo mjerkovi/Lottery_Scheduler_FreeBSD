@@ -1,0 +1,48 @@
+# Created by: Douglas Thrift <douglas@douglasthrift.net>
+# $FreeBSD: tags/RELEASE_10_3_0/www/anyterm/Makefile 384038 2015-04-15 08:20:27Z tijl $
+
+PORTNAME=	anyterm
+PORTVERSION=	1.1.29
+PORTREVISION=	1
+CATEGORIES=	www
+MASTER_SITES=	http://anyterm.org/download/ \
+		http://apt.douglasthrift.net/files/${PORTNAME}/ \
+		http://code.douglasthrift.net/files/${PORTNAME}/
+EXTRACT_SUFX=	.tbz2
+
+MAINTAINER=	douglas@douglasthrift.net
+COMMENT=	Terminal emulator on a Web page
+
+LICENSE=	GPLv2
+
+BUILD_DEPENDS=	${LOCALBASE}/include/boost/function.hpp:${PORTSDIR}/devel/boost-libs
+
+USE_RC_SUBR=	anytermd
+USES=		gmake iconv tar:bzip2
+USE_GCC=	any
+ALL_TARGET=	default_target
+PLIST_FILES=	man/man1/anytermd.1.gz \
+		sbin/anytermd
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|/private/etc/apache2|${FILESDIR}|' \
+		${WRKSRC}/scripts/mimetype.sh
+	@${REINPLACE_CMD} \
+		-e 's|$$(CPP_FLAGS)|& ${CPPFLAGS} |' \
+		-e '/^COMPILE_FLAGS=/s|$$| ${CXXFLAGS}|' \
+		-e 's|$${OPTIMISE_FLAGS}||' \
+		-e 's|$$(LINK_FLAGS)|& -L${ICONV_PREFIX}/lib ${ICONV_LIB} |' \
+		${WRKSRC}/common.mk
+	@${REINPLACE_CMD} \
+		-e '/^COMPILE_FLAGS=/s|$$| ${CXXFLAGS}|' \
+		-e 's|$$(INC_FLAGS)|& ${CPPFLAGS} |' \
+		-e 's|$$(CXXFLAGS)||' -e 's|$$(OPTIMISE_FLAGS)||' \
+		${WRKSRC}/libpbe/common.mk
+
+do-install:
+	@${INSTALL_PROGRAM} ${WRKSRC}/anytermd ${STAGEDIR}${PREFIX}/sbin/anytermd
+	@${INSTALL_MAN} ${WRKSRC}/anytermd.1 ${STAGEDIR}${MANPREFIX}/man/man1/anytermd.1
+
+.include <bsd.port.mk>

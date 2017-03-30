@@ -1,0 +1,26 @@
+# Created by: Jyun-Yan You <jyyou@cs.nctu.edu.tw>
+# $FreeBSD: tags/RELEASE_10_3_0/www/rubygem-ramaze/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	ramaze
+PORTVERSION=	2012.12.08
+CATEGORIES=	www rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ramaze is a simple and modular web framework
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-innate>=2012.12:${PORTSDIR}/www/rubygem-innate \
+		rubygem-rake>=0:${PORTSDIR}/devel/rubygem-rake
+
+#USE_RAKE=	yes
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/ramaze
+
+.include <bsd.port.mk>

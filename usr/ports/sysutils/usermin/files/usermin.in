@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/usermin/files/usermin.in 386760 2015-05-19 09:58:25Z olgeni $
+#
+# PROVIDE: usermin
+# REQUIRE: LOGIN
+#
+# Add the following line to /etc/rc.conf to enable usermin:
+#
+# usermin_enable="YES"
+#
+
+usermin_enable=${usermin_enable:-"NO"}
+
+. /etc/rc.subr
+
+name=usermin
+rcvar=usermin_enable
+
+procname=%%PERL%%
+pidfile=/var/log/usermin/miniserv.pid
+required_dirs=%%PREFIX%%/etc/usermin
+command=%%PREFIX%%/etc/usermin/start
+
+load_rc_config ${name}
+run_rc_command "$1"

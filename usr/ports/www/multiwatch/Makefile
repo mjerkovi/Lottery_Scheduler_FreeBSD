@@ -1,0 +1,29 @@
+# $FreeBSD: tags/RELEASE_10_3_0/www/multiwatch/Makefile 394961 2015-08-21 15:37:21Z amdmi3 $
+
+PORTNAME=	multiwatch
+PORTVERSION=	1.0.0
+PORTREVISION=	1
+CATEGORIES=	www
+MASTER_SITES=	http://download.lighttpd.net/multiwatch/releases-1.x/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Spawn-fcgi helper for forking multiple workers
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libev.so:${PORTSDIR}/devel/libev
+
+GNU_CONFIGURE=	yes
+
+USES=		pkgconfig tar:bzip2
+USE_GNOME=	glib20
+
+# Help configure find libev.
+CFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+PLIST_FILES=	bin/multiwatch \
+		man/man1/multiwatch.1.gz
+
+.include <bsd.port.mk>

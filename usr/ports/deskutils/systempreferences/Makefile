@@ -1,0 +1,20 @@
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/systempreferences/Makefile 397315 2015-09-19 10:33:34Z theraven $
+
+PORTNAME=	systempreferences
+PORTVERSION=	1.2.0
+PORTREVISION=	3
+CATEGORIES=	deskutils gnustep
+MASTER_SITES=	GNUSTEP/usr-apps
+DISTNAME=	SystemPreferences-${PORTVERSION}
+
+MAINTAINER=	theraven@FreeBSD.org
+COMMENT=	System Preferences application for GNUstep
+
+LICENSE=	GPLv2
+
+USES=		gnustep
+USE_GNUSTEP=	back build
+DEFAULT_LIBVERSION=	1.0.0
+USE_LDCONFIG=	${GNUSTEP_SYSTEM_LIBRARIES}
+
+.include <bsd.port.mk>

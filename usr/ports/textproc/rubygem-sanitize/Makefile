@@ -1,0 +1,25 @@
+# Created by: Eric Freeman <freebsdports@chillibear.com>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/rubygem-sanitize/Makefile 397746 2015-09-24 19:05:50Z sunpoet $
+
+PORTNAME=	sanitize
+PORTVERSION=	4.0.0
+PORTREVISION=	1
+CATEGORIES=	textproc rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Whitelist based HTML sanitizer
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	rubygem-crass>=1.0.2:${PORTSDIR}/www/rubygem-crass \
+		rubygem-nokogiri>=1.4.4:${PORTSDIR}/textproc/rubygem-nokogiri \
+		rubygem-nokogumbo>=1.4.1:${PORTSDIR}/textproc/rubygem-nokogumbo
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

@@ -1,0 +1,7 @@
+#!%%LOCALBASE%%/bin/bash
+#
+# $FreeBSD: tags/RELEASE_10_3_0/databases/datamodeler/files/datamodeler.script.sh.in 392309 2015-07-16 18:35:27Z pgollucci $
+#
+
+cd %%DATADIR%%/datamodeler/bin
+JAVA_HOME="%%JAVA_HOME%%" exec %%LOCALBASE%%/bin/bash datamodeler $*

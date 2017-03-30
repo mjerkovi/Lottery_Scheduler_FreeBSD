@@ -1,0 +1,22 @@
+# Created by: Jan Jungnickel <jan@jungnickel.com>
+# $FreeBSD: tags/RELEASE_10_3_0/games/crimson/Makefile 374707 2014-12-14 15:24:01Z amdmi3 $
+
+PORTNAME=	crimson
+PORTVERSION=	0.5.3
+PORTREVISION=	5
+CATEGORIES=	games
+MASTER_SITES=	http://crimson.seul.org/files/ \
+		http://mirror.amdmi3.ru/distfiles/
+PKGNAMESUFFIX=	-fields
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Tactical war game in the tradition of Battle Isle
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+GNU_CONFIGURE=	yes
+USES=		gmake
+USE_SDL=	mixer sdl ttf
+
+.include <bsd.port.mk>

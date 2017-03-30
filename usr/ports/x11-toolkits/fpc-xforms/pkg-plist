@@ -1,0 +1,4 @@
+bin/fd2pascal
+lib/fpc/%%PORTVERSION%%/fpmkinst/%%BUILDNAME%%/xforms.fpm
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/xforms/xforms.o
+lib/fpc/%%PORTVERSION%%/units/%%BUILDNAME%%/xforms/xforms.ppu

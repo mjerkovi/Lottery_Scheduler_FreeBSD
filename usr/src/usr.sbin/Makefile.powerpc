@@ -1,0 +1,4 @@
+# $FreeBSD: releng/10.3/usr.sbin/Makefile.powerpc 294364 2016-01-19 23:36:49Z ian $
+
+SUBDIR+=	nvram
+SUBDIR+=	ofwdump

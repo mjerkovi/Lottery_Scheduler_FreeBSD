@@ -1,0 +1,40 @@
+# Created by: Matt Emmerton <matt@gsicomp.on.ca>
+# $FreeBSD: tags/RELEASE_10_3_0/net/sntop/Makefile 404925 2015-12-31 10:58:05Z amdmi3 $
+
+PORTNAME=	sntop
+PORTVERSION=	1.4.3
+PORTREVISION=	1
+CATEGORIES=	net
+MASTER_SITES=	SF
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Monitor status of network nodes using fping
+
+LICENSE=	GPLv2 # only
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+RUN_DEPENDS=	${LOCALBASE}/sbin/fping:${PORTSDIR}/net/fping
+
+GNU_CONFIGURE=	yes
+PORTDOCS=	COPYING CREDITS ChangeLog INSTALL README TODO
+PORTEXAMPLES=	alarm.sh sntoprc.EXAMPLE
+SUB_FILES=	pkg-message
+
+OPTIONS_DEFINE=	DOCS EXAMPLES
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sntop
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+.for doc in ${PORTDOCS}
+	${INSTALL_DATA} ${WRKSRC}/${doc} ${STAGEDIR}${DOCSDIR}
+.endfor
+
+post-install-EXAMPLES-on:
+	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+.for example in ${PORTEXAMPLES}
+	${INSTALL_DATA} ${WRKSRC}/${example} ${STAGEDIR}${EXAMPLESDIR}
+.endfor
+
+.include <bsd.port.mk>

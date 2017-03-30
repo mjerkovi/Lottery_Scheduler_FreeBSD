@@ -1,0 +1,29 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/p5-MaxMind-DB-Common/Makefile 397428 2015-09-20 20:24:56Z sunpoet $
+
+PORTNAME=	MaxMind-DB-Common
+PORTVERSION=	0.040000
+CATEGORIES=	net perl5
+MASTER_SITES=	CPAN
+MASTER_SITE_SUBDIR=	CPAN:MAXMIND
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Code shared by the DB reader and writer modules
+
+LICENSE=	ART20
+
+BUILD_DEPENDS=	p5-Data-Dumper-Concise>=0:${PORTSDIR}/devel/p5-Data-Dumper-Concise \
+		p5-DateTime>=0:${PORTSDIR}/devel/p5-DateTime \
+		p5-List-AllUtils>=0:${PORTSDIR}/devel/p5-List-AllUtils \
+		p5-Moo>=0:${PORTSDIR}/devel/p5-Moo \
+		p5-MooX-StrictConstructor>=0:${PORTSDIR}/devel/p5-MooX-StrictConstructor \
+		p5-autodie>=0:${PORTSDIR}/devel/p5-autodie \
+		p5-namespace-autoclean>=0:${PORTSDIR}/devel/p5-namespace-autoclean
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+.include <bsd.port.mk>

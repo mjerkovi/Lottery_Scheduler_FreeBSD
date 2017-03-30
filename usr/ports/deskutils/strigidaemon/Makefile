@@ -1,0 +1,21 @@
+# $FreeBSD: tags/RELEASE_10_3_0/deskutils/strigidaemon/Makefile 376526 2015-01-08 12:29:21Z rakuco $
+
+PORTNAME=	strigidaemon
+PORTVERSION=	${STRIGI_VERSION}
+PORTREVISION=	2
+CATEGORIES=	deskutils
+MASTER_SITES=	${STRIGI_MASTER_SITES}
+
+MAINTAINER=	kde@FreeBSD.org
+COMMENT=	Strigi desktop search: daemon
+
+LIB_DEPENDS=	libdbus-1.so:${PORTSDIR}/devel/dbus \
+		libstreams.so:${PORTSDIR}/deskutils/libstreams \
+		libstreamanalyzer.so:${PORTSDIR}/deskutils/libstreamanalyzer
+
+USES=		fam pkgconfig
+USE_GNOME=	libxml2
+USE_LDCONFIG=	yes
+
+.include <${.CURDIR}/../strigi/Makefile.common>
+.include <bsd.port.mk>

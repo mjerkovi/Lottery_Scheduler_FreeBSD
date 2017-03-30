@@ -1,0 +1,15 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-system-filepath/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	system-filepath
+PORTVERSION=	0.4.13.4
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	High-level, byte-based file and directory path manipulations
+
+LICENSE=	MIT
+
+USE_CABAL=	text>=0.11.0.6
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

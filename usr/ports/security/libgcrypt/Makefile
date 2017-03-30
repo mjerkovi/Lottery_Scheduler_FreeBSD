@@ -1,0 +1,58 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/libgcrypt/Makefile 409053 2016-02-17 17:18:04Z garga $
+
+PORTNAME=	libgcrypt
+PORTVERSION=	1.6.5
+CATEGORIES=	security
+MASTER_SITES=	GNUPG
+
+MAINTAINER=	cpm@FreeBSD.org
+COMMENT=	General purpose crypto library based on code used in GnuPG
+
+LICENSE=	GPLv2 LGPL21
+LICENSE_COMB=	multi
+
+BUILD_DEPENDS=	libgpg-error>=1.8:${PORTSDIR}/security/libgpg-error
+RUN_DEPENDS=	libgpg-error>=1.8:${PORTSDIR}/security/libgpg-error
+
+USES=		cpe libtool makeinfo tar:bzip2
+CPE_VENDOR=	gnupg
+USE_CSTD=	gnu89
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-drng-support --enable-static=yes
+CONFIGURE_ENV=	MAKEINFO="makeinfo --no-split"
+CONFIGURE_TARGET=${ARCH:S/amd64/x86_64/}-portbld-${OPSYS:tl}${OSREL}
+USE_LDCONFIG=	yes
+
+DOCS=		AUTHORS ChangeLog ChangeLog-2011 INSTALL NEWS README \
+		README.GIT THANKS TODO doc/HACKING doc/README.apichanges
+INFO=		gcrypt
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == "powerpc"
+CONFIGURE_ARGS+=	--disable-asm
+.endif
+
+post-patch:
+	${RM} -f ${WRKSRC}/doc/gcrypt.info*
+	${REINPLACE_CMD} -e 's|ALIGN (3)|ALIGN (2)|g' ${WRKSRC}/mpi/i386/*.S
+
+# Fix crash at cipher/salsa20.c module on amd64
+.if ${ARCH} == "amd64" && exists(/usr/bin/clang)
+CFLAGS:=	${CFLAGS:N-O*} -O2
+.endif
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${PORTNAME}.so
+
+post-install-DOCS-on:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}
+
+regression-test: build
+	cd ${WRKSRC} && ${MAKE_CMD} check
+
+.include <bsd.port.mk>

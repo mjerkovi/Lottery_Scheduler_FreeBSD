@@ -1,0 +1,50 @@
+# Created by: Morten Slot Kristensen
+# $FreeBSD: tags/RELEASE_10_3_0/x11/dzen2/Makefile 385665 2015-05-07 20:24:15Z mat $
+
+PORTNAME=	dzen2
+PORTVERSION=	0.9.5
+CATEGORIES=	x11
+
+MAINTAINER=	udvzsolt@gmail.com
+COMMENT=	General purpose messaging, notification and menuing program for X11
+
+LICENSE=	MIT
+
+USE_GITHUB=     yes
+GH_ACCOUNT=     robm
+GH_PROJECT=     dzen
+GH_TAGNAME=	488ab66
+
+USES=		pkgconfig
+USE_XORG=	x11
+
+OPTIONS_DEFINE=	EXAMPLES GADGETS XPM XINERAMA XFT
+OPTIONS_DEFAULT=	XPM XFT XINERAMA
+GADGETS_DESC=Build and install gadgets
+OPTIONS_SUB=yes
+
+LDFLAGS+=	-L${LOCALBASE}/lib
+CFLAGS+=		-I${LOCALBASE}/include
+GADGETS_ALL_TARGET=all gadgets
+GADGETS_INSTALL_TARGET=install install-gadgets
+
+XPM_USE=	XORG=xpm
+XPM_CFLAGS=	-DDZEN_XPM
+XPM_LDFLAGS=	-lXpm
+XINERAMA_USE=	XORG=xinerama
+XINERAMA_LDFLAGS=	-lXinerama
+XINERAMA_CFLAGS=	-DDZEN_XINERAMA
+XFT_CFLAGS=	-DDZEN_XFT -I${LOCALBASE}/include/freetype2
+XFT_USE=	XORG=xft
+
+MAKE_ARGS+=	LDFLAGS="${LDFLAGS} \$${LIBS}" \
+		CFLAGS="${CFLAGS} ${INCS} -DVERSION=\\\"\$${VERSION}\\\""
+
+post-install:
+	${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
+	${INSTALL_MAN} ${WRKSRC}/README.dzen ${STAGEDIR}${DOCSDIR}
+	${INSTALL_MAN} ${WRKSRC}/gadgets/README.* ${STAGEDIR}${DOCSDIR}
+	${INSTALL_MAN} ${WRKSRC}/gadgets/*.sh ${STAGEDIR}${EXAMPLESDIR}
+
+.include <bsd.port.mk>

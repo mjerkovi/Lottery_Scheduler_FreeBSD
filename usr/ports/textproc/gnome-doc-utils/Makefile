@@ -1,0 +1,32 @@
+# Created by: Adam Weinberger <adamw@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/gnome-doc-utils/Makefile 377770 2015-01-23 22:50:49Z antoine $
+#   $MCom: ports/trunk/textproc/gnome-doc-utils/Makefile 19009 2014-03-02 22:41:42Z kwm $
+
+PORTNAME=	gnome-doc-utils
+PORTVERSION=	0.20.10
+PORTREVISION=	4
+CATEGORIES=	textproc gnome
+MASTER_SITES=	GNOME
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	GNOME doc utils
+
+BUILD_DEPENDS=	rarian-sk-config:${PORTSDIR}/textproc/rarian \
+		${PYTHON_SITELIBDIR}/libxml2mod.so:${PORTSDIR}/textproc/py-libxml2
+RUN_DEPENDS=	rarian-sk-config:${PORTSDIR}/textproc/rarian \
+		${PYTHON_SITELIBDIR}/libxml2mod.so:${PORTSDIR}/textproc/py-libxml2 \
+		docbook-xml>0:${PORTSDIR}/textproc/docbook-xml
+
+USES=		gettext-tools:build,run gmake pathfix pkgconfig python:2 tar:xz
+USE_GNOME=	libxslt intlhack
+INSTALLS_OMF=	yes
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--with-omf-dir=${PREFIX}/share/omf
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+
+post-install:
+	@${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py -l ${PYTHON_SITELIBDIR}/xml2po
+	@${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py -l ${PYTHON_SITELIBDIR}/xml2po/modes
+
+.include <bsd.port.mk>

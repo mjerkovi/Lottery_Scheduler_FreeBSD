@@ -1,0 +1,12 @@
+# Created by: Pawel Pekala <c0rn@o2.pl>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/claws-mail-fetchinfo/Makefile 329440 2013-10-05 11:25:29Z pawel $
+
+PORTNAME=	fetchinfo
+PORTREVISION=	0
+
+COMMENT=	Header insertion plugin for Claws Mail
+
+CLAWS_PLUGINS_BUILD=	fetchinfo
+
+.include "../claws-mail/Makefile.claws"
+.include <bsd.port.mk>

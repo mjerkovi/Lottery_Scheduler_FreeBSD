@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/x11-toolkits/hs-pango/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	pango
+PORTVERSION=	0.13.1.0
+CATEGORIES=	x11-toolkits haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Binding to the Pango text rendering engine
+
+LICENSE=	LGPL21
+
+USES=		pkgconfig
+USE_CABAL=	cairo>=0.13.0.0 glib>=0.13.0.0 mtl text>=0.11.0.6
+USE_GNOME=	pango
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

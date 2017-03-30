@@ -1,0 +1,21 @@
+# $FreeBSD: tags/RELEASE_10_3_0/audio/taglib-sharp/Makefile 387194 2015-05-23 23:41:20Z antoine $
+
+PORTNAME=	taglib-sharp
+PORTVERSION=	2.0.3.7
+PORTREVISION=	1
+CATEGORIES=	audio
+MASTER_SITES=	http://download.banshee.fm/${PORTNAME}/${PORTVERSION}/
+
+MAINTAINER=	mono@FreeBSD.org
+COMMENT=	Tagging library for the Mono framework
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV=	ac_cv_path_MCS=${LOCALBASE}/bin/mcs
+USES=		gmake mono pathfix pkgconfig
+
+PLIST_SUB+=	PORTVERSION="${PORTVERSION}" \
+		VERSIONSUFX="db62eba44689b5b0"
+
+CONFIGURE_ARGS=	--disable-docs
+
+.include <bsd.port.mk>

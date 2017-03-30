@@ -1,0 +1,36 @@
+# Created by: Emanuel Haupt <ehaupt@critical.ch>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/xmms-nsf/Makefile 376388 2015-01-06 09:36:21Z ehaupt $
+
+PORTNAME=	xmms-nsf
+PORTVERSION=	0.0.3
+PORTREVISION=	7
+CATEGORIES=	audio
+MASTER_SITES=	http://optronic.sourceforge.net/files/ \
+		LOCAL/ehaupt
+
+MAINTAINER=	ehaupt@FreeBSD.org
+COMMENT=	XMMS input-plugin for playing Nintendo(TM) NSF audio files
+
+LICENSE=	GPLv2
+
+BUILD_DEPENDS=	xmms:${PORTSDIR}/multimedia/xmms
+RUN_DEPENDS=	xmms:${PORTSDIR}/multimedia/xmms
+
+GNU_CONFIGURE=	yes
+USES=		libtool
+USE_LDCONFIG=	yes
+USE_CSTD=	gnu89
+CONFIGURE_ARGS=	--disable-static --with-pic
+
+ONLY_FOR_ARCHS=	i386 amd64
+
+PLIST_FILES=	lib/xmms/Input/libnsf.so
+
+SUB_FILES=	pkg-message
+SUB_LIST=	VERSION=${PORTVERSION}
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|<malloc\.h>|<stdlib.h>|' \
+		${WRKSRC}/src/nes/nestypes.h
+
+.include <bsd.port.mk>

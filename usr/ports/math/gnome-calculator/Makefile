@@ -1,0 +1,25 @@
+# Created by: Gustau Perez i Querol <gustau.perez@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/math/gnome-calculator/Makefile 393607 2015-08-05 19:13:24Z kwm $
+
+PORTNAME=	gnome-calculator
+PORTVERSION=	3.16.2
+CATEGORIES=	math gnome
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome3
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	GNOME 3 calculator tool
+
+BUILD_DEPENDS=	itstool:${PORTSDIR}/textproc/itstool
+LIB_DEPENDS=	libmpfr.so:${PORTSDIR}/math/mpfr
+
+PORTSCOUT=	limitw:1,even
+
+USES=		gettext gmake pkgconfig tar:xz
+USE_GNOME=	gtksourceview3 gtk30 intlhack libxml2
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+GLIB_SCHEMAS=	org.gnome.calculator.gschema.xml
+
+.include <bsd.port.mk>

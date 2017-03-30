@@ -1,0 +1,24 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/liblangtag/Makefile 401470 2015-11-13 00:07:49Z jkim $
+
+PORTNAME=	liblangtag
+PORTVERSION=	0.5.8
+CATEGORIES=	devel textproc
+MASTER_SITES=	https://bitbucket.org/tagoh/liblangtag/downloads/ \
+		LOCAL/jkim
+
+MAINTAINER=	office@FreeBSD.org
+COMMENT=	Interface library to access tags for identifying languages
+
+LICENSE=	LGPL3 MPL
+LICENSE_COMB=	dual
+
+LIB_DEPENDS=	libxml2.so:${PORTSDIR}/textproc/libxml2
+
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+USES=		gmake iconv libtool pathfix pkgconfig tar:bzip2
+INSTALL_TARGET=	install-strip
+
+CONFIGURE_ARGS=	--disable-introspection
+
+.include <bsd.port.mk>

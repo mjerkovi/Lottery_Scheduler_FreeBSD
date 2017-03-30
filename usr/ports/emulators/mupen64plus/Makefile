@@ -1,0 +1,31 @@
+# Created by: Jose Alonso Cardenas Marquez <acm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/emulators/mupen64plus/Makefile 404608 2015-12-28 00:41:45Z amdmi3 $
+
+PORTNAME=	mupen64plus
+PORTVERSION=	2.5
+PORTREVISION?=	0
+CATEGORIES=	emulators
+
+MAINTAINER?=	acm@FreeBSD.org
+COMMENT=	Fork of Mupen64 Nintendo 64 emulator with plugins (meta port)
+
+# Mupen64 Emulator core and ui-console
+RUN_DEPENDS+=	${LOCALBASE}/lib/libmupen64plus.so.2:${PORTSDIR}/emulators/mupen64plus-core
+RUN_DEPENDS+=	mupen64plus:${PORTSDIR}/emulators/mupen64plus-ui-console
+
+# Audio plugins
+RUN_DEPENDS+=	${LOCALBASE}/lib/${PORTNAME}/mupen64plus-audio-sdl.so:${PORTSDIR}/emulators/mupen64plus-audio-sdl
+
+# Input plugins
+RUN_DEPENDS+=	${LOCALBASE}/lib/${PORTNAME}/mupen64plus-input-sdl.so:${PORTSDIR}/emulators/mupen64plus-input-sdl
+
+# Graphics plugins
+RUN_DEPENDS+=	${LOCALBASE}/lib/${PORTNAME}/mupen64plus-video-rice.so:${PORTSDIR}/emulators/mupen64plus-video-rice
+RUN_DEPENDS+=	${LOCALBASE}/lib/${PORTNAME}/mupen64plus-video-glide64mk2.so:${PORTSDIR}/emulators/mupen64plus-video-glide64mk2
+
+# RSP plugins
+RUN_DEPENDS+=	${LOCALBASE}/lib/${PORTNAME}/mupen64plus-rsp-hle.so:${PORTSDIR}/emulators/mupen64plus-rsp-hle
+
+USES=		metaport
+
+.include <bsd.port.mk>

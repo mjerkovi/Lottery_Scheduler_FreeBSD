@@ -1,0 +1,4 @@
+bin/tm
+%%PORTDOCS%%%%DOCSDIR%%/ChangeLog
+%%PORTDOCS%%%%DOCSDIR%%/DOCS
+%%PORTDOCS%%%%DOCSDIR%%/index.html

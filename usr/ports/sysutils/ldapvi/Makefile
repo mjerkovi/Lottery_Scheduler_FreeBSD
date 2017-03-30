@@ -1,0 +1,39 @@
+# Created by: Joerg Pulz <Joerg.Pulz@frm2.tum.de>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/ldapvi/Makefile 375112 2014-12-20 19:42:45Z bapt $
+
+PORTNAME=	ldapvi
+PORTVERSION=	1.7
+PORTREVISION=	4
+CATEGORIES=	sysutils net
+MASTER_SITES=	http://www.lichteblau.com/download/ \
+		LOCAL/sbz
+
+MAINTAINER=	sbz@FreeBSD.org
+COMMENT=	Tool to update LDAP entries with a text editor
+
+LICENSE=	GPLv2
+
+LIB_DEPENDS=	libpopt.so:${PORTSDIR}/devel/popt
+
+USES=		gmake iconv pkgconfig
+USE_OPENLDAP=	yes
+USE_GNOME=	glib20
+GNU_CONFIGURE=	yes
+MAKEFILE=	GNUmakefile
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+
+PLIST_FILES=	bin/${PORTNAME} man/man1/${PORTNAME}.1.gz \
+		${DOCSDIR_REL}/manual.css ${DOCSDIR_REL}/manual.xml \
+		${DOCSDIR_REL}/bg.png ${DOCSDIR_REL}/html.xsl
+
+# XXX should probably be converted to OptionsNG
+.if !defined(WANT_OPENLDAP_SASL) || defined(WITHOUT_SASL)
+CONFIGURE_ARGS=	--without-sasl
+.endif
+
+post-patch:
+	@${REINPLACE_CMD} -e 's/-lssl/-lcrypto/' ${WRKSRC}/configure
+
+.include <bsd.port.mk>

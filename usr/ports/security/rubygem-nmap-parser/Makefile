@@ -1,0 +1,22 @@
+# Created by: Daniel Roethlisberger <daniel@roe.ch>
+# $FreeBSD: tags/RELEASE_10_3_0/security/rubygem-nmap-parser/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	nmap-parser
+PORTVERSION=	0.3.5
+CATEGORIES=	security rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby interface to Nmap scan data
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	nmap:${PORTSDIR}/security/nmap
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

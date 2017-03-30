@@ -1,0 +1,11 @@
+# $FreeBSD: tags/RELEASE_10_3_0/databases/sqlrelay/Makefile.common 399535 2015-10-17 13:07:40Z pi $
+
+SQLRELAY_PORTNAME=	sqlrelay
+SQLRELAY_PORTVERSION=	0.64
+
+SQLRELAY_PORTDIR=	${PORTSDIR}/databases/${SQLRELAY_PORTNAME}
+SQLRELAY_WRKSRC_CMD=	cd ${SQLRELAY_PORTDIR} && ${MAKE} -V WRKSRC
+
+SQLRELAY_CONFIGURE_ARGS=	\
+		--localstatedir=/var \
+		--with-rudiments-prefix="${LOCALBASE}"

@@ -1,0 +1,26 @@
+--- Makefile.am.orig	2015-08-06 23:49:54 UTC
++++ Makefile.am
+@@ -1,9 +1,9 @@
+ 
+ SUBDIRS = src include
+ 
+-if HAS_DOXYGEN
+-SUBDIRS += doc
+-endif
++#if HAS_DOXYGEN
++#SUBDIRS += doc
++#endif
+ 
+ PACKAGE		= @PACKAGE@
+ VERSION		= @VERSION@
+@@ -22,8 +22,8 @@ RPMRELEASE=$(PACKAGE_RELEASE)
+ ACLOCAL_AMFLAGS = -I m4
+ 
+ install-data-local:: $(PACKAGE).pc
+-	$(mkinstalldirs) $(DESTDIR)$(libdir)/pkgconfig
+-	$(INSTALL) -m 644 $(PACKAGE).pc $(DESTDIR)$(libdir)/pkgconfig/$(PACKAGE).pc
++	$(mkinstalldirs) $(DESTDIR)$(prefix)/libdata/pkgconfig
++	$(INSTALL) -m 644 $(PACKAGE).pc $(DESTDIR)$(prefix)/libdata/pkgconfig/$(PACKAGE).pc
+ 
+ 
+ .PHONY: ChangeLog

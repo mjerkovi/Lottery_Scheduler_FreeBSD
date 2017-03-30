@@ -1,0 +1,11 @@
+# $FreeBSD: releng/10.3/lib/liblzma/Versions.def 292588 2015-12-22 08:03:23Z delphij $
+
+XZ_5.0 {
+};
+
+XZ_5.2 {
+} XZ_5.0;
+
+XZprivate_1.0 {
+} XZ_5.2;
+

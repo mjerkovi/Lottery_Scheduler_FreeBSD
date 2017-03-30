@@ -1,0 +1,23 @@
+# Created by: Jose Jachuf <jjachuf@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/print/py-pollyreports/Makefile 394508 2015-08-17 14:20:40Z mat $
+
+PORTNAME=	PollyReports
+PORTVERSION=	1.7.6
+CATEGORIES=	print python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	jjachuf@gmail.com
+COMMENT=	Band-oriented PDF report generation from database query
+
+LICENSE=	BSD2CLAUSE
+
+USES=		python:2
+USE_PYTHON=	distutils autoplist
+
+OPTIONS_DEFINE=	REPORTLAB
+
+REPORTLAB_DESC=	Install Reportlab2
+REPORTLAB_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}reportlab2>=2.1:${PORTSDIR}/print/py-reportlab2
+
+.include <bsd.port.mk>

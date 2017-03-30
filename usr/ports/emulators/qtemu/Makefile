@@ -1,0 +1,37 @@
+# $FreeBSD: tags/RELEASE_10_3_0/emulators/qtemu/Makefile 395231 2015-08-25 10:03:08Z makc $
+
+PORTNAME=	qtemu
+PORTVERSION=	1.0.5
+PORTREVISION=	4
+CATEGORIES=	emulators
+MASTER_SITES=	SF
+
+MAINTAINER=	makc@FreeBSD.org
+COMMENT=	Qt 4 based frontend for QEMU
+
+USE_QT4=	gui xml uic_build moc_build rcc_build
+USES=		qmake tar:bzip2
+CONFIGURE_ENV+=	LOCALBASE=${LOCALBASE}
+
+DESKTOP_ENTRIES="QtEmu" "QEMU frontend" "" \
+		"qtemu" "" true
+
+OPTIONS_DEFINE=	DOCS NLS
+OPTIONS_SUB=	yes
+
+NLS_USE=	QT4=linguisttools_build
+
+post-configure-NLS-on:
+	(cd ${WRKSRC} && ${LRELEASE} qtemu.pro)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/qtemu ${STAGEDIR}${PREFIX}/bin/qtemu
+
+do-install-NLS-on:
+	@${MKDIR} ${STAGEDIR}${DATADIR}/translations
+	${INSTALL_DATA} ${WRKSRC}/translations/qtemu*.qm ${STAGEDIR}${DATADIR}/translations
+
+do-install-DOCS-on:
+	(cd ${WRKSRC}/help && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

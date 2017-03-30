@@ -1,0 +1,23 @@
+# Created by: Mikhail Teterin
+# $FreeBSD: tags/RELEASE_10_3_0/editors/fb/Makefile 400093 2015-10-24 01:14:41Z bapt $
+
+PORTNAME=	fb
+PORTVERSION=	1.5
+CATEGORIES=	editors
+MASTER_SITES=	http://home.mho.net/jswaby/
+DISTNAME=	${PORTNAME}
+EXTRACT_SUFX=	_tar.gz
+
+MAINTAINER=	mi@aldan.algebra.com
+COMMENT=	Binary file viewer, editor, and manipulator (and a lot more)
+
+BROKEN=		Does not fetch
+NO_WRKSUBDIR=	Yes
+
+PLIST_FILES=	bin/fb \
+		man/man1/fb.1.gz
+USES=		uidfix
+MAKEFILE=	${FILESDIR}/Makefile.in
+MAKE_ARGS+=	PREFIX="${PREFIX}"
+
+.include <bsd.port.mk>

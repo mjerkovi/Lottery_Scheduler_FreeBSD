@@ -1,0 +1,22 @@
+# Created by: Aaron Dalton <aaron@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/p5-Text-Unaccent/Makefile 384038 2015-04-15 08:20:27Z tijl $
+
+PORTNAME=	Text-Unaccent
+PORTVERSION=	1.08
+PORTREVISION=	3
+CATEGORIES=	textproc perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Remove accents from a string
+
+LICENSE=	GPLv2
+
+USES=		iconv perl5
+USE_PERL5=	configure
+
+post-patch:
+	@${REINPLACE_CMD} 's/-liconv/${ICONV_LIB}/' ${WRKSRC}/Makefile.PL
+
+.include <bsd.port.mk>

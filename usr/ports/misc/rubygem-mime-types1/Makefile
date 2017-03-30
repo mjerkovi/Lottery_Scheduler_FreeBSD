@@ -1,0 +1,23 @@
+# $FreeBSD: tags/RELEASE_10_3_0/misc/rubygem-mime-types1/Makefile 391169 2015-07-02 16:01:06Z pgollucci $
+
+PORTNAME=	mime-types
+PKGNAMESUFFIX=	1
+PORTVERSION=	1.25.1
+CATEGORIES=	misc rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby gem which provides a mailcap-like MIME Content-Type lookup
+
+LICENSE=	ART20 GPLv2 GPLv3 MIT
+LICENSE_COMB=	dual
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PORTSCOUT=	limit:^1\.
+
+.include <bsd.port.mk>

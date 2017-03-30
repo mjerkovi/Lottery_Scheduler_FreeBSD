@@ -1,0 +1,3 @@
+share/emacs/site-lisp/rd-mode.el
+lib/xemacs/site-lisp/rd-mode.el
+%%RUBY_ELISPDIR%%/rd-mode.el

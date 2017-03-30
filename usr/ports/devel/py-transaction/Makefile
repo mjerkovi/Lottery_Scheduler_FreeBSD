@@ -1,0 +1,19 @@
+# Created by: Wen Heping <wenheping@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/py-transaction/Makefile 404448 2015-12-25 19:06:21Z cs $
+
+PORTNAME=	transaction
+PORTVERSION=	1.4.4
+CATEGORIES=	devel python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+
+MAINTAINER=	cs@FreeBSD.org
+COMMENT=	Transaction management for Python
+
+BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}zope.interface>=3.5.2:${PORTSDIR}/devel/py-zope.interface
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

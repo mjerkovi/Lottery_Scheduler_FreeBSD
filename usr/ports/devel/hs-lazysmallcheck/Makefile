@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-lazysmallcheck/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	lazysmallcheck
+PORTVERSION=	0.6
+PORTREVISION=	12
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Library for demand-driven testing of Haskell programs
+
+LICENSE=	BSD3CLAUSE
+
+INSTALL_PORTEXAMPLES=	cd ${WRKSRC}/examples && ${COPYTREE_SHARE} \* ${STAGEDIR}${EXAMPLESDIR}
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

@@ -1,0 +1,21 @@
+# Created by: Roy Marples <roy@marples.name>
+# $FreeBSD: tags/RELEASE_10_3_0/dns/openresolv/Makefile 396614 2015-09-10 22:46:42Z amdmi3 $
+
+PORTNAME=	openresolv
+PORTVERSION=	1.1
+PORTREVISION=	1
+CATEGORIES=	dns
+MASTER_SITES=	http://roy.marples.name/downloads/openresolv/ \
+		ftp://roy.marples.name/pub/openresolv/
+
+MAINTAINER=	roy@marples.name
+COMMENT=	Resolvconf compatible framework for managing resolv.conf
+
+USES=		tar:bzip2
+NO_ARCH=	yes
+
+SUB_FILES=	pkg-deinstall pkg-message
+PKGDEINSTALL=	${WRKDIR}/pkg-deinstall
+PKGMESSAGE=	${WRKDIR}/pkg-message
+
+.include <bsd.port.mk>

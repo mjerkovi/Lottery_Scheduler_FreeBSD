@@ -1,0 +1,18 @@
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/hs-yaml/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	yaml
+PORTVERSION=	0.8.13
+CATEGORIES=	textproc haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Support for parsing and rendering YAML documents
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	aeson>=0.5 attoparsec conduit>=1.1.0 enclosed-exceptions \
+		resourcet>=0.3 scientific text unordered-containers vector
+
+EXECUTABLE=	json2yaml yaml2json
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

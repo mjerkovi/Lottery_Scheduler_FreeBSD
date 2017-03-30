@@ -1,0 +1,25 @@
+# Created by: Andrey V. Elsukov <bu7cher@yandex.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libbegemot/Makefile 368138 2014-09-13 20:34:14Z tijl $
+
+PORTNAME=	libbegemot
+PORTVERSION=	1.11
+PORTREVISION=	5
+CATEGORIES=	devel
+MASTER_SITES=	http://people.freebsd.org/~harti/libbegemot/ \
+		http://m1cro.me/ports/distfiles/libbegemot/
+
+MAINTAINER=	rum1cro@yandex.ru
+COMMENT=	Function library for begemot tools
+
+LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/COPYRIGHT
+
+GNU_CONFIGURE=	yes
+USES=		gmake libtool
+USE_LDCONFIG=	yes
+MAKE_JOBS_UNSAFE=	yes
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libbegemot.so
+
+.include <bsd.port.mk>

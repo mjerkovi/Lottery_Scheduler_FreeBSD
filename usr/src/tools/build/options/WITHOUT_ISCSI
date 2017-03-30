@@ -1,0 +1,4 @@
+.\" $FreeBSD: releng/10.3/tools/build/options/WITHOUT_ISCSI 278555 2015-02-11 07:08:32Z ngie $
+Set to not build
+.Xr iscid 8
+and related utilities.

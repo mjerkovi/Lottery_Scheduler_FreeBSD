@@ -1,0 +1,38 @@
+# Created by: Kirill Ponomarew <krion@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/ipsumdump/Makefile 400004 2015-10-22 17:27:17Z danfe $
+
+PORTNAME=	ipsumdump
+PORTVERSION=	1.85
+CATEGORIES=	net
+MASTER_SITES=	http://www.cs.ucla.edu/~kohler/ipsumdump/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Produce ASCII summary of network traffic or tcpdump(1) file
+
+USES=		gmake perl5
+GNU_CONFIGURE=	yes
+USE_PERL5=	build
+
+PORTDOCS=	README.md
+PLIST_FILES=	bin/ipaggcreate bin/ipsumdump bin/ipaggmanip \
+		man/man1/${PORTNAME}.1.gz man/man1/ipaggmanip.1.gz \
+		man/man1/ipaggcreate.1.gz
+
+OPTIONS_DEFINE=	IPV6 DOCS
+OPTIONS_SUB=	yes
+
+IPV6_CATEGORIES=	ipv6
+IPV6_CONFIGURE_ENABLE=	ipv6
+
+# Try to unbreak parallel (-jX) builds
+post-patch:
+	@${ECHO_CMD} 'src: @LIBCLICK_TARGET@' >> ${WRKSRC}/Makefile.in
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${DOCSDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ipsumdump
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ipaggcreate
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ipaggmanip
+
+.include <bsd.port.mk>

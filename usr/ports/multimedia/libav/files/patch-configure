@@ -1,0 +1,31 @@
+--- configure.orig	2015-01-15 05:50:49.000000000 +0900
++++ configure	2015-01-21 16:23:01.000000000 +0900
+@@ -779,8 +779,8 @@
+ 
+ check_ld(){
+     log check_ld "$@"
+-    flags=$(filter_out '-l*' "$@")
+-    libs=$(filter '-l*' "$@")
++    flags=$(filter_out '-l*|*.so' "$@")
++    libs=$(filter '-l*|*.so' "$@")
+     check_cc $($cflags_filter $flags) || return
+     flags=$($ldflags_filter $flags)
+     libs=$($ldflags_filter $libs)
+@@ -4606,7 +4606,7 @@
+ MANDIR=\$(DESTDIR)$mandir
+ SRC_PATH=$source_path
+ CC_IDENT=$cc_ident
+-ARCH=$arch
++LIBAV_ARCH=$arch
+ INTRINSICS=$intrinsics
+ CC=$cc
+ AS=$as
+@@ -4783,7 +4783,7 @@
+     requires=${requires%, }
+     enabled ${name#lib} || return 0
+     mkdir -p $name
+-    cat <<EOF > $name/$name.pc
++    cat <<EOF > $name/$name-libav.pc
+ prefix=$prefix
+ exec_prefix=\${prefix}
+ libdir=$libdir

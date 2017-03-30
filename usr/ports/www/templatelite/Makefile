@@ -1,0 +1,33 @@
+# Created by: Alexander Zhuravlev <zaa@zaa.pp.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/www/templatelite/Makefile 402358 2015-11-24 12:52:48Z amdmi3 $
+
+PORTNAME=	templatelite
+PORTVERSION=	2.10
+CATEGORIES=	www
+MASTER_SITES=	SF/${PORTNAME}/Template%20Lite/Template%20Lite%20version%20${PORTVERSION}
+DISTNAME=	template_lite_${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Smaller, faster alternative to the Smarty template engine
+
+LICENSE=	LGPL21 # pr later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+NO_BUILD=	yes
+NO_ARCH=	yes
+USE_PHP=	pcre
+WANT_PHP_WEB=	yes
+WRKSRC=		${WRKDIR}/template_lite
+SUB_FILES=	pkg-message
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${DATADIR}
+	@cd ${WRKSRC}/src && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR}
+
+do-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

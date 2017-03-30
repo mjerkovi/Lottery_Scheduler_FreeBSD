@@ -1,0 +1,58 @@
+# $FreeBSD: tags/RELEASE_10_3_0/print/qt5-printsupport/Makefile 406273 2016-01-16 20:14:27Z rakuco $
+
+PORTNAME=	printsupport
+DISTVERSION=	${QT5_VERSION}
+PORTREVISION=	1
+CATEGORIES=	print
+PKGNAMEPREFIX=	qt5-
+
+MAINTAINER=	kde@FreeBSD.org
+COMMENT=	Qt print support module
+
+USE_QT5=	core gui widgets qmake_build buildtools_build
+QT_DIST=	base
+HAS_CONFIGURE=	yes
+USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
+
+BUILD_WRKSRC=	${WRKSRC}/src/${PORTNAME}
+INSTALL_WRKSRC=	${BUILD_WRKSRC}
+
+OPTIONS_DEFINE=	CUPS
+OPTIONS_DEFAULT=CUPS
+OPTIONS_SUB=	yes
+
+CUPS_CONFIGURE_ON=	-cups
+CUPS_CONFIGURE_OFF=	-no-cups
+CUPS_LIB_DEPENDS=	libcups.so:${PORTSDIR}/print/cups-client
+
+.include <bsd.port.options.mk>
+
+.if ${PORT_OPTIONS:MCUPS}
+QT_DEFINES+=	CUPS
+QT_CONFIG+=	cups
+.else
+QT_DEFINES+=	-CUPS
+QT_CONFIG+=	-cups
+.endif
+
+post-configure:
+.if ${PORT_OPTIONS:MCUPS}
+	@cd ${WRKSRC}/src/plugins/${PORTNAME}/cups && \
+		${SETENV} ${QMAKE_ENV} ${WRKSRC}/bin/qmake ${QMAKE_ARGS}
+.endif
+
+post-build:
+.if ${PORT_OPTIONS:MCUPS}
+	@cd ${WRKSRC}/src/plugins/${PORTNAME}/cups && \
+		${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_FLAGS} ${MAKEFILE} \
+		${_MAKE_JOBS} ${MAKE_ARGS} ${ALL_TARGET}
+.endif
+
+post-install:
+.if ${PORT_OPTIONS:MCUPS}
+	@cd ${WRKSRC}/src/plugins/${PORTNAME}/cups && \
+		${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_FLAGS} ${MAKEFILE} \
+		${MAKE_ARGS} ${INSTALL_TARGET}
+.endif
+
+.include <bsd.port.mk>

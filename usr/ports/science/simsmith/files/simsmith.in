@@ -1,0 +1,5 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/science/simsmith/files/simsmith.in 360457 2014-07-03 21:02:10Z shurd $
+
+JAVA_VERSION="%%JAVA_VERSION%%" "%%LOCALBASE%%/bin/java" -jar "%%JAVAJARDIR%%/%%DISTNAME%%.jar" "$@"

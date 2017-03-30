@@ -1,0 +1,40 @@
+# Created by: Choe, Cheng-Dae <whitekid@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/databases/pgpool/Makefile 401653 2015-11-15 03:02:59Z amdmi3 $
+
+PORTNAME=	pgpool
+PORTVERSION=	3.4.3
+CATEGORIES=	databases
+MASTER_SITES=	http://www.pgpool.net/mediawiki/images/
+DISTNAME=	${PORTNAME}-II-${PORTVERSION}
+
+MAINTAINER=	ports@toco-domains.de
+COMMENT=	Connection pool server for PostgreSQL
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USES=		gmake libtool pgsql:9.3+
+GNU_CONFIGURE=	yes
+USE_LDCONFIG=	yes
+
+DATADIR=	${PREFIX}/share/${PORTNAME}-II
+
+USE_RC_SUBR=	pgpool
+CONFLICTS=	pgpool-II-*
+
+PORTDOCS=	*
+
+OPTIONS_DEFINE=	DOCS
+
+post-install:
+	@${MKDIR} ${STAGEDIR}/var/run/pgpool
+	${INSTALL_LIB} ${WRKSRC}/src/libs/pcp/.libs/libpcp.so.0.0.0 ${STAGEDIR}${PREFIX}/lib
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${COPYTREE_SHARE} doc ${STAGEDIR}${DOCSDIR} "-not -name Makefile.\*"
+.for f in AUTHORS ChangeLog NEWS TODO
+	${INSTALL_DATA} ${WRKSRC}/$f ${STAGEDIR}${DOCSDIR}
+.endfor
+
+.include <bsd.port.mk>

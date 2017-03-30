@@ -1,0 +1,40 @@
+# Created by: Greg Larkin <glarkin@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/docbook2X/Makefile 402571 2015-11-29 07:00:03Z sunpoet $
+
+PORTNAME=	docbook2X
+PORTVERSION=	0.8.8
+PORTREVISION=	3
+CATEGORIES=	textproc
+MASTER_SITES=	SF
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Convert DocBook documents into UNIX man page and GNU Texinfo formats
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+BUILD_DEPENDS=	OpenSP>=0:${PORTSDIR}/textproc/opensp \
+		dsssl-docbook-modular>=0:${PORTSDIR}/textproc/dsssl-docbook-modular \
+		p5-XML-NamespaceSupport>=0:${PORTSDIR}/textproc/p5-XML-NamespaceSupport \
+		p5-XML-Parser>=0:${PORTSDIR}/textproc/p5-XML-Parser \
+		p5-XML-SAX>=0:${PORTSDIR}/textproc/p5-XML-SAX \
+		p5-XML-SAX-Expat>=0:${PORTSDIR}/textproc/p5-XML-SAX-Expat \
+		sdocbook-xml>=0:${PORTSDIR}/textproc/sdocbook-xml
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+CONFLICTS_INSTALL=	docbook-utils-*
+
+OPTIONS_DEFINE=	DOCS
+
+CONFIGURE_ENV=	PERL=${PERL}
+GNU_CONFIGURE=	yes
+USE_GNOME=	libxslt
+USES=		gmake iconv perl5
+WANT_GNOME=	yes
+
+INFO=		docbook2X docbook2man-xslt docbook2texi-xslt
+
+post-patch:
+	@${REINPLACE_CMD} 's|$${prefix}|${PREFIX}|' ${WRKSRC}/configure
+
+.include <bsd.port.mk>

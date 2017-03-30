@@ -1,0 +1,20 @@
+# Created by: Giuseppe Pilichi aka Jacula Modyun <jacula@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/hs-ALUT/Makefile 395642 2015-08-30 20:23:56Z pgj $
+
+PORTNAME=	ALUT
+PORTVERSION=	2.4.0.0
+PORTREVISION=	1
+CATEGORIES=	audio haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Binding for the OpenAL Utility Toolkit
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	OpenAL>=1.7 StateVar>=1.1
+USES=		openal:al,alut
+
+INSTALL_PORTEXAMPLES=	@(cd ${WRKSRC}/examples/ && ${COPYTREE_SHARE} \* ${STAGEDIR}${EXAMPLESDIR})
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

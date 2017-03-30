@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/games/opensurge/files/opensurge.in 347840 2014-03-11 05:04:29Z nemysis $
+#
+
+cd "%%DATADIR%%"
+exec ./opensurge "${@}"

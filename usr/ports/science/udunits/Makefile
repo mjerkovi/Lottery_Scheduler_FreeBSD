@@ -1,0 +1,31 @@
+# Created by: Greg Lewis <glewis@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/science/udunits/Makefile 400270 2015-10-27 15:50:25Z sunpoet $
+
+PORTNAME=	udunits
+PORTVERSION=	2.2.20
+CATEGORIES=	science math
+MASTER_SITES=	ftp://ftp.unidata.ucar.edu/pub/udunits/ \
+		LOCAL/sunpoet
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Library for manipulating units of physical quantities
+
+LIB_DEPENDS=	libexpat.so:${PORTSDIR}/textproc/expat2
+
+OPTIONS_DEFINE=	DOCS
+
+CONFIGURE_ENV=	ac_cv_header_CUnit_CUnit_h=no
+GNU_CONFIGURE=	yes
+INSTALL_TARGET=	install-strip
+TEST_TARGET=	check
+USE_LDCONFIG=	yes
+USES=		libtool localbase
+
+INFO=		udunits2 udunits2lib udunits2prog
+PORTDATA=	*
+PORTDOCS=	*
+
+post-patch:
+	@${REINPLACE_CMD} -e '/install-data-hook$$/d' ${WRKSRC}/lib/Makefile.in
+
+.include <bsd.port.mk>

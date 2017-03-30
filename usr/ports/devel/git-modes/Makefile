@@ -1,0 +1,38 @@
+# Created by: KIMURA Yasuhiro <yasu@utahime.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/git-modes/Makefile 392747 2015-07-23 19:02:17Z robak $
+
+PORTNAME=	git-modes
+PORTVERSION=	1.2.0
+PORTEPOCH=	1
+CATEGORIES=	devel elisp
+PKGNAMESUFFIX=	-${EMACS_PORT_NAME}
+
+MAINTAINER=	yasu@utahime.org
+COMMENT=	GNU Emacs modes for Git-related files
+
+LICENSE=	GPLv3
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	magit
+
+USES=		gmake
+USE_EMACS=	yes
+PORTDOCS=	README.md
+
+ALL_TARGET=	lisp
+
+OPTIONS_DEFINE=	DOCS GIT_SUBVERSION
+
+ELISPDIR=	${EMACS_VERSION_SITE_LISPDIR}/${PORTNAME}
+PLIST_SUB=	ELISPDIR=${ELISPDIR}
+GIT_SUBVERSION_DESC=		Use devel/git-subversion as backend
+GIT_SUBVERSION_RUN_DEPENDS=	git-subversion>0:${PORTSDIR}/devel/git-subversion
+GIT_SUBVERSION_RUN_DEPENDS_OFF=	git>0:${PORTSDIR}/devel/git
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${ELISPDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/*.el ${WRKSRC}/*.elc ${STAGEDIR}${PREFIX}/${ELISPDIR}
+	${INSTALL_MAN} ${WRKSRC}/README.md ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

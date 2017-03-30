@@ -1,0 +1,20 @@
+# Created by: Martin Wilke <miwi@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-validatable/Makefile 388754 2015-06-07 20:40:51Z sunpoet $
+
+PORTNAME=	validatable
+PORTVERSION=	1.6.7
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Library for adding database/object validations
+
+LICENSE=	BSD2CLAUSE RUBY
+LICENSE_COMB=	dual
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

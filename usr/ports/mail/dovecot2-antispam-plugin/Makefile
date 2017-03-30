@@ -1,0 +1,36 @@
+# Created by: Denis Shaposhnikov <dsh@bamus.cz>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/dovecot2-antispam-plugin/Makefile 403608 2015-12-12 16:47:12Z adamw $
+
+PORTNAME=	dovecot2-antispam-plugin
+PORTVERSION=	20130429
+PORTREVISION=	15
+CATEGORIES=	mail
+MASTER_SITES=	http://olgeni.olgeni.com/~olgeni/distfiles/ \
+		LOCAL/olgeni
+DISTNAME=	dovecot-antispam-plugin-${DISTVERSION}
+
+MAINTAINER=	olgeni@FreeBSD.org
+COMMENT=	Dovecot 2.x plugin for spam systems training
+
+LICENSE=	GPLv2
+
+BUILD_DEPENDS=	dovecot2>=2.2.0:${PORTSDIR}/mail/dovecot2 \
+		gawk:${PORTSDIR}/lang/gawk
+RUN_DEPENDS=	dovecot2>=2.2.0:${PORTSDIR}/mail/dovecot2
+
+CONFLICTS=	dovecot-antispam-1.*
+WRKSRC=		${WRKDIR}/dovecot-antispam-plugin-5ebc6aae4d7c
+
+USES=		gmake tar:bzip2
+USE_AUTOTOOLS=	aclocal autoheader autoconf
+USE_LDCONFIG=	${PREFIX}/lib/dovecot
+
+ACLOCAL_ARGS=	-I m4
+
+PLIST_FILES=	lib/dovecot/lib90_antispam_plugin.so \
+		man/man7/dovecot-antispam.7.gz
+
+post-install:
+	${FIND} ${STAGEDIR}${PREFIX}/lib/ -name \*.so | ${XARGS} ${STRIP_CMD}
+
+.include <bsd.port.mk>

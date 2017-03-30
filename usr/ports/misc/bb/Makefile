@@ -1,0 +1,35 @@
+# Created by: Andrey Zakhvatov
+# $FreeBSD: tags/RELEASE_10_3_0/misc/bb/Makefile 402069 2015-11-20 12:04:58Z amdmi3 $
+
+PORTNAME=	bb
+DISTVERSION=	1.3rc1
+PORTREVISION=	2
+CATEGORIES=	misc
+MASTER_SITES=	SF/aa-project/${PORTNAME}/${DISTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	High quality audio-visual demonstration for text terminal
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libaa.so:${PORTSDIR}/graphics/aalib \
+		libmikmod.so:${PORTSDIR}/audio/libmikmod
+
+GNU_CONFIGURE=	yes
+WRKSRC=		${WRKDIR}/bb-1.3.0
+PORTDOCS=	README
+PLIST_FILES=	bin/bb man/man1/bb.1.gz share/bb/bb.s3m share/bb/bb2.s3m \
+		share/bb/bb3.s3m
+
+OPTIONS_DEFINE=	DOCS
+
+pre-patch:
+	@${FIND} ${WRKSRC} -type f | ${XARGS} ${REINPLACE_CMD} -E -e "s@#include +<malloc.h>@#include <stdlib.h>@g" \
+		-e 's, REGISTERS \(3\),,g'
+
+post-install-DOCS-on:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${WRKSRC}/README ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,26 @@
+# Created by: Eric Freeman <freebsdports@chillibear.com>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/rubygem-linguistics/Makefile 397219 2015-09-18 05:17:53Z sunpoet $
+
+PORTNAME=	linguistics
+PORTVERSION=	2.1.0
+CATEGORIES=	textproc rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Framework for extending Ruby objects with linguistic methods
+
+LICENSE=	BSD3CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+RUN_DEPENDS=	rubygem-loggability>=0.11:${PORTSDIR}/textproc/rubygem-loggability
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	lib/linguistics.rb \
+		lib/linguistics/en/linkparser.rb
+
+.include <bsd.port.mk>

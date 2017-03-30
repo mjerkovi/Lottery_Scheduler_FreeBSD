@@ -1,0 +1,28 @@
+# Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/x11/slock/Makefile 383602 2015-04-08 19:17:47Z amdmi3 $
+
+PORTNAME=	slock
+PORTVERSION=	1.2
+PORTREVISION=	1
+CATEGORIES=	x11
+MASTER_SITES=	http://dl.suckless.org/tools/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Simple X screen locker
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+USES=		cpe
+CPE_VENDOR=	suckless
+USE_XORG=	x11 xt xproto xext
+MAKE_ARGS=	PREFIX="${PREFIX}" X11LIB="${LOCALBASE}/lib" \
+		X11INC="${LOCALBASE}/include" CC="${CC}" \
+		MANPREFIX="${MANPREFIX}/man"
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|-I/usr/include||;s|-L/usr/lib||;s|= -Os|+=|'\
+		-e 's|-DHAVE_SHADOW_H|-DHAVE_PAM|' -e '/^LDFLAGS/s|$$| -lpam|' \
+		${WRKSRC}/config.mk
+
+.include <bsd.port.mk>

@@ -1,0 +1,25 @@
+# Created by: jkoshy
+# $FreeBSD: tags/RELEASE_10_3_0/lang/siod/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	siod
+PORTVERSION=	3.4
+CATEGORIES=	lang scheme
+MASTER_SITES=	LOCAL/jkoshy
+DISTNAME=	siod
+EXTRACT_SUFX=	.tgz
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Small footprint implementation of the Scheme programming language
+
+USE_LDCONFIG=	yes
+
+NO_WRKSUBDIR=	yes
+MAKEFILE=	makefile
+ALL_TARGET=	freebsd
+MAKE_ENV=	LD_LIBRARY_PATH=.
+MAKE_JOBS_UNSAFE=	yes
+
+post-install:
+	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/siod
+
+.include <bsd.port.mk>

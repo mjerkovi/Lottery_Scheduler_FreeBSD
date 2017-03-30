@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/p5-MogileFS-Server/files/mogilefsd.in 340872 2014-01-24 00:14:07Z mat $
+#
+# PROVIDE: mogilefsd
+# REQUIRE: LOGIN cleanvar
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=mogilefsd
+rcvar=mogilefsd_enable
+
+load_rc_config mogilefsd
+
+: ${mogilefsd_enable:="NO"}
+
+required_files=%%PREFIX%%/etc/mogtracker.conf
+
+command="%%PREFIX%%/bin/${name}"
+command_args="--config=%%PREFIX%%/etc/mogtracker.conf"
+
+run_rc_command "$1"

@@ -1,0 +1,21 @@
+# Created by: Matthew X. Economou <xenophon+fbsdports@irtnog.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/py-django-easy-thumbnails/Makefile 374159 2014-12-06 22:13:42Z feld $
+
+PORTNAME=	easy-thumbnails
+PORTVERSION=	1.0.3
+PORTREVISION=	1
+CATEGORIES=	graphics python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}django-
+
+MAINTAINER=	xenophon+fbsdports@irtnog.org
+COMMENT=	Easy thumbnails for Django
+
+LICENSE=	BSD3CLAUSE
+
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django>=0:${PORTSDIR}/www/py-django
+
+USES=		python
+USE_PYTHON=	distutils autoplist
+
+.include <bsd.port.mk>

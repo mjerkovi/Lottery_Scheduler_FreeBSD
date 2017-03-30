@@ -1,0 +1,17 @@
+# Created by: Clement Laforet <sheepkiller@cultdeadsheep.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/checkpassword-pam/Makefile 342003 2014-01-31 15:23:50Z miwi $
+
+PORTNAME=	checkpassword-pam
+PORTVERSION=	0.99
+CATEGORIES=	security
+MASTER_SITES=	SF/checkpasswd-pam/checkpasswd-pam/${PORTVERSION}
+
+MAINTAINER=	sem@FreeBSD.org
+COMMENT=	Implementation of checkpassword authentication program
+
+GNU_CONFIGURE=	yes
+
+PLIST_FILES=	bin/checkpassword-pam \
+		man/man8/checkpassword-pam.8.gz
+
+.include <bsd.port.mk>

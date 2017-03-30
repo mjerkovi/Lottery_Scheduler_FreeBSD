@@ -1,0 +1,7 @@
+bin/lxmed
+bin/lxmed-root
+share/applications/lxmed-root.desktop
+share/applications/lxmed.desktop
+%%DATADIR%%/LXMenuEditor.jar
+%%DATADIR%%/pc-su
+share/pixmaps/lxmed.png

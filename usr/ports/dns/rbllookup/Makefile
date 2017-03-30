@@ -1,0 +1,31 @@
+# Created by: Marcin Gondek <drixter@e-utp.net>
+# $FreeBSD: tags/RELEASE_10_3_0/dns/rbllookup/Makefile 375276 2014-12-22 21:47:38Z antoine $
+
+PORTNAME=	rbllookup
+PORTVERSION=	0.0.1.1
+PORTREVISION=	1
+CATEGORIES=	dns mail
+MASTER_SITES=	SF
+
+MAINTAINER=	drixter@e-utp.net
+COMMENT=	Check given IP/Host presence in 106 RBLs
+
+BUILD_DEPENDS=	p5-Net-DNS>=0:${PORTSDIR}/dns/p5-Net-DNS \
+		p5-Term-ANSIColor>=0:${PORTSDIR}/devel/p5-Term-ANSIColor
+
+USES=		perl5 shebangfix
+SHEBANG_FILES=	rbl.pl
+NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
+
+PLIST_FILES=	bin/rbllookup
+PORTDOCS=	CHANGELOG INSTALL NOTES README TODO gpg.asc
+
+OPTIONS_DEFINE=	DOCS
+
+do-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/rbl.pl ${STAGEDIR}${PREFIX}/bin/rbllookup
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

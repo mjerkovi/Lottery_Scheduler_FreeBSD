@@ -1,0 +1,37 @@
+# Created by: torstenb@FreeBSD.org
+# $FreeBSD: tags/RELEASE_10_3_0/editors/joe/Makefile 397968 2015-09-26 12:41:47Z bapt $
+
+PORTNAME=	joe
+PORTVERSION=	4.1
+PORTEPOCH=	1
+CATEGORIES?=	editors
+MASTER_SITES=	SF/joe-editor/JOE%20sources/joe-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Joe's Own Editor
+
+LICENSE=	GPLv2
+
+BUILD_DEPENDS=	aspell:${PORTSDIR}/textproc/aspell
+RUN_DEPENDS=	aspell:${PORTSDIR}/textproc/aspell
+
+OPTIONS_DEFINE=	DOCS
+
+CONFLICTS=	joe-2.*
+
+USES=		gmake iconv ncurses
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib ${ICONV_LIB}
+
+ALL_TARGET=	${PORTNAME}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|docs/README.old docs/man.md ||' ${WRKSRC}/Makefile.in
+
+post-install:
+	for rc in jmacsrc joerc jpicorc jstarrc rjoerc; do \
+		${MV} ${STAGEDIR}${ETCDIR}/$${rc} ${STAGEDIR}${ETCDIR}/$${rc}.sample ; \
+	done
+
+.include <bsd.port.mk>

@@ -1,0 +1,22 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-mercenary/Makefile 394447 2015-08-17 10:09:08Z amdmi3 $
+
+PORTNAME=	mercenary
+PORTVERSION=	0.3.5
+PORTREVISION=	1
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Lightweight and flexible library for writing command-line apps in Ruby
+
+LICENSE=	MIT
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	script/console script/examples
+
+.include <bsd.port.mk>

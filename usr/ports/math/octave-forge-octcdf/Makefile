@@ -1,0 +1,28 @@
+# Created by: Stephen Montgomery-Smith <stephen@math.missouri.edu>
+# $FreeBSD: tags/RELEASE_10_3_0/math/octave-forge-octcdf/Makefile 381158 2015-03-13 02:13:27Z stephen $
+
+PORTNAME=	octave-forge-octcdf
+PORTVERSION=	1.1.8
+CATEGORIES=	math
+
+MAINTAINER=	stephen@FreeBSD.org
+COMMENT=	Octave-forge package ${OCTAVE_PKGNAME}
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKDIR}/${OCTSRC}/COPYING
+
+# OCTSRC is the name of the directory of the package.
+# It is usually ${OCTAVE_PKGNAME} or ${DISTNAME}.
+OCTSRC=		${OCTAVE_PKGNAME}
+
+WRKSRC=		${WRKDIR}/${OCTSRC}/src
+
+LIB_DEPENDS+=	libnetcdf.so:${PORTSDIR}/science/netcdf
+
+.include "${.CURDIR}/../../Mk/bsd.octave.mk"
+
+post-build:
+	${RM} -f ${WRKSRC}/Makefile ${WRKSRC}/configure
+	cd ${WRKDIR} && ${TAR} cfz ${DISTNAME}.tar.gz ${OCTSRC}
+
+.include <bsd.port.mk>

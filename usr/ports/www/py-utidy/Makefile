@@ -1,0 +1,26 @@
+# Created by: Stefan Esser <se@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-utidy/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	utidy
+PORTVERSION=	0.2
+PORTREVISION=	1
+CATEGORIES=	www python
+MASTER_SITES=	SF/utidylib
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	uTidylib-${PORTVERSION}
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Python interface to tidy-lib
+
+# XXX Better depend on tidy or tidy-devel???
+LIB_DEPENDS=	libtidy.so:${PORTSDIR}/www/tidy-lib
+
+USES=		python:2 zip
+USE_PYTHON=	distutils autoplist
+
+post-patch:
+	@${REINPLACE_CMD} \
+		-e 's,distutils\.command\.install ,setuptools\.command\.install ,' \
+		${WRKSRC}/setup.py
+
+.include <bsd.port.mk>

@@ -1,0 +1,18 @@
+# Created by: gpalmer
+# $FreeBSD: tags/RELEASE_10_3_0/x11-clocks/xdaliclock/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	xdaliclock
+PORTVERSION=	2.43
+CATEGORIES=	x11-clocks
+MASTER_SITES=	http://www.jwz.org/xdaliclock/
+
+MAINTAINER=	wxs@FreeBSD.org
+COMMENT=	Rather neat animated clock
+
+WRKSRC=		${WRKDIR}/${DISTNAME}/X11
+
+GNU_CONFIGURE=	yes
+USE_XORG=	xt sm ice xext x11
+PLIST_FILES=	bin/xdaliclock man/man1/${PORTNAME}.1.gz
+
+.include <bsd.port.mk>

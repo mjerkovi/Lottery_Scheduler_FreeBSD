@@ -1,0 +1,29 @@
+# Created by: Ilya A. Arhipov <admin@gorodkirov.ru>
+# $FreeBSD: tags/RELEASE_10_3_0/games/opensfx/Makefile 403689 2015-12-13 20:42:23Z bapt $
+
+PORTNAME=	opensfx
+PORTVERSION=	0.2.3
+PORTREVISION=	2
+CATEGORIES=	games
+MASTER_SITES=	http://hu.binaries.openttd.org/binaries/extra/${PORTNAME}/${PORTVERSION}/ \
+		http://us.binaries.openttd.org/binaries/extra/${PORTNAME}/${PORTVERSION}/ \
+		http://cz.binaries.openttd.org/openttd/binaries/extra/${PORTNAME}/${PORTVERSION}/
+DISTNAME=	${PORTNAME}-${PORTVERSION}-all
+
+MAINTAINER=	rum1cro@yandex.ru
+COMMENT=	Free alternative sounds for OpenTTD game engine
+
+LICENSE=	CCPL
+LICENSE_NAME=	Creative Commons Public License
+LICENSE_FILE=	${WRKDIR}/opensfx-${PORTVERSION}/license.txt
+LICENSE_PERMS=	auto-accept
+
+USES=		zip
+NO_BUILD=	yes
+
+do-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/openttd/baseset/opensfx
+	${INSTALL_DATA} ${WRKDIR}/opensfx-${PORTVERSION}/* \
+		${STAGEDIR}${PREFIX}/share/openttd/baseset/opensfx
+
+.include <bsd.port.mk>

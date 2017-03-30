@@ -1,0 +1,32 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/x11/xclip/Makefile 372613 2014-11-15 20:13:35Z johans $
+
+PORTNAME=	xclip
+PORTVERSION=	0.12
+PORTREVISION=	2
+CATEGORIES=	x11
+MASTER_SITES=	SF
+
+MAINTAINER=	johans@FreeBSD.org
+COMMENT=	Interface to X selections ("the clipboard") from the command line
+
+LICENSE=	GPLv2
+
+USE_XORG=	x11 xmu
+USES=		gmake
+GNU_CONFIGURE=	yes
+CONFIGURE_ENV+=	ac_cv_header_X11_Xmu_Atoms_h=yes \
+		ac_cv_header_X11_Intrinsic_h=yes \
+		ac_cv_lib_Xmu_XmuClientWindow=yes
+
+PLIST_FILES=	bin/xclip bin/xclip-copyfile bin/xclip-cutfile \
+		bin/xclip-pastefile \
+		man/man1/xclip.1.gz man/man1/xclip-copyfile.1.gz
+
+post-patch:
+	${REINPLACE_CMD} 's,mktemp,mktemp -t xclip,' ${WRKSRC}/xclip-copyfile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/xclip
+
+.include <bsd.port.mk>

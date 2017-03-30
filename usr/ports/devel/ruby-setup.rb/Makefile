@@ -1,0 +1,49 @@
+# Created by: Akinori MUSHA aka knu <knu@idaemons.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/ruby-setup.rb/Makefile 386312 2015-05-14 10:15:04Z mat $
+
+PORTNAME=	setup.rb
+PORTVERSION=	3.4.1
+CATEGORIES=	devel ruby
+MASTER_SITES=	http://www.loveruby.net/archive/${PORTNAME:R}/
+PKGNAMEPREFIX=	${RUBY_PKGNAMEPREFIX}
+DISTNAME=	${PORTNAME:R}-${PORTVERSION}
+DIST_SUBDIR=	ruby
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Common installer script for ruby packages
+
+USE_RUBY=	yes
+
+NO_BUILD=	yes
+
+_SCRIPTS=	setup.rb
+
+RUBY_SHEBANG_FILES=	${_SCRIPTS:S:^:${WRKSRC}/ruby-:}
+
+DOCS_EN=	doc.en/* NEWS.en Usage_en.txt README.en ChangeLog TODO
+DOCS_JA=	doc.ja/* NEWS.ja Usage_ja.txt README.ja
+
+OPTIONS_DEFINE=	DOCS
+
+post-extract:
+.for f in ${_SCRIPTS}
+	${CP} -p ${WRKSRC}/${f} ${WRKSRC}/ruby-${f}
+.endfor
+
+do-install:
+.for f in ${_SCRIPTS}
+	${MKDIR} ${STAGEDIR}${RUBY_SITELIBDIR}
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${RUBY_SITELIBDIR}/
+	${INSTALL_SCRIPT} ${WRKSRC}/ruby-${f} ${STAGEDIR}${PREFIX}/bin/
+.endfor
+	${MKDIR} ${STAGEDIR}${RUBY_MODEXAMPLESDIR}
+	${INSTALL_DATA} ${WRKSRC}/sample/* ${STAGEDIR}${RUBY_MODEXAMPLESDIR}/
+	${MKDIR} ${STAGEDIR}${RUBY_MODDOCDIR}/ja
+.for f in ${DOCS_EN}
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${RUBY_MODDOCDIR}/
+.endfor
+.for f in ${DOCS_JA}
+	${INSTALL_DATA} ${WRKSRC}/${f} ${STAGEDIR}${RUBY_MODDOCDIR}/ja/
+.endfor
+
+.include <bsd.port.mk>

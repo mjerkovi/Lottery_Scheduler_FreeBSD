@@ -1,0 +1,20 @@
+# $FreeBSD: tags/RELEASE_10_3_0/security/easy-rsa/Makefile 386906 2015-05-21 05:08:48Z bdrewery $
+
+PORTNAME=	easy-rsa
+DISTVERSION=	2.2.2
+CATEGORIES=	security net-mgmt
+
+# Eric F. Crist <ecrist@secure-computing.net> does not require my
+# approval for changes to this package. -- mandree@FreeBSD.org
+MAINTAINER=	mandree@FreeBSD.org
+COMMENT=	Small RSA key management package based on openssl
+
+LICENSE=	GPLv2
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	OpenVPN
+
+GNU_CONFIGURE=	yes
+USES=		autoreconf
+
+.include <bsd.port.mk>

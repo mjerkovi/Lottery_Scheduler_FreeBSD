@@ -1,0 +1,55 @@
+# Created by: Jeremy Norris <ishmael272home.com>
+# $FreeBSD: tags/RELEASE_10_3_0/net-im/licq-qt-gui/Makefile 396181 2015-09-05 15:15:43Z dinoex $
+
+PORTNAME=	qt4-gui
+PORTVERSION=	1.8.2
+PORTREVISION=	1
+CATEGORIES=	net-im
+PKGNAMESUFFIX?=	${KDE_SUFFIX}${PKGNAMESUFFIX2}
+
+MAINTAINER=	dinoex@FreeBSD.org
+COMMENT=	Qt plugin for licq
+
+LICENSE=	GPLv2
+
+LIB_DEPENDS=	libboost_regex.so:${PORTSDIR}/devel/boost-libs
+RUN_DEPENDS=	${LOCALBASE}/lib/licq/protocol_icq.so:${PORTSDIR}/${LICQ_PORT}-icq
+
+USE_XORG=	x11 xext ice xscrnsaver
+USES=		cmake
+USE_QT4=	qmake_build moc_build rcc_build uic_build linguisttools_build \
+		corelib xml gui
+
+OPTIONS_DEFINE=	HUNSPELL KDE4
+OPTIONS_DEFAULT=HUNSPELL
+
+LICQ_PORT?=	net-im/licq
+
+HUNSPELL_LIB_DEPENDS=	libhunspell-1.3.so:${PORTSDIR}/textproc/hunspell
+HUNSPELL_CMAKE_ON=	-DHUNSPELL_INCLUDE_DIRS=${LOCALBASE}/include/hunspell \
+			-DHUNSPELL_LIBRARIES=${LOCALBASE}/lib/libhunspell-1.3.so \
+			-DHUNSPELL_FOUND:BOOL=ON
+HUNSPELL_CMAKE_OFF=	-DHUNSPELL_FOUND:BOOL=OFF
+
+KDE4_USE=		KDE4=kdelibs,automoc4
+KDE4_PREVENTS=		HUNSPELL
+KDE4_CMAKE_ON=		-DWITH_KDE:BOOL=ON
+KDE4_CMAKE_OFF=		-DWITH_KDE:BOOL=OFF
+KDE4_PLIST_SUB=		GUI_NAME=kde4 WITH_KDE="" WITH_QT="@comment "
+KDE4_PLIST_SUB_OFF=	GUI_NAME=qt4  WITH_KDE="@comment " WITH_QT=""
+
+.include <bsd.port.options.mk>
+
+.include "${PORTSDIR}/${LICQ_PORT}/Makefile.inc"
+
+.if ${PORT_OPTIONS:MKDE4}
+KDE_SUFFIX=	-kde
+.endif
+
+.if ${PORT_OPTIONS:MHUNSPELL}
+.if ${PORT_OPTIONS:MKDE4}
+IGNORE= option HUNSPELL can not be used with KDE4
+.endif
+.endif
+
+.include <bsd.port.mk>

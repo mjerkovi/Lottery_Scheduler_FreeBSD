@@ -1,0 +1,16 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-classy-prelude-conduit/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	classy-prelude-conduit
+PORTVERSION=	0.12.0.1
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Conduit instances for classy-prelude
+
+LICENSE=	MIT
+
+USE_CABAL=	classy-prelude>=0.12.0 conduit>=1.0 \
+		conduit-combinators>=0.2.8 monad-control resourcet void
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

@@ -1,0 +1,34 @@
+# Created by: Maxim Sobolev <sobomax@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/accessibility/atk/Makefile 393607 2015-08-05 19:13:24Z kwm $
+
+PORTNAME=	atk
+PORTVERSION=	2.16.0
+PORTREVISION?=	0
+CATEGORIES=	accessibility devel
+MASTER_SITES=	GNOME
+DIST_SUBDIR=	gnome2
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	GNOME accessibility toolkit (ATK)
+
+USES=		tar:xz
+PORTSCOUT=	limitw:1,even
+
+.if !defined(REFERENCE_PORT)
+
+USE_LDCONFIG=	yes
+GNU_CONFIGURE=	yes
+USES+=		gettext gmake libtool pathfix pkgconfig
+USE_GNOME=	glib20 introspection:build referencehack
+CONFIGURE_ARGS=	--with-html-dir=${PREFIX}/share/doc
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+post-patch:
+	@${REINPLACE_CMD} -e "/^SUBDIRS =/s/tests docs//" \
+		${WRKSRC}/Makefile.in
+
+.include <bsd.port.mk>
+
+.endif

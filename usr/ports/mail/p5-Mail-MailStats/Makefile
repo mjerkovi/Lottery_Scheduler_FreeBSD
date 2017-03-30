@@ -1,0 +1,20 @@
+# Created by: will
+# $FreeBSD: tags/RELEASE_10_3_0/mail/p5-Mail-MailStats/Makefile 386075 2015-05-11 12:04:18Z mat $
+
+PORTNAME=	MailStats
+PORTVERSION=	0.02
+PORTREVISION=	1
+CATEGORIES=	mail perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Perl module to detect newer messages in procmail-generated mailboxes
+
+BUILD_DEPENDS=	p5-AppConfig>=0:${PORTSDIR}/devel/p5-AppConfig
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>

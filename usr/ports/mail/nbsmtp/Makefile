@@ -1,0 +1,26 @@
+# Created by: Anders Nordby <anders@fix.no>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/nbsmtp/Makefile 377064 2015-01-15 09:05:37Z tijl $
+
+PORTNAME=	nbsmtp
+PORTVERSION=	1.00
+PORTREVISION=	2
+CATEGORIES=	mail
+MASTER_SITES=	LOCAL/ehaupt
+
+MAINTAINER=	ehaupt@FreeBSD.org
+COMMENT=	Simple program for outgoing SMTP delivery
+
+LICENSE=	GPLv2
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--enable-ssl --enable-ipv6
+USE_OPENSSL=	yes
+
+PLIST_FILES=	bin/nbsmtp man/man5/nbsmtprc.5.gz man/man8/nbsmtp.8.gz
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/nbsmtprc.5 ${STAGEDIR}${MANPREFIX}/man/man5
+	${INSTALL_MAN} ${WRKSRC}/nbsmtp.8 ${STAGEDIR}${MANPREFIX}/man/man8
+
+.include <bsd.port.mk>

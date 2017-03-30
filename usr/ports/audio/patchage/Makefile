@@ -1,0 +1,46 @@
+# Created by: Edward Tomasz Napierala <trasz@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/audio/patchage/Makefile 383571 2015-04-08 15:05:48Z bapt $
+
+PORTNAME=	patchage
+PORTVERSION=	0.5.0
+PORTREVISION=	4
+CATEGORIES=	audio
+MASTER_SITES=	http://download.drobilla.net/ \
+		http://frugalware.mirrors.tds.net/pub/linux/frugalware/frugalware-current/source/xmultimedia-extra/patchage/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Modular patch bay for Jack
+
+LICENSE=	GPLv2 # or later
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libjack.so:${PORTSDIR}/audio/jack \
+		libraul.so:${PORTSDIR}/audio/raul \
+		libboost_date_time.so:${PORTSDIR}/devel/boost-libs \
+		libdbus-glib-1.so:${PORTSDIR}/devel/dbus-glib \
+		libglibmm-2.4.so:${PORTSDIR}/devel/glibmm \
+		libglademm-2.4.so:${PORTSDIR}/devel/libglademm24 \
+		libflowcanvas.so:${PORTSDIR}/x11-toolkits/flowcanvas
+
+USES=		pkgconfig tar:bzip2 waf
+INSTALLS_ICONS=	yes
+CONFIGURE_ARGS+=	--mandir=${MANPREFIX}/man \
+			--no-alsa \
+			--no-lash
+
+CFLAGS+=	-I${LOCALBASE}/include
+
+.if defined(BATCH) || defined(PACKAGE_BUILDING)
+MAKE_ARGS=	--verbose
+.endif
+
+post-patch:
+	@${REINPLACE_CMD} -e \
+		"s|$$[{]LIBDIRNAME[}]/pkgconfig|libdata/pkgconfig| ; \
+		 s|-fshow-column'|-fshow-column ${CXXFLAGS}'|" \
+			${WRKSRC}/autowaf/autowaf.py
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+
+.include <bsd.port.mk>

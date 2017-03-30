@@ -1,0 +1,25 @@
+# Created by: Jose Alonso Cardenas Marquez <acm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/graphics/php5-ffmpeg/Makefile 401995 2015-11-20 09:12:28Z sunpoet $
+
+PORTNAME=	ffmpeg
+PORTVERSION=	0.6.0.20120114
+DISTVERSIONPREFIX=	php-
+CATEGORIES=	graphics
+MASTER_SITES=	LOCAL/sunpoet
+PKGNAMEPREFIX=	php5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	FFmpeg shared extension for php
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/LICENSE
+
+LIB_DEPENDS=	libgd.so:${PORTSDIR}/graphics/gd \
+		libavutil.so:${PORTSDIR}/multimedia/ffmpeg
+
+USE_PHP=	yes
+USE_PHPEXT=	yes
+USE_PHPIZE=	yes
+USES=		localbase tar:xz
+
+.include <bsd.port.mk>

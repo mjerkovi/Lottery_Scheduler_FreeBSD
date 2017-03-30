@@ -1,0 +1,23 @@
+# $FreeBSD: tags/RELEASE_10_3_0/x11-fonts/clearsans/Makefile 381876 2015-03-21 23:05:19Z bapt $
+
+PORTNAME=	clearsans
+PORTVERSION=	1.00
+PORTREVISION=	1
+CATEGORIES=	x11-fonts
+MASTER_SITES=	https://01.org/sites/default/files/downloads/
+
+MAINTAINER=	rakuco@FreeBSD.org
+COMMENT=	Versatile OpenType font for screen, print, and Web
+
+LICENSE=	APACHE20
+
+USES=		fonts zip
+NO_BUILD=	yes
+NO_WRKSUBDIR=	yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${FONTSDIR}
+	cd ${WRKSRC}/TTF && \
+		${INSTALL_DATA} *.ttf ${STAGEDIR}${FONTSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,20 @@
+# Created by: Steve Wills <swills@rubick>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-posix-spawn/Makefile 383595 2015-04-08 17:41:42Z sunpoet $
+
+PORTNAME=	posix-spawn
+PORTVERSION=	0.3.11
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Ruby wrapper for posix_spawnp(2) for faster process spawning
+
+LICENSE=	MIT
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/posix-spawn-benchmark
+
+.include <bsd.port.mk>

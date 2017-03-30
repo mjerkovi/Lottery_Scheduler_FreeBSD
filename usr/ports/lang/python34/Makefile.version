@@ -1,0 +1,4 @@
+# Mk/Uses/python.mk includes this file, don't remove it!
+# $FreeBSD: tags/RELEASE_10_3_0/lang/python34/Makefile.version 405586 2016-01-08 19:03:45Z miwi $
+
+PYTHON_PORTVERSION=	3.4.4

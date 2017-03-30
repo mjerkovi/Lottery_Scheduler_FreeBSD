@@ -1,0 +1,28 @@
+# Created by: TAKATSU Tomonari <tota@rtfm.jp>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-ruby2ruby/Makefile 395477 2015-08-28 13:28:11Z amdmi3 $
+
+PORTNAME=	ruby2ruby
+PORTVERSION=	2.2.0
+PORTREVISION=	1
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Pure ruby code generator easily from ParseTree's Sexps # '
+
+LICENSE=	MIT
+
+RUN_DEPENDS=	rubygem-ruby_parser>=3.1:${PORTSDIR}/devel/rubygem-ruby_parser \
+		rubygem-sexp_processor>=4.0:${PORTSDIR}/devel/rubygem-sexp_processor
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+USES=		shebangfix
+SHEBANG_FILES=	bin/r2r_show
+
+PLIST_FILES=	bin/r2r_show
+
+.include <bsd.port.mk>

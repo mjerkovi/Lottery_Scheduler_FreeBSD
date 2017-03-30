@@ -1,0 +1,29 @@
+# Created by: Mario Sergio Fujikawa Ferreira <lioux@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/multimedia/vamps/Makefile 382254 2015-03-25 17:36:47Z marino $
+
+PORTNAME=	vamps
+PORTVERSION=	0.99.2
+PORTREVISION=	7
+CATEGORIES=	multimedia
+MASTER_SITES=	SF/${PORTNAME}/Vamps/${PORTVERSION}
+
+MAINTAINER=	multimedia@FreeBSD.org
+COMMENT=	High performance tool to transcode DVD videos to a smaller size
+
+LIB_DEPENDS=	libdvdread.so:${PORTSDIR}/multimedia/libdvdread
+
+USES=		gmake
+
+CFLAGS+=	-DHAVE_BUILTIN_EXPECT -I${LOCALBASE}/include
+LDFLAGS+=	-lpthread -L${LOCALBASE}/lib
+
+PROGRAM_FILES=	play_cell/play_cell \
+		vamps/vamps
+
+PLIST_FILES=	${PROGRAM_FILES:H:S,^,bin/,}
+
+do-install:
+	(cd ${WRKSRC} && \
+		${INSTALL_PROGRAM} ${PROGRAM_FILES} ${STAGEDIR}${PREFIX}/bin)
+
+.include <bsd.port.mk>

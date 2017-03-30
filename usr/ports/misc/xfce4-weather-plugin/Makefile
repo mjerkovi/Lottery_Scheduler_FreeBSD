@@ -1,0 +1,32 @@
+# Created by: Filippo Natali <filippo@widestore.net>
+# $FreeBSD: tags/RELEASE_10_3_0/misc/xfce4-weather-plugin/Makefile 394440 2015-08-17 08:21:50Z tijl $
+
+PORTNAME=	xfce4-weather-plugin
+PORTVERSION=	0.8.6
+PORTREVISION=	2
+CATEGORIES=	misc xfce geography
+MASTER_SITES=	XFCE/src/panel-plugins/${PORTNAME}/${PORTVERSION:R}
+DIST_SUBDIR=	xfce4
+
+MAINTAINER=	xfce@FreeBSD.org
+COMMENT=	Weather plugin for the Xfce panel
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libsoup-2.4.so:${PORTSDIR}/devel/libsoup
+
+GNU_CONFIGURE=	yes
+INSTALLS_ICONS=	yes
+INSTALL_TARGET=	install-strip
+USES=		gettext gmake libtool pkgconfig xfce tar:bzip2
+USE_GNOME=	glib20 gtk20 intltool intlhack libxml2
+USE_XFCE=	panel
+
+OPTIONS_DEFINE=	UPOWER
+UPOWER_DESC=	Power management tasks
+
+UPOWER_LIB_DEPENDS=	libupower-glib.so:${PORTSDIR}/sysutils/upower
+UPOWER_CONFIGURE_ENABLE=	upower
+
+.include <bsd.port.mk>

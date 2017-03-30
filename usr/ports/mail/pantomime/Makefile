@@ -1,0 +1,25 @@
+# Created by: Thomas Gellekum <tg@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/mail/pantomime/Makefile 397315 2015-09-19 10:33:34Z theraven $
+
+PORTNAME=	pantomime
+PORTVERSION=	1.2.2
+CATEGORIES=	mail gnustep
+MASTER_SITES=	http://download.gna.org/gnustep-nonfsf/
+DISTNAME=	Pantomime-${PORTVERSION}
+
+MAINTAINER=	theraven@FreeBSD.org
+COMMENT=	Mail/MIME handling library for GNUstep
+
+LICENSE=	LGPL21
+
+# The use of libiconv shouldn't be necessary, but a build dependency installs
+# it and we end up picking up the header.
+MAKE_ARGS+=	LIBRARIES_DEPEND_UPON='${ICONV_LIB} -lssl'
+USES=		gnustep iconv
+USE_OPENSSL=	yes
+USE_GNUSTEP=	back build
+USE_LDCONFIG=	${GNUSTEP_LOCAL_LIBRARIES}
+
+DEFAULT_LIBVERSION=	1.2
+
+.include <bsd.port.mk>

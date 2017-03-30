@@ -1,0 +1,20 @@
+# Created by: TAKATSU Tomonari <tota@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/finance/R-cran-quantmod/Makefile 392883 2015-07-25 12:54:45Z tota $
+
+PORTNAME=	quantmod
+DISTVERSION=	0.4-5
+CATEGORIES=	finance
+DISTNAME=	${PORTNAME}_${DISTVERSION}
+
+MAINTAINER=	tota@FreeBSD.org
+COMMENT=	Quantitative Financial Modelling and Trading Framework for R
+
+LICENSE=	GPLv3
+
+RUN_DEPENDS=	R-cran-xts>=0.9.0:${PORTSDIR}/math/R-cran-xts \
+		R-cran-zoo>0:${PORTSDIR}/math/R-cran-zoo \
+		R-cran-TTR>=0.2:${PORTSDIR}/finance/R-cran-TTR
+
+USES=	cran:auto-plist
+
+.include <bsd.port.mk>

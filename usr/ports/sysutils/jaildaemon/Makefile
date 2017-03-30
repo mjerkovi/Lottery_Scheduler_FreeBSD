@@ -1,0 +1,20 @@
+# Created by: Dirk Engling <erdgeist@erdgeist.org>
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/jaildaemon/Makefile 383107 2015-04-03 11:26:48Z mat $
+
+PORTNAME=	jaildaemon
+PORTVERSION=	0.2.1
+CATEGORIES=	sysutils
+MASTER_SITES=	http://erdgeist.org/arts/software/jaildaemon/
+
+MAINTAINER=	erdgeist@erdgeist.org
+COMMENT=	Fixed command-line interface for FreeBSD jails to their host system
+
+USES=		tar:bzip2
+
+PLIST_FILES=	bin/jaildaemon \
+		etc/rc.d/jaildaemon \
+		man/man1/jaildaemon.1.gz
+
+MAKE_ENV=	DESTDIR=${STAGEDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,43 @@
+--- Makefile.system.orig	2015-10-27 20:44:50 UTC
++++ Makefile.system
+@@ -218,6 +218,7 @@ MD5SUM = md5 -r
+ endif
+ 
+ ifeq ($(OSNAME), FreeBSD)
++EXTRALIB	+= -lm %%LDFLAGS%%
+ MD5SUM = md5 -r
+ endif
+ 
+@@ -1020,15 +1021,6 @@ ifndef LIBSUFFIX
+ LIBSUFFIX = a
+ endif
+ 
+-ifneq ($(DYNAMIC_ARCH), 1)
+-ifndef SMP
+-LIBNAME		= $(LIBPREFIX)_$(LIBCORE)$(REVISION).$(LIBSUFFIX)
+-LIBNAME_P	= $(LIBPREFIX)_$(LIBCORE)$(REVISION)_p.$(LIBSUFFIX)
+-else
+-LIBNAME		= $(LIBPREFIX)_$(LIBCORE)p$(REVISION).$(LIBSUFFIX)
+-LIBNAME_P	= $(LIBPREFIX)_$(LIBCORE)p$(REVISION)_p.$(LIBSUFFIX)
+-endif
+-else
+ ifndef SMP
+ LIBNAME		= $(LIBPREFIX)$(REVISION).$(LIBSUFFIX)
+ LIBNAME_P	= $(LIBPREFIX)$(REVISION)_p.$(LIBSUFFIX)
+@@ -1036,7 +1028,6 @@ else
+ LIBNAME		= $(LIBPREFIX)p$(REVISION).$(LIBSUFFIX)
+ LIBNAME_P	= $(LIBPREFIX)p$(REVISION)_p.$(LIBSUFFIX)
+ endif
+-endif
+ 
+ 
+ LIBDLLNAME   = $(LIBPREFIX).dll
+@@ -1067,7 +1058,7 @@ LIB_COMPONENTS = CBLAS
+ endif
+ 
+ export OSNAME
+-export ARCH
++export ARCH_
+ export CORE
+ export LIBCORE
+ export PGCPATH

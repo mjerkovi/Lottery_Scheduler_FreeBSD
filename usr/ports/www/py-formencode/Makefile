@@ -1,0 +1,28 @@
+# Created by: Choe, Cheng-Dae
+# $FreeBSD: tags/RELEASE_10_3_0/www/py-formencode/Makefile 401603 2015-11-14 21:20:28Z wg $
+
+PORTNAME=	formencode
+PORTVERSION=	1.3.0
+CATEGORIES=	www python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	FormEncode-${PORTVERSION}
+
+MAINTAINER=	wg@FreeBSD.org
+COMMENT=	HTML form validation, generation, and conversion package
+
+LICENSE=	PSFL
+
+OPTIONS_DEFINE=	DOCS
+
+USES=		gettext-runtime:run python zip
+USE_PYTHON=	distutils autoplist
+
+DOCSDIR=	${PREFIX}/share/doc/py-${PORTNAME}
+PORTDOCS=	*
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	(cd ${WRKSRC}/docs/ && ${COPYTREE_SHARE} . ${STAGEDIR}${DOCSDIR})
+
+.include <bsd.port.mk>

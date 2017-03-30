@@ -1,0 +1,32 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/p5-Form-Sensible/Makefile 399780 2015-10-19 20:22:15Z sunpoet $
+
+PORTNAME=	Form-Sensible
+PORTVERSION=	0.20023
+CATEGORIES=	devel perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Sensible way to handle form based user interface
+
+LICENSE=	ART10 GPLv1
+LICENSE_COMB=	dual
+
+BUILD_DEPENDS=	p5-DateTime>=0:${PORTSDIR}/devel/p5-DateTime \
+		p5-DateTime-Format-Natural>=0:${PORTSDIR}/devel/p5-DateTime-Format-Natural \
+		p5-DateTime-Set>=0:${PORTSDIR}/devel/p5-DateTime-Set \
+		p5-File-ShareDir>=0:${PORTSDIR}/devel/p5-File-ShareDir \
+		p5-Moose>=2:${PORTSDIR}/devel/p5-Moose \
+		p5-Template-Toolkit>=0:${PORTSDIR}/www/p5-Template-Toolkit \
+		p5-namespace-autoclean>=0:${PORTSDIR}/devel/p5-namespace-autoclean
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+NO_ARCH=	yes
+USE_PERL5=	configure
+USES=		perl5
+
+post-extract:
+	@${RM} ${WRKSRC}/lib/Form/Sensible/Renderer/HTML/RenderedForm.pm.orig
+
+.include <bsd.port.mk>

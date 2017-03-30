@@ -1,0 +1,20 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/sysutils/sloth/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+PORTNAME=	sloth
+PORTVERSION=	1.1.0
+CATEGORIES=	sysutils
+MASTER_SITES=	http://www.sourcefiles.org/Utilities/Miscellaneous/ \
+		http://T32.TecNik93.com/FreeBSD/others_ports/${PORTNAME}${PKGNAMESUFFIX}/sources/
+
+MAINTAINER=	ports@FreeBSD.org
+COMMENT=	Slow down a process
+
+GNU_CONFIGURE=	yes
+
+PLIST_FILES=	bin/sloth man/man1/${PORTNAME}.1.gz
+
+post-patch:
+	@${REINPLACE_CMD} -e "s,wait.h,sys/wait.h,g" ${WRKSRC}/configure
+
+.include <bsd.port.mk>

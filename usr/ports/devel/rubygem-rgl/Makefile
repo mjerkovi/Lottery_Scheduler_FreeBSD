@@ -1,0 +1,21 @@
+# Created by: Ulrich Spoerlein <uspoerlein@gmail.com>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-rgl/Makefile 392931 2015-07-26 15:23:21Z sunpoet $
+
+PORTNAME=	rgl
+PORTVERSION=	0.5.1
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Framework for graph datastructures and algorithms implemented in Ruby
+
+RUN_DEPENDS=	rubygem-algorithms>=0.6.1:${PORTSDIR}/devel/rubygem-algorithms \
+		rubygem-stream>=0.5.0:${PORTSDIR}/devel/rubygem-stream
+
+NO_ARCH=	yes
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

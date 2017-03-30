@@ -1,0 +1,23 @@
+# Created by: Alex Kiesel <kiesel@schlund.de>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/pecl-svn/Makefile 403306 2015-12-08 17:10:40Z miwi $
+
+PORTNAME=	svn
+PORTVERSION=	1.0.2
+PORTREVISION=	2
+CATEGORIES=	devel pear
+MASTER_SITES=	http://pecl.php.net/get/
+PKGNAMEPREFIX=	pecl-
+DIST_SUBDIR=	PECL
+
+MAINTAINER=	miwi@FreeBSD.org
+COMMENT=	PECL extension to the libsvn library
+
+LICENSE=	PHP301
+
+LIB_DEPENDS=	libsvn_client-1.so:${PORTSDIR}/devel/subversion18
+
+USES=		tar:tgz
+USE_PHP=	yes
+USE_PHPEXT=	yes
+
+.include <bsd.port.mk>

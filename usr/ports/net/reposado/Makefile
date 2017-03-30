@@ -1,0 +1,37 @@
+# Created by: Masaki TAGAWA <masaki@club.kyutech.ac.jp>
+# $FreeBSD: tags/RELEASE_10_3_0/net/reposado/Makefile 385640 2015-05-07 17:26:05Z mat $
+
+PORTNAME=	reposado
+PORTVERSION=	0.0.20150131
+CATEGORIES=	net
+
+MAINTAINER=	masaki@club.kyutech.ac.jp
+COMMENT=	Tools for replicating the Apple's Software Update Service
+
+RUN_DEPENDS=	curl:${PORTSDIR}/ftp/curl
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	wdas
+GH_TAGNAME=	6d62d49
+
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+USES=		python
+USE_PYTHON=	distutils
+
+SUB_FILES=	pkg-message
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e "s,%%LOCALBASE%%,${LOCALBASE},g" \
+		${WRKSRC}/code/reposadolib/reposadocommon.py
+	@${REINPLACE_CMD} -e "s,%%PORTVERSION%%,${PORTVERSION},g" \
+		${WRKSRC}/setup.py
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	@${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${DOCSDIR} && \
+		${INSTALL_DATA} ${WRKSRC}/docs/* ${STAGEDIR}${DOCSDIR}
+
+.include <bsd.port.mk>

@@ -1,0 +1,22 @@
+# Created by: Steve Wills <swills@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/rubygem-shoulda-context/Makefile 398517 2015-10-03 17:10:08Z sunpoet $
+
+PORTNAME=	shoulda-context
+PORTVERSION=	1.2.1
+CATEGORIES=	devel rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Context framework extracted from Shoulda
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/MIT-LICENSE
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+PLIST_FILES=	bin/convert_to_should_syntax
+
+.include <bsd.port.mk>

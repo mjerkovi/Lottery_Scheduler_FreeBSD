@@ -1,0 +1,18 @@
+# Created by: Patrick MARIE <mycroft@virgaria.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/yaph/Makefile 382278 2015-03-25 23:51:05Z marino $
+
+PORTNAME=	yaph
+PORTVERSION=	0.91
+CATEGORIES=	net
+MASTER_SITES=	SF/${PORTNAME}/${PORTNAME}/${PORTNAME}%20${PORTVERSION}
+
+MAINTAINER=	mycroft@virgaria.org
+COMMENT=	Yaph is a proxy scanner
+
+GNU_CONFIGURE=	yes
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/yaph/yaph ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/yaph/yaph.conf ${STAGEDIR}${PREFIX}/etc
+
+.include <bsd.port.mk>

@@ -1,0 +1,46 @@
+# $FreeBSD: tags/RELEASE_10_3_0/net/belle-sip/Makefile 400943 2015-11-06 16:24:13Z tijl $
+
+PORTNAME=	belle-sip
+PORTVERSION=	1.4.2
+PORTREVISION=	1
+CATEGORIES=	net java
+MASTER_SITES=	SAVANNAH/linphone/${PORTNAME}/ \
+		http://www.antlr3.org/download/:source2
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
+		antlr-3.4-complete.jar:source2
+EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
+
+MAINTAINER=	bofh@FreeBSD.org
+COMMENT=	Belle-sip is a SIP (RFC3261) implementation written in C
+
+LICENSE=	GPLv2
+LICENSE_FILE=	${WRKSRC}/COPYING
+
+LIB_DEPENDS=	libantlr3c.so:${PORTSDIR}/devel/libantlr3c
+
+GNU_CONFIGURE=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib
+CONFIGURE_ARGS=	--disable-silent-rules --disable-strict --disable-tests \
+		--with-antlr=${LOCALBASE}
+INSTALL_TARGET=	install-strip
+USES=		compiler:c11 gmake libtool pathfix
+USE_JAVA=	yes
+JAVA_BUILD=	jre
+JAVA_VERSION=	1.6+
+USE_LDCONFIG=	yes
+
+OPTIONS_DEFINE=	POLARSSL
+OPTIONS_DEFAULT=POLARSSL
+
+POLARSSL_CONFIGURE_ENABLE=	tls
+POLARSSL_LIB_DEPENDS=		libmbedtls.so.9:${PORTSDIR}/security/polarssl13
+
+post-extract:
+	@${CP} ${DISTDIR}/antlr-3.4-complete.jar ${WRKDIR}/antlr-complete.jar
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|%%WRKDIR%%|${WRKDIR}|' -e 's|-lrt||' \
+		${WRKSRC}/configure
+
+.include <bsd.port.mk>

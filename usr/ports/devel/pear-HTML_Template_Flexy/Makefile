@@ -1,0 +1,24 @@
+# Created by: Antonio Carlos Venancio Junior (<antonio@inf.ufsc.br>)
+# $FreeBSD: tags/RELEASE_10_3_0/devel/pear-HTML_Template_Flexy/Makefile 402439 2015-11-26 12:04:00Z miwi $
+
+PORTNAME=	HTML_Template_Flexy
+PORTVERSION=	1.3.13
+CATEGORIES=	devel www pear
+
+MAINTAINER=	miwi@FreeBSD.org
+COMMENT=	Extremely powerful Tokenizer driven Template engine
+
+LICENSE=	PHP202
+
+OPTIONS_DEFINE=	PEAR_HTML_JAVASCRIPT PEAR_FILE_GETTEXT PEAR_TRANSLATION2
+PEAR_HTML_JAVASCRIPT_DESC=	PEAR::HTML_Javascript support
+PEAR_FILE_GETTEXT_DESC=	PEAR::File_Gettext support
+PEAR_TRANSLATION2_DESC=	PEAR::Translation2 support
+
+USES=	pear
+
+PEAR_HTML_JAVASCRIPT_RUN_DEPENDS=	${PEARDIR}/HTML/Javascript.php:${PORTSDIR}/devel/pear-HTML_Javascript
+PEAR_FILE_GETTEXT_RUN_DEPENDS=	${PEARDIR}/File/Gettext.php:${PORTSDIR}/sysutils/pear-File_Gettext
+PEAR_TRANSLATION2_RUN_DEPENDS=	${PEARDIR}/Translation2.php:${PORTSDIR}/sysutils/pear-Translation2
+
+.include <bsd.port.mk>

@@ -1,0 +1,35 @@
+# Created by: Andrew Elble <aweits@rit.edu>
+# $FreeBSD: tags/RELEASE_10_3_0/devel/ding-libs/Makefile 395775 2015-09-01 16:11:34Z amdmi3 $
+
+PORTNAME=	ding-libs
+DISTVERSION=	0.4.0
+PORTREVISION=	1
+CATEGORIES=	devel
+MASTER_SITES=	https://fedorahosted.org/released/${PORTNAME}/
+
+MAINTAINER=	aweits@rit.edu
+COMMENT=	Collection of useful libraries for developers
+
+LICENSE=	GPLv3
+
+GNU_CONFIGURE=	yes
+
+CPPFLAGS+=	-I${LOCALBASE}/include
+LIBS+=		-L${LOCALBASE}/lib ${ICONV_LIB} -lintl
+
+USES=		autoreconf iconv gettext libtool pkgconfig
+USE_LDCONFIG=	yes
+INSTALL_TARGET=	install-strip
+
+CONFIGURE_ENV+=	DOXYGEN=""
+
+OPTIONS_DEFINE=	DOCS
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|libdir)/pkgconfig|prefix)/libdata/pkgconfig|' ${WRKSRC}/Makefile.am
+	@${REINPLACE_CMD} -e 's|malloc.h|stdlib.h|g' ${WRKSRC}/collection/collection_tools.c \
+		${WRKSRC}/refarray/ref_array.c
+	@${REINPLACE_CMD} -e 's|git log -1 &>/dev/null|true|g' \
+		${WRKSRC}/configure.ac
+
+.include <bsd.port.mk>

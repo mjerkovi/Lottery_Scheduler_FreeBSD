@@ -1,0 +1,25 @@
+# Created by: Jerry Hicks
+# $FreeBSD: tags/RELEASE_10_3_0/archivers/9e/Makefile 341704 2014-01-29 09:17:41Z rodrigo $
+
+PORTNAME=	9e
+PORTVERSION=	1.0
+CATEGORIES=	archivers
+MASTER_SITES=	http://rodrigo.osorio.free.fr/freebsd/distfiles/
+DISTNAME=	9e
+
+MAINTAINER=	rodrigo@FreeBSD.org
+COMMENT=	Explode Plan9 archives
+
+LICENSE=	LPL
+LICENSE_GROUPS=	OSI
+LICENSE_NAME=	Lucent Public License
+LICENSE_TEXT=	http://opensource.org/licenses/LPL-1.02
+LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+
+PLIST_FILES=	bin/9e
+MAKE_ARGS=	CC="${CC}" CFLAGS="${CFLAGS}" LIBS="" HDRS=""
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/9e ${STAGEDIR}${PREFIX}/bin
+
+.include <bsd.port.mk>

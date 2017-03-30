@@ -1,0 +1,13 @@
+# $FreeBSD: tags/RELEASE_10_3_0/editors/libreoffice/Makefile.common 403932 2015-12-17 19:03:54Z jkim $
+
+PORTNAME=	libreoffice
+PORTVERSION=	5.0.4
+CATEGORIES+=	editors
+ 
+MAINTAINER=	office@FreeBSD.org
+
+LICENSE=	LGPL3 MPL
+LICENSE_COMB=	dual
+
+LOVERSION=	${PORTVERSION}.${RCVER}
+RCVER=		2

@@ -1,0 +1,17 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/hs-kqueue/Makefile 394918 2015-08-20 23:02:14Z pgj $
+
+PORTNAME=	kqueue
+PORTVERSION=	0.1.2.6
+PORTREVISION=	2
+CATEGORIES=	devel haskell
+
+MAINTAINER=	haskell@FreeBSD.org
+COMMENT=	Binding to the kqueue event library
+
+LICENSE=	BSD3CLAUSE
+
+USE_CABAL=	mtl>=1.1
+USE_C2HS=	yes
+
+.include "${.CURDIR}/../../lang/ghc/bsd.cabal.mk"
+.include <bsd.port.mk>

@@ -1,0 +1,14 @@
+# $FreeBSD: tags/RELEASE_10_3_0/devel/libpasori/files/Makefile.lptest 340722 2014-01-22 17:00:46Z mat $
+
+.PATH:		${.CURDIR}/../src
+
+PROG=		lptest
+DPADD=		libpasori.a
+LDADD=		-L../lib -lpasori
+
+BINDIR=		${LOCALBASE}/bin
+NO_MAN=
+
+CFLAGS+=	-Wall -W
+
+.include <bsd.prog.mk>

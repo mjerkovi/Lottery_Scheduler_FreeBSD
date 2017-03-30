@@ -1,0 +1,18 @@
+# Created by: candy@kgc.co.jp
+# $FreeBSD: tags/RELEASE_10_3_0/x11-clocks/xtimer/Makefile 340722 2014-01-22 17:00:46Z mat $
+
+PORTNAME=	xtimer
+PORTVERSION=	0.8089
+PORTREVISION=	2
+CATEGORIES=	x11-clocks
+MASTER_SITES=	http://www.bsddiary.net/xtimer/
+DISTNAME=	${PORTNAME}-8089
+
+MAINTAINER=	candy@kgc.co.jp
+COMMENT=	Simple digital timer for X11
+
+USES=		imake
+USE_XORG=	ice sm x11 xaw xext xmu xpm xt
+PLIST_FILES=	bin/xtimer man/man1/${PORTNAME}.1.gz
+
+.include <bsd.port.mk>

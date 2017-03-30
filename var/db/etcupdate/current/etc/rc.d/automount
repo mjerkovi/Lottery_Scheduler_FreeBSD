@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# $FreeBSD: releng/10.3/etc/rc.d/automount 289519 2015-10-18 14:59:38Z trasz $
+#
+
+# PROVIDE: automount
+# REQUIRE: nfsclient automountd
+# KEYWORD: nojail shutdown
+
+. /etc/rc.subr
+
+name="automount"
+rcvar="autofs_enable"
+start_cmd="automount_start"
+stop_cmd="automount_stop"
+required_modules="autofs"
+
+automount_start()
+{
+
+	/usr/sbin/automount ${automount_flags}
+}
+
+automount_stop()
+{
+
+	/sbin/umount -At autofs
+}
+
+load_rc_config $name
+run_rc_command "$1"

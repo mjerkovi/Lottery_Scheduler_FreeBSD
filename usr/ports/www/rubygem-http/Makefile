@@ -1,0 +1,25 @@
+# Created by: Sunpoet Po-Chuan Hsieh <sunpoet@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/rubygem-http/Makefile 404754 2015-12-29 16:10:05Z sunpoet $
+
+PORTNAME=	http
+PORTVERSION=	1.0.1
+CATEGORIES=	www rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	sunpoet@FreeBSD.org
+COMMENT=	Simple Ruby DSL for making HTTP requests
+
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+RUN_DEPENDS=	rubygem-addressable>=2.3:${PORTSDIR}/www/rubygem-addressable \
+		rubygem-http-cookie>=1.0:${PORTSDIR}/www/rubygem-http-cookie \
+		rubygem-http-form_data>=1.0.1:${PORTSDIR}/www/rubygem-http-form_data \
+		rubygem-http_parser.rb>=0.6.0:${PORTSDIR}/net/rubygem-http_parser.rb
+
+NO_ARCH=	yes
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

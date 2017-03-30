@@ -1,0 +1,10 @@
+# $FreeBSD: tags/RELEASE_10_3_0/lang/pypy/bsd.pypy.mk 403361 2015-12-09 06:57:30Z dbn $
+
+LICENSE=	MIT PSFL
+LICENSE_COMB=	multi
+
+USES+=		compiler:c11
+
+PYPY_DIR=	pypy-${PORTVERSION:C|([0-9])\.([0-9]).*|\1.\2|}
+PYPY_CFFI_VER=	26
+PLIST_SUB+=	PYPY_DIR=${PYPY_DIR} PYPY_CFFI_VER=${PYPY_CFFI_VER}

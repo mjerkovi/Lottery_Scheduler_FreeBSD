@@ -1,0 +1,6 @@
+%%PERL5_MAN3%%/Net::Gnats.3.gz
+%%PERL5_MAN3%%/Net::Gnats::PR.3.gz
+%%SITE_PERL%%/Net/Gnats.pm
+%%SITE_PERL%%/Net/Gnats/PR.pm
+%%SITE_PERL%%/auto/Net/Gnats/PR/autosplit.ix
+%%SITE_PERL%%/auto/Net/Gnats/autosplit.ix

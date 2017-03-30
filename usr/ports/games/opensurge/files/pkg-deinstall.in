@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# $FreeBSD: tags/RELEASE_10_3_0/games/opensurge/files/pkg-deinstall.in 347872 2014-03-11 12:02:33Z nemysis $
+#
+
+if [ "$2" = "POST-DEINSTALL" ]; then
+    echo ""
+    echo ""
+    echo "==============================================================================="
+    echo ""
+    echo "After deinstallation, some files may stay in %%DATADIR%%,"
+    echo "you can delete them with"
+    echo ""
+    echo "    /bin/rm -fr %%DATADIR%%"
+    echo ""
+    echo "==============================================================================="
+    echo ""
+fi

@@ -1,0 +1,31 @@
+# Created by: Koop Mast <kwm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/net/libmateweather/Makefile 393031 2015-07-27 20:19:33Z kwm $
+
+PORTNAME=	libmateweather
+PORTVERSION=	1.10.0
+CATEGORIES=	net mate
+MASTER_SITES=	MATE
+DIST_SUBDIR=	mate
+
+MAINTAINER=	gnome@FreeBSD.org
+COMMENT=	Library to accessing online weather informations
+
+BUILD_DEPENDS=	itstool:${PORTSDIR}/textproc/itstool
+LIB_DEPENDS=	libsoup-2.4.so:${PORTSDIR}/devel/libsoup
+
+PORTSCOUT=	limitw:1,even
+
+USES=		gettext gmake libtool pathfix pkgconfig tar:xz
+USE_GNOME=	gtk20 libxml2 intlhack
+USE_LDCONFIG=	yes
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS=	--disable-gtk-doc \
+		--with-html-dir=${PREFIX}/share/doc
+INSTALLS_ICONS=	yes
+CPPFLAGS+=	-I${LOCALBASE}/include
+LDFLAGS+=	-L${LOCALBASE}/lib
+INSTALL_TARGET=	install-strip
+
+GLIB_SCHEMAS=	org.mate.weather.gschema.xml
+
+.include <bsd.port.mk>

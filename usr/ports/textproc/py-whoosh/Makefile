@@ -1,0 +1,21 @@
+# Created by: gugabsd <gugabsd@mundounix.com.br>
+# $FreeBSD: tags/RELEASE_10_3_0/textproc/py-whoosh/Makefile 403408 2015-12-09 14:27:59Z sunpoet $
+
+PORTNAME=	whoosh
+PORTVERSION=	2.7.0
+CATEGORIES=	textproc www python
+MASTER_SITES=	CHEESESHOP
+PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+DISTNAME=	Whoosh-${PORTVERSION}
+
+MAINTAINER=	python@FreeBSD.org
+COMMENT=	Featureful full-text indexing and searching in Python
+
+LICENSE=	BSD2CLAUSE
+LICENSE_FILE=	${WRKSRC}/LICENSE.txt
+
+NO_ARCH=	yes
+USES=		python
+USE_PYTHON=	autoplist distutils
+
+.include <bsd.port.mk>

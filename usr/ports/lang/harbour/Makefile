@@ -1,0 +1,131 @@
+# Created by: David G. Holm <harbour@netfang.net>
+# $FreeBSD: tags/RELEASE_10_3_0/lang/harbour/Makefile 399346 2015-10-15 14:55:14Z mat $
+
+PORTNAME=	harbour
+PORTVERSION=	3.0.0
+PORTREVISION=	4
+CATEGORIES=	lang
+MASTER_SITES=	SF/${PORTNAME}-project/source/${PORTVERSION}
+
+MAINTAINER=	m.tsatsenko@gmail.com
+COMMENT=	Open source Clipper-compatible compiler
+
+LIB_DEPENDS=	libslang.so:${PORTSDIR}/devel/libslang2\
+		libpcre.so:${PORTSDIR}/devel/pcre
+BUILD_DEPENDS=	bash:${PORTSDIR}/shells/bash
+RUN_DEPENDS:=	${BUILD_DEPENDS}
+
+OPTIONS_DEFINE=	MYSQL SQLITE FIREBIRD PGSQL DOCS
+
+NOT_FOR_ARCHS=	sparc64
+NOT_FOR_ARCHS_REASON=	does not compile on sparc64: assertion failed
+
+PORTDOCS=	*.txt *.hbd NEWS INSTALL TODO COPYING ChangeLog
+
+USES=		bison gmake shebangfix
+SHEBANG_FILES=	bin/hb3rdpat.hbs
+SHEBANG_LANG=	hbrun
+hbrun_OLD_CMD=	/usr/bin/hbrun
+hbrun_CMD=	${PREFIX}/bin/hbrun
+USE_OPENSSL=	yes
+USE_LDCONFIG=	${LOCALBASE}/lib/harbour
+
+HB_WITH_ALLEGRO=	no
+HB_WITH_CAIRO=	no
+HB_WITH_CUPS=	no
+HB_WITH_CURL=	no
+HB_WITH_EXPAT=	local
+HB_WITH_FREEIMAGE=	no
+HB_WITH_GD=	no
+HB_WITH_GS=	no
+HB_WITH_JPEG=	no
+HB_WITH_LIBMAGIC=	no
+HB_WITH_MXML=	no
+HB_WITH_ODBC=	no
+HB_WITH_PCRE=	nolocal
+HB_WITH_PNG=	no
+HB_WITH_QT=	no
+HB_WITH_SLANG=	nolocal
+HB_WITH_X11=	no
+
+HB_ARCH=	bsd
+HB_GT_LIB=	gtsln
+HB_COMPILER=	clang
+
+HB_INSTALL_PREFIX=	${STAGEDIR}/${LOCALBASE}
+HB_INSTALL_BIN=	${STAGEDIR}${LOCALBASE}/bin
+HB_INSTALL_LIB=	${STAGEDIR}${LOCALBASE}/lib/harbour
+HB_INSTALL_INC=	${STAGEDIR}${LOCALBASE}/include/harbour
+HB_INSTALL_DOC=	${STAGEDIR}${DOCSDIR}
+HB_USER_CFLAGS=	-fPIC
+HB_USER_LDFLAGS=	-L${LOCALBASE}/lib
+
+MAKE_ENV=	HB_ARCHITECTURE=${HB_ARCH} \
+		HB_COMPILER=${HB_COMPILER} \
+		HB_GT_LIB=${HB_GT_LIB} \
+		HB_INSTALL_PREFIX=${HB_INSTALL_PREFIX} \
+		HB_INSTALL_BIN=${HB_INSTALL_BIN} \
+		HB_INSTALL_LIB=${HB_INSTALL_LIB} \
+		HB_INSTALL_INC=${HB_INSTALL_INC} \
+		HB_WITH_ALLEGRO=${HB_WITH_ALLEGRO} \
+		HB_WITH_CAIRO=${HB_WITH_CAIRO} \
+		HB_WITH_CUPS=${HB_WITH_CUPS} \
+		HB_WITH_CURL=${HB_WITH_CURL} \
+		HB_WITH_EXPAT=${HB_WITH_EXPAT} \
+		HB_WITH_FREEIMAGE=${HB_WITH_FREEIMAGE} \
+		HB_WITH_GD=${HB_WITH_GD} \
+		HB_WITH_GS=${HB_WITH_GS} \
+		HB_WITH_JPEG=${HB_WITH_JPEG} \
+		HB_WITH_LIBMAGIC=${HB_WITH_LIBMAGIC} \
+		HB_WITH_MXML=${HB_WITH_MXML} \
+		HB_WITH_ODBC=${HB_WITH_ODBC} \
+		HB_WITH_PCRE=${HB_WITH_PCRE} \
+		HB_WITH_QT=${HB_WITH_QT} \
+		HB_WITH_SLANG=${HB_WITH_SLANG} \
+		HB_WITH_X11=${HB_WITH_X11} \
+		HB_USER_CFLAGS=${HB_USER_CFLAGS} \
+		HB_USER_LDFLAGS=${HB_USER_LDFLAGS}
+
+.include <bsd.port.pre.mk>
+
+.if ${PORT_OPTIONS:MDOCS}
+MAKE_ENV+=	HB_INSTALL_DOC=${HB_INSTALL_DOC}
+.else
+MAKE_ENV+=	HB_INSTALL_DOC=no
+.endif
+
+.if ${PORT_OPTIONS:MFIREBIRD}
+USE_FIREBIRD=	yes
+MAKE_ENV+=	HB_WITH_FIREBIRD=nolocal
+.else
+MAKE_ENV+=	HB_WITH_FIREBIRD=no
+.endif
+
+.if ${PORT_OPTIONS:MSQLITE}
+LIB_DEPENDS+=	libsqlite3.so:${PORTSDIR}/databases/sqlite3
+MAKE_ENV+=	HB_WITH_SQLITE3=nolocal
+PLIST_SUB+=	SQLITE=""
+.else
+MAKE_ENV+=	HB_WITH_SQLITE3=no
+PLIST_SUB+=	SQLITE="@comment "
+.endif
+
+.if ${PORT_OPTIONS:MMYSQL}
+USE_MYSQL=	yes
+MAKE_ENV+=	HB_WITH_MYSQL=nolocal
+.else
+MAKE_ENV+=	HB_WITH_MYSQL=no
+.endif
+
+.if ${PORT_OPTIONS:MPGSQL}
+USES+=		pgsql
+MAKE_ENV+=	HB_WITH_PGSQL=nolocal
+.else
+MAKE_ENV+=	HB_WITH_PGSQL=no
+.endif
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|utmp.h|utmpx.h|g' ${WRKSRC}/src/rtl/gtcrs/gtcrs.h
+
+.include <bsd.port.post.mk>

@@ -1,0 +1,45 @@
+# Created by: ijliao
+# $FreeBSD: tags/RELEASE_10_3_0/science/openbabel/Makefile 395231 2015-08-25 10:03:08Z makc $
+
+PORTNAME=	openbabel
+PORTVERSION=	2.3.2
+PORTREVISION=	2
+CATEGORIES=	science
+MASTER_SITES=	SF
+
+MAINTAINER=	makc@FreeBSD.org
+COMMENT=	Chemistry file translation program
+
+BUILD_DEPENDS=	${LOCALBASE}/include/eigen3/Eigen/Eigen:${PORTSDIR}/math/eigen3
+
+CONFLICTS_INSTALL=	babel-*
+
+USE_GNOME=	libxml2
+USES=		cmake:outsource
+CMAKE_ARGS=	-DBUILD_GUI=off
+USE_LDCONFIG=	yes
+
+PLIST_SUB=	VERSION="${PORTVERSION}"
+
+OPTIONS_DEFINE=	CAIRO PYTHON
+OPTIONS_DEFAULT=	PYTHON
+OPTIONS_SUB=	yes
+
+CAIRO_DESC=	PNG support via cairo library
+CAIRO_LIB_DEPENDS=	libcairo.so:${PORTSDIR}/graphics/cairo
+CAIRO_USES=	pkgconfig
+
+PYTHON_USES=	python
+PYTHON_CMAKE_ON=	-DPYTHON_BINDINGS=on
+
+post-patch:
+	${REINPLACE_CMD} -e '/pkgconfig/s,$${LIB_INSTALL_DIR},libdata,' \
+		${WRKSRC}/CMakeLists.txt
+	${REINPLACE_CMD} -e 's,share/man,man,' \
+		${WRKSRC}/doc/CMakeLists.txt
+
+post-patch-CAIRO-off:
+	${REINPLACE_CMD} -e '/find_package(Cairo)/d' \
+		${WRKSRC}/CMakeLists.txt
+
+.include <bsd.port.mk>

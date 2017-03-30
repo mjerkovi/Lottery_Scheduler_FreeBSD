@@ -1,0 +1,23 @@
+# Created by: Steve Wills <swills@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/www/rubygem-selenium-webdriver/Makefile 401674 2015-11-15 03:04:52Z sunpoet $
+
+PORTNAME=	selenium-webdriver
+PORTVERSION=	2.48.1
+CATEGORIES=	www rubygems
+MASTER_SITES=	RG
+
+MAINTAINER=	ruby@FreeBSD.org
+COMMENT=	Tool for writing automated tests of websites
+
+LICENSE=	APACHE20
+
+RUN_DEPENDS=	rubygem-childprocess>=0.5:${PORTSDIR}/devel/rubygem-childprocess \
+		rubygem-multi_json>=1.0:${PORTSDIR}/devel/rubygem-multi_json \
+		rubygem-rubyzip>=1.0:${PORTSDIR}/archivers/rubygem-rubyzip \
+		rubygem-websocket>=1.0:${PORTSDIR}/www/rubygem-websocket
+
+USE_RUBY=	yes
+USE_RUBYGEMS=	yes
+RUBYGEM_AUTOPLIST=	yes
+
+.include <bsd.port.mk>

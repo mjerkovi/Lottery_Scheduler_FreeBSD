@@ -1,0 +1,17 @@
+# Created by: Mark Murray <markm@FreeBSD.org>
+# $FreeBSD: tags/RELEASE_10_3_0/security/p5-Crypt-CBC/Makefile 373448 2014-11-26 13:08:24Z mat $
+
+PORTNAME=	Crypt-CBC
+PORTVERSION=	2.33
+PORTREVISION=	1
+CATEGORIES=	security perl5
+MASTER_SITES=	CPAN
+PKGNAMEPREFIX=	p5-
+
+MAINTAINER=	perl@FreeBSD.org
+COMMENT=	Perl5 interface to Cipher Block Chaining with DES and IDEA
+
+USES=		perl5
+USE_PERL5=	configure
+
+.include <bsd.port.mk>
